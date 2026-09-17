@@ -2,8 +2,7 @@
 <html lang="uz">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JV Stars</title>
 
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -13,656 +12,603 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            -webkit-tap-highlight-color: transparent;
+            font-family: Arial, sans-serif;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
-            background:
-                radial-gradient(circle at top right, #12335c 0%, transparent 35%),
-                radial-gradient(circle at bottom left, #071a35 0%, transparent 40%),
-                #050d19;
-            color: #ffffff;
+            background: #07152f;
+            color: white;
             min-height: 100vh;
         }
 
-        button,
-        input {
-            font: inherit;
-        }
-
-        .app {
-            max-width: 620px;
+        .container {
+            width: 100%;
+            max-width: 500px;
             margin: auto;
-            padding: 16px;
-            padding-bottom: 35px;
-        }
-
-        .topbar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 18px;
-        }
-
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .brand-icon {
-            width: 42px;
-            height: 42px;
-            border-radius: 13px;
-            background: linear-gradient(135deg, #248cff, #6c4dff);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-            box-shadow: 0 8px 25px rgba(36, 140, 255, .25);
-        }
-
-        .brand-text h1 {
-            font-size: 18px;
-            font-weight: 800;
-        }
-
-        .brand-text p {
-            color: #7f91a8;
-            font-size: 12px;
-            margin-top: 2px;
-        }
-
-        .bot-link {
-            color: #72b7ff;
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: 700;
-        }
-
-        .balance {
-            background: linear-gradient(135deg, #102b4b, #0b1b31);
-            border: 1px solid rgba(100, 170, 255, .14);
-            border-radius: 20px;
             padding: 18px;
-            margin-bottom: 18px;
-            box-shadow: 0 12px 35px rgba(0,0,0,.2);
         }
 
-        .balance-label {
-            color: #8ca1bb;
-            font-size: 12px;
-            margin-bottom: 6px;
-        }
-
-        .balance-value {
-            font-size: 25px;
-            font-weight: 800;
-        }
-
-        .balance-bottom {
+        .top {
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            margin-top: 12px;
-        }
-
-        .balance-status {
-            color: #67d69b;
-            font-size: 12px;
-        }
-
-        .topup-btn {
-            border: none;
-            background: #1684ff;
-            color: white;
-            padding: 9px 13px;
-            border-radius: 10px;
-            font-size: 12px;
-            font-weight: 700;
-            cursor: pointer;
-        }
-
-        .section-title {
-            font-size: 18px;
-            font-weight: 800;
-            margin: 20px 0 12px;
-        }
-
-        .services {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-        }
-
-        .service {
-            border: 1px solid rgba(130, 170, 220, .12);
-            background: rgba(13, 29, 49, .88);
-            border-radius: 18px;
-            padding: 17px;
-            min-height: 135px;
-            cursor: pointer;
-            transition: .18s;
-        }
-
-        .service:active {
-            transform: scale(.97);
-        }
-
-        .service-icon {
-            width: 43px;
-            height: 43px;
-            border-radius: 13px;
-            display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: 22px;
-            margin-bottom: 12px;
-            background: #132f50;
-        }
-
-        .service h3 {
-            font-size: 14px;
-            margin-bottom: 5px;
-        }
-
-        .service p {
-            color: #7f91a8;
-            font-size: 11px;
-            line-height: 1.4;
-        }
-
-        .screen {
-            display: none;
-        }
-
-        .screen.active {
-            display: block;
-        }
-
-        .back-btn {
-            border: none;
-            background: #10253e;
-            color: #b8c8da;
-            padding: 10px 14px;
-            border-radius: 11px;
-            margin-bottom: 17px;
-            cursor: pointer;
-        }
-
-        .screen-title {
-            font-size: 25px;
-            font-weight: 800;
-            margin-bottom: 5px;
-        }
-
-        .screen-subtitle {
-            color: #8295ac;
-            font-size: 13px;
             margin-bottom: 20px;
         }
 
-        .card {
-            background: rgba(12, 28, 47, .94);
-            border: 1px solid rgba(120, 165, 220, .12);
-            border-radius: 18px;
-            padding: 16px;
-            margin-bottom: 12px;
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
         }
 
-        .label {
+        .username {
+            color: #6ea8ff;
+            font-size: 14px;
+        }
+
+        .balance {
+            background: #10264d;
+            border-radius: 18px;
+            padding: 18px;
+            margin-bottom: 20px;
+            border: 1px solid #1c3c70;
+        }
+
+        .balance-title {
+            color: #9db5d8;
+            font-size: 14px;
+            margin-bottom: 7px;
+        }
+
+        .balance-money {
+            font-size: 27px;
+            font-weight: bold;
+        }
+
+        .service {
+            background: #10264d;
+            border: 1px solid #1c3c70;
+            border-radius: 18px;
+            padding: 18px;
+            margin-bottom: 13px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .service:hover {
+            background: #15325f;
+        }
+
+        .service-title {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .service-desc {
+            color: #9db5d8;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
             display: block;
-            color: #a9b8c9;
-            font-size: 12px;
-            margin-bottom: 8px;
+        }
+
+        .back {
+            display: inline-block;
+            margin-bottom: 18px;
+            color: #6ea8ff;
+            cursor: pointer;
+        }
+
+        h2 {
+            margin-bottom: 18px;
         }
 
         .input {
             width: 100%;
-            border: 1px solid #203c5b;
-            background: #091727;
+            background: #0c2042;
             color: white;
+            border: 1px solid #28518c;
             border-radius: 13px;
             padding: 14px;
             outline: none;
+            margin-bottom: 12px;
+            font-size: 15px;
         }
 
-        .input:focus {
-            border-color: #238cff;
-        }
-
-        .price-box {
-            background: linear-gradient(135deg, #12345a, #0d2039);
-            border: 1px solid rgba(64, 157, 255, .2);
-            border-radius: 16px;
-            padding: 15px;
-            margin-top: 12px;
-        }
-
-        .price-title {
-            color: #8da5c0;
-            font-size: 11px;
-        }
-
-        .price {
-            font-size: 23px;
-            font-weight: 800;
-            margin-top: 4px;
-        }
-
-        .recipient-options {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 9px;
-        }
-
-        .recipient {
-            border: 1px solid #203c5b;
-            background: #091727;
-            color: #aabbd0;
-            border-radius: 12px;
-            padding: 12px;
-            cursor: pointer;
-            text-align: center;
-            font-size: 12px;
-        }
-
-        .recipient.selected {
-            background: #123a65;
-            border-color: #268cff;
+        .button {
+            width: 100%;
+            border: none;
+            border-radius: 13px;
+            padding: 14px;
+            background: #247cff;
             color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 8px;
         }
 
-        .username-box {
-            margin-top: 10px;
-        }
-
-        .products {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
+        .button:hover {
+            background: #1769dc;
         }
 
         .product {
-            background: #091727;
-            border: 1px solid #1b3550;
-            border-radius: 15px;
-            overflow: hidden;
-            cursor: pointer;
-            transition: .18s;
+            background: #10264d;
+            border: 1px solid #1c3c70;
+            border-radius: 17px;
+            padding: 15px;
+            margin-bottom: 12px;
         }
 
-        .product.selected {
-            border-color: #268cff;
-            box-shadow: 0 0 0 1px #268cff;
-        }
-
-        .product img {
-            width: 100%;
-            aspect-ratio: 1;
-            object-fit: cover;
-            display: block;
-        }
-
-        .product-info {
-            padding: 11px;
+        .product-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
         }
 
         .product-name {
-            font-size: 13px;
-            font-weight: 700;
+            font-size: 17px;
+            font-weight: bold;
         }
 
         .product-price {
-            color: #69b5ff;
-            font-size: 12px;
-            margin-top: 5px;
-            font-weight: 700;
+            font-size: 16px;
+            color: #69a4ff;
+            font-weight: bold;
+            white-space: nowrap;
         }
 
-        .countries {
-            display: flex;
-            flex-direction: column;
-            gap: 9px;
+        .product-note {
+            color: #9db5d8;
+            font-size: 13px;
+            margin-top: 7px;
+        }
+
+        .selected {
+            border: 2px solid #247cff;
+        }
+
+        .gift-image {
+            width: 70px;
+            height: 70px;
+            object-fit: cover;
+            border-radius: 14px;
+        }
+
+        .gift-info {
+            flex: 1;
         }
 
         .country {
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            background: #091727;
-            border: 1px solid #1b3550;
-            border-radius: 14px;
-            padding: 13px;
-        }
-
-        .country-left {
-            display: flex;
             align-items: center;
-            gap: 10px;
-        }
-
-        .flag {
-            font-size: 22px;
+            background: #10264d;
+            border: 1px solid #1c3c70;
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 10px;
+            cursor: pointer;
         }
 
         .country-name {
-            font-size: 13px;
-            font-weight: 700;
+            font-size: 16px;
         }
 
         .country-code {
-            color: #7e94ad;
-            font-size: 11px;
-            margin-top: 2px;
+            color: #69a4ff;
+            font-weight: bold;
         }
 
-        .country-btn {
-            background: #12365b;
-            color: #75baff;
-            border: none;
-            border-radius: 9px;
-            padding: 8px 11px;
-            font-size: 11px;
-            font-weight: 700;
-            cursor: pointer;
-        }
-
-        .buy-btn {
-            width: 100%;
-            border: none;
-            background: linear-gradient(135deg, #1888ff, #286cff);
-            color: white;
+        .result {
+            margin-top: 15px;
             padding: 15px;
+            background: #10264d;
             border-radius: 14px;
-            font-weight: 800;
-            margin-top: 5px;
-            cursor: pointer;
-            box-shadow: 0 10px 25px rgba(24, 136, 255, .18);
-        }
-
-        .admin-btn {
-            width: 100%;
-            border: none;
-            background: #172f4a;
-            color: #76baff;
-            padding: 14px;
-            border-radius: 13px;
-            font-weight: 700;
-            cursor: pointer;
+            text-align: center;
+            display: none;
         }
 
         .notice {
-            color: #7e91a8;
-            font-size: 11px;
+            background: #0c2042;
+            border: 1px solid #28518c;
+            border-radius: 14px;
+            padding: 13px;
+            color: #b8c9e5;
+            font-size: 13px;
+            margin-bottom: 15px;
             line-height: 1.5;
-            margin-top: 10px;
-        }
-
-        .empty {
-            text-align: center;
-            padding: 35px 15px;
-            color: #71859d;
-        }
-
-        @media (max-width: 390px) {
-            .services {
-                gap: 9px;
-            }
-
-            .service {
-                padding: 14px;
-            }
-
-            .products {
-                gap: 8px;
-            }
         }
     </style>
 </head>
 
 <body>
 
-<div class="app">
+<div class="container">
 
-    <div class="topbar">
-
-        <div class="brand">
-
-            <div class="brand-icon">
-                ⭐
-            </div>
-
-            <div class="brand-text">
-                <h1>JV Stars</h1>
-                <p>Digital services</p>
-            </div>
-
-        </div>
-
-        <a
-            class="bot-link"
-            href="https://t.me/jvstarsbot"
-            target="_blank">
-            @jvstarsbot
-        </a>
-
+    <div class="top">
+        <div class="logo">🚀 JV Stars</div>
+        <div class="username" id="username">@jvstarsbot</div>
     </div>
 
+    <!-- HOME -->
+    <div id="homePage" class="page active">
 
-    <div class="balance">
-
-        <div class="balance-label">
-            Sizning balansingiz
+        <div class="balance">
+            <div class="balance-title">💰 Mening balansim</div>
+            <div class="balance-money">0 so'm</div>
         </div>
 
-        <div class="balance-value" id="balance">
-            0 so'm
+        <div class="service" onclick="openPage('starsPage')">
+            <div class="service-title">⭐ Stars</div>
+            <div class="service-desc">Telegram Stars sotib olish</div>
         </div>
 
-        <div class="balance-bottom">
-
-            <div class="balance-status">
-                ● Hisob faol
-            </div>
-
-            <button
-                class="topup-btn"
-                onclick="topUp()">
-                + Hisob to‘ldirish
-            </button>
-
+        <div class="service" onclick="openPage('premiumPage')">
+            <div class="service-title">💎 Premium</div>
+            <div class="service-desc">Telegram Premium sotib olish</div>
         </div>
 
-    </div>
-
-
-    <div id="home">
-
-        <div class="section-title">
-            Xizmatlar
+        <div class="service" onclick="openPage('giftsPage')">
+            <div class="service-title">🎁 Gifts</div>
+            <div class="service-desc">Telegram Gifts</div>
         </div>
 
-        <div class="services">
+        <div class="service" onclick="openPage('nftPage')">
+            <div class="service-title">🖼 NFT Gifts</div>
+            <div class="service-desc">Collectible / NFT Gifts</div>
+        </div>
 
-            <div
-                class="service"
-                onclick="openService('stars')">
+        <div class="service" onclick="openPage('rentalPage')">
+            <div class="service-title">🎁 Gift ijara</div>
+            <div class="service-desc">Gift ijaraga olish</div>
+        </div>
 
-                <div class="service-icon">
-                    ⭐
-                </div>
+        <div class="service" onclick="openPage('numberPage')">
+            <div class="service-title">📱 Nomer olish</div>
+            <div class="service-desc">Virtual raqamlar</div>
+        </div>
 
-                <h3>
-                    Telegram Stars
-                </h3>
-
-                <p>
-                    Stars miqdorini kiriting va narxni avtomatik hisoblang.
-                </p>
-
-            </div>
-
-
-            <div
-                class="service"
-                onclick="openService('premium')">
-
-                <div class="service-icon">
-                    💎
-                </div>
-
-                <h3>
-                    Telegram Premium
-                </h3>
-
-                <p>
-                    Premium xizmatlari.
-                </p>
-
-            </div>
-
-
-            <div
-                class="service"
-                onclick="openService('gifts')">
-
-                <div class="service-icon">
-                    🎁
-                </div>
-
-                <h3>
-                    Gifts
-                </h3>
-
-                <p>
-                    Telegram giftlar.
-                </p>
-
-            </div>
-
-
-            <div
-                class="service"
-                onclick="openService('nft')">
-
-                <div class="service-icon">
-                    🖼️
-                </div>
-
-                <h3>
-                    NFT Gifts
-                </h3>
-
-                <p>
-                    Collectible / NFT giftlar.
-                </p>
-
-            </div>
-
-
-            <div
-                class="service"
-                onclick="openService('gift_rental')">
-
-                <div class="service-icon">
-                    🎁
-                </div>
-
-                <h3>
-                    Gift ijara
-                </h3>
-
-                <p>
-                    Giftlarni ijara xizmatlari.
-                </p>
-
-            </div>
-
-
-            <div
-                class="service"
-                onclick="openService('number')">
-
-                <div class="service-icon">
-                    📱
-                </div>
-
-                <h3>
-                    Nomer olish
-                </h3>
-
-                <p>
-                    Turli davlatlar bo‘yicha raqamlar.
-                </p>
-
-            </div>
-
-
-            <div
-                class="service"
-                onclick="openBalance()">
-
-                <div class="service-icon">
-                    💰
-                </div>
-
-                <h3>
-                    Hisob
-                </h3>
-
-                <p>
-                    Balans va hisobni boshqarish.
-                </p>
-
-            </div>
-
-
-            <div
-                class="service"
-                onclick="openAdmin()">
-
-                <div class="service-icon">
-                    👨‍💻
-                </div>
-
-                <h3>
-                    Adminga murojaat
-                </h3>
-
-                <p>
-                    Yordam va savollar uchun.
-                </p>
-
-            </div>
-
+        <div class="service" onclick="topUp()">
+            <div class="service-title">💳 Hisobni to'ldirish</div>
+            <div class="service-desc">Balansni to'ldirish</div>
         </div>
 
     </div>
 
 
-    <div
-        id="serviceScreen"
-        class="screen">
+    <!-- STARS -->
+    <div id="starsPage" class="page">
 
-        <button
-            class="back-btn"
-            onclick="goHome()">
-            ← Orqaga
+        <div class="back" onclick="goHome()">← Orqaga</div>
+
+        <h2>⭐ Telegram Stars</h2>
+
+        <input
+            id="starsAmount"
+            class="input"
+            type="number"
+            min="1"
+            placeholder="Stars sonini kiriting"
+            oninput="calculateStars()"
+        >
+
+        <div class="notice">
+            1 ⭐ = 220 so'm
+        </div>
+
+        <div class="product">
+            <div class="product-row">
+                <div class="product-name">Jami:</div>
+                <div class="product-price" id="starsTotal">0 so'm</div>
+            </div>
+        </div>
+
+        <h3 style="margin:18px 0 12px;">Kimga?</h3>
+
+        <input
+            id="starsUsername"
+            class="input"
+            placeholder="@username yoki Telegram ID"
+        >
+
+        <button class="button" onclick="buyStars()">
+            ⭐ Sotib olish
         </button>
 
-        <div
-            class="screen-title"
-            id="screenTitle">
+    </div>
+
+
+    <!-- PREMIUM -->
+    <div id="premiumPage" class="page">
+
+        <div class="back" onclick="goHome()">← Orqaga</div>
+
+        <h2>💎 Telegram Premium</h2>
+
+        <div class="notice">
+            Premium muddatini tanlang:
         </div>
 
-        <div
-            class="screen-subtitle"
-            id="screenSubtitle">
+        <!-- 1 OY -->
+        <div class="product" onclick="selectPremium(this, '1 oy', 50000, true)">
+            <div class="product-row">
+                <div class="product-name">
+                    💎 1 oy
+                </div>
+
+                <div class="product-price">
+                    50 000 so'm
+                </div>
+            </div>
+
+            <div class="product-note">
+                (Admin orqali)
+            </div>
         </div>
 
-        <div id="serviceContent"></div>
+
+        <!-- 3 OY -->
+        <div class="product" onclick="selectPremium(this, '3 oy', 150000, false)">
+            <div class="product-row">
+                <div class="product-name">
+                    💎 3 oy
+                </div>
+
+                <div class="product-price">
+                    150 000 so'm
+                </div>
+            </div>
+        </div>
+
+
+        <!-- 6 OY -->
+        <div class="product" onclick="selectPremium(this, '6 oy', 280000, false)">
+            <div class="product-row">
+                <div class="product-name">
+                    💎 6 oy
+                </div>
+
+                <div class="product-price">
+                    280 000 so'm
+                </div>
+            </div>
+        </div>
+
+
+        <!-- 12 OY -->
+        <div class="product" onclick="selectPremium(this, '12 oy', 500000, false)">
+            <div class="product-row">
+                <div class="product-name">
+                    💎 12 oy
+                </div>
+
+                <div class="product-price">
+                    500 000 so'm
+                </div>
+            </div>
+        </div>
+
+        <button id="premiumBuyButton" class="button" onclick="buyPremium()" disabled>
+            💎 Muddatni tanlang
+        </button>
+
+    </div>
+
+
+    <!-- GIFTS -->
+    <div id="giftsPage" class="page">
+
+        <div class="back" onclick="goHome()">← Orqaga</div>
+
+        <h2>🎁 Gifts</h2>
+
+        <div class="product">
+            <div class="product-row">
+                <img class="gift-image"
+                     src="https://placehold.co/100x100/png?text=Gift+1">
+
+                <div class="gift-info">
+                    <div class="product-name">🎁 Rose</div>
+                    <div class="product-price">25 000 so'm</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="product">
+            <div class="product-row">
+                <img class="gift-image"
+                     src="https://placehold.co/100x100/png?text=Gift+2">
+
+                <div class="gift-info">
+                    <div class="product-name">🎁 Heart</div>
+                    <div class="product-price">50 000 so'm</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="product">
+            <div class="product-row">
+                <img class="gift-image"
+                     src="https://placehold.co/100x100/png?text=Gift+3">
+
+                <div class="gift-info">
+                    <div class="product-name">🎁 Star</div>
+                    <div class="product-price">100 000 so'm</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="product">
+            <div class="product-row">
+                <img class="gift-image"
+                     src="https://placehold.co/100x100/png?text=Gift+4">
+
+                <div class="gift-info">
+                    <div class="product-name">🎁 Diamond</div>
+                    <div class="product-price">250 000 so'm</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- NFT -->
+    <div id="nftPage" class="page">
+
+        <div class="back" onclick="goHome()">← Orqaga</div>
+
+        <h2>🖼 NFT Gifts</h2>
+
+        <div class="product">
+            <div class="product-row">
+                <img class="gift-image"
+                     src="https://placehold.co/100x100/png?text=NFT+1">
+
+                <div class="gift-info">
+                    <div class="product-name">🖼 NFT #1</div>
+                    <div class="product-price">500 000 so'm</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="product">
+            <div class="product-row">
+                <img class="gift-image"
+                     src="https://placehold.co/100x100/png?text=NFT+2">
+
+                <div class="gift-info">
+                    <div class="product-name">🖼 NFT #2</div>
+                    <div class="product-price">1 000 000 so'm</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="product">
+            <div class="product-row">
+                <img class="gift-image"
+                     src="https://placehold.co/100x100/png?text=NFT+3">
+
+                <div class="gift-info">
+                    <div class="product-name">🖼 NFT #3</div>
+                    <div class="product-price">2 000 000 so'm</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- GIFT RENTAL -->
+    <div id="rentalPage" class="page">
+
+        <div class="back" onclick="goHome()">← Orqaga</div>
+
+        <h2>🎁 Gift ijara</h2>
+
+        <div class="product" onclick="selectRental(this, '1 kun', 20000)">
+            <div class="product-row">
+                <div class="product-name">1 kun</div>
+                <div class="product-price">20 000 so'm</div>
+            </div>
+        </div>
+
+        <div class="product" onclick="selectRental(this, '7 kun', 100000)">
+            <div class="product-row">
+                <div class="product-name">7 kun</div>
+                <div class="product-price">100 000 so'm</div>
+            </div>
+        </div>
+
+        <div class="product" onclick="selectRental(this, '30 kun', 300000)">
+            <div class="product-row">
+                <div class="product-name">30 kun</div>
+                <div class="product-price">300 000 so'm</div>
+            </div>
+        </div>
+
+        <button id="rentalButton" class="button" onclick="buyRental()" disabled>
+            🎁 Muddatni tanlang
+        </button>
+
+    </div>
+
+
+    <!-- NUMBER -->
+    <div id="numberPage" class="page">
+
+        <div class="back" onclick="goHome()">← Orqaga</div>
+
+        <h2>📱 Nomer olish</h2>
+
+        <div class="country" onclick="selectCountry('🇺🇿 O‘zbekiston', '+998')">
+            <div class="country-name">🇺🇿 O‘zbekiston</div>
+            <div class="country-code">+998</div>
+        </div>
+
+        <div class="country" onclick="selectCountry('🇺🇸 AQSH', '+1')">
+            <div class="country-name">🇺🇸 AQSH</div>
+            <div class="country-code">+1</div>
+        </div>
+
+        <div class="country" onclick="selectCountry('🇬🇧 Buyuk Britaniya', '+44')">
+            <div class="country-name">🇬🇧 Buyuk Britaniya</div>
+            <div class="country-code">+44</div>
+        </div>
+
+        <div class="country" onclick="selectCountry('🇩🇪 Germaniya', '+49')">
+            <div class="country-name">🇩🇪 Germaniya</div>
+            <div class="country-code">+49</div>
+        </div>
+
+        <div class="country" onclick="selectCountry('🇹🇷 Turkiya', '+90')">
+            <div class="country-name">🇹🇷 Turkiya</div>
+            <div class="country-code">+90</div>
+        </div>
+
+        <div class="country" onclick="selectCountry('🇰🇷 Janubiy Koreya', '+82')">
+            <div class="country-name">🇰🇷 Janubiy Koreya</div>
+            <div class="country-code">+82</div>
+        </div>
+
+        <div class="country" onclick="selectCountry('🇯🇵 Yaponiya', '+81')">
+            <div class="country-name">🇯🇵 Yaponiya</div>
+            <div class="country-code">+81</div>
+        </div>
+
+        <div class="country" onclick="selectCountry('🇫🇷 Fransiya', '+33')">
+            <div class="country-name">🇫🇷 Fransiya</div>
+            <div class="country-code">+33</div>
+        </div>
+
+        <div class="country" onclick="selectCountry('🇮🇹 Italiya', '+39')">
+            <div class="country-name">🇮🇹 Italiya</div>
+            <div class="country-code">+39</div>
+        </div>
+
+        <div class="country" onclick="selectCountry('🇦🇪 BAA', '+971')">
+            <div class="country-name">🇦🇪 BAA</div>
+            <div class="country-code">+971</div>
+        </div>
+
+        <div class="country" onclick="selectCountry('🇰🇿 Qozog‘iston', '+7')">
+            <div class="country-name">🇰🇿 Qozog‘iston</div>
+            <div class="country-code">+7</div>
+        </div>
+
+        <div class="country" onclick="selectCountry('🇷🇺 Rossiya', '+7')">
+            <div class="country-name">🇷🇺 Rossiya</div>
+            <div class="country-code">+7</div>
+        </div>
+
+        <div id="countryResult" class="result"></div>
 
     </div>
 
@@ -671,1405 +617,207 @@
 
 <script>
 
-    /* TELEGRAM */
+    const tg = window.Telegram.WebApp;
 
-    const tg = window.Telegram?.WebApp;
+    tg.ready();
+    tg.expand();
 
-    if (tg) {
-        tg.ready();
-        tg.expand();
-    }
+    let selectedPremium = null;
+    let selectedRental = null;
 
 
-    /* ADMIN */
+    function openPage(pageId) {
 
-    const ADMIN_USERNAME = "jvstars_admin";
+        document.querySelectorAll(".page").forEach(page => {
+            page.classList.remove("active");
+        });
 
-    const ADMIN_LINK =
-        "https://t.me/" + ADMIN_USERNAME;
+        document.getElementById(pageId).classList.add("active");
 
-
-    function openAdmin() {
-
-        if (tg && tg.openTelegramLink) {
-
-            tg.openTelegramLink(ADMIN_LINK);
-
-        } else {
-
-            window.open(
-                ADMIN_LINK,
-                "_blank"
-            );
-
-        }
-
-    }
-
-
-    /* DEMO STAR PRICE */
-
-    const STAR_PRICE = 220;
-
-
-    /* GIFTS */
-
-    const GIFTS = [
-
-        {
-            id: "gift1",
-            name: "Gift 1",
-            price: 15000,
-            image: "https://placehold.co/500x500/142f50/ffffff?text=Gift+1"
-        },
-
-        {
-            id: "gift2",
-            name: "Gift 2",
-            price: 25000,
-            image: "https://placehold.co/500x500/183c62/ffffff?text=Gift+2"
-        },
-
-        {
-            id: "gift3",
-            name: "Gift 3",
-            price: 40000,
-            image: "https://placehold.co/500x500/204b76/ffffff?text=Gift+3"
-        },
-
-        {
-            id: "gift4",
-            name: "Gift 4",
-            price: 75000,
-            image: "https://placehold.co/500x500/285e91/ffffff?text=Gift+4"
-        }
-
-    ];
-
-
-    /* NFT GIFTS */
-
-    const NFT_GIFTS = [
-
-        {
-            id: "nft1",
-            name: "NFT Gift 1",
-            price: 150000,
-            image: "https://placehold.co/500x500/30235e/ffffff?text=NFT+1"
-        },
-
-        {
-            id: "nft2",
-            name: "NFT Gift 2",
-            price: 300000,
-            image: "https://placehold.co/500x500/452d78/ffffff?text=NFT+2"
-        },
-
-        {
-            id: "nft3",
-            name: "NFT Gift 3",
-            price: 500000,
-            image: "https://placehold.co/500x500/5b368f/ffffff?text=NFT+3"
-        },
-
-        {
-            id: "nft4",
-            name: "NFT Gift 4",
-            price: 850000,
-            image: "https://placehold.co/500x500/7042a7/ffffff?text=NFT+4"
-        }
-
-    ];
-
-
-    /* COUNTRIES */
-
-    const COUNTRIES = [
-
-        ["🇺🇿", "Uzbekistan", "+998"],
-        ["🇺🇸", "USA", "+1"],
-        ["🇬🇧", "United Kingdom", "+44"],
-        ["🇩🇪", "Germany", "+49"],
-        ["🇹🇷", "Turkey", "+90"],
-        ["🇰🇷", "South Korea", "+82"],
-        ["🇯🇵", "Japan", "+81"],
-        ["🇫🇷", "France", "+33"],
-        ["🇮🇹", "Italy", "+39"],
-        ["🇦🇪", "UAE", "+971"],
-        ["🇰🇿", "Kazakhstan", "+7"],
-        ["🇷🇺", "Russia", "+7"]
-
-    ];
-
-
-    /* STATE */
-
-    let selectedProduct = null;
-    let selectedRecipient = "self";
-
-
-    /* HELPERS */
-
-    function money(number) {
-
-        return Number(number)
-            .toLocaleString("uz-UZ") +
-            " so'm";
-
-    }
-
-
-    function recipientHTML() {
-
-        return `
-
-            <div class="card">
-
-                <label class="label">
-                    Kimga?
-                </label>
-
-                <div class="recipient-options">
-
-                    <button
-                        class="recipient selected"
-                        id="recipientSelf"
-                        onclick="setRecipient('self')">
-
-                        👤 O‘zimga
-
-                    </button>
-
-                    <button
-                        class="recipient"
-                        id="recipientUsername"
-                        onclick="setRecipient('username')">
-
-                        @ Username
-
-                    </button>
-
-                </div>
-
-                <div
-                    class="username-box"
-                    id="usernameBox"
-                    style="display:none">
-
-                    <input
-                        id="usernameInput"
-                        class="input"
-                        type="text"
-                        placeholder="@username">
-
-                </div>
-
-            </div>
-
-        `;
-
-    }
-
-
-    function setRecipient(type) {
-
-        selectedRecipient = type;
-
-        const self =
-            document.getElementById(
-                "recipientSelf"
-            );
-
-        const username =
-            document.getElementById(
-                "recipientUsername"
-            );
-
-        const box =
-            document.getElementById(
-                "usernameBox"
-            );
-
-        if (!self || !username) return;
-
-        self.classList.remove("selected");
-        username.classList.remove("selected");
-
-        if (type === "self") {
-
-            self.classList.add("selected");
-
-            if (box) {
-                box.style.display = "none";
-            }
-
-        } else {
-
-            username.classList.add("selected");
-
-            if (box) {
-                box.style.display = "block";
-            }
-
-        }
-
-    }
-
-
-    function getRecipient() {
-
-        if (selectedRecipient === "self") {
-            return "O‘zimga";
-        }
-
-        const input =
-            document.getElementById(
-                "usernameInput"
-            );
-
-        if (!input || !input.value.trim()) {
-
-            alert(
-                "Iltimos, @username kiriting."
-            );
-
-            return null;
-
-        }
-
-        return input.value.trim();
-
-    }
-
-
-    /* OPEN SERVICE */
-
-    function openService(service) {
-
-        document.getElementById(
-            "home"
-        ).style.display = "none";
-
-        const screen =
-            document.getElementById(
-                "serviceScreen"
-            );
-
-        screen.classList.add("active");
-
-        selectedProduct = null;
-        selectedRecipient = "self";
-
-        if (service === "stars") {
-            renderStars();
-        }
-
-        if (service === "premium") {
-            renderPremium();
-        }
-
-        if (service === "gifts") {
-            renderGifts();
-        }
-
-        if (service === "nft") {
-            renderNFT();
-        }
-
-        if (service === "gift_rental") {
-            renderGiftRental();
-        }
-
-        if (service === "number") {
-            renderNumbers();
-        }
-
+        window.scrollTo(0, 0);
     }
 
 
     function goHome() {
 
-        document
-            .getElementById("serviceScreen")
-            .classList.remove("active");
+        document.querySelectorAll(".page").forEach(page => {
+            page.classList.remove("active");
+        });
 
-        document
-            .getElementById("home")
-            .style.display = "block";
+        document.getElementById("homePage").classList.add("active");
 
-    }
-
-
-    /* STARS */
-
-    function renderStars() {
-
-        document.getElementById(
-            "screenTitle"
-        ).textContent =
-            "⭐ Telegram Stars";
-
-        document.getElementById(
-            "screenSubtitle"
-        ).textContent =
-            "Stars sonini kiriting — narx avtomatik hisoblanadi.";
-
-        document.getElementById(
-            "serviceContent"
-        ).innerHTML = `
-
-            <div class="card">
-
-                <label class="label">
-                    Stars sonini kiriting
-                </label>
-
-                <input
-                    id="starsQuantity"
-                    class="input"
-                    type="number"
-                    min="1"
-                    placeholder="Masalan: 100"
-                    oninput="calculateStars()">
-
-                <div class="price-box">
-
-                    <div class="price-title">
-                        To‘lov summasi
-                    </div>
-
-                    <div
-                        class="price"
-                        id="starsPrice">
-
-                        0 so'm
-
-                    </div>
-
-                </div>
-
-                <div class="notice">
-
-                    Demo narx: 1 ⭐ =
-                    ${money(STAR_PRICE)}.
-
-                    Keyinchalik bu narx
-                    provider/API orqali
-                    avtomatik olinadi.
-
-                </div>
-
-            </div>
-
-            ${recipientHTML()}
-
-            <button
-                class="buy-btn"
-                onclick="buyStars()">
-
-                ⭐ Stars sotib olish
-
-            </button>
-
-        `;
-
+        window.scrollTo(0, 0);
     }
 
 
     function calculateStars() {
 
-        const input =
-            document.getElementById(
-                "starsQuantity"
-            );
+        const amount =
+            Number(document.getElementById("starsAmount").value) || 0;
 
-        const quantity =
-            Number(input.value);
+        const total = amount * 220;
 
-        const price =
-            quantity > 0
-                ? quantity * STAR_PRICE
-                : 0;
-
-        document.getElementById(
-            "starsPrice"
-        ).textContent =
-            money(price);
-
+        document.getElementById("starsTotal").innerText =
+            total.toLocaleString("uz-UZ") + " so'm";
     }
 
 
     function buyStars() {
 
-        const quantity =
-            Number(
-                document.getElementById(
-                    "starsQuantity"
-                ).value
-            );
+        const amount =
+            Number(document.getElementById("starsAmount").value);
 
-        if (!quantity || quantity < 1) {
+        const username =
+            document.getElementById("starsUsername").value.trim();
 
-            alert(
-                "Stars miqdorini kiriting."
-            );
-
+        if (!amount || amount < 1) {
+            alert("⭐ Stars sonini kiriting!");
             return;
-
         }
 
-        const recipient =
-            getRecipient();
-
-        if (!recipient) return;
-
-        const price =
-            quantity * STAR_PRICE;
+        if (!username) {
+            alert("👤 Kimga yuborilishini kiriting!");
+            return;
+        }
 
         alert(
-
-            "Demo buyurtma\n\n" +
-
-            "⭐ Stars: " +
-            quantity + "\n" +
-
-            "👤 Kimga: " +
-            recipient + "\n" +
-
-            "💰 Narx: " +
-            money(price)
-
+            "⭐ Buyurtma:\n\n" +
+            "Stars: " + amount + "\n" +
+            "Kimga: " + username + "\n" +
+            "Narx: " +
+            (amount * 220).toLocaleString("uz-UZ") +
+            " so'm"
         );
-
     }
 
 
-    /* PREMIUM */
+    function selectPremium(element, name, price, admin) {
 
-    const PREMIUM_PLANS = [
+        document.querySelectorAll("#premiumPage .product")
+            .forEach(item => item.classList.remove("selected"));
 
-        {
-            id: "premium1",
-            name: "💎 1 oy",
-            price: 50000,
-            admin: true
-        },
+        element.classList.add("selected");
 
-        {
-            id: "premium3",
-            name: "💎 3 oy",
-            price: 150000,
-            admin: false
-        },
+        selectedPremium = {
+            name: name,
+            price: price,
+            admin: admin
+        };
 
-        {
-            id: "premium6",
-            name: "💎 6 oy",
-            price: 280000,
-            admin: false
-        },
+        const button =
+            document.getElementById("premiumBuyButton");
 
-        {
-            id: "premium12",
-            name: "💎 12 oy",
-            price: 500000,
-            admin: false
-        }
+        button.disabled = false;
 
-    ];
-
-
-    function renderPremium() {
-
-        document.getElementById(
-            "screenTitle"
-        ).textContent =
-            "💎 Telegram Premium";
-
-        document.getElementById(
-            "screenSubtitle"
-        ).textContent =
-            "Premium muddatini tanlang.";
-
-        let html = `
-
-            <div class="card">
-
-                <label class="label">
-                    Premium muddatini tanlang
-                </label>
-
-                <div class="products">
-
-        `;
-
-
-        PREMIUM_PLANS.forEach(plan => {
-
-            html += `
-
-                <div
-                    class="product"
-                    id="${plan.id}"
-                    onclick="selectPremium('${plan.id}')">
-
-                    <div class="product-info">
-
-                        <div class="product-name">
-
-                            ${plan.name}
-
-                            ${
-                                plan.admin
-                                    ? '<span style="color:#8095ad;font-size:11px;"> (Admin orqali)</span>'
-                                    : ''
-                            }
-
-                        </div>
-
-                        <div class="product-price">
-
-                            ${money(plan.price)}
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            `;
-
-        });
-
-
-        html += `
-
-                </div>
-
-            </div>
-
-            ${recipientHTML()}
-
-            <div id="premiumAction"></div>
-
-            <div class="notice">
-
-                1 oylik Premium admin orqali.
-                3, 6 va 12 oylik Premium
-                keyinchalik avtomatik beriladi.
-
-            </div>
-
-        `;
-
-
-        document.getElementById(
-            "serviceContent"
-        ).innerHTML = html;
-
-    }
-
-
-    function selectPremium(id) {
-
-        selectedProduct = id;
-
-        document.querySelectorAll(
-            ".product"
-        ).forEach(item => {
-
-            item.classList.remove(
-                "selected"
-            );
-
-        });
-
-
-        const element =
-            document.getElementById(id);
-
-        if (element) {
-
-            element.classList.add(
-                "selected"
-            );
-
-        }
-
-
-        const plan =
-            PREMIUM_PLANS.find(
-                item => item.id === id
-            );
-
-        if (!plan) return;
-
-
-        const action =
-            document.getElementById(
-                "premiumAction"
-            );
-
-        if (!action) return;
-
-
-        if (plan.admin) {
-
-            action.innerHTML = `
-
-                <button
-                    class="admin-btn"
-                    onclick="openAdmin()">
-
-                    👨‍💻 Admin orqali buyurtma
-
-                </button>
-
-            `;
-
+        if (admin) {
+            button.innerText = "👨‍💻 Admin orqali buyurtma";
         } else {
-
-            action.innerHTML = `
-
-                <button
-                    class="buy-btn"
-                    onclick="buyPremium()">
-
-                    💎 Sotib olish
-
-                </button>
-
-            `;
-
+            button.innerText = "💎 Sotib olish";
         }
-
     }
 
 
     function buyPremium() {
 
-        const plan =
-            PREMIUM_PLANS.find(
-                item => item.id === selectedProduct
-            );
+        if (!selectedPremium) {
+            alert("💎 Avval Premium muddatini tanlang!");
+            return;
+        }
 
-        if (!plan) {
+        if (selectedPremium.admin) {
 
             alert(
-                "Avval Premium muddatini tanlang."
+                "👨‍💻 " +
+                selectedPremium.name +
+                " Premium admin orqali buyurtma qilinadi."
             );
 
-            return;
-
-        }
-
-
-        if (plan.admin) {
-
-            openAdmin();
-
-            return;
-
-        }
-
-
-        const recipient =
-            getRecipient();
-
-        if (!recipient) return;
-
-
-        alert(
-
-            "Demo buyurtma\n\n" +
-
-            "💎 Premium: " +
-            plan.name + "\n" +
-
-            "👤 Kimga: " +
-            recipient + "\n" +
-
-            "💰 Narx: " +
-            money(plan.price) + "\n\n" +
-
-            "Keyinchalik to‘lovdan so‘ng " +
-            "Premium API orqali avtomatik beriladi."
-
-        );
-
-    }
-
-
-    /* GIFTS */
-
-    function renderGifts() {
-
-        document.getElementById(
-            "screenTitle"
-        ).textContent =
-            "🎁 Gifts";
-
-        document.getElementById(
-            "screenSubtitle"
-        ).textContent =
-            "Giftni tanlang.";
-
-        let html = `
-
-            <div class="card">
-
-                <label class="label">
-                    Gift tanlang
-                </label>
-
-                <div class="products">
-
-        `;
-
-
-        GIFTS.forEach(gift => {
-
-            html += `
-
-                <div
-                    class="product"
-                    id="${gift.id}"
-                    onclick="selectProduct('${gift.id}')">
-
-                    <img
-                        src="${gift.image}"
-                        alt="${gift.name}">
-
-                    <div class="product-info">
-
-                        <div class="product-name">
-                            ${gift.name}
-                        </div>
-
-                        <div class="product-price">
-                            ${money(gift.price)}
-                        </div>
-
-                    </div>
-
-                </div>
-
-            `;
-
-        });
-
-
-        html += `
-
-                </div>
-
-            </div>
-
-            ${recipientHTML()}
-
-            <button
-                class="buy-btn"
-                onclick="buyGift()">
-
-                🎁 Sotib olish
-
-            </button>
-
-            <div class="notice">
-
-                Gift rasmlari demo.
-                Keyinchalik o‘zingizning
-                rasmlaringizni koddagi
-                GIFTS bo‘limidan qo‘yishingiz mumkin.
-
-            </div>
-
-        `;
-
-
-        document.getElementById(
-            "serviceContent"
-        ).innerHTML = html;
-
-    }
-
-
-    /* NFT */
-
-    function renderNFT() {
-
-        document.getElementById(
-            "screenTitle"
-        ).textContent =
-            "🖼 NFT Gifts";
-
-        document.getElementById(
-            "screenSubtitle"
-        ).textContent =
-            "Collectible / NFT giftni tanlang.";
-
-        let html = `
-
-            <div class="card">
-
-                <label class="label">
-                    NFT Gift tanlang
-                </label>
-
-                <div class="products">
-
-        `;
-
-
-        NFT_GIFTS.forEach(gift => {
-
-            html += `
-
-                <div
-                    class="product"
-                    id="${gift.id}"
-                    onclick="selectProduct('${gift.id}')">
-
-                    <img
-                        src="${gift.image}"
-                        alt="${gift.name}">
-
-                    <div class="product-info">
-
-                        <div class="product-name">
-                            ${gift.name}
-                        </div>
-
-                        <div class="product-price">
-                            ${money(gift.price)}
-                        </div>
-
-                    </div>
-
-                </div>
-
-            `;
-
-        });
-
-
-        html += `
-
-                </div>
-
-            </div>
-
-            ${recipientHTML()}
-
-            <button
-                class="buy-btn"
-                onclick="buyNFT()">
-
-                🖼 Sotib olish
-
-            </button>
-
-            <div class="notice">
-
-                NFT rasmlari demo.
-                Keyinchalik real mahsulot
-                rasmlarini NFT_GIFTS bo‘limidan
-                almashtirasiz.
-
-            </div>
-
-        `;
-
-
-        document.getElementById(
-            "serviceContent"
-        ).innerHTML = html;
-
-    }
-
-
-    function selectProduct(id) {
-
-        selectedProduct = id;
-
-        document.querySelectorAll(
-            ".product"
-        ).forEach(item => {
-
-            item.classList.remove(
-                "selected"
-            );
-
-        });
-
-
-        const element =
-            document.getElementById(id);
-
-        if (element) {
-
-            element.classList.add(
-                "selected"
-            );
-
-        }
-
-    }
-
-
-    function buyGift() {
-
-        const product =
-            GIFTS.find(
-                item => item.id === selectedProduct
-            );
-
-        if (!product) {
+        } else {
 
             alert(
-                "Avval Gift tanlang."
+                "💎 Buyurtma:\n\n" +
+                selectedPremium.name +
+                "\n" +
+                selectedPremium.price.toLocaleString("uz-UZ") +
+                " so'm"
             );
-
-            return;
-
         }
-
-
-        const recipient =
-            getRecipient();
-
-        if (!recipient) return;
-
-
-        alert(
-
-            "Demo buyurtma\n\n" +
-
-            "🎁 " +
-            product.name + "\n" +
-
-            "👤 Kimga: " +
-            recipient + "\n" +
-
-            "💰 Narx: " +
-            money(product.price)
-
-        );
-
     }
 
 
-    function buyNFT() {
+    function selectRental(element, name, price) {
 
-        const product =
-            NFT_GIFTS.find(
-                item => item.id === selectedProduct
-            );
+        document.querySelectorAll("#rentalPage .product")
+            .forEach(item => item.classList.remove("selected"));
 
-        if (!product) {
+        element.classList.add("selected");
 
-            alert(
-                "Avval NFT Gift tanlang."
-            );
+        selectedRental = {
+            name: name,
+            price: price
+        };
 
-            return;
+        const button =
+            document.getElementById("rentalButton");
 
-        }
-
-
-        const recipient =
-            getRecipient();
-
-        if (!recipient) return;
-
-
-        alert(
-
-            "Demo buyurtma\n\n" +
-
-            "🖼 " +
-            product.name + "\n" +
-
-            "👤 Kimga: " +
-            recipient + "\n" +
-
-            "💰 Narx: " +
-            money(product.price)
-
-        );
-
-    }
-
-
-    /* GIFT RENTAL */
-
-    function renderGiftRental() {
-
-        document.getElementById(
-            "screenTitle"
-        ).textContent =
-            "🎁 Gift ijara";
-
-        document.getElementById(
-            "screenSubtitle"
-        ).textContent =
-            "Ijara muddatini tanlang.";
-
-        document.getElementById(
-            "serviceContent"
-        ).innerHTML = `
-
-            <div class="card">
-
-                <label class="label">
-                    Ijara muddati
-                </label>
-
-                <div class="products">
-
-                    <div
-                        class="product"
-                        id="rent1"
-                        onclick="selectRental('rent1')">
-
-                        <div class="product-info">
-
-                            <div class="product-name">
-                                1 kun
-                            </div>
-
-                            <div class="product-price">
-                                10 000 so'm
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <div
-                        class="product"
-                        id="rent2"
-                        onclick="selectRental('rent2')">
-
-                        <div class="product-info">
-
-                            <div class="product-name">
-                                7 kun
-                            </div>
-
-                            <div class="product-price">
-                                50 000 so'm
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <div
-                        class="product"
-                        id="rent3"
-                        onclick="selectRental('rent3')">
-
-                        <div class="product-info">
-
-                            <div class="product-name">
-                                30 kun
-                            </div>
-
-                            <div class="product-price">
-                                150 000 so'm
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <div
-                        class="product"
-                        id="rent4"
-                        onclick="selectRental('rent4')">
-
-                        <div class="product-info">
-
-                            <div class="product-name">
-                                Maxsus
-                            </div>
-
-                            <div class="product-price">
-                                Admin orqali
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            ${recipientHTML()}
-
-            <button
-                class="buy-btn"
-                onclick="buyRental()">
-
-                🎁 Ijaraga olish
-
-            </button>
-
-        `;
-
-    }
-
-
-    function selectRental(id) {
-
-        selectedProduct = id;
-
-        document.querySelectorAll(
-            ".product"
-        ).forEach(item => {
-
-            item.classList.remove(
-                "selected"
-            );
-
-        });
-
-
-        document.getElementById(id)
-            ?.classList.add("selected");
-
+        button.disabled = false;
+        button.innerText = "🎁 Sotib olish";
     }
 
 
     function buyRental() {
 
-        if (!selectedProduct) {
-
-            alert(
-                "Ijara muddatini tanlang."
-            );
-
+        if (!selectedRental) {
+            alert("🎁 Avval muddatni tanlang!");
             return;
-
         }
-
-
-        if (selectedProduct === "rent4") {
-
-            openAdmin();
-
-            return;
-
-        }
-
-
-        const recipient =
-            getRecipient();
-
-        if (!recipient) return;
-
-
-        const prices = {
-
-            rent1: 10000,
-            rent2: 50000,
-            rent3: 150000
-
-        };
-
-
-        const names = {
-
-            rent1: "1 kun",
-            rent2: "7 kun",
-            rent3: "30 kun"
-
-        };
-
 
         alert(
-
-            "Demo buyurtma\n\n" +
-
-            "🎁 Muddat: " +
-            names[selectedProduct] + "\n" +
-
-            "👤 Kimga: " +
-            recipient + "\n" +
-
-            "💰 Narx: " +
-            money(
-                prices[selectedProduct]
-            )
-
+            "🎁 Gift ijara:\n\n" +
+            selectedRental.name +
+            "\n" +
+            selectedRental.price.toLocaleString("uz-UZ") +
+            " so'm"
         );
-
-    }
-
-
-    /* NUMBERS */
-
-    function renderNumbers() {
-
-        document.getElementById(
-            "screenTitle"
-        ).textContent =
-            "📱 Nomer olish";
-
-        document.getElementById(
-            "screenSubtitle"
-        ).textContent =
-            "Davlatni tanlang.";
-
-        let html = `
-
-            <div class="card">
-
-                <label class="label">
-                    Davlatlar
-                </label>
-
-                <div class="countries">
-
-        `;
-
-
-        COUNTRIES.forEach(country => {
-
-            html += `
-
-                <div class="country">
-
-                    <div class="country-left">
-
-                        <div class="flag">
-                            ${country[0]}
-                        </div>
-
-                        <div>
-
-                            <div class="country-name">
-                                ${country[1]}
-                            </div>
-
-                            <div class="country-code">
-                                ${country[2]}
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <button
-                        class="country-btn"
-                        onclick="selectCountry('${country[1]}', '${country[2]}')">
-
-                        Tanlash
-
-                    </button>
-
-                </div>
-
-            `;
-
-        });
-
-
-        html += `
-
-                </div>
-
-            </div>
-
-            <div class="notice">
-
-                Raqam xizmatlari hozircha demo rejimida.
-                Provider/API ulanishidan keyin mavjud
-                raqamlar va narxlar avtomatik ko‘rsatiladi.
-
-            </div>
-
-        `;
-
-
-        document.getElementById(
-            "serviceContent"
-        ).innerHTML = html;
-
     }
 
 
     function selectCountry(name, code) {
 
-        alert(
+        const result =
+            document.getElementById("countryResult");
 
-            "Tanlangan davlat:\n\n" +
+        result.style.display = "block";
 
-            name +
-            " (" +
-            code +
-            ")\n\n" +
-
-            "Demo rejim. Keyinchalik mavjud raqamlar " +
-            "provider/API orqali chiqadi."
-
-        );
-
-    }
-
-
-    /* BALANCE */
-
-    function openBalance() {
-
-        alert(
-
-            "💰 Balans\n\n" +
-
-            "Joriy balans: 0 so'm\n\n" +
-
-            "Hisob to‘ldirish funksiyasi backend/payment " +
-            "tizimi ulangandan keyin ishlaydi."
-
-        );
-
+        result.innerHTML =
+            "<b>" + name + "</b><br><br>" +
+            "📱 Kod: " + code +
+            "<br><br>" +
+            "Nomer tanlash keyingi bosqichda ulanadi.";
     }
 
 
     function topUp() {
 
         alert(
-
-            "💳 Hisobni to‘ldirish\n\n" +
-
-            "To‘lov tizimi hozircha demo rejimida."
-
+            "💳 Balansni to'ldirish tizimi API va to'lov tizimi ulangandan keyin ishlaydi."
         );
-
     }
 
 
-    /* START SERVICE FROM URL */
+    // Telegram username
+    if (tg.initDataUnsafe &&
+        tg.initDataUnsafe.user) {
 
-    const params =
-        new URLSearchParams(
-            window.location.search
-        );
+        const user =
+            tg.initDataUnsafe.user;
 
-    const service =
-        params.get("service");
-
-
-    if (service) {
-
-        openService(service);
-
+        document.getElementById("username").innerText =
+            "@" + (
+                user.username ||
+                user.first_name ||
+                "user"
+            );
     }
 
 </script>
