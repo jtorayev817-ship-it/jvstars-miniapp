@@ -3,91 +3,225 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>JV Stars</title>
 
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
     <style>
+
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: Arial, sans-serif;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        html {
+            background: #020617;
         }
 
         body {
-            background: #07152f;
-            color: white;
             min-height: 100vh;
+            color: #ffffff;
+            background:
+                radial-gradient(circle at 15% 15%, rgba(0, 225, 255, 0.20), transparent 30%),
+                radial-gradient(circle at 85% 25%, rgba(120, 0, 255, 0.22), transparent 30%),
+                radial-gradient(circle at 50% 85%, rgba(0, 100, 255, 0.20), transparent 35%),
+                linear-gradient(135deg, #020617, #06133a 45%, #020617);
+            background-attachment: fixed;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            width: 350px;
+            height: 350px;
+            top: -100px;
+            left: -100px;
+            background: rgba(0, 238, 255, 0.12);
+            filter: blur(100px);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            width: 400px;
+            height: 400px;
+            right: -150px;
+            bottom: -100px;
+            background: rgba(128, 0, 255, 0.13);
+            filter: blur(120px);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -1;
         }
 
         .container {
             width: 100%;
-            max-width: 500px;
+            max-width: 520px;
             margin: auto;
             padding: 18px;
         }
+
+        /* TOP */
 
         .top {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 22px;
+            padding: 5px 2px;
         }
 
         .logo {
-            font-size: 22px;
-            font-weight: bold;
+            font-size: 23px;
+            font-weight: 800;
+            letter-spacing: 0.3px;
+            color: #ffffff;
+            text-shadow:
+                0 0 5px rgba(0, 238, 255, 0.7),
+                0 0 15px rgba(0, 238, 255, 0.5);
         }
 
         .username {
-            color: #6ea8ff;
+            color: #61eaff;
             font-size: 14px;
+            font-weight: 600;
+            text-shadow:
+                0 0 7px rgba(0, 238, 255, 0.8);
         }
 
+        /* BALANCE */
+
         .balance {
-            background: #10264d;
-            border-radius: 18px;
-            padding: 18px;
-            margin-bottom: 20px;
-            border: 1px solid #1c3c70;
+            position: relative;
+            overflow: hidden;
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(13, 36, 75, 0.90),
+                    rgba(18, 10, 61, 0.88)
+                );
+            border: 1px solid rgba(0, 229, 255, 0.38);
+            border-radius: 22px;
+            padding: 21px;
+            margin-bottom: 22px;
+
+            box-shadow:
+                0 0 10px rgba(0, 229, 255, 0.12),
+                0 0 35px rgba(0, 229, 255, 0.07),
+                inset 0 0 25px rgba(0, 229, 255, 0.04);
+        }
+
+        .balance::after {
+            content: "";
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            right: -40px;
+            top: -50px;
+            background: rgba(0, 238, 255, 0.16);
+            border-radius: 50%;
+            filter: blur(35px);
         }
 
         .balance-title {
-            color: #9db5d8;
-            font-size: 14px;
-            margin-bottom: 7px;
+            color: #9bb7d9;
+            font-size: 13px;
+            margin-bottom: 8px;
         }
 
         .balance-money {
-            font-size: 27px;
-            font-weight: bold;
+            font-size: 29px;
+            font-weight: 800;
+            color: #ffffff;
+            text-shadow:
+                0 0 7px rgba(0, 238, 255, 0.45);
         }
 
+        /* SERVICES */
+
         .service {
-            background: #10264d;
-            border: 1px solid #1c3c70;
-            border-radius: 18px;
+            position: relative;
+            overflow: hidden;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(9, 31, 66, 0.88),
+                    rgba(12, 17, 52, 0.90)
+                );
+
+            border: 1px solid rgba(72, 170, 255, 0.30);
+            border-radius: 19px;
+
             padding: 18px;
             margin-bottom: 13px;
+
             cursor: pointer;
-            transition: 0.2s;
+
+            transition:
+                transform 0.18s ease,
+                border-color 0.18s ease,
+                box-shadow 0.18s ease;
+        }
+
+        .service::before {
+            content: "";
+            position: absolute;
+            left: -80px;
+            top: 0;
+            width: 80px;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(0, 238, 255, 0.20),
+                transparent
+            );
+            transform: skewX(-20deg);
+            transition: 0.5s;
+        }
+
+        .service:hover::before {
+            left: 110%;
         }
 
         .service:hover {
-            background: #15325f;
+            transform: translateY(-2px);
+
+            border-color: rgba(0, 238, 255, 0.65);
+
+            box-shadow:
+                0 0 12px rgba(0, 238, 255, 0.18),
+                0 0 28px rgba(0, 238, 255, 0.08);
+        }
+
+        .service:active {
+            transform: scale(0.98);
         }
 
         .service-title {
             font-size: 18px;
-            font-weight: bold;
+            font-weight: 800;
+            color: #ffffff;
+
+            text-shadow:
+                0 0 6px rgba(255, 255, 255, 0.18);
         }
 
         .service-desc {
-            color: #9db5d8;
+            color: #8faed5;
             font-size: 13px;
-            margin-top: 5px;
+            margin-top: 6px;
         }
+
+        /* PAGES */
 
         .page {
             display: none;
@@ -95,200 +229,473 @@
 
         .page.active {
             display: block;
+            animation: pageIn 0.25s ease;
+        }
+
+        @keyframes pageIn {
+            from {
+                opacity: 0;
+                transform: translateY(7px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .back {
             display: inline-block;
             margin-bottom: 18px;
-            color: #6ea8ff;
+            color: #61eaff;
+            font-size: 14px;
+            font-weight: 700;
             cursor: pointer;
+
+            text-shadow:
+                0 0 8px rgba(0, 238, 255, 0.65);
         }
 
         h2 {
             margin-bottom: 18px;
+            font-size: 23px;
+
+            text-shadow:
+                0 0 8px rgba(0, 238, 255, 0.35);
         }
+
+        /* INPUT */
 
         .input {
             width: 100%;
-            background: #0c2042;
+
+            background:
+                rgba(4, 20, 49, 0.92);
+
             color: white;
-            border: 1px solid #28518c;
-            border-radius: 13px;
-            padding: 14px;
+
+            border: 1px solid rgba(0, 213, 255, 0.35);
+            border-radius: 14px;
+
+            padding: 15px;
+
             outline: none;
             margin-bottom: 12px;
+
             font-size: 15px;
+
+            box-shadow:
+                inset 0 0 15px rgba(0, 180, 255, 0.035);
         }
+
+        .input:focus {
+            border-color: rgba(0, 238, 255, 0.85);
+
+            box-shadow:
+                0 0 10px rgba(0, 238, 255, 0.12),
+                inset 0 0 15px rgba(0, 180, 255, 0.04);
+        }
+
+        .input::placeholder {
+            color: #6e89ae;
+        }
+
+        /* BUTTON */
 
         .button {
             width: 100%;
-            border: none;
-            border-radius: 13px;
-            padding: 14px;
-            background: #247cff;
+
+            border: 1px solid rgba(94, 235, 255, 0.55);
+            border-radius: 14px;
+
+            padding: 15px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #087fff,
+                    #6a25ff
+                );
+
             color: white;
+
             font-size: 16px;
-            font-weight: bold;
+            font-weight: 800;
+
             cursor: pointer;
+
             margin-top: 8px;
+
+            box-shadow:
+                0 0 12px rgba(0, 132, 255, 0.25),
+                0 0 30px rgba(100, 0, 255, 0.10);
+
+            transition: 0.18s;
         }
 
         .button:hover {
-            background: #1769dc;
+            transform: translateY(-1px);
+
+            box-shadow:
+                0 0 16px rgba(0, 213, 255, 0.35),
+                0 0 35px rgba(100, 0, 255, 0.18);
         }
 
+        .button:active {
+            transform: scale(0.98);
+        }
+
+        .button:disabled {
+            opacity: 0.45;
+            cursor: default;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* PRODUCT */
+
         .product {
-            background: #10264d;
-            border: 1px solid #1c3c70;
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(10, 32, 68, 0.91),
+                    rgba(14, 13, 49, 0.91)
+                );
+
+            border: 1px solid rgba(75, 163, 255, 0.28);
+
             border-radius: 17px;
-            padding: 15px;
+
+            padding: 16px;
+
             margin-bottom: 12px;
+
+            cursor: pointer;
+
+            transition: 0.18s;
+
+            box-shadow:
+                inset 0 0 20px rgba(0, 180, 255, 0.025);
+        }
+
+        .product:hover {
+            border-color: rgba(0, 238, 255, 0.62);
+
+            box-shadow:
+                0 0 14px rgba(0, 238, 255, 0.12);
+        }
+
+        .product.selected {
+            border: 1px solid #00eaff;
+
+            box-shadow:
+                0 0 10px rgba(0, 234, 255, 0.30),
+                0 0 25px rgba(0, 234, 255, 0.10);
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(7, 52, 76, 0.95),
+                    rgba(24, 13, 65, 0.95)
+                );
         }
 
         .product-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
 
         .product-name {
             font-size: 17px;
-            font-weight: bold;
+            font-weight: 800;
         }
 
         .product-price {
             font-size: 16px;
-            color: #69a4ff;
-            font-weight: bold;
+            color: #64eaff;
+            font-weight: 800;
             white-space: nowrap;
+
+            text-shadow:
+                0 0 8px rgba(0, 238, 255, 0.42);
         }
 
         .product-note {
-            color: #9db5d8;
+            color: #91afd1;
             font-size: 13px;
-            margin-top: 7px;
+            margin-top: 8px;
         }
 
-        .selected {
-            border: 2px solid #247cff;
+        /* NOTICE */
+
+        .notice {
+            background:
+                rgba(8, 27, 58, 0.80);
+
+            border: 1px solid rgba(0, 213, 255, 0.28);
+
+            border-radius: 14px;
+
+            padding: 14px;
+
+            color: #a9c1df;
+
+            font-size: 13px;
+
+            margin-bottom: 15px;
+
+            line-height: 1.5;
+
+            box-shadow:
+                0 0 15px rgba(0, 213, 255, 0.05);
         }
+
+        /* GIFT */
 
         .gift-image {
             width: 70px;
             height: 70px;
+
             object-fit: cover;
-            border-radius: 14px;
+
+            border-radius: 15px;
+
+            border: 1px solid rgba(0, 238, 255, 0.22);
+
+            box-shadow:
+                0 0 12px rgba(0, 238, 255, 0.10);
         }
 
         .gift-info {
             flex: 1;
         }
 
+        /* COUNTRY */
+
         .country {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: #10264d;
-            border: 1px solid #1c3c70;
-            padding: 15px;
+
+            background:
+                rgba(10, 31, 65, 0.90);
+
+            border: 1px solid rgba(75, 163, 255, 0.28);
+
+            padding: 16px;
+
             border-radius: 15px;
+
             margin-bottom: 10px;
+
             cursor: pointer;
+
+            transition: 0.18s;
+        }
+
+        .country:hover {
+            border-color: rgba(0, 238, 255, 0.65);
+
+            box-shadow:
+                0 0 12px rgba(0, 238, 255, 0.10);
         }
 
         .country-name {
             font-size: 16px;
+            font-weight: 700;
         }
 
         .country-code {
-            color: #69a4ff;
-            font-weight: bold;
+            color: #61eaff;
+            font-weight: 800;
+
+            text-shadow:
+                0 0 7px rgba(0, 238, 255, 0.45);
         }
+
+        /* RESULT */
 
         .result {
             margin-top: 15px;
-            padding: 15px;
-            background: #10264d;
-            border-radius: 14px;
+
+            padding: 16px;
+
+            background:
+                rgba(9, 32, 65, 0.90);
+
+            border: 1px solid rgba(0, 238, 255, 0.30);
+
+            border-radius: 15px;
+
             text-align: center;
+
             display: none;
+
+            box-shadow:
+                0 0 18px rgba(0, 238, 255, 0.07);
         }
 
-        .notice {
-            background: #0c2042;
-            border: 1px solid #28518c;
-            border-radius: 14px;
-            padding: 13px;
-            color: #b8c9e5;
-            font-size: 13px;
-            margin-bottom: 15px;
-            line-height: 1.5;
+        /* SCROLLBAR */
+
+        ::-webkit-scrollbar {
+            width: 5px;
         }
+
+        ::-webkit-scrollbar-track {
+            background: #020617;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #164a77;
+            border-radius: 10px;
+        }
+
     </style>
 </head>
+
 
 <body>
 
 <div class="container">
 
+    <!-- TOP -->
+
     <div class="top">
-        <div class="logo">🚀 JV Stars</div>
-        <div class="username" id="username">@jvstarsbot</div>
+
+        <div class="logo">
+            🚀 JV Stars
+        </div>
+
+        <div class="username">
+            @jvstarsbot
+        </div>
+
     </div>
 
+
     <!-- HOME -->
+
     <div id="homePage" class="page active">
 
         <div class="balance">
-            <div class="balance-title">💰 Mening balansim</div>
-            <div class="balance-money">0 so'm</div>
+
+            <div class="balance-title">
+                💰 Mening balansim
+            </div>
+
+            <div class="balance-money">
+                0 so'm
+            </div>
+
         </div>
+
 
         <div class="service" onclick="openPage('starsPage')">
-            <div class="service-title">⭐ Stars</div>
-            <div class="service-desc">Telegram Stars sotib olish</div>
+
+            <div class="service-title">
+                ⭐ Stars
+            </div>
+
+            <div class="service-desc">
+                Telegram Stars sotib olish
+            </div>
+
         </div>
+
 
         <div class="service" onclick="openPage('premiumPage')">
-            <div class="service-title">💎 Premium</div>
-            <div class="service-desc">Telegram Premium sotib olish</div>
+
+            <div class="service-title">
+                💎 Premium
+            </div>
+
+            <div class="service-desc">
+                Telegram Premium sotib olish
+            </div>
+
         </div>
+
 
         <div class="service" onclick="openPage('giftsPage')">
-            <div class="service-title">🎁 Gifts</div>
-            <div class="service-desc">Telegram Gifts</div>
+
+            <div class="service-title">
+                🎁 Gifts
+            </div>
+
+            <div class="service-desc">
+                Telegram Gifts
+            </div>
+
         </div>
+
 
         <div class="service" onclick="openPage('nftPage')">
-            <div class="service-title">🖼 NFT Gifts</div>
-            <div class="service-desc">Collectible / NFT Gifts</div>
+
+            <div class="service-title">
+                🖼 NFT Gifts
+            </div>
+
+            <div class="service-desc">
+                Collectible / NFT Gifts
+            </div>
+
         </div>
+
 
         <div class="service" onclick="openPage('rentalPage')">
-            <div class="service-title">🎁 Gift ijara</div>
-            <div class="service-desc">Gift ijaraga olish</div>
+
+            <div class="service-title">
+                🎁 Gift ijara
+            </div>
+
+            <div class="service-desc">
+                Gift ijaraga olish
+            </div>
+
         </div>
+
 
         <div class="service" onclick="openPage('numberPage')">
-            <div class="service-title">📱 Nomer olish</div>
-            <div class="service-desc">Virtual raqamlar</div>
+
+            <div class="service-title">
+                📱 Nomer olish
+            </div>
+
+            <div class="service-desc">
+                Virtual raqamlar
+            </div>
+
         </div>
 
+
         <div class="service" onclick="topUp()">
-            <div class="service-title">💳 Hisobni to'ldirish</div>
-            <div class="service-desc">Balansni to'ldirish</div>
+
+            <div class="service-title">
+                💳 Hisobni to'ldirish
+            </div>
+
+            <div class="service-desc">
+                Balansni to'ldirish
+            </div>
+
         </div>
 
     </div>
 
 
     <!-- STARS -->
+
     <div id="starsPage" class="page">
 
-        <div class="back" onclick="goHome()">← Orqaga</div>
+        <div class="back" onclick="goHome()">
+            ← Orqaga
+        </div>
 
-        <h2>⭐ Telegram Stars</h2>
+        <h2>
+            ⭐ Telegram Stars
+        </h2>
 
         <input
             id="starsAmount"
@@ -300,17 +707,31 @@
         >
 
         <div class="notice">
-            1 ⭐ = 220 so'm
+            ⭐ 1 Star = 220 so'm
         </div>
 
         <div class="product">
+
             <div class="product-row">
-                <div class="product-name">Jami:</div>
-                <div class="product-price" id="starsTotal">0 so'm</div>
+
+                <div class="product-name">
+                    Jami:
+                </div>
+
+                <div
+                    class="product-price"
+                    id="starsTotal"
+                >
+                    0 so'm
+                </div>
+
             </div>
+
         </div>
 
-        <h3 style="margin:18px 0 12px;">Kimga?</h3>
+        <h3 style="margin:20px 0 12px;">
+            Kimga?
+        </h3>
 
         <input
             id="starsUsername"
@@ -318,7 +739,10 @@
             placeholder="@username yoki Telegram ID"
         >
 
-        <button class="button" onclick="buyStars()">
+        <button
+            class="button"
+            onclick="buyStars()"
+        >
             ⭐ Sotib olish
         </button>
 
@@ -326,19 +750,31 @@
 
 
     <!-- PREMIUM -->
+
     <div id="premiumPage" class="page">
 
-        <div class="back" onclick="goHome()">← Orqaga</div>
-
-        <h2>💎 Telegram Premium</h2>
-
-        <div class="notice">
-            Premium muddatini tanlang:
+        <div class="back" onclick="goHome()">
+            ← Orqaga
         </div>
 
+        <h2>
+            💎 Telegram Premium
+        </h2>
+
+        <div class="notice">
+            💎 Premium muddatini tanlang:
+        </div>
+
+
         <!-- 1 OY -->
-        <div class="product" onclick="selectPremium(this, '1 oy', 50000, true)">
+
+        <div
+            class="product"
+            onclick="selectPremium(this, '1 oy', 50000, true)"
+        >
+
             <div class="product-row">
+
                 <div class="product-name">
                     💎 1 oy
                 </div>
@@ -346,17 +782,25 @@
                 <div class="product-price">
                     50 000 so'm
                 </div>
+
             </div>
 
             <div class="product-note">
                 (Admin orqali)
             </div>
+
         </div>
 
 
         <!-- 3 OY -->
-        <div class="product" onclick="selectPremium(this, '3 oy', 150000, false)">
+
+        <div
+            class="product"
+            onclick="selectPremium(this, '3 oy', 150000, false)"
+        >
+
             <div class="product-row">
+
                 <div class="product-name">
                     💎 3 oy
                 </div>
@@ -364,13 +808,21 @@
                 <div class="product-price">
                     150 000 so'm
                 </div>
+
             </div>
+
         </div>
 
 
         <!-- 6 OY -->
-        <div class="product" onclick="selectPremium(this, '6 oy', 280000, false)">
+
+        <div
+            class="product"
+            onclick="selectPremium(this, '6 oy', 280000, false)"
+        >
+
             <div class="product-row">
+
                 <div class="product-name">
                     💎 6 oy
                 </div>
@@ -378,13 +830,21 @@
                 <div class="product-price">
                     280 000 so'm
                 </div>
+
             </div>
+
         </div>
 
 
         <!-- 12 OY -->
-        <div class="product" onclick="selectPremium(this, '12 oy', 500000, false)">
+
+        <div
+            class="product"
+            onclick="selectPremium(this, '12 oy', 500000, false)"
+        >
+
             <div class="product-row">
+
                 <div class="product-name">
                     💎 12 oy
                 </div>
@@ -392,10 +852,18 @@
                 <div class="product-price">
                     500 000 so'm
                 </div>
+
             </div>
+
         </div>
 
-        <button id="premiumBuyButton" class="button" onclick="buyPremium()" disabled>
+
+        <button
+            id="premiumBuyButton"
+            class="button"
+            onclick="buyPremium()"
+            disabled
+        >
             💎 Muddatni tanlang
         </button>
 
@@ -403,138 +871,296 @@
 
 
     <!-- GIFTS -->
+
     <div id="giftsPage" class="page">
 
-        <div class="back" onclick="goHome()">← Orqaga</div>
-
-        <h2>🎁 Gifts</h2>
-
-        <div class="product">
-            <div class="product-row">
-                <img class="gift-image"
-                     src="https://placehold.co/100x100/png?text=Gift+1">
-
-                <div class="gift-info">
-                    <div class="product-name">🎁 Rose</div>
-                    <div class="product-price">25 000 so'm</div>
-                </div>
-            </div>
+        <div class="back" onclick="goHome()">
+            ← Orqaga
         </div>
 
+        <h2>
+            🎁 Gifts
+        </h2>
+
+
         <div class="product">
+
             <div class="product-row">
-                <img class="gift-image"
-                     src="https://placehold.co/100x100/png?text=Gift+2">
+
+                <img
+                    class="gift-image"
+                    src="https://placehold.co/100x100/png?text=Gift+1"
+                >
 
                 <div class="gift-info">
-                    <div class="product-name">🎁 Heart</div>
-                    <div class="product-price">50 000 so'm</div>
+
+                    <div class="product-name">
+                        🎁 Rose
+                    </div>
+
+                    <div class="product-price">
+                        25 000 so'm
+                    </div>
+
                 </div>
+
             </div>
+
         </div>
 
+
         <div class="product">
+
             <div class="product-row">
-                <img class="gift-image"
-                     src="https://placehold.co/100x100/png?text=Gift+3">
+
+                <img
+                    class="gift-image"
+                    src="https://placehold.co/100x100/png?text=Gift+2"
+                >
 
                 <div class="gift-info">
-                    <div class="product-name">🎁 Star</div>
-                    <div class="product-price">100 000 so'm</div>
+
+                    <div class="product-name">
+                        🎁 Heart
+                    </div>
+
+                    <div class="product-price">
+                        50 000 so'm
+                    </div>
+
                 </div>
+
             </div>
+
         </div>
 
+
         <div class="product">
+
             <div class="product-row">
-                <img class="gift-image"
-                     src="https://placehold.co/100x100/png?text=Gift+4">
+
+                <img
+                    class="gift-image"
+                    src="https://placehold.co/100x100/png?text=Gift+3"
+                >
 
                 <div class="gift-info">
-                    <div class="product-name">🎁 Diamond</div>
-                    <div class="product-price">250 000 so'm</div>
+
+                    <div class="product-name">
+                        🎁 Star
+                    </div>
+
+                    <div class="product-price">
+                        100 000 so'm
+                    </div>
+
                 </div>
+
             </div>
+
+        </div>
+
+
+        <div class="product">
+
+            <div class="product-row">
+
+                <img
+                    class="gift-image"
+                    src="https://placehold.co/100x100/png?text=Gift+4"
+                >
+
+                <div class="gift-info">
+
+                    <div class="product-name">
+                        🎁 Diamond
+                    </div>
+
+                    <div class="product-price">
+                        250 000 so'm
+                    </div>
+
+                </div>
+
+            </div>
+
         </div>
 
     </div>
 
 
     <!-- NFT -->
+
     <div id="nftPage" class="page">
 
-        <div class="back" onclick="goHome()">← Orqaga</div>
-
-        <h2>🖼 NFT Gifts</h2>
-
-        <div class="product">
-            <div class="product-row">
-                <img class="gift-image"
-                     src="https://placehold.co/100x100/png?text=NFT+1">
-
-                <div class="gift-info">
-                    <div class="product-name">🖼 NFT #1</div>
-                    <div class="product-price">500 000 so'm</div>
-                </div>
-            </div>
+        <div class="back" onclick="goHome()">
+            ← Orqaga
         </div>
 
+        <h2>
+            🖼 NFT Gifts
+        </h2>
+
+
         <div class="product">
+
             <div class="product-row">
-                <img class="gift-image"
-                     src="https://placehold.co/100x100/png?text=NFT+2">
+
+                <img
+                    class="gift-image"
+                    src="https://placehold.co/100x100/png?text=NFT+1"
+                >
 
                 <div class="gift-info">
-                    <div class="product-name">🖼 NFT #2</div>
-                    <div class="product-price">1 000 000 so'm</div>
+
+                    <div class="product-name">
+                        🖼 NFT #1
+                    </div>
+
+                    <div class="product-price">
+                        500 000 so'm
+                    </div>
+
                 </div>
+
             </div>
+
         </div>
 
+
         <div class="product">
+
             <div class="product-row">
-                <img class="gift-image"
-                     src="https://placehold.co/100x100/png?text=NFT+3">
+
+                <img
+                    class="gift-image"
+                    src="https://placehold.co/100x100/png?text=NFT+2"
+                >
 
                 <div class="gift-info">
-                    <div class="product-name">🖼 NFT #3</div>
-                    <div class="product-price">2 000 000 so'm</div>
+
+                    <div class="product-name">
+                        🖼 NFT #2
+                    </div>
+
+                    <div class="product-price">
+                        1 000 000 so'm
+                    </div>
+
                 </div>
+
             </div>
+
+        </div>
+
+
+        <div class="product">
+
+            <div class="product-row">
+
+                <img
+                    class="gift-image"
+                    src="https://placehold.co/100x100/png?text=NFT+3"
+                >
+
+                <div class="gift-info">
+
+                    <div class="product-name">
+                        🖼 NFT #3
+                    </div>
+
+                    <div class="product-price">
+                        2 000 000 so'm
+                    </div>
+
+                </div>
+
+            </div>
+
         </div>
 
     </div>
 
 
     <!-- GIFT RENTAL -->
+
     <div id="rentalPage" class="page">
 
-        <div class="back" onclick="goHome()">← Orqaga</div>
-
-        <h2>🎁 Gift ijara</h2>
-
-        <div class="product" onclick="selectRental(this, '1 kun', 20000)">
-            <div class="product-row">
-                <div class="product-name">1 kun</div>
-                <div class="product-price">20 000 so'm</div>
-            </div>
+        <div class="back" onclick="goHome()">
+            ← Orqaga
         </div>
 
-        <div class="product" onclick="selectRental(this, '7 kun', 100000)">
+        <h2>
+            🎁 Gift ijara
+        </h2>
+
+
+        <div
+            class="product"
+            onclick="selectRental(this, '1 kun', 20000)"
+        >
+
             <div class="product-row">
-                <div class="product-name">7 kun</div>
-                <div class="product-price">100 000 so'm</div>
+
+                <div class="product-name">
+                    1 kun
+                </div>
+
+                <div class="product-price">
+                    20 000 so'm
+                </div>
+
             </div>
+
         </div>
 
-        <div class="product" onclick="selectRental(this, '30 kun', 300000)">
+
+        <div
+            class="product"
+            onclick="selectRental(this, '7 kun', 100000)"
+        >
+
             <div class="product-row">
-                <div class="product-name">30 kun</div>
-                <div class="product-price">300 000 so'm</div>
+
+                <div class="product-name">
+                    7 kun
+                </div>
+
+                <div class="product-price">
+                    100 000 so'm
+                </div>
+
             </div>
+
         </div>
 
-        <button id="rentalButton" class="button" onclick="buyRental()" disabled>
+
+        <div
+            class="product"
+            onclick="selectRental(this, '30 kun', 300000)"
+        >
+
+            <div class="product-row">
+
+                <div class="product-name">
+                    30 kun
+                </div>
+
+                <div class="product-price">
+                    300 000 so'm
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <button
+            id="rentalButton"
+            class="button"
+            onclick="buyRental()"
+            disabled
+        >
             🎁 Muddatni tanlang
         </button>
 
@@ -542,73 +1168,214 @@
 
 
     <!-- NUMBER -->
+
     <div id="numberPage" class="page">
 
-        <div class="back" onclick="goHome()">← Orqaga</div>
-
-        <h2>📱 Nomer olish</h2>
-
-        <div class="country" onclick="selectCountry('🇺🇿 O‘zbekiston', '+998')">
-            <div class="country-name">🇺🇿 O‘zbekiston</div>
-            <div class="country-code">+998</div>
+        <div class="back" onclick="goHome()">
+            ← Orqaga
         </div>
 
-        <div class="country" onclick="selectCountry('🇺🇸 AQSH', '+1')">
-            <div class="country-name">🇺🇸 AQSH</div>
-            <div class="country-code">+1</div>
+        <h2>
+            📱 Nomer olish
+        </h2>
+
+
+        <div
+            class="country"
+            onclick="selectCountry('🇺🇿 O‘zbekiston', '+998')"
+        >
+
+            <div class="country-name">
+                🇺🇿 O‘zbekiston
+            </div>
+
+            <div class="country-code">
+                +998
+            </div>
+
         </div>
 
-        <div class="country" onclick="selectCountry('🇬🇧 Buyuk Britaniya', '+44')">
-            <div class="country-name">🇬🇧 Buyuk Britaniya</div>
-            <div class="country-code">+44</div>
+
+        <div
+            class="country"
+            onclick="selectCountry('🇺🇸 AQSH', '+1')"
+        >
+
+            <div class="country-name">
+                🇺🇸 AQSH
+            </div>
+
+            <div class="country-code">
+                +1
+            </div>
+
         </div>
 
-        <div class="country" onclick="selectCountry('🇩🇪 Germaniya', '+49')">
-            <div class="country-name">🇩🇪 Germaniya</div>
-            <div class="country-code">+49</div>
+
+        <div
+            class="country"
+            onclick="selectCountry('🇬🇧 Buyuk Britaniya', '+44')"
+        >
+
+            <div class="country-name">
+                🇬🇧 Buyuk Britaniya
+            </div>
+
+            <div class="country-code">
+                +44
+            </div>
+
         </div>
 
-        <div class="country" onclick="selectCountry('🇹🇷 Turkiya', '+90')">
-            <div class="country-name">🇹🇷 Turkiya</div>
-            <div class="country-code">+90</div>
+
+        <div
+            class="country"
+            onclick="selectCountry('🇩🇪 Germaniya', '+49')"
+        >
+
+            <div class="country-name">
+                🇩🇪 Germaniya
+            </div>
+
+            <div class="country-code">
+                +49
+            </div>
+
         </div>
 
-        <div class="country" onclick="selectCountry('🇰🇷 Janubiy Koreya', '+82')">
-            <div class="country-name">🇰🇷 Janubiy Koreya</div>
-            <div class="country-code">+82</div>
+
+        <div
+            class="country"
+            onclick="selectCountry('🇹🇷 Turkiya', '+90')"
+        >
+
+            <div class="country-name">
+                🇹🇷 Turkiya
+            </div>
+
+            <div class="country-code">
+                +90
+            </div>
+
         </div>
 
-        <div class="country" onclick="selectCountry('🇯🇵 Yaponiya', '+81')">
-            <div class="country-name">🇯🇵 Yaponiya</div>
-            <div class="country-code">+81</div>
+
+        <div
+            class="country"
+            onclick="selectCountry('🇰🇷 Janubiy Koreya', '+82')"
+        >
+
+            <div class="country-name">
+                🇰🇷 Janubiy Koreya
+            </div>
+
+            <div class="country-code">
+                +82
+            </div>
+
         </div>
 
-        <div class="country" onclick="selectCountry('🇫🇷 Fransiya', '+33')">
-            <div class="country-name">🇫🇷 Fransiya</div>
-            <div class="country-code">+33</div>
+
+        <div
+            class="country"
+            onclick="selectCountry('🇯🇵 Yaponiya', '+81')"
+        >
+
+            <div class="country-name">
+                🇯🇵 Yaponiya
+            </div>
+
+            <div class="country-code">
+                +81
+            </div>
+
         </div>
 
-        <div class="country" onclick="selectCountry('🇮🇹 Italiya', '+39')">
-            <div class="country-name">🇮🇹 Italiya</div>
-            <div class="country-code">+39</div>
+
+        <div
+            class="country"
+            onclick="selectCountry('🇫🇷 Fransiya', '+33')"
+        >
+
+            <div class="country-name">
+                🇫🇷 Fransiya
+            </div>
+
+            <div class="country-code">
+                +33
+            </div>
+
         </div>
 
-        <div class="country" onclick="selectCountry('🇦🇪 BAA', '+971')">
-            <div class="country-name">🇦🇪 BAA</div>
-            <div class="country-code">+971</div>
+
+        <div
+            class="country"
+            onclick="selectCountry('🇮🇹 Italiya', '+39')"
+        >
+
+            <div class="country-name">
+                🇮🇹 Italiya
+            </div>
+
+            <div class="country-code">
+                +39
+            </div>
+
         </div>
 
-        <div class="country" onclick="selectCountry('🇰🇿 Qozog‘iston', '+7')">
-            <div class="country-name">🇰🇿 Qozog‘iston</div>
-            <div class="country-code">+7</div>
+
+        <div
+            class="country"
+            onclick="selectCountry('🇦🇪 BAA', '+971')"
+        >
+
+            <div class="country-name">
+                🇦🇪 BAA
+            </div>
+
+            <div class="country-code">
+                +971
+            </div>
+
         </div>
 
-        <div class="country" onclick="selectCountry('🇷🇺 Rossiya', '+7')">
-            <div class="country-name">🇷🇺 Rossiya</div>
-            <div class="country-code">+7</div>
+
+        <div
+            class="country"
+            onclick="selectCountry('🇰🇿 Qozog‘iston', '+7')"
+        >
+
+            <div class="country-name">
+                🇰🇿 Qozog‘iston
+            </div>
+
+            <div class="country-code">
+                +7
+            </div>
+
         </div>
 
-        <div id="countryResult" class="result"></div>
+
+        <div
+            class="country"
+            onclick="selectCountry('🇷🇺 Rossiya', '+7')"
+        >
+
+            <div class="country-name">
+                🇷🇺 Rossiya
+            </div>
+
+            <div class="country-code">
+                +7
+            </div>
+
+        </div>
+
+
+        <div
+            id="countryResult"
+            class="result"
+        ></div>
 
     </div>
 
@@ -622,17 +1389,24 @@
     tg.ready();
     tg.expand();
 
+
     let selectedPremium = null;
     let selectedRental = null;
 
 
+    /* PAGE */
+
     function openPage(pageId) {
 
-        document.querySelectorAll(".page").forEach(page => {
-            page.classList.remove("active");
-        });
+        document
+            .querySelectorAll(".page")
+            .forEach(page => {
+                page.classList.remove("active");
+            });
 
-        document.getElementById(pageId).classList.add("active");
+        document
+            .getElementById(pageId)
+            .classList.add("active");
 
         window.scrollTo(0, 0);
     }
@@ -640,20 +1414,28 @@
 
     function goHome() {
 
-        document.querySelectorAll(".page").forEach(page => {
-            page.classList.remove("active");
-        });
+        document
+            .querySelectorAll(".page")
+            .forEach(page => {
+                page.classList.remove("active");
+            });
 
-        document.getElementById("homePage").classList.add("active");
+        document
+            .getElementById("homePage")
+            .classList.add("active");
 
         window.scrollTo(0, 0);
     }
 
 
+    /* STARS */
+
     function calculateStars() {
 
         const amount =
-            Number(document.getElementById("starsAmount").value) || 0;
+            Number(
+                document.getElementById("starsAmount").value
+            ) || 0;
 
         const total = amount * 220;
 
@@ -665,20 +1447,32 @@
     function buyStars() {
 
         const amount =
-            Number(document.getElementById("starsAmount").value);
+            Number(
+                document.getElementById("starsAmount").value
+            );
 
         const username =
-            document.getElementById("starsUsername").value.trim();
+            document
+                .getElementById("starsUsername")
+                .value
+                .trim();
+
 
         if (!amount || amount < 1) {
+
             alert("⭐ Stars sonini kiriting!");
+
             return;
         }
 
+
         if (!username) {
+
             alert("👤 Kimga yuborilishini kiriting!");
+
             return;
         }
+
 
         alert(
             "⭐ Buyurtma:\n\n" +
@@ -691,12 +1485,24 @@
     }
 
 
-    function selectPremium(element, name, price, admin) {
+    /* PREMIUM */
 
-        document.querySelectorAll("#premiumPage .product")
-            .forEach(item => item.classList.remove("selected"));
+    function selectPremium(
+        element,
+        name,
+        price,
+        admin
+    ) {
+
+        document
+            .querySelectorAll("#premiumPage .product")
+            .forEach(item => {
+                item.classList.remove("selected");
+            });
+
 
         element.classList.add("selected");
+
 
         selectedPremium = {
             name: name,
@@ -704,25 +1510,42 @@
             admin: admin
         };
 
+
         const button =
-            document.getElementById("premiumBuyButton");
+            document.getElementById(
+                "premiumBuyButton"
+            );
+
 
         button.disabled = false;
 
+
         if (admin) {
-            button.innerText = "👨‍💻 Admin orqali buyurtma";
+
+            button.innerText =
+                "👨‍💻 Admin orqali buyurtma";
+
         } else {
-            button.innerText = "💎 Sotib olish";
+
+            button.innerText =
+                "💎 Sotib olish";
+
         }
+
     }
 
 
     function buyPremium() {
 
         if (!selectedPremium) {
-            alert("💎 Avval Premium muddatini tanlang!");
+
+            alert(
+                "💎 Avval Premium muddatini tanlang!"
+            );
+
             return;
         }
+
 
         if (selectedPremium.admin) {
 
@@ -738,86 +1561,112 @@
                 "💎 Buyurtma:\n\n" +
                 selectedPremium.name +
                 "\n" +
-                selectedPremium.price.toLocaleString("uz-UZ") +
+                selectedPremium.price
+                    .toLocaleString("uz-UZ") +
                 " so'm"
             );
+
         }
+
     }
 
 
-    function selectRental(element, name, price) {
+    /* RENTAL */
 
-        document.querySelectorAll("#rentalPage .product")
-            .forEach(item => item.classList.remove("selected"));
+    function selectRental(
+        element,
+        name,
+        price
+    ) {
+
+        document
+            .querySelectorAll("#rentalPage .product")
+            .forEach(item => {
+                item.classList.remove("selected");
+            });
+
 
         element.classList.add("selected");
+
 
         selectedRental = {
             name: name,
             price: price
         };
 
+
         const button =
-            document.getElementById("rentalButton");
+            document.getElementById(
+                "rentalButton"
+            );
+
 
         button.disabled = false;
-        button.innerText = "🎁 Sotib olish";
+
+        button.innerText =
+            "🎁 Sotib olish";
     }
 
 
     function buyRental() {
 
         if (!selectedRental) {
-            alert("🎁 Avval muddatni tanlang!");
+
+            alert(
+                "🎁 Avval muddatni tanlang!"
+            );
+
             return;
         }
+
 
         alert(
             "🎁 Gift ijara:\n\n" +
             selectedRental.name +
             "\n" +
-            selectedRental.price.toLocaleString("uz-UZ") +
+            selectedRental.price
+                .toLocaleString("uz-UZ") +
             " so'm"
         );
     }
 
 
-    function selectCountry(name, code) {
+    /* COUNTRY */
+
+    function selectCountry(
+        name,
+        code
+    ) {
 
         const result =
-            document.getElementById("countryResult");
+            document.getElementById(
+                "countryResult"
+            );
 
-        result.style.display = "block";
+
+        result.style.display =
+            "block";
+
 
         result.innerHTML =
-            "<b>" + name + "</b><br><br>" +
-            "📱 Kod: " + code +
+            "<b>" +
+            name +
+            "</b>" +
+            "<br><br>" +
+            "📱 Kod: " +
+            code +
             "<br><br>" +
             "Nomer tanlash keyingi bosqichda ulanadi.";
     }
 
 
+    /* BALANCE */
+
     function topUp() {
 
         alert(
-            "💳 Balansni to'ldirish tizimi API va to'lov tizimi ulangandan keyin ishlaydi."
+            "💳 Balansni to'ldirish tizimi to'lov tizimi ulangandan keyin ishlaydi."
         );
-    }
-
-
-    // Telegram username
-    if (tg.initDataUnsafe &&
-        tg.initDataUnsafe.user) {
-
-        const user =
-            tg.initDataUnsafe.user;
-
-        document.getElementById("username").innerText =
-            "@" + (
-                user.username ||
-                user.first_name ||
-                "user"
-            );
     }
 
 </script>
