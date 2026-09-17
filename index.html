@@ -1,13 +1,409 @@
 <!DOCTYPE html>
-<html>
+<html lang="uz">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JV Stars</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            user-select: none;
+        }
+
+        body {
+            background: #0b1526;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+            padding: 20px 16px;
+        }
+
+        .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .bot-name {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            background: linear-gradient(90deg, #2aabee, #229ed9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .balance {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+        }
+
+        .title {
+            font-size: 26px;
+            font-weight: 800;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .subtitle {
+            color: #8397b0;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .services {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .service {
+            background: linear-gradient(145deg, #12233c, #0d1b2e);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .service:active {
+            transform: scale(0.96);
+            border-color: #2aabee;
+        }
+
+        .icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+
+        .service-name {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .service-desc {
+            color: #7187a1;
+            font-size: 12px;
+            line-height: 1.3;
+        }
+
+        .panel {
+            display: none;
+            animation: fadeIn 0.25s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .back {
+            background: rgba(255, 255, 255, 0.08);
+            border: none;
+            color: #2aabee;
+            padding: 10px 16px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .product {
+            background: #12233c;
+            border: 1.5px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+
+        .product.selected {
+            border-color: #2aabee;
+            background: rgba(42, 171, 238, 0.1);
+        }
+
+        .product-left {
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .product-right {
+            color: #2aabee;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        input {
+            width: 100%;
+            background: #12233c;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: white;
+            padding: 16px;
+            border-radius: 16px;
+            margin: 16px 0;
+            outline: none;
+            font-size: 15px;
+        }
+
+        input:focus {
+            border-color: #2aabee;
+        }
+
+        input::placeholder {
+            color: #5c728c;
+        }
+
+        .buy {
+            width: 100%;
+            background: linear-gradient(135deg, #2aabee, #229ed9);
+            border: none;
+            color: white;
+            padding: 16px;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(42, 171, 238, 0.3);
+        }
+
+        .buy:active {
+            transform: scale(0.98);
+        }
+
+        .deposit {
+            width: 100%;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: white;
+            padding: 14px;
+            border-radius: 16px;
+            margin-top: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .notice {
+            margin-top: 24px;
+            background: rgba(255, 255, 255, 0.03);
+            border-left: 3px solid #2aabee;
+            border-radius: 0 12px 12px 0;
+            padding: 12px 16px;
+            color: #8397b0;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+    </style>
 </head>
+
 <body>
 
-    <h1>JV Stars</h1>
-    <p>Mini App ishlayapti 🚀</p>
+<div class="container">
+
+    <div class="top">
+        <div class="bot-name">@jvstarsbot</div>
+        <div class="balance">💰 0 so'm</div>
+    </div>
+
+    <!-- ASOSIY MENYU -->
+    <div id="home">
+        <div class="title">JV Stars 🚀</div>
+        <div class="subtitle">Kerakli xizmatni tanlang</div>
+
+        <div class="services">
+            <div class="service" onclick="openService('stars')">
+                <div class="icon">⭐</div>
+                <div class="service-name">Stars</div>
+                <div class="service-desc">Telegram Stars to'ldirish</div>
+            </div>
+
+            <div class="service" onclick="openService('premium')">
+                <div class="icon">💎</div>
+                <div class="service-name">Premium</div>
+                <div class="service-desc">TG Premium obuna</div>
+            </div>
+
+            <div class="service" onclick="openService('numbers')">
+                <div class="icon">📱</div>
+                <div class="service-name">Nomer Olish</div>
+                <div class="service-desc">Anonim & Virtual raqamlar</div>
+            </div>
+
+            <div class="service" onclick="openService('gifts')">
+                <div class="icon">🎁</div>
+                <div class="service-name">Gifts</div>
+                <div class="service-desc">Telegram sovg'alar</div>
+            </div>
+
+            <div class="service" onclick="openService('nft')">
+                <div class="icon">🖼️</div>
+                <div class="service-name">NFT Gifts</div>
+                <div class="service-desc">Collectible nodir sovag'alar</div>
+            </div>
+
+            <div class="service" onclick="openService('rental')">
+                <div class="icon">🔑</div>
+                <div class="service-name">Gift ijara</div>
+                <div class="service-desc">Vaqtincha foydalanish</div>
+            </div>
+        </div>
+
+        <div class="notice">
+            🔒 Xavfsiz va avtomatik yetkazib berish xizmati.
+        </div>
+    </div>
+
+    <!-- XIZMAT OYNASI -->
+    <div id="servicePanel" class="panel">
+        <button class="back" onclick="goHome()">← Orqaga</button>
+
+        <div class="title" id="serviceTitle">⭐ Stars</div>
+        <div class="subtitle" id="serviceSubtitle">Tarifni tanlang</div>
+
+        <div id="products"></div>
+
+        <input type="text" id="username" placeholder="@username kiritiring">
+
+        <button class="buy" onclick="buy()">🛒 Sotib olish</button>
+        <button class="deposit" onclick="deposit()">💳 Hisobni to‘ldirish</button>
+    </div>
+
+</div>
+
+<script>
+    const productsData = {
+        stars: [
+            { name: "⭐ 50 Stars", price: "11 000 so'm" },
+            { name: "⭐ 100 Stars", price: "21 000 so'm" },
+            { name: "⭐ 250 Stars", price: "50 000 so'm" },
+            { name: "⭐ 500 Stars", price: "98 000 so'm" }
+        ],
+        premium: [
+            { name: "💎 Premium 3 Oy", price: "165 000 so'm" },
+            { name: "💎 Premium 6 Oy", price: "225 000 so'm" },
+            { name: "💎 Premium 12 Oy", price: "390 000 so'm" }
+        ],
+        numbers: [
+            { name: "📱 Fragment Virtual (+888)", price: "120 000 so'm" },
+            { name: "📱 SMS Qabul Raqam (AQSH)", price: "25 000 so'm" },
+            { name: "📱 SMS Qabul Raqam (RU)", price: "30 000 so'm" }
+        ],
+        gifts: [
+            { name: "🎁 Muvaffaqiyat ayiqchasi", price: "15 000 so me" },
+            { name: "🎁 Yurakcha Sovg'a", price: "20 000 so'm" }
+        ],
+        nft: [
+            { name: "🖼️ Rare Telegram NFT #1024", price: "450 000 so'm" }
+        ],
+        rental: [
+            { name: "🔑 NFT Gift 1 Haftalik Ijara", price: "50 000 so'm" }
+        ]
+    };
+
+    let selectedProduct = null;
+
+    function openService(service) {
+        document.getElementById("home").style.display = "none";
+        document.getElementById("servicePanel").style.display = "block";
+
+        const title = document.getElementById("serviceTitle");
+        const subtitle = document.getElementById("serviceSubtitle");
+        const productsContainer = document.getElementById("products");
+
+        const titles = {
+            stars: ["⭐ Stars", "Stars miqdorini tanlang"],
+            premium: ["💎 Premium", "Tarif muddatini tanlang"],
+            numbers: ["📱 Nomer Olish", "Raqam turini tanlang"],
+            gifts: ["🎁 Gifts", "Sovg'ani tanlang"],
+            nft: ["🖼️ NFT Gifts", "Eksklyuziv sovg'ani tanlang"],
+            rental: ["🔑 Gift ijara", "Ijara muddatini tanlang"]
+        };
+
+        if (titles[service]) {
+            title.innerText = titles[service][0];
+            subtitle.innerText = titles[service][1];
+        }
+
+        productsContainer.innerHTML = "";
+        selectedProduct = null;
+
+        const list = productsData[service] || [];
+        list.forEach((prod, index) => {
+            const div = document.createElement("div");
+            div.className = "product";
+            div.onclick = () => selectProduct(div, prod);
+            div.innerHTML = `
+                <div class="product-left">${prod.name}</div>
+                <div class="product-right">${prod.price}</div>
+            `;
+            productsContainer.appendChild(div);
+        });
+    }
+
+    function selectProduct(element, product) {
+        document.querySelectorAll(".product").forEach(el => el.classList.remove("selected"));
+        element.classList.add("selected");
+        selectedProduct = product;
+    }
+
+    function goHome() {
+        document.getElementById("servicePanel").style.display = "none";
+        document.getElementById("home").style.display = "block";
+    }
+
+    function buy() {
+        const username = document.getElementById("username").value;
+
+        if (!selectedProduct) {
+            alert("❗ Iltimos, avval tarifni tanlang!");
+            return;
+        }
+
+        if (username.trim() === "") {
+            alert("❗ Avval @username kiriting!");
+            return;
+        }
+
+        alert(`✅ Buyurtma qabul qilindi!\n\n📦 Tanlandi: ${selectedProduct.name}\n👤 Qabul qiluvchi: ${username}\n\n💳 To‘lov sahifasiga yo‘naltirilmoqda...`);
+    }
+
+    function deposit() {
+        alert("💳 Hisobni to‘ldirish tizimi tez arada ishga tushadi.");
+    }
+
+    // URL orqali to'g'ri bo'limni ochish
+    window.onload = function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const serviceParam = urlParams.get('service');
+        if (serviceParam) {
+            openService(serviceParam);
+        }
+    }
+</script>
 
 </body>
 </html>
