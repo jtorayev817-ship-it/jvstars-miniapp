@@ -62,12 +62,6 @@ body {
     margin-top: 5px;
 }
 
-button {
-    border: none;
-    cursor: pointer;
-    color: white;
-}
-
 .section {
     display: none;
 }
@@ -81,6 +75,7 @@ button {
     padding: 10px 15px;
     border-radius: 10px;
     margin-bottom: 15px;
+    color: white;
 }
 
 h2 {
@@ -127,12 +122,22 @@ input:focus {
     border-radius: 9px;
     margin-top: 8px;
     width: 100%;
+    color: white;
 }
 
 .price {
     color: #55b5ff;
     font-weight: bold;
     margin-top: 8px;
+}
+
+.total {
+    margin-top: 12px;
+    padding: 12px;
+    background: #081a2b;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: bold;
 }
 
 .stars-options {
@@ -148,6 +153,7 @@ input:focus {
     padding: 11px 5px;
     border-radius: 10px;
     font-weight: bold;
+    color: white;
 }
 
 .star-option.selected {
@@ -155,16 +161,6 @@ input:focus {
     border-color: #1687f7;
 }
 
-.total {
-    margin-top: 12px;
-    padding: 12px;
-    background: #081a2b;
-    border-radius: 10px;
-    font-size: 18px;
-    font-weight: bold;
-}
-
-/* 2 ta mahsulot bir qatorda */
 .products {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -206,58 +202,33 @@ input:focus {
     padding: 9px 5px;
     border-radius: 8px;
     margin-top: 8px;
+    color: white;
 }
 
-.rental-box {
-    text-align: center;
-}
-
-.rental-box img {
-    width: 100%;
-    max-width: 260px;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
-    border-radius: 15px;
-}
-
-.daily-price {
-    font-size: 18px;
-    color: #55b5ff;
-    font-weight: bold;
-    margin: 10px 0;
-}
-
-.days-row {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-}
-
-.days-row input {
-    margin-top: 0;
+.rental-days {
+    margin-top: 8px;
 }
 
 .day-buttons {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 7px;
-    margin-top: 10px;
+    gap: 6px;
+    margin-top: 8px;
 }
 
 .day-btn {
     background: #112b45;
-    padding: 10px 5px;
+    padding: 9px 4px;
     border-radius: 8px;
+    color: white;
 }
 
-.country {
-    background: #0c1d30;
-    border: 1px solid #193a55;
-    padding: 13px;
-    border-radius: 12px;
-    margin-bottom: 8px;
-    display: flex;
-    justify-content: space-between;
+.rental-total {
+    background: #081a2b;
+    border-radius: 9px;
+    padding: 9px;
+    margin-top: 8px;
+    font-weight: bold;
 }
 
 .home-services {
@@ -272,13 +243,21 @@ input:focus {
     padding: 18px 8px;
     border-radius: 13px;
     font-size: 15px;
+    color: white;
 }
 
-.service-btn:hover {
-    background: #12324e;
+.country {
+    background: #0c1d30;
+    border: 1px solid #193a55;
+    padding: 13px;
+    border-radius: 12px;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
 }
 
 @media (max-width: 400px) {
+
     .stars-options {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -296,7 +275,11 @@ input:focus {
 
 <div class="header">
     <div class="logo">🚀 JV Stars</div>
-    <a class="bot-link" href="https://t.me/jvstarsbot" target="_blank">@jvstarsbot</a>
+    <a class="bot-link"
+       href="https://t.me/jvstarsbot"
+       target="_blank">
+       @jvstarsbot
+    </a>
 </div>
 
 <div class="balance">
@@ -306,37 +289,45 @@ input:focus {
 
 
 <!-- HOME -->
+
 <div id="home" class="section active">
 
     <div class="home-services">
 
-        <button class="service-btn" onclick="showSection('stars')">
+        <button class="service-btn"
+                onclick="showSection('stars')">
             ⭐ Stars
         </button>
 
-        <button class="service-btn" onclick="showSection('premium')">
+        <button class="service-btn"
+                onclick="showSection('premium')">
             💎 Premium
         </button>
 
-        <button class="service-btn" onclick="showSection('gifts')">
+        <button class="service-btn"
+                onclick="showSection('gifts')">
             🎁 Gifts
         </button>
 
-        <button class="service-btn" onclick="showSection('nft')">
+        <button class="service-btn"
+                onclick="showSection('nft')">
             🖼 NFT Gifts
         </button>
 
-        <button class="service-btn" onclick="showSection('rental')">
+        <button class="service-btn"
+                onclick="showSection('rental')">
             🎁 Gift ijara
         </button>
 
-        <button class="service-btn" onclick="showSection('numbers')">
+        <button class="service-btn"
+                onclick="showSection('numbers')">
             📱 Nomer olish
         </button>
 
     </div>
 
-    <button class="primary" onclick="alert('💳 Hisob to‘ldirish hozircha demo.')">
+    <button class="primary"
+            onclick="alert('💳 Hisob to‘ldirish hozircha demo.')">
         💳 Hisobni to‘ldirish
     </button>
 
@@ -344,9 +335,13 @@ input:focus {
 
 
 <!-- STARS -->
+
 <div id="stars" class="section">
 
-<button class="back-btn" onclick="showSection('home')">← Orqaga</button>
+<button class="back-btn"
+        onclick="showSection('home')">
+    ← Orqaga
+</button>
 
 <h2>⭐ Telegram Stars</h2>
 
@@ -356,14 +351,45 @@ input:focus {
 
 <div class="stars-options">
 
-<button class="star-option" onclick="selectStars(50,this)">50</button>
-<button class="star-option" onclick="selectStars(100,this)">100</button>
-<button class="star-option" onclick="selectStars(150,this)">150</button>
-<button class="star-option" onclick="selectStars(200,this)">200</button>
-<button class="star-option" onclick="selectStars(300,this)">300</button>
-<button class="star-option" onclick="selectStars(400,this)">400</button>
-<button class="star-option" onclick="selectStars(500,this)">500</button>
-<button class="star-option" onclick="selectStars(1000,this)">1000</button>
+<button class="star-option"
+        onclick="selectStars(50,this)">
+50
+</button>
+
+<button class="star-option"
+        onclick="selectStars(100,this)">
+100
+</button>
+
+<button class="star-option"
+        onclick="selectStars(150,this)">
+150
+</button>
+
+<button class="star-option"
+        onclick="selectStars(200,this)">
+200
+</button>
+
+<button class="star-option"
+        onclick="selectStars(300,this)">
+300
+</button>
+
+<button class="star-option"
+        onclick="selectStars(400,this)">
+400
+</button>
+
+<button class="star-option"
+        onclick="selectStars(500,this)">
+500
+</button>
+
+<button class="star-option"
+        onclick="selectStars(1000,this)">
+1000
+</button>
 
 </div>
 
@@ -383,18 +409,26 @@ input:focus {
 </div>
 
 <div class="total">
-Jami: <span id="starTotal">0</span> so'm
+Jami:
+<span id="starTotal">0</span>
+so'm
 </div>
 
 <label>Kimga?</label>
 
-<input id="starsRecipient" type="text" placeholder="@username">
+<input
+    id="starsRecipient"
+    type="text"
+    placeholder="@username"
+>
 
-<button class="self-btn" onclick="setMyUsername('starsRecipient')">
+<button class="self-btn"
+        onclick="setMyUsername('starsRecipient')">
 👤 O'zimga
 </button>
 
-<button class="primary" onclick="buyStars()">
+<button class="primary"
+        onclick="buyStars()">
 ⭐ Sotib olish
 </button>
 
@@ -403,49 +437,64 @@ Jami: <span id="starTotal">0</span> so'm
 
 
 <!-- PREMIUM -->
+
 <div id="premium" class="section">
 
-<button class="back-btn" onclick="showSection('home')">← Orqaga</button>
+<button class="back-btn"
+        onclick="showSection('home')">
+    ← Orqaga
+</button>
 
 <h2>💎 Telegram Premium</h2>
 
 <div class="card">
 
-<button class="service-btn" style="width:100%;margin-bottom:8px"
-onclick="selectPremium(1,50000)">
+<button class="service-btn"
+        style="width:100%;margin-bottom:8px"
+        onclick="selectPremium(1,50000)">
 1 oy — 50 000 so'm
 <br>
 <small>(Admin orqali)</small>
 </button>
 
-<button class="service-btn" style="width:100%;margin-bottom:8px"
-onclick="selectPremium(3,150000)">
+<button class="service-btn"
+        style="width:100%;margin-bottom:8px"
+        onclick="selectPremium(3,150000)">
 3 oy — 150 000 so'm
 </button>
 
-<button class="service-btn" style="width:100%;margin-bottom:8px"
-onclick="selectPremium(6,280000)">
+<button class="service-btn"
+        style="width:100%;margin-bottom:8px"
+        onclick="selectPremium(6,280000)">
 6 oy — 280 000 so'm
 </button>
 
-<button class="service-btn" style="width:100%"
-onclick="selectPremium(12,500000)">
+<button class="service-btn"
+        style="width:100%"
+        onclick="selectPremium(12,500000)">
 12 oy — 500 000 so'm
 </button>
 
 <div class="total">
-Tanlangan: <span id="premiumInfo">-</span>
+Tanlangan:
+<span id="premiumInfo">-</span>
 </div>
 
 <label>Kimga?</label>
 
-<input id="premiumRecipient" type="text" placeholder="@username">
+<input
+    id="premiumRecipient"
+    type="text"
+    placeholder="@username"
+>
 
-<button class="self-btn" onclick="setMyUsername('premiumRecipient')">
+<button class="self-btn"
+        onclick="setMyUsername('premiumRecipient')">
 👤 O'zimga
 </button>
 
-<button class="primary" onclick="buyPremium()">
+<button class="primary"
+        onclick="buyPremium()">
 💎 Sotib olish
 </button>
 
@@ -454,94 +503,71 @@ Tanlangan: <span id="premiumInfo">-</span>
 
 
 <!-- GIFTS -->
+
 <div id="gifts" class="section">
 
-<button class="back-btn" onclick="showSection('home')">← Orqaga</button>
+<button class="back-btn"
+        onclick="showSection('home')">
+    ← Orqaga
+</button>
 
 <h2>🎁 Gifts</h2>
 
-<div class="products" id="giftsProducts"></div>
+<div class="products"
+     id="giftsProducts">
+</div>
 
 </div>
 
 
-<!-- NFT -->
+<!-- NFT GIFTS -->
+
 <div id="nft" class="section">
 
-<button class="back-btn" onclick="showSection('home')">← Orqaga</button>
+<button class="back-btn"
+        onclick="showSection('home')">
+    ← Orqaga
+</button>
 
 <h2>🖼 NFT Gifts</h2>
 
-<div class="products" id="nftProducts"></div>
+<div class="products"
+     id="nftProducts">
+</div>
 
 </div>
 
 
-<!-- RENTAL -->
+<!-- GIFT IJARA -->
+
 <div id="rental" class="section">
 
-<button class="back-btn" onclick="showSection('home')">← Orqaga</button>
+<button class="back-btn"
+        onclick="showSection('home')">
+    ← Orqaga
+</button>
 
 <h2>🎁 Gift ijara</h2>
 
-<div class="card rental-box">
+<p style="color:#9eb4ca;">
+Kerakli giftni tanlang:
+</p>
 
-<img
-src="https://images.unsplash.com/photo-1512909006721-3d6018887383?auto=format&fit=crop&w=600&q=80"
->
-
-<div class="daily-price">
-10 000 so'm / kun
+<div class="products"
+     id="rentalProducts">
 </div>
 
-<label>Necha kun?</label>
-
-<div class="days-row">
-
-<input
-id="rentalDays"
-type="number"
-min="1"
-step="1"
-value="1"
-oninput="calculateRental()"
->
-
-</div>
-
-<div class="day-buttons">
-
-<button class="day-btn" onclick="setDays(1)">1</button>
-<button class="day-btn" onclick="setDays(7)">7</button>
-<button class="day-btn" onclick="setDays(30)">30</button>
-<button class="day-btn" onclick="setDays(365)">365</button>
-
-</div>
-
-<div class="total">
-Jami: <span id="rentalTotal">10 000</span> so'm
-</div>
-
-<label>Kimga?</label>
-
-<input id="rentalRecipient" type="text" placeholder="@username">
-
-<button class="self-btn" onclick="setMyUsername('rentalRecipient')">
-👤 O'zimga
-</button>
-
-<button class="primary" onclick="buyRental()">
-🎁 Ijaraga olish
-</button>
-
-</div>
 </div>
 
 
 <!-- NUMBERS -->
+
 <div id="numbers" class="section">
 
-<button class="back-btn" onclick="showSection('home')">← Orqaga</button>
+<button class="back-btn"
+        onclick="showSection('home')">
+    ← Orqaga
+</button>
 
 <h2>📱 Nomer olish</h2>
 
@@ -598,15 +624,19 @@ tg.ready();
 tg.expand();
 
 
-/* NAVIGATION */
+/* =========================
+   NAVIGATION
+========================= */
 
 function showSection(id) {
 
-    document.querySelectorAll(".section").forEach(section => {
-        section.classList.remove("active");
-    });
+    document.querySelectorAll(".section")
+        .forEach(section => {
+            section.classList.remove("active");
+        });
 
-    document.getElementById(id).classList.add("active");
+    document.getElementById(id)
+        .classList.add("active");
 
     window.scrollTo({
         top: 0,
@@ -615,7 +645,9 @@ function showSection(id) {
 }
 
 
-/* USERNAME */
+/* =========================
+   USERNAME
+========================= */
 
 function getTelegramUsername() {
 
@@ -628,6 +660,7 @@ function getTelegramUsername() {
     return "";
 }
 
+
 function setMyUsername(inputId) {
 
     const username = getTelegramUsername();
@@ -636,188 +669,450 @@ function setMyUsername(inputId) {
 
         alert(
             "Telegram profilingizda username yo'q.\n\n" +
-            "Avval Telegram Settings → Username orqali username qo'ying."
+            "Telegram Settings → Username orqali username qo'ying."
         );
 
         return;
     }
 
-    document.getElementById(inputId).value = username;
+    document.getElementById(inputId).value =
+        username;
 }
 
 
-/* STARS */
+/* =========================
+   STARS
+========================= */
 
 const STAR_PRICE = 220;
 
 let selectedStars = 0;
 
+
 function selectStars(amount, button) {
 
     selectedStars = amount;
 
-    document.getElementById("customStars").value = "";
+    document.getElementById("customStars")
+        .value = "";
 
-    document.querySelectorAll(".star-option").forEach(btn => {
-        btn.classList.remove("selected");
-    });
+    document.querySelectorAll(".star-option")
+        .forEach(btn => {
+            btn.classList.remove("selected");
+        });
 
     button.classList.add("selected");
 
     updateStarsTotal();
 }
 
+
 function customStarInput() {
 
-    const input = document.getElementById("customStars");
+    const input =
+        document.getElementById("customStars");
 
-    let value = parseInt(input.value);
+    let value =
+        parseInt(input.value);
 
-    if (isNaN(value) || value < 1) {
+    if (
+        isNaN(value) ||
+        value < 1
+    ) {
+
         selectedStars = 0;
+
     } else {
 
-        selectedStars = value;
+        selectedStars = Math.floor(value);
 
-        document.querySelectorAll(".star-option").forEach(btn => {
-            btn.classList.remove("selected");
-        });
+        input.value = selectedStars;
+
+        document.querySelectorAll(".star-option")
+            .forEach(btn => {
+                btn.classList.remove("selected");
+            });
     }
 
     updateStarsTotal();
 }
 
+
 function updateStarsTotal() {
 
-    const total = selectedStars * STAR_PRICE;
+    const total =
+        selectedStars * STAR_PRICE;
 
-    document.getElementById("starTotal").textContent =
-        total.toLocaleString("en-US").replace(/,/g, " ");
+    document.getElementById("starTotal")
+        .textContent =
+        total.toLocaleString("en-US")
+             .replace(/,/g, " ");
 }
+
 
 function buyStars() {
 
     if (selectedStars < 1) {
-        alert("❌ Avval Stars miqdorini tanlang.");
+
+        alert(
+            "❌ Avval Stars miqdorini tanlang."
+        );
+
         return;
     }
 
     const recipient =
-        document.getElementById("starsRecipient").value.trim();
+        document.getElementById(
+            "starsRecipient"
+        ).value.trim();
 
     if (!recipient) {
-        alert("❌ Kimga yuborilishini kiriting.");
+
+        alert(
+            "❌ Kimga yuborilishini kiriting."
+        );
+
         return;
     }
 
     alert(
         "⭐ Stars buyurtmasi\n\n" +
-        "Miqdor: " + selectedStars + "\n" +
-        "Kimga: " + recipient + "\n" +
+        "Miqdor: " +
+        selectedStars + "\n" +
+        "Kimga: " +
+        recipient + "\n" +
         "Narx: " +
-        (selectedStars * STAR_PRICE).toLocaleString("en-US").replace(/,/g, " ") +
+        formatMoney(
+            selectedStars * STAR_PRICE
+        ) +
         " so'm"
     );
 }
 
 
-/* PREMIUM */
+/* =========================
+   PREMIUM
+========================= */
 
 let selectedPremiumMonths = 0;
 let selectedPremiumPrice = 0;
 
+
 function selectPremium(months, price) {
 
-    selectedPremiumMonths = months;
-    selectedPremiumPrice = price;
+    selectedPremiumMonths =
+        months;
 
-    document.getElementById("premiumInfo").textContent =
-        months + " oy — " +
-        price.toLocaleString("en-US").replace(/,/g, " ") +
+    selectedPremiumPrice =
+        price;
+
+    document.getElementById(
+        "premiumInfo"
+    ).textContent =
+        months +
+        " oy — " +
+        formatMoney(price) +
         " so'm";
 }
+
 
 function buyPremium() {
 
     if (!selectedPremiumMonths) {
-        alert("❌ Premium muddatini tanlang.");
+
+        alert(
+            "❌ Premium muddatini tanlang."
+        );
+
         return;
     }
 
     const recipient =
-        document.getElementById("premiumRecipient").value.trim();
+        document.getElementById(
+            "premiumRecipient"
+        ).value.trim();
 
     if (!recipient) {
-        alert("❌ Kimga yuborilishini kiriting.");
+
+        alert(
+            "❌ Kimga yuborilishini kiriting."
+        );
+
         return;
     }
 
     alert(
         "💎 Premium buyurtmasi\n\n" +
-        selectedPremiumMonths + " oy\n" +
-        "Kimga: " + recipient + "\n" +
+        selectedPremiumMonths +
+        " oy\n" +
+        "Kimga: " +
+        recipient +
+        "\n" +
         "Narx: " +
-        selectedPremiumPrice.toLocaleString("en-US").replace(/,/g, " ") +
+        formatMoney(
+            selectedPremiumPrice
+        ) +
         " so'm"
     );
 }
 
 
-/* PRODUCTS */
+/* =========================
+   GIFTS
+========================= */
 
 const giftProducts = [
 
-    ["Gift 1", "25 000", "https://images.unsplash.com/photo-1512909006721-3d6018887383?auto=format&fit=crop&w=500&q=80"],
-    ["Gift 2", "35 000", "https://images.unsplash.com/photo-1513883049090-d0b7439799bf?auto=format&fit=crop&w=500&q=80"],
-    ["Gift 3", "45 000", "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=500&q=80"],
-    ["Gift 4", "55 000", "https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=500&q=80"],
-    ["Gift 5", "65 000", "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=500&q=80"],
-    ["Gift 6", "75 000", "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=500&q=80"],
-    ["Gift 7", "85 000", "https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=500&q=80"],
-    ["Gift 8", "95 000", "https://images.unsplash.com/photo-1523268755815-fe7c372a0349?auto=format&fit=crop&w=500&q=80"],
-    ["Gift 9", "110 000", "https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?auto=format&fit=crop&w=500&q=80"],
-    ["Gift 10", "150 000", "https://images.unsplash.com/photo-1607344645866-009c320b63e0?auto=format&fit=crop&w=500&q=80"]
+[
+"Gift 1",
+25000,
+"https://images.unsplash.com/photo-1512909006721-3d6018887383?auto=format&fit=crop&w=500&q=80"
+],
+
+[
+"Gift 2",
+35000,
+"https://images.unsplash.com/photo-1513883049090-d0b7439799bf?auto=format&fit=crop&w=500&q=80"
+],
+
+[
+"Gift 3",
+45000,
+"https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=500&q=80"
+],
+
+[
+"Gift 4",
+55000,
+"https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=500&q=80"
+],
+
+[
+"Gift 5",
+65000,
+"https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=500&q=80"
+],
+
+[
+"Gift 6",
+75000,
+"https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=500&q=80"
+],
+
+[
+"Gift 7",
+85000,
+"https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=500&q=80"
+],
+
+[
+"Gift 8",
+95000,
+"https://images.unsplash.com/photo-1523268755815-fe7c372a0349?auto=format&fit=crop&w=500&q=80"
+],
+
+[
+"Gift 9",
+110000,
+"https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?auto=format&fit=crop&w=500&q=80"
+],
+
+[
+"Gift 10",
+150000,
+"https://images.unsplash.com/photo-1607344645866-009c320b63e0?auto=format&fit=crop&w=500&q=80"
+]
 
 ];
+
+
+/* =========================
+   NFT GIFTS
+========================= */
 
 const nftProducts = [
 
-    ["NFT Gift 1", "100 000", "https://images.unsplash.com/photo-1634973357973-f2ed2657db3c?auto=format&fit=crop&w=500&q=80"],
-    ["NFT Gift 2", "150 000", "https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?auto=format&fit=crop&w=500&q=80"],
-    ["NFT Gift 3", "200 000", "https://images.unsplash.com/photo-1618172193763-c511deb635ca?auto=format&fit=crop&w=500&q=80"],
-    ["NFT Gift 4", "250 000", "https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=500&q=80"],
-    ["NFT Gift 5", "300 000", "https://images.unsplash.com/photo-1634986666676-ec8fd927c23d?auto=format&fit=crop&w=500&q=80"],
-    ["NFT Gift 6", "400 000", "https://images.unsplash.com/photo-1635322966219-b75ed372eb01?auto=format&fit=crop&w=500&q=80"],
-    ["NFT Gift 7", "500 000", "https://images.unsplash.com/photo-1633104509143-2b5e8c0d5e0e?auto=format&fit=crop&w=500&q=80"],
-    ["NFT Gift 8", "600 000", "https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&w=500&q=80"],
-    ["NFT Gift 9", "750 000", "https://images.unsplash.com/photo-1634986666676-ec8fd927c23d?auto=format&fit=crop&w=500&q=80"],
-    ["NFT Gift 10", "1 000 000", "https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=500&q=80"]
+[
+"NFT Gift 1",
+100000,
+"https://images.unsplash.com/photo-1634973357973-f2ed2657db3c?auto=format&fit=crop&w=500&q=80"
+],
+
+[
+"NFT Gift 2",
+150000,
+"https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?auto=format&fit=crop&w=500&q=80"
+],
+
+[
+"NFT Gift 3",
+200000,
+"https://images.unsplash.com/photo-1618172193763-c511deb635ca?auto=format&fit=crop&w=500&q=80"
+],
+
+[
+"NFT Gift 4",
+250000,
+"https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=500&q=80"
+],
+
+[
+"NFT Gift 5",
+300000,
+"https://images.unsplash.com/photo-1634986666676-ec8fd927c23d?auto=format&fit=crop&w=500&q=80"
+],
+
+[
+"NFT Gift 6",
+400000,
+"https://images.unsplash.com/photo-1635322966219-b75ed372eb01?auto=format&fit=crop&w=500&q=80"
+],
+
+[
+"NFT Gift 7",
+500000,
+"https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?auto=format&fit=crop&w=500&q=80"
+],
+
+[
+"NFT Gift 8",
+600000,
+"https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&w=500&q=80"
+],
+
+[
+"NFT Gift 9",
+750000,
+"https://images.unsplash.com/photo-1634986666676-ec8fd927c23d?auto=format&fit=crop&w=500&q=80"
+],
+
+[
+"NFT Gift 10",
+1000000,
+"https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=500&q=80"
+]
 
 ];
 
 
-function renderProducts(products, containerId) {
+/* =========================
+   GIFT IJARA — 10 TA
+========================= */
 
-    const container = document.getElementById(containerId);
+const rentalProducts = [
+
+[
+"Premium Gift",
+10000,
+"https://images.unsplash.com/photo-1512909006721-3d6018887383?auto=format&fit=crop&w=500&q=80"
+],
+
+[
+"Diamond Gift",
+15000,
+"https://images.unsplash.com/photo-1513883049090-d0b7439799bf?auto=format&fit=crop&w=500&q=80"
+],
+
+[
+"Rose Gift",
+20000,
+"https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=500&q=80"
+],
+
+[
+"Star Gift",
+25000,
+"https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=500&q=80"
+],
+
+[
+"Luxury Gift",
+30000,
+"https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=500&q=80"
+],
+
+[
+"Golden Gift",
+35000,
+"https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=500&q=80"
+],
+
+[
+"Royal Gift",
+40000,
+"https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=500&q=80"
+],
+
+[
+"VIP Gift",
+50000,
+"https://images.unsplash.com/photo-1523268755815-fe7c372a0349?auto=format&fit=crop&w=500&q=80"
+],
+
+[
+"Legend Gift",
+75000,
+"https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?auto=format&fit=crop&w=500&q=80"
+],
+
+[
+"Premium NFT Gift",
+100000,
+"https://images.unsplash.com/photo-1607344645866-009c320b63e0?auto=format&fit=crop&w=500&q=80"
+]
+
+];
+
+
+/* =========================
+   MONEY
+========================= */
+
+function formatMoney(number) {
+
+    return Number(number)
+        .toLocaleString("en-US")
+        .replace(/,/g, " ");
+}
+
+
+/* =========================
+   NORMAL PRODUCTS
+========================= */
+
+function renderProducts(
+    products,
+    containerId,
+    type
+) {
+
+    const container =
+        document.getElementById(containerId);
 
     container.innerHTML = "";
 
-    products.forEach((product, index) => {
+    products.forEach(
+        (product, index) => {
 
-        const [name, price, image] = product;
+        const name = product[0];
+        const price = product[1];
+        const image = product[2];
 
         container.innerHTML += `
 
         <div class="product">
 
-            <img src="${image}" alt="${name}">
+            <img
+                src="${image}"
+                alt="${name}"
+            >
 
             <div class="product-name">
                 ${name}
             </div>
 
             <div class="product-price">
-                ${price} so'm
+                ${formatMoney(price)} so'm
             </div>
 
             <input
@@ -827,14 +1122,20 @@ function renderProducts(products, containerId) {
             >
 
             <button
-                onclick="setMyUsername('${containerId}-recipient-${index}')"
+                onclick="setMyUsername(
+                    '${containerId}-recipient-${index}'
+                )"
                 style="background:#183957;"
             >
                 👤 O'zimga
             </button>
 
             <button
-                onclick="buyProduct('${name}','${price}','${containerId}-recipient-${index}')"
+                onclick="buyProduct(
+                    '${name}',
+                    ${price},
+                    '${containerId}-recipient-${index}'
+                )"
             >
                 Sotib olish
             </button>
@@ -846,111 +1147,329 @@ function renderProducts(products, containerId) {
 }
 
 
-function buyProduct(name, price, inputId) {
+function buyProduct(
+    name,
+    price,
+    inputId
+) {
 
     const recipient =
-        document.getElementById(inputId).value.trim();
+        document.getElementById(inputId)
+            .value.trim();
 
     if (!recipient) {
-        alert("❌ Kimga yuborilishini kiriting.");
+
+        alert(
+            "❌ Kimga yuborilishini kiriting."
+        );
+
         return;
     }
 
     alert(
         "🎁 Buyurtma\n\n" +
-        name + "\n" +
-        "Narx: " + price + " so'm\n" +
-        "Kimga: " + recipient
+        name +
+        "\nNarx: " +
+        formatMoney(price) +
+        " so'm\n" +
+        "Kimga: " +
+        recipient
     );
 }
 
 
-/* RENTAL */
+/* =========================
+   RENTAL PRODUCTS
+========================= */
 
-const RENTAL_PRICE = 10000;
+function renderRentalProducts() {
 
-function calculateRental() {
+    const container =
+        document.getElementById(
+            "rentalProducts"
+        );
 
-    const input = document.getElementById("rentalDays");
+    container.innerHTML = "";
 
-    let days = parseInt(input.value);
+    rentalProducts.forEach(
+        (product, index) => {
 
-    if (isNaN(days) || days < 1) {
+        const name = product[0];
+        const dailyPrice = product[1];
+        const image = product[2];
 
-        document.getElementById("rentalTotal").textContent =
-            "0";
+        container.innerHTML += `
+
+        <div class="product">
+
+            <img
+                src="${image}"
+                alt="${name}"
+            >
+
+            <div class="product-name">
+                ${name}
+            </div>
+
+            <div class="product-price">
+                ${formatMoney(dailyPrice)} / kun
+            </div>
+
+            <input
+                id="rental-days-${index}"
+                class="rental-days"
+                type="number"
+                min="1"
+                step="1"
+                value="1"
+                oninput="calculateRental(
+                    ${index},
+                    ${dailyPrice}
+                )"
+            >
+
+            <div class="day-buttons">
+
+                <button
+                    class="day-btn"
+                    onclick="setRentalDays(
+                        ${index},
+                        1,
+                        ${dailyPrice}
+                    )"
+                >
+                    1
+                </button>
+
+                <button
+                    class="day-btn"
+                    onclick="setRentalDays(
+                        ${index},
+                        7,
+                        ${dailyPrice}
+                    )"
+                >
+                    7
+                </button>
+
+                <button
+                    class="day-btn"
+                    onclick="setRentalDays(
+                        ${index},
+                        30,
+                        ${dailyPrice}
+                    )"
+                >
+                    30
+                </button>
+
+                <button
+                    class="day-btn"
+                    onclick="setRentalDays(
+                        ${index},
+                        100,
+                        ${dailyPrice}
+                    )"
+                >
+                    100
+                </button>
+
+            </div>
+
+            <div class="rental-total">
+
+                Jami:
+                <span id="rental-total-${index}">
+                    ${formatMoney(dailyPrice)}
+                </span>
+                so'm
+
+            </div>
+
+            <input
+                id="rental-recipient-${index}"
+                type="text"
+                placeholder="@username"
+            >
+
+            <button
+                onclick="setMyUsername(
+                    'rental-recipient-${index}'
+                )"
+                style="background:#183957;"
+            >
+                👤 O'zimga
+            </button>
+
+            <button
+                onclick="buyRental(
+                    ${index},
+                    '${name}',
+                    ${dailyPrice}
+                )"
+            >
+                🎁 Ijaraga olish
+            </button>
+
+        </div>
+
+        `;
+    });
+}
+
+
+/* =========================
+   RENTAL CALCULATOR
+========================= */
+
+function calculateRental(
+    index,
+    dailyPrice
+) {
+
+    const input =
+        document.getElementById(
+            "rental-days-" + index
+        );
+
+    let days =
+        parseInt(input.value);
+
+    if (
+        isNaN(days) ||
+        days < 1
+    ) {
+
+        document.getElementById(
+            "rental-total-" + index
+        ).textContent = "0";
 
         return;
     }
 
-    // Faqat butun son
     days = Math.floor(days);
 
     input.value = days;
 
-    const total = days * RENTAL_PRICE;
+    const total =
+        days * dailyPrice;
 
-    document.getElementById("rentalTotal").textContent =
-        total.toLocaleString("en-US").replace(/,/g, " ");
+    document.getElementById(
+        "rental-total-" + index
+    ).textContent =
+        formatMoney(total);
 }
 
 
-function setDays(days) {
+function setRentalDays(
+    index,
+    days,
+    dailyPrice
+) {
 
-    document.getElementById("rentalDays").value = days;
+    document.getElementById(
+        "rental-days-" + index
+    ).value = days;
 
-    calculateRental();
+    calculateRental(
+        index,
+        dailyPrice
+    );
 }
 
 
-function buyRental() {
+function buyRental(
+    index,
+    name,
+    dailyPrice
+) {
+
+    const input =
+        document.getElementById(
+            "rental-days-" + index
+        );
 
     let days =
-        parseInt(document.getElementById("rentalDays").value);
+        parseInt(input.value);
 
-    if (isNaN(days) || days < 1) {
+    if (
+        isNaN(days) ||
+        days < 1
+    ) {
 
-        alert("❌ Kamida 1 kun kiriting.");
+        alert(
+            "❌ Kamida 1 kun kiriting."
+        );
 
-        document.getElementById("rentalDays").value = 1;
+        input.value = 1;
 
-        calculateRental();
+        calculateRental(
+            index,
+            dailyPrice
+        );
 
         return;
     }
 
     days = Math.floor(days);
 
+    input.value = days;
+
     const recipient =
-        document.getElementById("rentalRecipient").value.trim();
+        document.getElementById(
+            "rental-recipient-" + index
+        ).value.trim();
 
     if (!recipient) {
 
-        alert("❌ Kimga yuborilishini kiriting.");
+        alert(
+            "❌ Kimga yuborilishini kiriting."
+        );
 
         return;
     }
 
-    const total = days * RENTAL_PRICE;
+    const total =
+        days * dailyPrice;
 
     alert(
         "🎁 Gift ijara\n\n" +
-        "Muddat: " + days + " kun\n" +
-        "Kimga: " + recipient + "\n" +
+        "Gift: " +
+        name +
+        "\n" +
+        "Muddat: " +
+        days +
+        " kun\n" +
+        "Kunlik narx: " +
+        formatMoney(dailyPrice) +
+        " so'm\n" +
+        "Kimga: " +
+        recipient +
+        "\n" +
         "Jami: " +
-        total.toLocaleString("en-US").replace(/,/g, " ") +
+        formatMoney(total) +
         " so'm"
     );
 }
 
 
-/* START */
+/* =========================
+   START
+========================= */
 
-renderProducts(giftProducts, "giftsProducts");
+renderProducts(
+    giftProducts,
+    "giftsProducts",
+    "gift"
+);
 
-renderProducts(nftProducts, "nftProducts");
+renderProducts(
+    nftProducts,
+    "nftProducts",
+    "nft"
+);
 
-calculateRental();
+renderRentalProducts();
 
 </script>
 
