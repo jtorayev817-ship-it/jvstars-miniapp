@@ -2,421 +2,291 @@
 <html lang="uz">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>JV Stars</title>
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-    :root{
-        --bg:#05070f;
-        --bg-2:#0a0f22;
-        --panel:#0d1330;
-        --panel-border:rgba(102,170,255,.16);
-        --cyan:#3fd8ff;
-        --violet:#9b6bff;
-        --gold:#ffc861;
-        --text:#eef2ff;
-        --text-dim:#8891b3;
-        --text-faint:#5b6488;
-        --danger:#ff6a7a;
-        --radius-lg:22px;
-        --radius-md:16px;
-        --radius-sm:12px;
-        --shadow-glow:0 0 0 1px var(--panel-border), 0 16px 40px -20px rgba(63,216,255,.25);
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #07111f;
+    color: white;
+}
+
+.container {
+    max-width: 700px;
+    margin: auto;
+    padding: 15px;
+}
+
+.header {
+    text-align: center;
+    padding: 10px 0 20px;
+}
+
+.logo {
+    font-size: 27px;
+    font-weight: bold;
+}
+
+.bot-link {
+    display: inline-block;
+    margin-top: 5px;
+    color: #35a7ff;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.balance {
+    background: #0e2035;
+    border: 1px solid #183c60;
+    border-radius: 14px;
+    padding: 14px;
+    margin-bottom: 15px;
+}
+
+.balance-title {
+    font-size: 13px;
+    color: #9eb4ca;
+}
+
+.balance-value {
+    font-size: 23px;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+button {
+    border: none;
+    cursor: pointer;
+    color: white;
+}
+
+.section {
+    display: none;
+}
+
+.section.active {
+    display: block;
+}
+
+.back-btn {
+    background: #142940;
+    padding: 10px 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+h2 {
+    margin-top: 5px;
+}
+
+.card {
+    background: #0c1d30;
+    border: 1px solid #183753;
+    border-radius: 15px;
+    padding: 14px;
+    margin-bottom: 15px;
+}
+
+input {
+    width: 100%;
+    padding: 13px;
+    margin-top: 8px;
+    border-radius: 10px;
+    border: 1px solid #284966;
+    background: #081624;
+    color: white;
+    outline: none;
+    font-size: 16px;
+}
+
+input:focus {
+    border-color: #2196f3;
+}
+
+.primary {
+    width: 100%;
+    background: #1687f7;
+    padding: 13px;
+    border-radius: 10px;
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.self-btn {
+    background: #183957;
+    padding: 10px;
+    border-radius: 9px;
+    margin-top: 8px;
+    width: 100%;
+}
+
+.price {
+    color: #55b5ff;
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+.stars-options {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.star-option {
+    background: #112b45;
+    border: 1px solid #214967;
+    padding: 11px 5px;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+.star-option.selected {
+    background: #1687f7;
+    border-color: #1687f7;
+}
+
+.total {
+    margin-top: 12px;
+    padding: 12px;
+    background: #081a2b;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* 2 ta mahsulot bir qatorda */
+.products {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.product {
+    background: #0c1d30;
+    border: 1px solid #193a55;
+    border-radius: 13px;
+    padding: 8px;
+    overflow: hidden;
+}
+
+.product img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 10px;
+    display: block;
+}
+
+.product-name {
+    font-weight: bold;
+    margin-top: 8px;
+    font-size: 14px;
+}
+
+.product-price {
+    color: #55b5ff;
+    font-weight: bold;
+    margin-top: 5px;
+    font-size: 14px;
+}
+
+.product button {
+    width: 100%;
+    background: #1687f7;
+    padding: 9px 5px;
+    border-radius: 8px;
+    margin-top: 8px;
+}
+
+.rental-box {
+    text-align: center;
+}
+
+.rental-box img {
+    width: 100%;
+    max-width: 260px;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+.daily-price {
+    font-size: 18px;
+    color: #55b5ff;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.days-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.days-row input {
+    margin-top: 0;
+}
+
+.day-buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 7px;
+    margin-top: 10px;
+}
+
+.day-btn {
+    background: #112b45;
+    padding: 10px 5px;
+    border-radius: 8px;
+}
+
+.country {
+    background: #0c1d30;
+    border: 1px solid #193a55;
+    padding: 13px;
+    border-radius: 12px;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.home-services {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.service-btn {
+    background: #0e253c;
+    border: 1px solid #1b4668;
+    padding: 18px 8px;
+    border-radius: 13px;
+    font-size: 15px;
+}
+
+.service-btn:hover {
+    background: #12324e;
+}
+
+@media (max-width: 400px) {
+    .stars-options {
+        grid-template-columns: repeat(2, 1fr);
     }
 
-    *{ box-sizing:border-box; margin:0; padding:0; }
-
-    html{ -webkit-tap-highlight-color:transparent; }
-
-    body{
-        font-family:'Inter',system-ui,sans-serif;
-        color:var(--text);
-        background:
-            radial-gradient(600px 400px at 8% -5%, rgba(63,216,255,.16), transparent 60%),
-            radial-gradient(600px 500px at 100% 0%, rgba(155,107,255,.18), transparent 55%),
-            radial-gradient(700px 500px at 50% 110%, rgba(63,120,255,.14), transparent 60%),
-            var(--bg);
-        min-height:100vh;
-        padding:16px 14px 40px;
-        line-height:1.45;
-        -webkit-font-smoothing:antialiased;
+    .home-services {
+        grid-template-columns: 1fr;
     }
-
-    h1,h2,h3,.brand,.balance-value,.price,.product-name,.service-name{
-        font-family:'Sora',sans-serif;
-    }
-
-    button{ font:inherit; }
-
-    .container{ width:100%; max-width:520px; margin:0 auto; }
-
-    /* ---------- HEADER ---------- */
-
-    .header{
-        display:flex;
-        justify-content:space-between;
-        align-items:center;
-        padding:14px 18px;
-        border-radius:18px;
-        background:rgba(9,14,33,.7);
-        border:1px solid var(--panel-border);
-        backdrop-filter:blur(10px);
-        margin-bottom:16px;
-    }
-
-    .brand{
-        display:flex;
-        align-items:center;
-        gap:9px;
-        font-size:18px;
-        font-weight:700;
-        letter-spacing:.2px;
-    }
-
-    .brand .mark{
-        width:30px; height:30px;
-        border-radius:9px;
-        display:grid; place-items:center;
-        background:linear-gradient(135deg,var(--cyan),var(--violet));
-        font-size:16px;
-        box-shadow:0 0 18px rgba(63,216,255,.4);
-    }
-
-    .bot-link{
-        color:var(--cyan);
-        text-decoration:none;
-        font-weight:600;
-        font-size:14px;
-        padding:7px 12px;
-        border-radius:100px;
-        border:1px solid rgba(63,216,255,.3);
-        transition:background .15s ease, transform .1s ease;
-    }
-    .bot-link:active{ transform:scale(.96); background:rgba(63,216,255,.1); }
-
-    /* ---------- BALANCE ---------- */
-
-    .balance{
-        position:relative;
-        padding:22px 20px;
-        border-radius:var(--radius-lg);
-        overflow:hidden;
-        background:linear-gradient(150deg, rgba(63,216,255,.14), rgba(155,107,255,.14));
-        border:1px solid var(--panel-border);
-        box-shadow:var(--shadow-glow);
-        margin-bottom:20px;
-    }
-
-    .balance::after{
-        content:"";
-        position:absolute;
-        width:180px; height:180px;
-        right:-60px; top:-70px;
-        background:radial-gradient(circle, rgba(63,216,255,.35), transparent 70%);
-        pointer-events:none;
-    }
-
-    .balance-title{
-        color:var(--text-dim);
-        font-size:13px;
-        font-weight:500;
-        margin-bottom:6px;
-    }
-
-    .balance-value{
-        font-size:30px;
-        font-weight:800;
-        letter-spacing:.2px;
-    }
-
-    /* ---------- BUTTONS ---------- */
-
-    .buy{
-        width:100%;
-        padding:15px;
-        margin-top:14px;
-        border:none;
-        border-radius:var(--radius-sm);
-        color:#04070f;
-        font-size:15px;
-        font-weight:700;
-        cursor:pointer;
-        background:linear-gradient(90deg,var(--cyan),var(--violet));
-        box-shadow:0 10px 26px -10px rgba(63,216,255,.55);
-        transition:transform .12s ease, box-shadow .12s ease, opacity .12s ease;
-    }
-    .buy:active{ transform:scale(.98); box-shadow:0 4px 14px -6px rgba(63,216,255,.5); }
-    .buy:disabled{ opacity:.45; cursor:not-allowed; transform:none; box-shadow:none; }
-
-    .buy.ghost{
-        background:transparent;
-        color:var(--cyan);
-        border:1px solid rgba(63,216,255,.35);
-        box-shadow:none;
-    }
-
-    .myself-btn{
-        width:100%;
-        padding:12px;
-        margin-top:8px;
-        border-radius:var(--radius-sm);
-        border:1px dashed rgba(63,216,255,.3);
-        background:rgba(63,216,255,.06);
-        color:var(--cyan);
-        font-size:13px;
-        font-weight:600;
-        cursor:pointer;
-        transition:background .15s ease, transform .1s ease;
-    }
-    .myself-btn:active{ transform:scale(.98); background:rgba(63,216,255,.14); }
-
-    /* ---------- SECTION TITLES ---------- */
-
-    .section-title{
-        font-size:19px;
-        font-weight:700;
-        margin-bottom:12px;
-    }
-
-    h2.page-title{
-        font-size:21px;
-        font-weight:700;
-        margin-bottom:16px;
-        display:flex;
-        align-items:center;
-        gap:9px;
-    }
-
-    /* ---------- PAGES ---------- */
-
-    .page{ display:none; }
-    .page.active{ display:block; animation:rise .28s cubic-bezier(.2,.8,.2,1); }
-
-    @keyframes rise{
-        from{ opacity:0; transform:translateY(10px); }
-        to{ opacity:1; transform:translateY(0); }
-    }
-
-    @media (prefers-reduced-motion: reduce){
-        .page.active{ animation:none; }
-    }
-
-    .back{
-        display:inline-flex;
-        align-items:center;
-        gap:6px;
-        padding:9px 14px;
-        margin-bottom:16px;
-        border-radius:100px;
-        background:rgba(255,255,255,.05);
-        border:1px solid rgba(255,255,255,.1);
-        color:var(--text-dim);
-        font-size:13px;
-        font-weight:600;
-        cursor:pointer;
-        transition:background .15s ease;
-    }
-    .back:active{ background:rgba(255,255,255,.1); }
-
-    /* ---------- SERVICE GRID ---------- */
-
-    .services{
-        display:grid;
-        grid-template-columns:1fr 1fr;
-        gap:12px;
-    }
-
-    .service{
-        padding:18px 16px;
-        border-radius:var(--radius-md);
-        background:var(--panel);
-        border:1px solid var(--panel-border);
-        cursor:pointer;
-        transition:transform .15s ease, border-color .15s ease, box-shadow .15s ease;
-    }
-    .service:active{ transform:scale(.97); }
-    .service:hover{ border-color:rgba(63,216,255,.45); box-shadow:0 14px 30px -18px rgba(63,216,255,.35); }
-
-    .service-icon{
-        width:42px; height:42px;
-        display:grid; place-items:center;
-        border-radius:12px;
-        background:rgba(63,216,255,.08);
-        font-size:21px;
-        margin-bottom:10px;
-    }
-
-    .service-name{ font-size:15px; font-weight:700; margin-bottom:3px; }
-    .service-desc{ color:var(--text-dim); font-size:12.5px; }
-
-    /* ---------- FORM ---------- */
-
-    .label{
-        display:block;
-        margin-top:14px;
-        margin-bottom:6px;
-        color:var(--text-dim);
-        font-size:13px;
-        font-weight:500;
-    }
-
-    input{
-        width:100%;
-        padding:14px 15px;
-        border-radius:var(--radius-sm);
-        border:1px solid var(--panel-border);
-        background:rgba(4,8,22,.75);
-        color:var(--text);
-        outline:none;
-        font-size:15px;
-        transition:border-color .15s ease, box-shadow .15s ease;
-    }
-    input::placeholder{ color:var(--text-faint); }
-    input:focus{ border-color:var(--cyan); box-shadow:0 0 0 3px rgba(63,216,255,.15); }
-
-    .field-error{
-        display:none;
-        color:var(--danger);
-        font-size:12.5px;
-        margin-top:6px;
-    }
-    .field-error.show{ display:block; }
-
-    /* ---------- PRICE ---------- */
-
-    .price-box{
-        margin-top:16px;
-        padding:16px;
-        border-radius:var(--radius-md);
-        background:rgba(63,216,255,.06);
-        border:1px solid rgba(63,216,255,.2);
-        display:flex;
-        justify-content:space-between;
-        align-items:center;
-    }
-
-    .price-title{ color:var(--text-dim); font-size:13px; }
-    .price{ color:var(--cyan); font-size:22px; font-weight:800; }
-
-    /* ---------- PRODUCT CARDS ---------- */
-
-    .product{
-        overflow:hidden;
-        margin-bottom:16px;
-        border-radius:var(--radius-lg);
-        background:var(--panel);
-        border:1px solid var(--panel-border);
-    }
-
-    .product-image{ width:100%; height:170px; object-fit:cover; display:block; }
-    .product-content{ padding:16px; }
-
-    .product-row{
-        display:flex;
-        justify-content:space-between;
-        align-items:flex-start;
-        gap:10px;
-    }
-
-    .product-name{ font-size:16px; font-weight:700; }
-    .product-price{ color:var(--gold); font-size:15px; font-weight:800; white-space:nowrap; }
-    .product-description{ margin-top:5px; color:var(--text-dim); font-size:13px; }
-
-    /* ---------- PREMIUM OPTIONS ---------- */
-
-    .premium-option{
-        display:flex;
-        justify-content:space-between;
-        align-items:center;
-        padding:16px;
-        margin:9px 0;
-        border-radius:var(--radius-md);
-        background:var(--panel);
-        border:1px solid var(--panel-border);
-        cursor:pointer;
-        transition:border-color .15s ease, background .15s ease;
-    }
-    .premium-option:active{ transform:scale(.98); }
-    .premium-option.selected{ border-color:var(--cyan); background:rgba(63,216,255,.08); }
-
-    .premium-option .months{ font-size:15px; font-weight:700; }
-    .premium-option .sub{ color:var(--text-dim); font-size:12px; margin-top:2px; }
-    .premium-option .amount{ color:var(--gold); font-weight:800; font-size:15px; }
-
-    /* ---------- RENTAL ---------- */
-
-    .rental-calculator{
-        margin-top:16px;
-        padding:16px;
-        border-radius:var(--radius-md);
-        background:rgba(4,8,22,.5);
-        border:1px solid var(--panel-border);
-    }
-
-    .days-row{ display:flex; align-items:center; gap:10px; }
-    .days-row input{ flex:1; }
-    .days-label{ color:var(--text-dim); white-space:nowrap; font-size:14px; }
-
-    .stepper{ display:flex; align-items:center; gap:8px; }
-    .stepper button{
-        width:42px; height:48px;
-        border-radius:var(--radius-sm);
-        border:1px solid var(--panel-border);
-        background:rgba(255,255,255,.04);
-        color:var(--text);
-        font-size:18px;
-        cursor:pointer;
-    }
-    .stepper button:active{ background:rgba(255,255,255,.1); }
-
-    /* ---------- COUNTRIES ---------- */
-
-    .country{
-        display:flex;
-        justify-content:space-between;
-        align-items:center;
-        padding:15px 16px;
-        margin-bottom:9px;
-        border-radius:var(--radius-md);
-        background:var(--panel);
-        border:1px solid var(--panel-border);
-        cursor:pointer;
-        transition:border-color .15s ease, transform .1s ease;
-    }
-    .country:active{ transform:scale(.98); }
-    .country:hover{ border-color:rgba(63,216,255,.4); }
-
-    .country .flag-name{ display:flex; align-items:center; gap:10px; font-size:14.5px; }
-    .country .code{ color:var(--text-dim); font-weight:700; font-size:14px; }
-
-    .small{ color:var(--text-dim); font-size:12.5px; }
-
-    /* ---------- TOAST ---------- */
-
-    .toast{
-        position:fixed;
-        left:50%;
-        bottom:24px;
-        transform:translate(-50%,20px);
-        max-width:min(460px, calc(100% - 32px));
-        background:rgba(10,15,34,.96);
-        border:1px solid var(--panel-border);
-        box-shadow:0 20px 50px -20px rgba(0,0,0,.6);
-        border-radius:16px;
-        padding:16px 18px;
-        opacity:0;
-        pointer-events:none;
-        transition:opacity .2s ease, transform .2s ease;
-        z-index:999;
-    }
-    .toast.show{ opacity:1; transform:translate(-50%,0); pointer-events:auto; }
-    .toast-title{ font-weight:700; font-size:14.5px; margin-bottom:4px; }
-    .toast-body{ color:var(--text-dim); font-size:13px; white-space:pre-line; }
+}
 </style>
 </head>
 
@@ -424,554 +294,664 @@
 
 <div class="container">
 
-    <!-- HEADER -->
-    <div class="header">
-        <div class="brand"><span class="mark">🚀</span> JV Stars</div>
-        <a class="bot-link" href="https://t.me/jvstarsbot" target="_blank" rel="noopener">@jvstarsbot</a>
+<div class="header">
+    <div class="logo">🚀 JV Stars</div>
+    <a class="bot-link" href="https://t.me/jvstarsbot" target="_blank">@jvstarsbot</a>
+</div>
+
+<div class="balance">
+    <div class="balance-title">💰 Hisobingiz</div>
+    <div class="balance-value">0 so'm</div>
+</div>
+
+
+<!-- HOME -->
+<div id="home" class="section active">
+
+    <div class="home-services">
+
+        <button class="service-btn" onclick="showSection('stars')">
+            ⭐ Stars
+        </button>
+
+        <button class="service-btn" onclick="showSection('premium')">
+            💎 Premium
+        </button>
+
+        <button class="service-btn" onclick="showSection('gifts')">
+            🎁 Gifts
+        </button>
+
+        <button class="service-btn" onclick="showSection('nft')">
+            🖼 NFT Gifts
+        </button>
+
+        <button class="service-btn" onclick="showSection('rental')">
+            🎁 Gift ijara
+        </button>
+
+        <button class="service-btn" onclick="showSection('numbers')">
+            📱 Nomer olish
+        </button>
+
     </div>
 
-    <!-- HOME -->
-    <div id="home" class="page active">
-
-        <div class="balance">
-            <div class="balance-title">Sizning balansingiz</div>
-            <div class="balance-value" id="balanceValue">0 so'm</div>
-            <button class="buy" id="topupBtn">💳 Hisobni to'ldirish</button>
-        </div>
-
-        <div class="section-title">Xizmatlar</div>
-
-        <div class="services">
-            <div class="service" data-page="stars">
-                <div class="service-icon">⭐</div>
-                <div class="service-name">Telegram Stars</div>
-                <div class="service-desc">Istalgan miqdorda</div>
-            </div>
-
-            <div class="service" data-page="premium">
-                <div class="service-icon">💎</div>
-                <div class="service-name">Premium</div>
-                <div class="service-desc">Obuna sotib olish</div>
-            </div>
-
-            <div class="service" data-page="gifts">
-                <div class="service-icon">🎁</div>
-                <div class="service-name">Gifts</div>
-                <div class="service-desc">Telegram sovg'alari</div>
-            </div>
-
-            <div class="service" data-page="nft">
-                <div class="service-icon">🖼</div>
-                <div class="service-name">NFT Gifts</div>
-                <div class="service-desc">Collectible gifts</div>
-            </div>
-
-            <div class="service" data-page="rental">
-                <div class="service-icon">🕐</div>
-                <div class="service-name">Gift ijara</div>
-                <div class="service-desc">Kunlik ijaraga olish</div>
-            </div>
-
-            <div class="service" data-page="numbers">
-                <div class="service-icon">📱</div>
-                <div class="service-name">Nomer olish</div>
-                <div class="service-desc">Turli davlatlardan</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- STARS -->
-    <div id="stars" class="page">
-        <div class="back" data-back>← Orqaga</div>
-        <h2 class="page-title">⭐ Telegram Stars</h2>
-
-        <label class="label" for="starsAmount">Stars sonini kiriting</label>
-        <input id="starsAmount" type="number" min="1" inputmode="numeric" placeholder="Masalan: 100">
-        <div class="field-error" id="starsAmountError">Stars sonini kiriting (kamida 1)</div>
-
-        <label class="label" for="starsRecipient">Kimga?</label>
-        <input id="starsRecipient" type="text" placeholder="@username">
-        <div class="field-error" id="starsRecipientError">Qabul qiluvchini kiriting</div>
-        <button class="myself-btn" data-myself="starsRecipient">👤 O'zimga</button>
-
-        <div class="price-box">
-            <span class="price-title">Jami narx</span>
-            <span class="price" id="starsPrice">0 so'm</span>
-        </div>
-
-        <button class="buy" id="buyStarsBtn">⭐ Sotib olish</button>
-    </div>
-
-    <!-- PREMIUM -->
-    <div id="premium" class="page">
-        <div class="back" data-back>← Orqaga</div>
-        <h2 class="page-title">💎 Telegram Premium</h2>
-
-        <label class="label" for="premiumRecipient">Kimga?</label>
-        <input id="premiumRecipient" placeholder="@username">
-        <div class="field-error" id="premiumRecipientError">Qabul qiluvchini kiriting</div>
-        <button class="myself-btn" data-myself="premiumRecipient">👤 O'zimga</button>
-
-        <div style="margin-top:16px;">
-            <div class="premium-option" data-months="1" data-price="50000">
-                <div>
-                    <div class="months">1 oy</div>
-                    <div class="sub">Admin orqali</div>
-                </div>
-                <div class="amount">50 000 so'm</div>
-            </div>
-
-            <div class="premium-option" data-months="3" data-price="150000">
-                <div><div class="months">3 oy</div></div>
-                <div class="amount">150 000 so'm</div>
-            </div>
-
-            <div class="premium-option" data-months="6" data-price="280000">
-                <div><div class="months">6 oy</div></div>
-                <div class="amount">280 000 so'm</div>
-            </div>
-
-            <div class="premium-option" data-months="12" data-price="500000">
-                <div><div class="months">12 oy</div></div>
-                <div class="amount">500 000 so'm</div>
-            </div>
-        </div>
-
-        <button class="buy" id="buyPremiumBtn" disabled>Muddatni tanlang</button>
-    </div>
-
-    <!-- GIFTS -->
-    <div id="gifts" class="page">
-        <div class="back" data-back>← Orqaga</div>
-        <h2 class="page-title">🎁 Gifts</h2>
-
-        <div class="product" data-gift data-name="Rose Gift" data-price="5000">
-            <img class="product-image" src="https://images.unsplash.com/photo-1513883049090-d0b7439799bf?auto=format&fit=crop&w=900&q=80" alt="Rose Gift">
-            <div class="product-content">
-                <div class="product-row">
-                    <div class="product-name">🎁 Rose Gift</div>
-                    <div class="product-price">5 000 so'm</div>
-                </div>
-                <div class="product-description">Chiroyli Telegram sovg'asi</div>
-                <label class="label">Kimga?</label>
-                <input class="gift-recipient" placeholder="@username">
-                <div class="field-error gift-error">Qabul qiluvchini kiriting</div>
-                <button class="myself-btn" data-myself-target="sibling">👤 O'zimga</button>
-                <button class="buy gift-buy">🛒 Sotib olish</button>
-            </div>
-        </div>
-
-        <div class="product" data-gift data-name="Cake Gift" data-price="15000">
-            <img class="product-image" src="https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=900&q=80" alt="Cake Gift">
-            <div class="product-content">
-                <div class="product-row">
-                    <div class="product-name">🎂 Cake Gift</div>
-                    <div class="product-price">15 000 so'm</div>
-                </div>
-                <div class="product-description">Bayram uchun maxsus gift</div>
-                <label class="label">Kimga?</label>
-                <input class="gift-recipient" placeholder="@username">
-                <div class="field-error gift-error">Qabul qiluvchini kiriting</div>
-                <button class="myself-btn" data-myself-target="sibling">👤 O'zimga</button>
-                <button class="buy gift-buy">🛒 Sotib olish</button>
-            </div>
-        </div>
-
-        <div class="product" data-gift data-name="Diamond Gift" data-price="50000">
-            <img class="product-image" src="https://images.unsplash.com/photo-1531058020387-3be344556be6?auto=format&fit=crop&w=900&q=80" alt="Diamond Gift">
-            <div class="product-content">
-                <div class="product-row">
-                    <div class="product-name">💎 Diamond Gift</div>
-                    <div class="product-price">50 000 so'm</div>
-                </div>
-                <div class="product-description">Premium ko'rinishdagi gift</div>
-                <label class="label">Kimga?</label>
-                <input class="gift-recipient" placeholder="@username">
-                <div class="field-error gift-error">Qabul qiluvchini kiriting</div>
-                <button class="myself-btn" data-myself-target="sibling">👤 O'zimga</button>
-                <button class="buy gift-buy">🛒 Sotib olish</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- NFT -->
-    <div id="nft" class="page">
-        <div class="back" data-back>← Orqaga</div>
-        <h2 class="page-title">🖼 NFT Gifts</h2>
-
-        <div class="product" data-gift data-name="Collectible #001" data-price="200000">
-            <img class="product-image" src="https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=900&q=80" alt="NFT Gift">
-            <div class="product-content">
-                <div class="product-row">
-                    <div class="product-name">🖼 Collectible #001</div>
-                    <div class="product-price">200 000 so'm</div>
-                </div>
-                <div class="product-description">Collectible NFT gift</div>
-                <label class="label">Kimga?</label>
-                <input class="gift-recipient" placeholder="@username">
-                <div class="field-error gift-error">Qabul qiluvchini kiriting</div>
-                <button class="myself-btn" data-myself-target="sibling">👤 O'zimga</button>
-                <button class="buy gift-buy">🛒 Sotib olish</button>
-            </div>
-        </div>
-
-        <div class="product" data-gift data-name="Collectible #002" data-price="350000">
-            <img class="product-image" src="https://images.unsplash.com/photo-1634986666676-ec8fd927c23d?auto=format&fit=crop&w=900&q=80" alt="NFT Gift">
-            <div class="product-content">
-                <div class="product-row">
-                    <div class="product-name">🖼 Collectible #002</div>
-                    <div class="product-price">350 000 so'm</div>
-                </div>
-                <div class="product-description">Rare collectible gift</div>
-                <label class="label">Kimga?</label>
-                <input class="gift-recipient" placeholder="@username">
-                <div class="field-error gift-error">Qabul qiluvchini kiriting</div>
-                <button class="myself-btn" data-myself-target="sibling">👤 O'zimga</button>
-                <button class="buy gift-buy">🛒 Sotib olish</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- RENTAL -->
-    <div id="rental" class="page">
-        <div class="back" data-back>← Orqaga</div>
-        <h2 class="page-title">🕐 Gift ijara</h2>
-
-        <div class="product">
-            <img class="product-image" src="https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=900&q=80" alt="Gift Rental">
-            <div class="product-content">
-                <div class="product-row">
-                    <div class="product-name">🎁 Premium Gift</div>
-                    <div class="product-price">10 000 so'm / kun</div>
-                </div>
-                <div class="product-description">Giftni kerakli muddatga ijaraga oling</div>
-
-                <div class="rental-calculator">
-                    <label class="label" for="rentalDays">Necha kun?</label>
-                    <div class="stepper">
-                        <button type="button" id="rentalMinus" aria-label="Kamaytirish">−</button>
-                        <input id="rentalDays" type="number" min="1" value="1" inputmode="numeric">
-                        <button type="button" id="rentalPlus" aria-label="Ko'paytirish">+</button>
-                    </div>
-
-                    <div class="price-box">
-                        <span class="price-title">Jami narx</span>
-                        <span class="price" id="rentalPrice">10 000 so'm</span>
-                    </div>
-
-                    <label class="label" for="rentalRecipient">Kimga?</label>
-                    <input id="rentalRecipient" placeholder="@username">
-                    <div class="field-error" id="rentalRecipientError">Qabul qiluvchini kiriting</div>
-                    <button class="myself-btn" data-myself="rentalRecipient">👤 O'zimga</button>
-
-                    <button class="buy" id="buyRentalBtn">🛒 Sotib olish</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- NUMBERS -->
-    <div id="numbers" class="page">
-        <div class="back" data-back>← Orqaga</div>
-        <h2 class="page-title">📱 Nomer olish</h2>
-
-        <div class="country" data-code="+998" data-country="O'zbekiston"><span class="flag-name">🇺🇿 O'zbekiston</span><span class="code">+998</span></div>
-        <div class="country" data-code="+1" data-country="AQSH"><span class="flag-name">🇺🇸 AQSH</span><span class="code">+1</span></div>
-        <div class="country" data-code="+44" data-country="Buyuk Britaniya"><span class="flag-name">🇬🇧 Buyuk Britaniya</span><span class="code">+44</span></div>
-        <div class="country" data-code="+49" data-country="Germaniya"><span class="flag-name">🇩🇪 Germaniya</span><span class="code">+49</span></div>
-        <div class="country" data-code="+90" data-country="Turkiya"><span class="flag-name">🇹🇷 Turkiya</span><span class="code">+90</span></div>
-        <div class="country" data-code="+82" data-country="Janubiy Koreya"><span class="flag-name">🇰🇷 Janubiy Koreya</span><span class="code">+82</span></div>
-        <div class="country" data-code="+81" data-country="Yaponiya"><span class="flag-name">🇯🇵 Yaponiya</span><span class="code">+81</span></div>
-        <div class="country" data-code="+33" data-country="Fransiya"><span class="flag-name">🇫🇷 Fransiya</span><span class="code">+33</span></div>
-        <div class="country" data-code="+39" data-country="Italiya"><span class="flag-name">🇮🇹 Italiya</span><span class="code">+39</span></div>
-        <div class="country" data-code="+971" data-country="BAA"><span class="flag-name">🇦🇪 BAA</span><span class="code">+971</span></div>
-        <div class="country" data-code="+7" data-country="Qozog'iston"><span class="flag-name">🇰🇿 Qozog'iston</span><span class="code">+7</span></div>
-    </div>
+    <button class="primary" onclick="alert('💳 Hisob to‘ldirish hozircha demo.')">
+        💳 Hisobni to‘ldirish
+    </button>
 
 </div>
 
-<div class="toast" id="toast">
-    <div class="toast-title" id="toastTitle"></div>
-    <div class="toast-body" id="toastBody"></div>
+
+<!-- STARS -->
+<div id="stars" class="section">
+
+<button class="back-btn" onclick="showSection('home')">← Orqaga</button>
+
+<h2>⭐ Telegram Stars</h2>
+
+<div class="card">
+
+<p>Stars sonini tanlang:</p>
+
+<div class="stars-options">
+
+<button class="star-option" onclick="selectStars(50,this)">50</button>
+<button class="star-option" onclick="selectStars(100,this)">100</button>
+<button class="star-option" onclick="selectStars(150,this)">150</button>
+<button class="star-option" onclick="selectStars(200,this)">200</button>
+<button class="star-option" onclick="selectStars(300,this)">300</button>
+<button class="star-option" onclick="selectStars(400,this)">400</button>
+<button class="star-option" onclick="selectStars(500,this)">500</button>
+<button class="star-option" onclick="selectStars(1000,this)">1000</button>
+
 </div>
+
+<label>Yoki boshqa miqdor:</label>
+
+<input
+    id="customStars"
+    type="number"
+    min="1"
+    step="1"
+    placeholder="Masalan: 750"
+    oninput="customStarInput()"
+>
+
+<div class="price">
+1 ⭐ = 220 so'm
+</div>
+
+<div class="total">
+Jami: <span id="starTotal">0</span> so'm
+</div>
+
+<label>Kimga?</label>
+
+<input id="starsRecipient" type="text" placeholder="@username">
+
+<button class="self-btn" onclick="setMyUsername('starsRecipient')">
+👤 O'zimga
+</button>
+
+<button class="primary" onclick="buyStars()">
+⭐ Sotib olish
+</button>
+
+</div>
+</div>
+
+
+<!-- PREMIUM -->
+<div id="premium" class="section">
+
+<button class="back-btn" onclick="showSection('home')">← Orqaga</button>
+
+<h2>💎 Telegram Premium</h2>
+
+<div class="card">
+
+<button class="service-btn" style="width:100%;margin-bottom:8px"
+onclick="selectPremium(1,50000)">
+1 oy — 50 000 so'm
+<br>
+<small>(Admin orqali)</small>
+</button>
+
+<button class="service-btn" style="width:100%;margin-bottom:8px"
+onclick="selectPremium(3,150000)">
+3 oy — 150 000 so'm
+</button>
+
+<button class="service-btn" style="width:100%;margin-bottom:8px"
+onclick="selectPremium(6,280000)">
+6 oy — 280 000 so'm
+</button>
+
+<button class="service-btn" style="width:100%"
+onclick="selectPremium(12,500000)">
+12 oy — 500 000 so'm
+</button>
+
+<div class="total">
+Tanlangan: <span id="premiumInfo">-</span>
+</div>
+
+<label>Kimga?</label>
+
+<input id="premiumRecipient" type="text" placeholder="@username">
+
+<button class="self-btn" onclick="setMyUsername('premiumRecipient')">
+👤 O'zimga
+</button>
+
+<button class="primary" onclick="buyPremium()">
+💎 Sotib olish
+</button>
+
+</div>
+</div>
+
+
+<!-- GIFTS -->
+<div id="gifts" class="section">
+
+<button class="back-btn" onclick="showSection('home')">← Orqaga</button>
+
+<h2>🎁 Gifts</h2>
+
+<div class="products" id="giftsProducts"></div>
+
+</div>
+
+
+<!-- NFT -->
+<div id="nft" class="section">
+
+<button class="back-btn" onclick="showSection('home')">← Orqaga</button>
+
+<h2>🖼 NFT Gifts</h2>
+
+<div class="products" id="nftProducts"></div>
+
+</div>
+
+
+<!-- RENTAL -->
+<div id="rental" class="section">
+
+<button class="back-btn" onclick="showSection('home')">← Orqaga</button>
+
+<h2>🎁 Gift ijara</h2>
+
+<div class="card rental-box">
+
+<img
+src="https://images.unsplash.com/photo-1512909006721-3d6018887383?auto=format&fit=crop&w=600&q=80"
+>
+
+<div class="daily-price">
+10 000 so'm / kun
+</div>
+
+<label>Necha kun?</label>
+
+<div class="days-row">
+
+<input
+id="rentalDays"
+type="number"
+min="1"
+step="1"
+value="1"
+oninput="calculateRental()"
+>
+
+</div>
+
+<div class="day-buttons">
+
+<button class="day-btn" onclick="setDays(1)">1</button>
+<button class="day-btn" onclick="setDays(7)">7</button>
+<button class="day-btn" onclick="setDays(30)">30</button>
+<button class="day-btn" onclick="setDays(365)">365</button>
+
+</div>
+
+<div class="total">
+Jami: <span id="rentalTotal">10 000</span> so'm
+</div>
+
+<label>Kimga?</label>
+
+<input id="rentalRecipient" type="text" placeholder="@username">
+
+<button class="self-btn" onclick="setMyUsername('rentalRecipient')">
+👤 O'zimga
+</button>
+
+<button class="primary" onclick="buyRental()">
+🎁 Ijaraga olish
+</button>
+
+</div>
+</div>
+
+
+<!-- NUMBERS -->
+<div id="numbers" class="section">
+
+<button class="back-btn" onclick="showSection('home')">← Orqaga</button>
+
+<h2>📱 Nomer olish</h2>
+
+<div class="country">
+<span>🇺🇸 USA</span>
+<strong>+1</strong>
+</div>
+
+<div class="country">
+<span>🇬🇧 UK</span>
+<strong>+44</strong>
+</div>
+
+<div class="country">
+<span>🇨🇦 Canada</span>
+<strong>+1</strong>
+</div>
+
+<div class="country">
+<span>🇩🇪 Germany</span>
+<strong>+49</strong>
+</div>
+
+<div class="country">
+<span>🇹🇷 Turkey</span>
+<strong>+90</strong>
+</div>
+
+<div class="country">
+<span>🇰🇿 Kazakhstan</span>
+<strong>+7</strong>
+</div>
+
+<div class="country">
+<span>🇺🇿 Uzbekistan</span>
+<strong>+998</strong>
+</div>
+
+<div class="country">
+<span>🇷🇺 Russia</span>
+<strong>+7</strong>
+</div>
+
+</div>
+
+</div>
+
 
 <script>
-(function(){
 
-    /* ---------------------------------------------
-       TELEGRAM SDK — safe fallback for browser preview
-    ----------------------------------------------*/
-    var tg = (window.Telegram && window.Telegram.WebApp) ? window.Telegram.WebApp : {
-        ready:function(){}, expand:function(){},
-        initDataUnsafe:{}, HapticFeedback:{ impactOccurred:function(){}, notificationOccurred:function(){} },
-        BackButton:{ show:function(){}, hide:function(){}, onClick:function(){} },
-        MainButton:{ show:function(){}, hide:function(){}, setText:function(){}, onClick:function(){} },
-        setHeaderColor:function(){}, setBackgroundColor:function(){}
-    };
+const tg = window.Telegram.WebApp;
 
-    tg.ready();
-    tg.expand();
-    try{ tg.setHeaderColor('#05070f'); tg.setBackgroundColor('#05070f'); }catch(e){}
+tg.ready();
+tg.expand();
 
-    function haptic(type){
-        try{
-            if(type === 'error') tg.HapticFeedback.notificationOccurred('error');
-            else if(type === 'success') tg.HapticFeedback.notificationOccurred('success');
-            else tg.HapticFeedback.impactOccurred('light');
-        }catch(e){}
+
+/* NAVIGATION */
+
+function showSection(id) {
+
+    document.querySelectorAll(".section").forEach(section => {
+        section.classList.remove("active");
+    });
+
+    document.getElementById(id).classList.add("active");
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+
+/* USERNAME */
+
+function getTelegramUsername() {
+
+    const user = tg.initDataUnsafe?.user;
+
+    if (user && user.username) {
+        return "@" + user.username;
     }
 
-    /* ---------------------------------------------
-       TOAST (replaces blocking alert() calls)
-    ----------------------------------------------*/
-    var toastEl = document.getElementById('toast');
-    var toastTitle = document.getElementById('toastTitle');
-    var toastBody = document.getElementById('toastBody');
-    var toastTimer = null;
+    return "";
+}
 
-    function showToast(title, body){
-        toastTitle.textContent = title;
-        toastBody.textContent = body;
-        toastEl.classList.add('show');
-        clearTimeout(toastTimer);
-        toastTimer = setTimeout(function(){ toastEl.classList.remove('show'); }, 4200);
+function setMyUsername(inputId) {
+
+    const username = getTelegramUsername();
+
+    if (!username) {
+
+        alert(
+            "Telegram profilingizda username yo'q.\n\n" +
+            "Avval Telegram Settings → Username orqali username qo'ying."
+        );
+
+        return;
     }
 
-    /* ---------------------------------------------
-       NUMBER FORMAT
-    ----------------------------------------------*/
-    function fmt(n){
-        return Math.max(0, Math.round(n)).toLocaleString('uz-UZ') + " so'm";
-    }
+    document.getElementById(inputId).value = username;
+}
 
-    function normalizeUsername(v){
-        v = (v || '').trim();
-        if(!v) return '';
-        return v.startsWith('@') ? v : '@' + v.replace(/^@+/, '');
-    }
 
-    /* ---------------------------------------------
-       NAVIGATION
-    ----------------------------------------------*/
-    var pages = Array.prototype.slice.call(document.querySelectorAll('.page'));
-    var history = [];
+/* STARS */
 
-    function openPage(id){
-        pages.forEach(function(p){ p.classList.remove('active'); });
-        document.getElementById(id).classList.add('active');
-        window.scrollTo(0,0);
-        history.push(id);
-        try{ id === 'home' ? tg.BackButton.hide() : tg.BackButton.show(); }catch(e){}
-    }
+const STAR_PRICE = 220;
 
-    function goHome(){
-        history = [];
-        openPage('home');
-    }
+let selectedStars = 0;
 
-    document.querySelectorAll('[data-page]').forEach(function(el){
-        el.addEventListener('click', function(){
-            haptic();
-            openPage(el.getAttribute('data-page'));
+function selectStars(amount, button) {
+
+    selectedStars = amount;
+
+    document.getElementById("customStars").value = "";
+
+    document.querySelectorAll(".star-option").forEach(btn => {
+        btn.classList.remove("selected");
+    });
+
+    button.classList.add("selected");
+
+    updateStarsTotal();
+}
+
+function customStarInput() {
+
+    const input = document.getElementById("customStars");
+
+    let value = parseInt(input.value);
+
+    if (isNaN(value) || value < 1) {
+        selectedStars = 0;
+    } else {
+
+        selectedStars = value;
+
+        document.querySelectorAll(".star-option").forEach(btn => {
+            btn.classList.remove("selected");
         });
-    });
-
-    document.querySelectorAll('[data-back]').forEach(function(el){
-        el.addEventListener('click', function(){ haptic(); goHome(); });
-    });
-
-    try{ tg.BackButton.onClick(function(){ goHome(); }); }catch(e){}
-
-    /* ---------------------------------------------
-       "O'ZIMGA" — fill with Telegram username
-    ----------------------------------------------*/
-    function getTelegramUsername(){
-        var user = tg.initDataUnsafe && tg.initDataUnsafe.user;
-        if(user && user.username) return '@' + user.username;
-        return null;
     }
 
-    document.querySelectorAll('[data-myself]').forEach(function(btn){
-        btn.addEventListener('click', function(){
-            var username = getTelegramUsername();
-            var input = document.getElementById(btn.getAttribute('data-myself'));
-            if(!username){
-                showToast('Username topilmadi', "Telegram profilingizda username o'rnatilmagan. Sozlamalardan username qo'shing.");
-                haptic('error');
-                return;
-            }
-            input.value = username;
-            input.dispatchEvent(new Event('input'));
-            haptic('success');
-        });
-    });
+    updateStarsTotal();
+}
 
-    // Gift/NFT cards use a shared "sibling" myself button (fills the input in the same card)
-    document.querySelectorAll('[data-myself-target="sibling"]').forEach(function(btn){
-        btn.addEventListener('click', function(){
-            var username = getTelegramUsername();
-            var input = btn.closest('.product-content').querySelector('.gift-recipient');
-            if(!username){
-                showToast('Username topilmadi', "Telegram profilingizda username o'rnatilmagan. Sozlamalardan username qo'shing.");
-                haptic('error');
-                return;
-            }
-            input.value = username;
-            haptic('success');
-        });
-    });
+function updateStarsTotal() {
 
-    /* ---------------------------------------------
-       VALIDATION HELPERS
-    ----------------------------------------------*/
-    function validate(inputEl, errorEl, condition){
-        var ok = condition();
-        errorEl.classList.toggle('show', !ok);
-        return ok;
+    const total = selectedStars * STAR_PRICE;
+
+    document.getElementById("starTotal").textContent =
+        total.toLocaleString("en-US").replace(/,/g, " ");
+}
+
+function buyStars() {
+
+    if (selectedStars < 1) {
+        alert("❌ Avval Stars miqdorini tanlang.");
+        return;
     }
 
-    /* ---------------------------------------------
-       STARS
-    ----------------------------------------------*/
-    var STAR_PRICE = 220;
-    var starsAmount = document.getElementById('starsAmount');
-    var starsRecipient = document.getElementById('starsRecipient');
-    var starsPrice = document.getElementById('starsPrice');
+    const recipient =
+        document.getElementById("starsRecipient").value.trim();
 
-    function calcStars(){
-        var amount = Number(starsAmount.value) || 0;
-        starsPrice.textContent = fmt(amount * STAR_PRICE);
-    }
-    starsAmount.addEventListener('input', calcStars);
-    calcStars();
-
-    document.getElementById('buyStarsBtn').addEventListener('click', function(){
-        var amount = Number(starsAmount.value);
-        var recipient = normalizeUsername(starsRecipient.value);
-
-        var amountOk = validate(starsAmount, document.getElementById('starsAmountError'), function(){ return amount >= 1; });
-        var recOk = validate(starsRecipient, document.getElementById('starsRecipientError'), function(){ return recipient.length > 1; });
-
-        if(!amountOk || !recOk){ haptic('error'); return; }
-
-        haptic('success');
-        showToast('⭐ Buyurtma qabul qilindi', 'Stars: ' + amount + '\nKimga: ' + recipient + '\nJami: ' + fmt(amount * STAR_PRICE));
-    });
-
-    /* ---------------------------------------------
-       PREMIUM
-    ----------------------------------------------*/
-    var premiumRecipient = document.getElementById('premiumRecipient');
-    var buyPremiumBtn = document.getElementById('buyPremiumBtn');
-    var selectedPremium = null;
-
-    document.querySelectorAll('.premium-option').forEach(function(el){
-        el.addEventListener('click', function(){
-            document.querySelectorAll('.premium-option').forEach(function(o){ o.classList.remove('selected'); });
-            el.classList.add('selected');
-            selectedPremium = { months: Number(el.getAttribute('data-months')), price: Number(el.getAttribute('data-price')) };
-            buyPremiumBtn.disabled = false;
-            buyPremiumBtn.textContent = selectedPremium.months + ' oy — ' + fmt(selectedPremium.price);
-            haptic();
-        });
-    });
-
-    buyPremiumBtn.addEventListener('click', function(){
-        var recipient = normalizeUsername(premiumRecipient.value);
-        var recOk = validate(premiumRecipient, document.getElementById('premiumRecipientError'), function(){ return recipient.length > 1; });
-
-        if(!recOk || !selectedPremium){
-            if(!selectedPremium) showToast('Muddatni tanlang', 'Iltimos, Premium muddatini tanlang.');
-            haptic('error');
-            return;
-        }
-
-        haptic('success');
-        showToast('💎 Buyurtma qabul qilindi', 'Muddat: ' + selectedPremium.months + ' oy\nKimga: ' + recipient + '\nNarx: ' + fmt(selectedPremium.price));
-    });
-
-    /* ---------------------------------------------
-       GIFTS & NFT (shared markup pattern)
-    ----------------------------------------------*/
-    document.querySelectorAll('[data-gift]').forEach(function(card){
-        var name = card.getAttribute('data-name');
-        var price = Number(card.getAttribute('data-price'));
-        var input = card.querySelector('.gift-recipient');
-        var error = card.querySelector('.gift-error');
-        var button = card.querySelector('.gift-buy');
-
-        button.addEventListener('click', function(){
-            var recipient = normalizeUsername(input.value);
-            var ok = validate(input, error, function(){ return recipient.length > 1; });
-            if(!ok){ haptic('error'); return; }
-
-            haptic('success');
-            showToast('🎁 Buyurtma qabul qilindi', name + '\nKimga: ' + recipient + '\nNarx: ' + fmt(price));
-        });
-    });
-
-    /* ---------------------------------------------
-       RENTAL
-    ----------------------------------------------*/
-    var RENTAL_DAILY_PRICE = 10000;
-    var rentalDays = document.getElementById('rentalDays');
-    var rentalPrice = document.getElementById('rentalPrice');
-    var rentalRecipient = document.getElementById('rentalRecipient');
-
-    function clampDays(){
-        var d = Number(rentalDays.value);
-        if(!d || d < 1) d = 1;
-        rentalDays.value = d;
-        return d;
+    if (!recipient) {
+        alert("❌ Kimga yuborilishini kiriting.");
+        return;
     }
 
-    function calcRental(){
-        var days = clampDays();
-        rentalPrice.textContent = fmt(days * RENTAL_DAILY_PRICE);
+    alert(
+        "⭐ Stars buyurtmasi\n\n" +
+        "Miqdor: " + selectedStars + "\n" +
+        "Kimga: " + recipient + "\n" +
+        "Narx: " +
+        (selectedStars * STAR_PRICE).toLocaleString("en-US").replace(/,/g, " ") +
+        " so'm"
+    );
+}
+
+
+/* PREMIUM */
+
+let selectedPremiumMonths = 0;
+let selectedPremiumPrice = 0;
+
+function selectPremium(months, price) {
+
+    selectedPremiumMonths = months;
+    selectedPremiumPrice = price;
+
+    document.getElementById("premiumInfo").textContent =
+        months + " oy — " +
+        price.toLocaleString("en-US").replace(/,/g, " ") +
+        " so'm";
+}
+
+function buyPremium() {
+
+    if (!selectedPremiumMonths) {
+        alert("❌ Premium muddatini tanlang.");
+        return;
     }
-    rentalDays.addEventListener('input', calcRental);
 
-    document.getElementById('rentalMinus').addEventListener('click', function(){
-        rentalDays.value = Math.max(1, Number(rentalDays.value || 1) - 1);
-        calcRental(); haptic();
+    const recipient =
+        document.getElementById("premiumRecipient").value.trim();
+
+    if (!recipient) {
+        alert("❌ Kimga yuborilishini kiriting.");
+        return;
+    }
+
+    alert(
+        "💎 Premium buyurtmasi\n\n" +
+        selectedPremiumMonths + " oy\n" +
+        "Kimga: " + recipient + "\n" +
+        "Narx: " +
+        selectedPremiumPrice.toLocaleString("en-US").replace(/,/g, " ") +
+        " so'm"
+    );
+}
+
+
+/* PRODUCTS */
+
+const giftProducts = [
+
+    ["Gift 1", "25 000", "https://images.unsplash.com/photo-1512909006721-3d6018887383?auto=format&fit=crop&w=500&q=80"],
+    ["Gift 2", "35 000", "https://images.unsplash.com/photo-1513883049090-d0b7439799bf?auto=format&fit=crop&w=500&q=80"],
+    ["Gift 3", "45 000", "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=500&q=80"],
+    ["Gift 4", "55 000", "https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=500&q=80"],
+    ["Gift 5", "65 000", "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=500&q=80"],
+    ["Gift 6", "75 000", "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=500&q=80"],
+    ["Gift 7", "85 000", "https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=500&q=80"],
+    ["Gift 8", "95 000", "https://images.unsplash.com/photo-1523268755815-fe7c372a0349?auto=format&fit=crop&w=500&q=80"],
+    ["Gift 9", "110 000", "https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?auto=format&fit=crop&w=500&q=80"],
+    ["Gift 10", "150 000", "https://images.unsplash.com/photo-1607344645866-009c320b63e0?auto=format&fit=crop&w=500&q=80"]
+
+];
+
+const nftProducts = [
+
+    ["NFT Gift 1", "100 000", "https://images.unsplash.com/photo-1634973357973-f2ed2657db3c?auto=format&fit=crop&w=500&q=80"],
+    ["NFT Gift 2", "150 000", "https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?auto=format&fit=crop&w=500&q=80"],
+    ["NFT Gift 3", "200 000", "https://images.unsplash.com/photo-1618172193763-c511deb635ca?auto=format&fit=crop&w=500&q=80"],
+    ["NFT Gift 4", "250 000", "https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=500&q=80"],
+    ["NFT Gift 5", "300 000", "https://images.unsplash.com/photo-1634986666676-ec8fd927c23d?auto=format&fit=crop&w=500&q=80"],
+    ["NFT Gift 6", "400 000", "https://images.unsplash.com/photo-1635322966219-b75ed372eb01?auto=format&fit=crop&w=500&q=80"],
+    ["NFT Gift 7", "500 000", "https://images.unsplash.com/photo-1633104509143-2b5e8c0d5e0e?auto=format&fit=crop&w=500&q=80"],
+    ["NFT Gift 8", "600 000", "https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&w=500&q=80"],
+    ["NFT Gift 9", "750 000", "https://images.unsplash.com/photo-1634986666676-ec8fd927c23d?auto=format&fit=crop&w=500&q=80"],
+    ["NFT Gift 10", "1 000 000", "https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=500&q=80"]
+
+];
+
+
+function renderProducts(products, containerId) {
+
+    const container = document.getElementById(containerId);
+
+    container.innerHTML = "";
+
+    products.forEach((product, index) => {
+
+        const [name, price, image] = product;
+
+        container.innerHTML += `
+
+        <div class="product">
+
+            <img src="${image}" alt="${name}">
+
+            <div class="product-name">
+                ${name}
+            </div>
+
+            <div class="product-price">
+                ${price} so'm
+            </div>
+
+            <input
+                id="${containerId}-recipient-${index}"
+                type="text"
+                placeholder="@username"
+            >
+
+            <button
+                onclick="setMyUsername('${containerId}-recipient-${index}')"
+                style="background:#183957;"
+            >
+                👤 O'zimga
+            </button>
+
+            <button
+                onclick="buyProduct('${name}','${price}','${containerId}-recipient-${index}')"
+            >
+                Sotib olish
+            </button>
+
+        </div>
+
+        `;
     });
-    document.getElementById('rentalPlus').addEventListener('click', function(){
-        rentalDays.value = Number(rentalDays.value || 1) + 1;
-        calcRental(); haptic();
-    });
+}
 
-    calcRental();
 
-    document.getElementById('buyRentalBtn').addEventListener('click', function(){
-        var days = clampDays();
-        var recipient = normalizeUsername(rentalRecipient.value);
-        var recOk = validate(rentalRecipient, document.getElementById('rentalRecipientError'), function(){ return recipient.length > 1; });
+function buyProduct(name, price, inputId) {
 
-        if(!recOk){ haptic('error'); return; }
+    const recipient =
+        document.getElementById(inputId).value.trim();
 
-        haptic('success');
-        showToast('🕐 Ijara buyurtmasi', 'Muddat: ' + days + ' kun\nKimga: ' + recipient + '\nJami: ' + fmt(days * RENTAL_DAILY_PRICE));
-    });
+    if (!recipient) {
+        alert("❌ Kimga yuborilishini kiriting.");
+        return;
+    }
 
-    /* ---------------------------------------------
-       NUMBERS
-    ----------------------------------------------*/
-    document.querySelectorAll('.country').forEach(function(el){
-        el.addEventListener('click', function(){
-            haptic();
-            showToast('📱 ' + el.getAttribute('data-country'), 'Kod: ' + el.getAttribute('data-code') + '\nNomer olish tez orada ulanadi.');
-        });
-    });
+    alert(
+        "🎁 Buyurtma\n\n" +
+        name + "\n" +
+        "Narx: " + price + " so'm\n" +
+        "Kimga: " + recipient
+    );
+}
 
-    /* ---------------------------------------------
-       TOP UP
-    ----------------------------------------------*/
-    document.getElementById('topupBtn').addEventListener('click', function(){
-        haptic();
-        showToast('💳 Hisobni to\'ldirish', "To'lov tizimi tez orada ulanadi.");
-    });
 
-})();
+/* RENTAL */
+
+const RENTAL_PRICE = 10000;
+
+function calculateRental() {
+
+    const input = document.getElementById("rentalDays");
+
+    let days = parseInt(input.value);
+
+    if (isNaN(days) || days < 1) {
+
+        document.getElementById("rentalTotal").textContent =
+            "0";
+
+        return;
+    }
+
+    // Faqat butun son
+    days = Math.floor(days);
+
+    input.value = days;
+
+    const total = days * RENTAL_PRICE;
+
+    document.getElementById("rentalTotal").textContent =
+        total.toLocaleString("en-US").replace(/,/g, " ");
+}
+
+
+function setDays(days) {
+
+    document.getElementById("rentalDays").value = days;
+
+    calculateRental();
+}
+
+
+function buyRental() {
+
+    let days =
+        parseInt(document.getElementById("rentalDays").value);
+
+    if (isNaN(days) || days < 1) {
+
+        alert("❌ Kamida 1 kun kiriting.");
+
+        document.getElementById("rentalDays").value = 1;
+
+        calculateRental();
+
+        return;
+    }
+
+    days = Math.floor(days);
+
+    const recipient =
+        document.getElementById("rentalRecipient").value.trim();
+
+    if (!recipient) {
+
+        alert("❌ Kimga yuborilishini kiriting.");
+
+        return;
+    }
+
+    const total = days * RENTAL_PRICE;
+
+    alert(
+        "🎁 Gift ijara\n\n" +
+        "Muddat: " + days + " kun\n" +
+        "Kimga: " + recipient + "\n" +
+        "Jami: " +
+        total.toLocaleString("en-US").replace(/,/g, " ") +
+        " so'm"
+    );
+}
+
+
+/* START */
+
+renderProducts(giftProducts, "giftsProducts");
+
+renderProducts(nftProducts, "nftProducts");
+
+calculateRental();
+
 </script>
 
 </body>
