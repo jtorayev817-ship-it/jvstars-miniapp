@@ -213,32 +213,6 @@ button {
     color: white;
 }
 
-.rental-days {
-    margin-top: 8px;
-}
-
-.day-buttons {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 6px;
-    margin-top: 8px;
-}
-
-.day-btn {
-    background: #112b45;
-    padding: 9px 4px;
-    border-radius: 8px;
-    color: white;
-}
-
-.rental-total {
-    background: #081a2b;
-    border-radius: 9px;
-    padding: 9px;
-    margin-top: 8px;
-    font-weight: bold;
-}
-
 .home-services {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -324,7 +298,7 @@ button {
 
         <button class="service-btn"
                 onclick="showSection('rental')">
-            🎁 Gift ijara
+            🎮 PUBG UC
         </button>
 
         <button class="service-btn"
@@ -542,7 +516,7 @@ Tanlangan:
 </div>
 
 
-<!-- GIFT IJARA -->
+<!-- PUBG UC -->
 
 <div id="rental" class="section">
 
@@ -551,13 +525,13 @@ Tanlangan:
     ← Orqaga
 </button>
 
-<h2>🎁 Gift ijara</h2>
+<h2>🎮 PUBG Mobile UC</h2>
 
 <p style="color:#9eb4ca;">
-Kerakli giftni tanlang:
+Kerakli UC paketini tanlang:
 </p>
 
-<div class="products" id="rentalProducts"></div>
+<div class="products" id="pubgProducts"></div>
 
 </div>
 
@@ -947,59 +921,45 @@ const nftProducts = [
 
 
 /* =========================
-   GIFT IJARA
+   PUBG UC
 ========================= */
 
-const rentalProducts = [
+/*
+   Narxlar hozircha belgilanmagan.
+   Keyin shu joydagi 0 larni o'zimizning
+   sotuv narxlarimiz bilan almashtiramiz.
+*/
+
+const pubgProducts = [
     [
-        "Premium Gift",
-        10000,
-        "https://images.unsplash.com/photo-1512909006721-3d6018887383?auto=format&fit=crop&w=500&q=80"
+        "60 UC",
+        0,
+        "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=500&q=80"
     ],
     [
-        "Diamond Gift",
-        15000,
-        "https://images.unsplash.com/photo-1513883049090-d0b7439799bf?auto=format&fit=crop&w=500&q=80"
+        "325 UC",
+        0,
+        "https://images.unsplash.com/photo-1542751110-97427bbecf20?auto=format&fit=crop&w=500&q=80"
     ],
     [
-        "Rose Gift",
-        20000,
-        "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=500&q=80"
+        "660 UC",
+        0,
+        "https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=500&q=80"
     ],
     [
-        "Star Gift",
-        25000,
-        "https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=500&q=80"
+        "1800 UC",
+        0,
+        "https://images.unsplash.com/photo-1593305841991-05c297ba4575?auto=format&fit=crop&w=500&q=80"
     ],
     [
-        "Luxury Gift",
-        30000,
-        "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=500&q=80"
+        "3850 UC",
+        0,
+        "https://images.unsplash.com/photo-1560419015-7c427e8ae5ba?auto=format&fit=crop&w=500&q=80"
     ],
     [
-        "Golden Gift",
-        35000,
-        "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=500&q=80"
-    ],
-    [
-        "Royal Gift",
-        40000,
-        "https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=500&q=80"
-    ],
-    [
-        "VIP Gift",
-        50000,
-        "https://images.unsplash.com/photo-1523268755815-fe7c372a0349?auto=format&fit=crop&w=500&q=80"
-    ],
-    [
-        "Legend Gift",
-        75000,
-        "https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?auto=format&fit=crop&w=500&q=80"
-    ],
-    [
-        "Premium NFT Gift",
-        100000,
-        "https://images.unsplash.com/photo-1607344645866-009c320b63e0?auto=format&fit=crop&w=500&q=80"
+        "8100 UC",
+        0,
+        "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=500&q=80"
     ]
 ];
 
@@ -1107,20 +1067,20 @@ function buyProduct(name, price, inputId) {
 
 
 /* =========================
-   RENTAL PRODUCTS
+   PUBG UC PRODUCTS
 ========================= */
 
-function renderRentalProducts() {
+function renderPubgProducts() {
 
     const container =
-        document.getElementById("rentalProducts");
+        document.getElementById("pubgProducts");
 
     container.innerHTML = "";
 
-    rentalProducts.forEach((product, index) => {
+    pubgProducts.forEach((product, index) => {
 
         const name = product[0];
-        const dailyPrice = product[1];
+        const price = product[1];
         const image = product[2];
 
         container.innerHTML += `
@@ -1133,105 +1093,27 @@ function renderRentalProducts() {
             >
 
             <div class="product-name">
-                ${name}
+                🎮 ${name}
             </div>
 
             <div class="product-price">
-                ${formatMoney(dailyPrice)} / kun
+                Narx belgilanmagan
             </div>
 
             <input
-                id="rental-days-${index}"
-                class="rental-days"
-                type="number"
-                min="1"
-                step="1"
-                value="1"
-                oninput="calculateRental(
-                    ${index},
-                    ${dailyPrice}
-                )"
-            >
-
-            <div class="day-buttons">
-
-                <button
-                    class="day-btn"
-                    onclick="setRentalDays(
-                        ${index},
-                        1,
-                        ${dailyPrice}
-                    )"
-                >
-                    1
-                </button>
-
-                <button
-                    class="day-btn"
-                    onclick="setRentalDays(
-                        ${index},
-                        7,
-                        ${dailyPrice}
-                    )"
-                >
-                    7
-                </button>
-
-                <button
-                    class="day-btn"
-                    onclick="setRentalDays(
-                        ${index},
-                        30,
-                        ${dailyPrice}
-                    )"
-                >
-                    30
-                </button>
-
-                <button
-                    class="day-btn"
-                    onclick="setRentalDays(
-                        ${index},
-                        100,
-                        ${dailyPrice}
-                    )"
-                >
-                    100
-                </button>
-
-            </div>
-
-            <div class="rental-total">
-                Jami:
-                <span id="rental-total-${index}">
-                    ${formatMoney(dailyPrice)}
-                </span>
-                so'm
-            </div>
-
-            <input
-                id="rental-recipient-${index}"
+                id="pubg-player-${index}"
                 type="text"
-                placeholder="@username"
+                placeholder="PUBG Player ID"
             >
 
             <button
-                onclick="setMyUsername(
-                    'rental-recipient-${index}'
-                )"
-                style="background:#183957;"
-            >
-                👤 O'zimga
-            </button>
-
-            <button
-                onclick="buyRental(
-                    ${index},
+                onclick="buyPubgUC(
                     '${name}',
-                    ${dailyPrice}
+                    ${price},
+                    '${index}'
                 )"
             >
-                🎁 Ijaraga olish
+                🎮 Sotib olish
             </button>
 
         </div>
@@ -1241,101 +1123,29 @@ function renderRentalProducts() {
 }
 
 
-/* =========================
-   RENTAL CALCULATOR
-========================= */
+function buyPubgUC(name, price, index) {
 
-function calculateRental(index, dailyPrice) {
-
-    const input =
+    const playerId =
         document.getElementById(
-            "rental-days-" + index
-        );
-
-    let days = parseInt(input.value);
-
-    if (isNaN(days) || days < 1) {
-
-        document.getElementById(
-            "rental-total-" + index
-        ).textContent = "0";
-
-        return;
-    }
-
-    days = Math.floor(days);
-
-    input.value = days;
-
-    const total = days * dailyPrice;
-
-    document.getElementById(
-        "rental-total-" + index
-    ).textContent = formatMoney(total);
-}
-
-
-function setRentalDays(index, days, dailyPrice) {
-
-    document.getElementById(
-        "rental-days-" + index
-    ).value = days;
-
-    calculateRental(index, dailyPrice);
-}
-
-
-function buyRental(index, name, dailyPrice) {
-
-    const input =
-        document.getElementById(
-            "rental-days-" + index
-        );
-
-    let days = parseInt(input.value);
-
-    if (isNaN(days) || days < 1) {
-
-        alert("❌ Kamida 1 kun kiriting.");
-
-        input.value = 1;
-
-        calculateRental(index, dailyPrice);
-
-        return;
-    }
-
-    days = Math.floor(days);
-
-    input.value = days;
-
-    const recipient =
-        document.getElementById(
-            "rental-recipient-" + index
+            "pubg-player-" + index
         ).value.trim();
 
-    if (!recipient) {
+    if (!playerId) {
 
-        alert("❌ Kimga yuborilishini kiriting.");
+        alert("❌ PUBG Player ID ni kiriting.");
 
         return;
     }
 
-    const total = days * dailyPrice;
-
     alert(
-        "🎁 Gift ijara\n\n" +
-        "Gift: " +
+        "🎮 PUBG UC buyurtmasi\n\n" +
+        "Paket: " +
         name +
-        "\nMuddat: " +
-        days +
-        " kun\nKunlik narx: " +
-        formatMoney(dailyPrice) +
-        " so'm\nKimga: " +
-        recipient +
-        "\nJami: " +
-        formatMoney(total) +
-        " so'm"
+        "\n" +
+        "Player ID: " +
+        playerId +
+        "\n\n" +
+        "Narx hozircha belgilanmagan."
     );
 }
 
@@ -1354,7 +1164,7 @@ renderProducts(
     "nftProducts"
 );
 
-renderRentalProducts();
+renderPubgProducts();
 
 
 /* =========================
