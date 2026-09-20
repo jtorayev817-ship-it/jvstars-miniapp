@@ -3,7 +3,8 @@
 <html lang="uz">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
     <title>JV Stars</title>
 
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -11,146 +12,403 @@
     <style>
         * {
             box-sizing: border-box;
+        }
+
+        html,
+        body {
             margin: 0;
             padding: 0;
+            min-height: 100%;
+            font-family: Arial, Helvetica, sans-serif;
+            background:
+                radial-gradient(circle at 15% 10%, rgba(0, 140, 255, 0.16), transparent 30%),
+                radial-gradient(circle at 90% 20%, rgba(0, 255, 220, 0.10), transparent 28%),
+                radial-gradient(circle at 50% 100%, rgba(80, 0, 255, 0.12), transparent 35%),
+                #050914;
+            color: #ffffff;
         }
 
         body {
-            font-family: Arial, sans-serif;
-            background: #f4f6f8;
-            color: #111;
             min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        button,
+        input {
+            font-family: inherit;
         }
 
         .container {
-            max-width: 520px;
-            margin: auto;
-            padding: 18px;
+            width: 100%;
+            max-width: 540px;
+            margin: 0 auto;
+            padding: 16px;
         }
 
-        .header {
+        /* =========================
+           TOP LOGO
+        ========================= */
+
+        .top-logo {
             text-align: center;
-            padding: 20px 0;
+            margin: 8px 0 25px;
         }
 
-        .header h1 {
-            font-size: 28px;
+        .top-logo a {
+            text-decoration: none;
+            color: #ffffff;
         }
 
-        .header p {
+        .logo {
+            font-size: 34px;
+            font-weight: 900;
+            letter-spacing: 1px;
+            text-shadow:
+                0 0 5px #00d9ff,
+                0 0 15px rgba(0, 217, 255, 0.8),
+                0 0 30px rgba(0, 217, 255, 0.5);
+        }
+
+        .logo-sub {
             margin-top: 6px;
-            color: #777;
+            color: #8da4c7;
+            font-size: 13px;
         }
+
+        /* =========================
+           SECTIONS
+        ========================= */
 
         .section {
             display: none;
+            animation: fadeIn 0.25s ease;
         }
 
         .section.active {
             display: block;
         }
 
-        .card {
-            background: white;
-            border-radius: 18px;
-            padding: 18px;
-            margin-top: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        .service-btn,
-        .primary,
-        .self-btn {
-            width: 100%;
-            border: none;
-            border-radius: 13px;
-            padding: 15px;
-            margin-top: 10px;
-            font-size: 16px;
-            cursor: pointer;
+        /* =========================
+           CARDS
+        ========================= */
+
+        .card {
+            background: rgba(9, 18, 35, 0.88);
+            border: 1px solid rgba(0, 190, 255, 0.20);
+            border-radius: 20px;
+            padding: 18px;
+            margin-bottom: 15px;
+            box-shadow:
+                0 0 15px rgba(0, 170, 255, 0.08),
+                inset 0 0 20px rgba(0, 120, 255, 0.025);
+            backdrop-filter: blur(10px);
         }
+
+        .welcome-card {
+            text-align: center;
+            padding: 24px 18px;
+            margin-bottom: 18px;
+        }
+
+        .welcome-title {
+            font-size: 22px;
+            font-weight: 800;
+            text-shadow: 0 0 12px rgba(0, 210, 255, 0.55);
+        }
+
+        .welcome-text {
+            color: #91a5c5;
+            margin-top: 8px;
+            font-size: 14px;
+        }
+
+        /* =========================
+           SERVICE BUTTONS
+        ========================= */
 
         .service-btn {
-            background: #eef2f5;
-            color: #111;
+            width: 100%;
+            min-height: 58px;
+            margin-top: 10px;
+            padding: 14px 16px;
+            border: 1px solid rgba(0, 205, 255, 0.22);
+            border-radius: 15px;
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(15, 34, 59, 0.96),
+                    rgba(8, 20, 39, 0.96)
+                );
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 700;
+            text-align: left;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow:
+                0 0 8px rgba(0, 190, 255, 0.06);
         }
 
-        .primary {
-            background: #2481cc;
-            color: white;
-            font-weight: bold;
+        .service-btn:hover,
+        .service-btn:active {
+            transform: translateY(-1px);
+            border-color: rgba(0, 220, 255, 0.7);
+            box-shadow:
+                0 0 12px rgba(0, 200, 255, 0.20),
+                0 0 28px rgba(0, 150, 255, 0.08);
         }
 
-        .self-btn {
-            background: #e8f1ff;
-            color: #2481cc;
+        .service-icon {
+            font-size: 22px;
+            margin-right: 8px;
+        }
+
+        .service-description {
+            display: block;
+            margin-top: 4px;
+            margin-left: 33px;
+            color: #7f94b5;
+            font-size: 12px;
+            font-weight: 400;
+        }
+
+        /* =========================
+           TITLES
+        ========================= */
+
+        h2 {
+            margin: 12px 0 15px;
+            font-size: 23px;
+            text-shadow:
+                0 0 10px rgba(0, 210, 255, 0.45);
         }
 
         .back-btn {
-            border: none;
+            border: 0;
             background: transparent;
-            font-size: 16px;
+            color: #69dfff;
+            font-size: 15px;
+            padding: 5px 0;
             cursor: pointer;
-            padding: 8px 0;
         }
 
-        .total {
-            margin-top: 15px;
-            padding: 13px;
-            background: #f4f6f8;
-            border-radius: 12px;
-            text-align: center;
-            font-weight: bold;
-        }
+        /* =========================
+           INPUT
+        ========================= */
 
         label {
             display: block;
-            margin-top: 15px;
-            margin-bottom: 6px;
-            font-weight: bold;
+            margin-top: 16px;
+            margin-bottom: 7px;
+            color: #a7b9d5;
+            font-size: 13px;
         }
 
-        input,
-        select {
+        input {
             width: 100%;
-            padding: 13px;
-            border: 1px solid #ddd;
-            border-radius: 11px;
-            font-size: 15px;
+            padding: 15px;
+            border-radius: 13px;
+            border: 1px solid rgba(0, 200, 255, 0.22);
+            outline: none;
+            background: #071222;
+            color: #ffffff;
+            font-size: 16px;
         }
+
+        input:focus {
+            border-color: #00d9ff;
+            box-shadow: 0 0 12px rgba(0, 217, 255, 0.15);
+        }
+
+        input::placeholder {
+            color: #536985;
+        }
+
+        /* =========================
+           PRIMARY BUTTON
+        ========================= */
+
+        .primary {
+            width: 100%;
+            margin-top: 14px;
+            padding: 15px;
+            border: 0;
+            border-radius: 13px;
+            background: linear-gradient(
+                135deg,
+                #008cff,
+                #00c8ff
+            );
+            color: white;
+            font-size: 16px;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow:
+                0 0 12px rgba(0, 175, 255, 0.28),
+                0 0 30px rgba(0, 150, 255, 0.10);
+        }
+
+        .self-btn {
+            width: 100%;
+            margin-top: 9px;
+            padding: 13px;
+            border: 1px solid rgba(0, 210, 255, 0.20);
+            border-radius: 13px;
+            background: rgba(0, 150, 255, 0.08);
+            color: #72dcff;
+            cursor: pointer;
+        }
+
+        /* =========================
+           PRICE
+        ========================= */
+
+        .total {
+            margin-top: 14px;
+            padding: 15px;
+            border-radius: 13px;
+            background: rgba(0, 160, 255, 0.06);
+            border: 1px solid rgba(0, 200, 255, 0.13);
+            text-align: center;
+            color: #8da4c7;
+        }
+
+        .total span {
+            color: #00ddff;
+            font-weight: 800;
+            text-shadow: 0 0 8px rgba(0, 220, 255, 0.4);
+        }
+
+        .price {
+            color: #00d9ff;
+            font-weight: 800;
+        }
+
+        .small {
+            color: #7185a5;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        /* =========================
+           STARS CALCULATOR
+        ========================= */
+
+        .calculator {
+            text-align: center;
+            padding: 20px;
+            border-radius: 16px;
+            background:
+                radial-gradient(
+                    circle at center,
+                    rgba(0, 210, 255, 0.10),
+                    transparent 70%
+                );
+            border: 1px solid rgba(0, 210, 255, 0.15);
+        }
+
+        .calculator-star {
+            font-size: 45px;
+            filter:
+                drop-shadow(0 0 8px rgba(255, 220, 0, 0.55));
+        }
+
+        .calculator-title {
+            margin-top: 5px;
+            color: #9bb0cf;
+            font-size: 13px;
+        }
+
+        .star-input {
+            text-align: center;
+            font-size: 25px;
+            font-weight: 800;
+            margin-top: 15px;
+        }
+
+        .range-info {
+            margin-top: 8px;
+            color: #657c9f;
+            font-size: 12px;
+        }
+
+        /* =========================
+           COUNTRY
+        ========================= */
 
         .country {
             display: flex;
             align-items: center;
             justify-content: space-between;
+            gap: 10px;
             padding: 15px;
             margin-top: 10px;
-            background: #f4f6f8;
-            border-radius: 13px;
+            border-radius: 14px;
+            background: rgba(11, 28, 49, 0.9);
+            border: 1px solid rgba(0, 180, 255, 0.12);
         }
 
         .country button {
-            border: none;
-            background: #2481cc;
+            border: 0;
+            border-radius: 10px;
+            padding: 10px 13px;
+            background: #087fca;
             color: white;
-            padding: 9px 14px;
-            border-radius: 9px;
+            font-weight: 700;
             cursor: pointer;
         }
 
-        .price {
-            color: #2481cc;
-            font-weight: bold;
+        /* =========================
+           TOP UP
+        ========================= */
+
+        .balance-box {
+            text-align: center;
+            padding: 20px;
+            border-radius: 16px;
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(0, 150, 255, 0.10),
+                    rgba(0, 255, 210, 0.04)
+                );
+            border: 1px solid rgba(0, 200, 255, 0.16);
         }
 
-        h2 {
-            margin-top: 10px;
-        }
-
-        .small {
-            color: #777;
+        .balance-label {
+            color: #7f96b8;
             font-size: 13px;
+        }
+
+        .balance-value {
             margin-top: 6px;
+            font-size: 27px;
+            font-weight: 900;
+            color: #00dcff;
+            text-shadow: 0 0 12px rgba(0, 220, 255, 0.4);
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        .footer {
+            text-align: center;
+            padding: 25px 0 10px;
+            color: #435674;
+            font-size: 11px;
         }
     </style>
 </head>
@@ -159,46 +417,112 @@
 
 <div class="container">
 
-    <!-- HOME -->
+    <!-- =========================
+         TOP LOGO
+    ========================= -->
+
+    <div class="top-logo">
+        <a href="https://t.me/jvstarsbot" target="_blank">
+            <div class="logo">🚀 JV STARS</div>
+        </a>
+
+        <div class="logo-sub">
+            Telegram xizmatlar markazi
+        </div>
+    </div>
+
+
+    <!-- =========================
+         HOME
+    ========================= -->
+
     <div id="home" class="section active">
 
-        <div class="header">
-            <h1>🚀 JV Stars</h1>
-            <p>Kerakli xizmatni tanlang</p>
+        <div class="card welcome-card">
+            <div class="welcome-title">
+                Xush kelibsiz 👋
+            </div>
+
+            <div class="welcome-text">
+                Kerakli xizmatni tanlang
+            </div>
         </div>
+
 
         <div class="card">
 
             <button class="service-btn"
                     onclick="showSection('stars')">
-                ⭐ Telegram Stars
+                <span class="service-icon">⭐</span>
+                Telegram Stars
+                <span class="service-description">
+                    50 — 10 000 Stars
+                </span>
             </button>
+
 
             <button class="service-btn"
                     onclick="showSection('premium')">
-                💎 Telegram Premium
+                <span class="service-icon">💎</span>
+                Telegram Premium
+                <span class="service-description">
+                    Premium obuna
+                </span>
             </button>
+
 
             <button class="service-btn"
                     onclick="showSection('gifts')">
-                🎁 Telegram Gift
+                <span class="service-icon">🎁</span>
+                Telegram Gift
+                <span class="service-description">
+                    Sovg‘alar
+                </span>
             </button>
+
 
             <button class="service-btn"
                     onclick="showSection('numbers')">
-                📱 Virtual raqam
+                <span class="service-icon">📱</span>
+                Virtual raqam
+                <span class="service-description">
+                    Telefon raqamlari
+                </span>
             </button>
+
 
             <button class="service-btn"
                     onclick="showSection('rental')">
-                🎮 PUBG UC
+                <span class="service-icon">🎮</span>
+                PUBG UC
+                <span class="service-description">
+                    UC to‘ldirish
+                </span>
+            </button>
+
+
+            <button class="service-btn"
+                    onclick="showSection('topup')">
+                <span class="service-icon">💰</span>
+                Hisobni to‘ldirish
+                <span class="service-description">
+                    Balansga mablag‘ qo‘shish
+                </span>
             </button>
 
         </div>
+
+        <div class="footer">
+            JV Stars © 2026
+        </div>
+
     </div>
 
 
-    <!-- STARS -->
+    <!-- =========================
+         STARS
+    ========================= -->
+
     <div id="stars" class="section">
 
         <button class="back-btn"
@@ -210,42 +534,57 @@
 
         <div class="card">
 
-            <button class="service-btn"
-                    onclick="selectStars(50, 15000)">
-                ⭐ 50 Stars — 15 000 so'm
-            </button>
+            <div class="calculator">
 
-            <button class="service-btn"
-                    onclick="selectStars(100, 30000)">
-                ⭐ 100 Stars — 30 000 so'm
-            </button>
+                <div class="calculator-star">
+                    ⭐
+                </div>
 
-            <button class="service-btn"
-                    onclick="selectStars(250, 75000)">
-                ⭐ 250 Stars — 75 000 so'm
-            </button>
+                <div class="calculator-title">
+                    Stars miqdorini kiriting
+                </div>
 
-            <button class="service-btn"
-                    onclick="selectStars(500, 150000)">
-                ⭐ 500 Stars — 150 000 so'm
-            </button>
+                <input
+                    id="starsInput"
+                    class="star-input"
+                    type="number"
+                    min="50"
+                    max="10000"
+                    step="1"
+                    value="50"
+                    placeholder="50"
+                    oninput="calculateStars()">
 
-            <div class="total">
-                Tanlangan:
-                <span id="starsInfo">-</span>
+                <div class="range-info">
+                    Minimum: 50 ⭐ · Maximum: 10 000 ⭐
+                </div>
+
             </div>
 
-            <label>Kimga yuboriladi?</label>
+
+            <div class="total">
+                Narx:
+                <span id="starsPrice">
+                    15 000 so'm
+                </span>
+            </div>
+
+
+            <label>
+                Kimga yuboriladi?
+            </label>
 
             <input
                 id="starsRecipient"
                 type="text"
                 placeholder="@username">
 
+
             <button class="self-btn"
                     onclick="setMyUsername('starsRecipient')">
                 👤 O'zimga
             </button>
+
 
             <button class="primary"
                     onclick="buyStars()">
@@ -256,7 +595,10 @@
     </div>
 
 
-    <!-- PREMIUM -->
+    <!-- =========================
+         PREMIUM
+    ========================= -->
+
     <div id="premium" class="section">
 
         <button class="back-btn"
@@ -270,42 +612,52 @@
 
             <button class="service-btn"
                     onclick="selectPremium(1, 50000)">
-                1 oy — 50 000 so'm
-                <br>
-                <small>(Admin orqali)</small>
+                💎 1 oy — 50 000 so'm
+                <span class="service-description">
+                    Admin orqali
+                </span>
             </button>
+
 
             <button class="service-btn"
                     onclick="selectPremium(3, 150000)">
-                3 oy — 150 000 so'm
+                💎 3 oy — 150 000 so'm
             </button>
+
 
             <button class="service-btn"
                     onclick="selectPremium(6, 280000)">
-                6 oy — 280 000 so'm
+                💎 6 oy — 280 000 so'm
             </button>
+
 
             <button class="service-btn"
                     onclick="selectPremium(12, 500000)">
-                12 oy — 500 000 so'm
+                💎 12 oy — 500 000 so'm
             </button>
+
 
             <div class="total">
                 Tanlangan:
                 <span id="premiumInfo">-</span>
             </div>
 
-            <label>Kimga?</label>
+
+            <label>
+                Kimga?
+            </label>
 
             <input
                 id="premiumRecipient"
                 type="text"
                 placeholder="@username">
 
+
             <button class="self-btn"
                     onclick="setMyUsername('premiumRecipient')">
                 👤 O'zimga
             </button>
+
 
             <button class="primary"
                     onclick="buyPremium()">
@@ -316,7 +668,10 @@
     </div>
 
 
-    <!-- GIFTS -->
+    <!-- =========================
+         GIFTS
+    ========================= -->
+
     <div id="gifts" class="section">
 
         <button class="back-btn"
@@ -329,42 +684,53 @@
         <div class="card">
 
             <button class="service-btn"
-                    onclick="selectGift('🎁 Gift 1', 20000)">
+                    onclick="selectGift('Gift 1', 20000)">
                 🎁 Gift 1
-                <br>
-                <span class="price">20 000 so'm</span>
+                <span class="service-description">
+                    20 000 so'm
+                </span>
             </button>
 
+
             <button class="service-btn"
-                    onclick="selectGift('🎁 Gift 2', 35000)">
+                    onclick="selectGift('Gift 2', 35000)">
                 🎁 Gift 2
-                <br>
-                <span class="price">35 000 so'm</span>
+                <span class="service-description">
+                    35 000 so'm
+                </span>
             </button>
 
+
             <button class="service-btn"
-                    onclick="selectGift('🎁 Gift 3', 50000)">
+                    onclick="selectGift('Gift 3', 50000)">
                 🎁 Gift 3
-                <br>
-                <span class="price">50 000 so'm</span>
+                <span class="service-description">
+                    50 000 so'm
+                </span>
             </button>
+
 
             <div class="total">
                 Tanlangan:
                 <span id="giftInfo">-</span>
             </div>
 
-            <label>Kimga?</label>
+
+            <label>
+                Kimga?
+            </label>
 
             <input
                 id="giftRecipient"
                 type="text"
                 placeholder="@username">
 
+
             <button class="self-btn"
                     onclick="setMyUsername('giftRecipient')">
                 👤 O'zimga
             </button>
+
 
             <button class="primary"
                     onclick="buyGift()">
@@ -375,7 +741,10 @@
     </div>
 
 
-    <!-- NUMBERS -->
+    <!-- =========================
+         NUMBERS
+    ========================= -->
+
     <div id="numbers" class="section">
 
         <button class="back-btn"
@@ -388,49 +757,66 @@
         <div class="card">
 
             <p class="small">
-                Kerakli davlatni tanlang:
+                Kerakli davlatni tanlang.
             </p>
 
+
             <div class="country">
+
                 <div>
                     🇺🇸 AQSH
                     <br>
-                    <span class="price">Narx: 15 000 so'm</span>
+                    <span class="price">
+                        15 000 so'm
+                    </span>
                 </div>
 
                 <button onclick="selectNumber('AQSH', 15000)">
                     Tanlash
                 </button>
+
             </div>
 
+
             <div class="country">
+
                 <div>
                     🇷🇺 Rossiya
                     <br>
-                    <span class="price">Narx: 20 000 so'm</span>
+                    <span class="price">
+                        20 000 so'm
+                    </span>
                 </div>
 
                 <button onclick="selectNumber('Rossiya', 20000)">
                     Tanlash
                 </button>
+
             </div>
 
+
             <div class="country">
+
                 <div>
                     🇺🇦 Ukraina
                     <br>
-                    <span class="price">Narx: 20 000 so'm</span>
+                    <span class="price">
+                        20 000 so'm
+                    </span>
                 </div>
 
                 <button onclick="selectNumber('Ukraina', 20000)">
                     Tanlash
                 </button>
+
             </div>
+
 
             <div class="total">
                 Tanlangan:
                 <span id="numberInfo">-</span>
             </div>
+
 
             <button class="primary"
                     onclick="buyNumber()">
@@ -441,7 +827,10 @@
     </div>
 
 
-    <!-- PUBG -->
+    <!-- =========================
+         PUBG
+    ========================= -->
+
     <div id="rental" class="section">
 
         <button class="back-btn"
@@ -455,30 +844,46 @@
 
             <button class="service-btn"
                     onclick="selectUC(60, 15000)">
-                🎮 60 UC — 15 000 so'm
+                🎮 60 UC
+                <span class="service-description">
+                    15 000 so'm
+                </span>
             </button>
+
 
             <button class="service-btn"
                     onclick="selectUC(325, 70000)">
-                🎮 325 UC — 70 000 so'm
+                🎮 325 UC
+                <span class="service-description">
+                    70 000 so'm
+                </span>
             </button>
+
 
             <button class="service-btn"
                     onclick="selectUC(660, 135000)">
-                🎮 660 UC — 135 000 so'm
+                🎮 660 UC
+                <span class="service-description">
+                    135 000 so'm
+                </span>
             </button>
+
 
             <div class="total">
                 Tanlangan:
                 <span id="ucInfo">-</span>
             </div>
 
-            <label>PUBG ID</label>
+
+            <label>
+                PUBG ID
+            </label>
 
             <input
                 id="pubgId"
                 type="text"
                 placeholder="PUBG ID">
+
 
             <button class="primary"
                     onclick="buyUC()">
@@ -488,16 +893,86 @@
         </div>
     </div>
 
+
+    <!-- =========================
+         TOP UP
+    ========================= -->
+
+    <div id="topup" class="section">
+
+        <button class="back-btn"
+                onclick="showSection('home')">
+            ← Orqaga
+        </button>
+
+        <h2>💰 Hisobni to‘ldirish</h2>
+
+        <div class="card">
+
+            <div class="balance-box">
+
+                <div class="balance-label">
+                    Joriy balans
+                </div>
+
+                <div class="balance-value">
+                    0 so'm
+                </div>
+
+            </div>
+
+
+            <label>
+                To‘ldirish summasi
+            </label>
+
+            <input
+                id="topupAmount"
+                type="number"
+                min="1000"
+                placeholder="Masalan: 50 000"
+                oninput="calculateTopup()">
+
+
+            <div class="total">
+                To‘lanadi:
+                <span id="topupInfo">
+                    0 so'm
+                </span>
+            </div>
+
+
+            <button class="primary"
+                    onclick="topup()">
+                💳 Hisobni to‘ldirish
+            </button>
+
+
+            <p class="small" style="margin-top:14px;text-align:center;">
+                To‘lov tizimi hozircha ulanmagan.
+            </p>
+
+        </div>
+    </div>
+
 </div>
 
 
 <script>
+
+    /* =========================
+       TELEGRAM
+    ========================= */
 
     const tg = window.Telegram.WebApp;
 
     tg.ready();
     tg.expand();
 
+
+    /* =========================
+       NAVIGATION
+    ========================= */
 
     function showSection(sectionId) {
 
@@ -507,33 +982,50 @@
                 section.classList.remove("active");
             });
 
-        const section = document.getElementById(sectionId);
+        const section =
+            document.getElementById(sectionId);
 
         if (section) {
             section.classList.add("active");
         }
 
-        window.scrollTo(0, 0);
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
     }
 
+
+    /* =========================
+       MONEY
+    ========================= */
 
     function formatMoney(number) {
-        return Number(number).toLocaleString("uz-UZ");
+
+        return Number(number)
+            .toLocaleString("uz-UZ");
     }
 
+
+    /* =========================
+       USERNAME
+    ========================= */
 
     function setMyUsername(inputId) {
 
-        const user = tg.initDataUnsafe?.user;
+        const user =
+            tg.initDataUnsafe?.user;
 
         if (!user) {
-            alert("Telegram foydalanuvchisi aniqlanmadi.");
+            alert(
+                "Telegram foydalanuvchisi aniqlanmadi."
+            );
             return;
         }
 
         if (!user.username) {
             alert(
-                "Sizning Telegram akkauntingizda username mavjud emas."
+                "Telegram akkauntingizda username mavjud emas."
             );
             return;
         }
@@ -543,32 +1035,75 @@
     }
 
 
-    // =========================
-    // STARS
-    // =========================
+    /* =========================
+       STARS CALCULATOR
+       1 STAR = 300 SO'M
+    ========================= */
 
-    let selectedStars = 0;
-    let selectedStarsPrice = 0;
+    const STAR_PRICE = 300;
 
-    function selectStars(quantity, price) {
 
-        selectedStars = quantity;
-        selectedStarsPrice = price;
+    function calculateStars() {
 
-        document.getElementById("starsInfo").textContent =
-            quantity +
-            " Stars — " +
-            formatMoney(price) +
-            " so'm";
+        const input =
+            document.getElementById("starsInput");
+
+        let quantity =
+            Number(input.value);
+
+
+        if (!quantity) {
+            document.getElementById(
+                "starsPrice"
+            ).textContent = "0 so'm";
+
+            return;
+        }
+
+
+        if (quantity < 50) {
+            quantity = 50;
+            input.value = 50;
+        }
+
+
+        if (quantity > 10000) {
+            quantity = 10000;
+            input.value = 10000;
+        }
+
+
+        const price =
+            quantity * STAR_PRICE;
+
+
+        document.getElementById(
+            "starsPrice"
+        ).textContent =
+            formatMoney(price) + " so'm";
     }
 
 
     function buyStars() {
 
-        if (!selectedStars) {
-            alert("❌ Stars miqdorini tanlang.");
+        const input =
+            document.getElementById("starsInput");
+
+        let quantity =
+            Number(input.value);
+
+
+        if (
+            !quantity ||
+            quantity < 50 ||
+            quantity > 10000
+        ) {
+            alert(
+                "❌ Stars miqdori 50 dan 10 000 gacha bo‘lishi kerak."
+            );
             return;
         }
+
 
         const recipient =
             document
@@ -576,37 +1111,49 @@
                 .value
                 .trim();
 
+
         if (!recipient) {
-            alert("❌ Kimga yuborilishini kiriting.");
+            alert(
+                "❌ Kimga yuborilishini kiriting."
+            );
             return;
         }
+
+
+        const price =
+            quantity * STAR_PRICE;
+
 
         alert(
             "⭐ Stars buyurtmasi\n\n" +
             "Miqdor: " +
-            selectedStars +
-            "\nKimga: " +
+            formatMoney(quantity) +
+            " Stars\n" +
+            "Kimga: " +
             recipient +
             "\nNarx: " +
-            formatMoney(selectedStarsPrice) +
+            formatMoney(price) +
             " so'm"
         );
     }
 
 
-    // =========================
-    // PREMIUM
-    // =========================
+    /* =========================
+       PREMIUM
+    ========================= */
 
     let selectedPremiumMonths = 0;
     let selectedPremiumPrice = 0;
+
 
     function selectPremium(months, price) {
 
         selectedPremiumMonths = months;
         selectedPremiumPrice = price;
 
-        document.getElementById("premiumInfo").textContent =
+        document.getElementById(
+            "premiumInfo"
+        ).textContent =
             months +
             " oy — " +
             formatMoney(price) +
@@ -617,9 +1164,12 @@
     function buyPremium() {
 
         if (!selectedPremiumMonths) {
-            alert("❌ Premium muddatini tanlang.");
+            alert(
+                "❌ Premium muddatini tanlang."
+            );
             return;
         }
+
 
         const recipient =
             document
@@ -627,10 +1177,14 @@
                 .value
                 .trim();
 
+
         if (!recipient) {
-            alert("❌ Kimga yuborilishini kiriting.");
+            alert(
+                "❌ Kimga yuborilishini kiriting."
+            );
             return;
         }
+
 
         if (selectedPremiumMonths === 1) {
 
@@ -638,14 +1192,12 @@
                 "💎 1 oylik Premium\n\n" +
                 "Bu xizmat admin orqali amalga oshiriladi.\n\n" +
                 "Kimga: " +
-                recipient +
-                "\nNarx: " +
-                formatMoney(selectedPremiumPrice) +
-                " so'm"
+                recipient
             );
 
             return;
         }
+
 
         alert(
             "💎 Premium buyurtmasi\n\n" +
@@ -661,19 +1213,22 @@
     }
 
 
-    // =========================
-    // GIFT
-    // =========================
+    /* =========================
+       GIFTS
+    ========================= */
 
     let selectedGiftName = "";
     let selectedGiftPrice = 0;
+
 
     function selectGift(name, price) {
 
         selectedGiftName = name;
         selectedGiftPrice = price;
 
-        document.getElementById("giftInfo").textContent =
+        document.getElementById(
+            "giftInfo"
+        ).textContent =
             name +
             " — " +
             formatMoney(price) +
@@ -684,9 +1239,12 @@
     function buyGift() {
 
         if (!selectedGiftName) {
-            alert("❌ Gift tanlang.");
+            alert(
+                "❌ Gift tanlang."
+            );
             return;
         }
+
 
         const recipient =
             document
@@ -694,10 +1252,14 @@
                 .value
                 .trim();
 
+
         if (!recipient) {
-            alert("❌ Kimga yuborilishini kiriting.");
+            alert(
+                "❌ Kimga yuborilishini kiriting."
+            );
             return;
         }
+
 
         alert(
             "🎁 Gift buyurtmasi\n\n" +
@@ -712,19 +1274,22 @@
     }
 
 
-    // =========================
-    // NUMBERS
-    // =========================
+    /* =========================
+       NUMBERS
+    ========================= */
 
     let selectedNumberCountry = "";
     let selectedNumberPrice = 0;
+
 
     function selectNumber(country, price) {
 
         selectedNumberCountry = country;
         selectedNumberPrice = price;
 
-        document.getElementById("numberInfo").textContent =
+        document.getElementById(
+            "numberInfo"
+        ).textContent =
             country +
             " — " +
             formatMoney(price) +
@@ -735,9 +1300,12 @@
     function buyNumber() {
 
         if (!selectedNumberCountry) {
-            alert("❌ Davlatni tanlang.");
+            alert(
+                "❌ Davlatni tanlang."
+            );
             return;
         }
+
 
         alert(
             "📱 Virtual raqam buyurtmasi\n\n" +
@@ -750,19 +1318,22 @@
     }
 
 
-    // =========================
-    // PUBG UC
-    // =========================
+    /* =========================
+       PUBG
+    ========================= */
 
     let selectedUC = 0;
     let selectedUCPrice = 0;
+
 
     function selectUC(quantity, price) {
 
         selectedUC = quantity;
         selectedUCPrice = price;
 
-        document.getElementById("ucInfo").textContent =
+        document.getElementById(
+            "ucInfo"
+        ).textContent =
             quantity +
             " UC — " +
             formatMoney(price) +
@@ -773,9 +1344,12 @@
     function buyUC() {
 
         if (!selectedUC) {
-            alert("❌ UC miqdorini tanlang.");
+            alert(
+                "❌ UC miqdorini tanlang."
+            );
             return;
         }
+
 
         const pubgId =
             document
@@ -783,10 +1357,14 @@
                 .value
                 .trim();
 
+
         if (!pubgId) {
-            alert("❌ PUBG ID kiriting.");
+            alert(
+                "❌ PUBG ID kiriting."
+            );
             return;
         }
+
 
         alert(
             "🎮 PUBG UC buyurtmasi\n\n" +
@@ -801,12 +1379,68 @@
     }
 
 
-    // =========================
-    // OPEN SERVICE FROM BOT
-    // =========================
+    /* =========================
+       TOP UP
+    ========================= */
+
+    function calculateTopup() {
+
+        const amount =
+            Number(
+                document.getElementById(
+                    "topupAmount"
+                ).value
+            );
+
+
+        document.getElementById(
+            "topupInfo"
+        ).textContent =
+            amount > 0
+                ? formatMoney(amount) + " so'm"
+                : "0 so'm";
+    }
+
+
+    function topup() {
+
+        const amount =
+            Number(
+                document.getElementById(
+                    "topupAmount"
+                ).value
+            );
+
+
+        if (!amount || amount < 1000) {
+
+            alert(
+                "❌ Kamida 1 000 so'm kiriting."
+            );
+
+            return;
+        }
+
+
+        alert(
+            "💰 Hisobni to‘ldirish\n\n" +
+            "Summa: " +
+            formatMoney(amount) +
+            " so'm\n\n" +
+            "To‘lov tizimi hali ulanmagan."
+        );
+    }
+
+
+    /* =========================
+       SERVICE FROM BOT
+    ========================= */
 
     const params =
-        new URLSearchParams(window.location.search);
+        new URLSearchParams(
+            window.location.search
+        );
+
 
     const service =
         params.get("service");
@@ -822,18 +1456,29 @@
 
         numbers: "numbers",
 
-        gift_rental: "rental"
+        gift_rental: "rental",
+
+        topup: "topup"
 
     };
 
 
-    if (service && serviceMap[service]) {
+    if (
+        service &&
+        serviceMap[service]
+    ) {
 
         showSection(
             serviceMap[service]
         );
-
     }
+
+
+    /* =========================
+       INITIAL STARS CALCULATION
+    ========================= */
+
+    calculateStars();
 
 </script>
 
