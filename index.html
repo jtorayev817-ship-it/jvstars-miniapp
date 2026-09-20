@@ -1,10 +1,9 @@
-```python
 import asyncio
 import os
 
 from dotenv import load_dotenv
 
-from aiogram import Bot, Dispatcher, types
+from aiogram import Bot, Dispatcher, F, types
 from aiogram.filters import CommandStart
 from aiogram.types import (
     InlineKeyboardMarkup,
@@ -12,6 +11,7 @@ from aiogram.types import (
     WebAppInfo
 )
 from aiogram.enums import ChatMemberStatus
+from aiogram.exceptions import TelegramBadRequest
 
 
 # =========================
@@ -86,50 +86,54 @@ async def start(message: types.Message):
 # CHECK SUBSCRIPTION
 # =========================
 
-@dp.callback_query(
-    lambda c: c.data == "check_subscription"
-)
-async def check_subscription(
-    callback: types.CallbackQuery
-):
+@dp.callback_query(F.data == "check_subscription")
+async def check_subscription(callback: types.CallbackQuery):
 
-    member = await bot.get_chat_member(
-        chat_id=CHANNEL_USERNAME,
-        user_id=callback.from_user.id
-    )
+    try:
+        member = await bot.get_chat_member(
+            chat_id=CHANNEL_USERNAME,
+            user_id=callback.from_user.id
+        )
 
-    if member.status in (
-        ChatMemberStatus.MEMBER,
-        ChatMemberStatus.ADMINISTRATOR,
-        ChatMemberStatus.CREATOR
-    ):
+        if member.status in (
+            ChatMemberStatus.MEMBER,
+            ChatMemberStatus.ADMINISTRATOR,
+            ChatMemberStatus.CREATOR
+        ):
+            await callback.answer()
 
-        keyboard = InlineKeyboardMarkup(
-            inline_keyboard=[
-                [
-                    InlineKeyboardButton(
-                        text="🇺🇿 O‘zbekcha",
-                        callback_data="language_uz"
-                    )
-                ],
-                [
-                    InlineKeyboardButton(
-                        text="🇷🇺 Русский",
-                        callback_data="language_ru"
-                    )
+            keyboard = InlineKeyboardMarkup(
+                inline_keyboard=[
+                    [
+                        InlineKeyboardButton(
+                            text="🇺🇿 O‘zbekcha",
+                            callback_data="language_uz"
+                        )
+                    ],
+                    [
+                        InlineKeyboardButton(
+                            text="🇷🇺 Русский",
+                            callback_data="language_ru"
+                        )
+                    ]
                 ]
-            ]
-        )
+            )
 
-        await callback.message.edit_text(
-            "🌐 Tilni tanlang:",
-            reply_markup=keyboard
-        )
+            await callback.message.edit_text(
+                "🌐 Tilni tanlang:",
+                reply_markup=keyboard
+            )
 
-    else:
+        else:
+            await callback.answer(
+                "❌ Avval kanalga obuna bo‘ling!",
+                show_alert=True
+            )
 
+    except TelegramBadRequest:
+        # Bot kanalda admin bo'lmasa yoki kanal nomi noto'g'ri bo'lsa
         await callback.answer(
-            "❌ Avval kanalga obuna bo‘ling!",
+            "⚠️ Kanal obunasini tekshirishda xatolik! Bot kanalda administrator ekanligini tekshiring.",
             show_alert=True
         )
 
@@ -138,12 +142,10 @@ async def check_subscription(
 # UZBEK MENU
 # =========================
 
-@dp.callback_query(
-    lambda c: c.data == "language_uz"
-)
-async def language_uz(
-    callback: types.CallbackQuery
-):
+@dp.callback_query(F.data == "language_uz")
+async def language_uz(callback: types.CallbackQuery):
+
+    await callback.answer()
 
     keyboard = InlineKeyboardMarkup(
         inline_keyboard=[
@@ -152,15 +154,13 @@ async def language_uz(
                 InlineKeyboardButton(
                     text="⭐ Stars",
                     web_app=WebAppInfo(
-                        url=WEBAPP_URL +
-                        "?service=stars"
+                        url=WEBAPP_URL + "?service=stars"
                     )
                 ),
                 InlineKeyboardButton(
                     text="💎 Premium",
                     web_app=WebAppInfo(
-                        url=WEBAPP_URL +
-                        "?service=premium"
+                        url=WEBAPP_URL + "?service=premium"
                     )
                 )
             ],
@@ -169,8 +169,7 @@ async def language_uz(
                 InlineKeyboardButton(
                     text="🎁 Gift",
                     web_app=WebAppInfo(
-                        url=WEBAPP_URL +
-                        "?service=gifts"
+                        url=WEBAPP_URL + "?service=gifts"
                     )
                 )
             ],
@@ -179,15 +178,13 @@ async def language_uz(
                 InlineKeyboardButton(
                     text="📱 Virtual raqam",
                     web_app=WebAppInfo(
-                        url=WEBAPP_URL +
-                        "?service=numbers"
+                        url=WEBAPP_URL + "?service=numbers"
                     )
                 ),
                 InlineKeyboardButton(
                     text="🎮 PUBG UC",
                     web_app=WebAppInfo(
-                        url=WEBAPP_URL +
-                        "?service=gift_rental"
+                        url=WEBAPP_URL + "?service=gift_rental"
                     )
                 )
             ],
@@ -217,12 +214,10 @@ async def language_uz(
 # RUSSIAN MENU
 # =========================
 
-@dp.callback_query(
-    lambda c: c.data == "language_ru"
-)
-async def language_ru(
-    callback: types.CallbackQuery
-):
+@dp.callback_query(F.data == "language_ru")
+async def language_ru(callback: types.CallbackQuery):
+
+    await callback.answer()
 
     keyboard = InlineKeyboardMarkup(
         inline_keyboard=[
@@ -231,15 +226,13 @@ async def language_ru(
                 InlineKeyboardButton(
                     text="⭐ Stars",
                     web_app=WebAppInfo(
-                        url=WEBAPP_URL +
-                        "?service=stars"
+                        url=WEBAPP_URL + "?service=stars"
                     )
                 ),
                 InlineKeyboardButton(
                     text="💎 Premium",
                     web_app=WebAppInfo(
-                        url=WEBAPP_URL +
-                        "?service=premium"
+                        url=WEBAPP_URL + "?service=premium"
                     )
                 )
             ],
@@ -248,8 +241,7 @@ async def language_ru(
                 InlineKeyboardButton(
                     text="🎁 Gift",
                     web_app=WebAppInfo(
-                        url=WEBAPP_URL +
-                        "?service=gifts"
+                        url=WEBAPP_URL + "?service=gifts"
                     )
                 )
             ],
@@ -258,15 +250,13 @@ async def language_ru(
                 InlineKeyboardButton(
                     text="📱 Виртуальный номер",
                     web_app=WebAppInfo(
-                        url=WEBAPP_URL +
-                        "?service=numbers"
+                        url=WEBAPP_URL + "?service=numbers"
                     )
                 ),
                 InlineKeyboardButton(
                     text="🎮 PUBG UC",
                     web_app=WebAppInfo(
-                        url=WEBAPP_URL +
-                        "?service=gift_rental"
+                        url=WEBAPP_URL + "?service=gift_rental"
                     )
                 )
             ],
@@ -296,12 +286,8 @@ async def language_ru(
 # BALANCE
 # =========================
 
-@dp.callback_query(
-    lambda c: c.data == "balance"
-)
-async def balance(
-    callback: types.CallbackQuery
-):
+@dp.callback_query(F.data == "balance")
+async def balance(callback: types.CallbackQuery):
 
     await callback.answer(
         "💰 Баланс пока не подключен.",
@@ -313,16 +299,11 @@ async def balance(
 # ADMIN
 # =========================
 
-@dp.callback_query(
-    lambda c: c.data == "admin"
-)
-async def admin(
-    callback: types.CallbackQuery
-):
+@dp.callback_query(F.data == "admin")
+async def admin(callback: types.CallbackQuery):
 
     await callback.answer(
-        "👨‍💻 Связь с администратором "
-        "пока не подключена.",
+        "👨‍💻 Связь с администратором пока не подключена.",
         show_alert=True
     )
 
@@ -340,4 +321,3 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
-```
