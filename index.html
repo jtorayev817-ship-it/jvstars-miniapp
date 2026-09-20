@@ -1,323 +1,842 @@
-import asyncio
-import os
-
-from dotenv import load_dotenv
-
-from aiogram import Bot, Dispatcher, F, types
-from aiogram.filters import CommandStart
-from aiogram.types import (
-    InlineKeyboardMarkup,
-    InlineKeyboardButton,
-    WebAppInfo
-)
-from aiogram.enums import ChatMemberStatus
-from aiogram.exceptions import TelegramBadRequest
-
-
-# =========================
-# ENV
-# =========================
-
-load_dotenv()
-
-BOT_TOKEN = os.getenv("BOT_TOKEN")
-
-if not BOT_TOKEN:
-    raise ValueError(
-        "BOT_TOKEN topilmadi. .env faylini tekshiring."
-    )
-
-
-# =========================
-# SETTINGS
-# =========================
-
-CHANNEL_USERNAME = "@jvstars_channel"
-CHANNEL_LINK = "https://t.me/jvstars_channel"
-
-WEBAPP_URL = (
-    "https://jtorayev817-ship-it.github.io/"
-    "jvstars-miniapp/"
-)
-
-
-# =========================
-# BOT
-# =========================
-
-bot = Bot(token=BOT_TOKEN)
-dp = Dispatcher()
-
-
-# =========================
-# START
-# =========================
-
-@dp.message(CommandStart())
-async def start(message: types.Message):
-
-    keyboard = InlineKeyboardMarkup(
-        inline_keyboard=[
-            [
-                InlineKeyboardButton(
-                    text="📢 Kanalga obuna bo‘lish",
-                    url=CHANNEL_LINK
-                )
-            ],
-            [
-                InlineKeyboardButton(
-                    text="✅ Obunani tekshirish",
-                    callback_data="check_subscription"
-                )
-            ]
-        ]
-    )
-
-    await message.answer(
-        "👋 Assalomu alaykum!\n\n"
-        "🚀 JV Stars botiga xush kelibsiz!\n\n"
-        "Botdan foydalanish uchun avval "
-        "kanalimizga obuna bo‘ling.",
-        reply_markup=keyboard
-    )
-
-
-# =========================
-# CHECK SUBSCRIPTION
-# =========================
-
-@dp.callback_query(F.data == "check_subscription")
-async def check_subscription(callback: types.CallbackQuery):
-
-    try:
-        member = await bot.get_chat_member(
-            chat_id=CHANNEL_USERNAME,
-            user_id=callback.from_user.id
-        )
-
-        if member.status in (
-            ChatMemberStatus.MEMBER,
-            ChatMemberStatus.ADMINISTRATOR,
-            ChatMemberStatus.CREATOR
-        ):
-            await callback.answer()
-
-            keyboard = InlineKeyboardMarkup(
-                inline_keyboard=[
-                    [
-                        InlineKeyboardButton(
-                            text="🇺🇿 O‘zbekcha",
-                            callback_data="language_uz"
-                        )
-                    ],
-                    [
-                        InlineKeyboardButton(
-                            text="🇷🇺 Русский",
-                            callback_data="language_ru"
-                        )
-                    ]
-                ]
-            )
-
-            await callback.message.edit_text(
-                "🌐 Tilni tanlang:",
-                reply_markup=keyboard
-            )
-
-        else:
-            await callback.answer(
-                "❌ Avval kanalga obuna bo‘ling!",
-                show_alert=True
-            )
-
-    except TelegramBadRequest:
-        # Bot kanalda admin bo'lmasa yoki kanal nomi noto'g'ri bo'lsa
-        await callback.answer(
-            "⚠️ Kanal obunasini tekshirishda xatolik! Bot kanalda administrator ekanligini tekshiring.",
-            show_alert=True
-        )
-
-
-# =========================
-# UZBEK MENU
-# =========================
-
-@dp.callback_query(F.data == "language_uz")
-async def language_uz(callback: types.CallbackQuery):
-
-    await callback.answer()
-
-    keyboard = InlineKeyboardMarkup(
-        inline_keyboard=[
-
-            [
-                InlineKeyboardButton(
-                    text="⭐ Stars",
-                    web_app=WebAppInfo(
-                        url=WEBAPP_URL + "?service=stars"
-                    )
-                ),
-                InlineKeyboardButton(
-                    text="💎 Premium",
-                    web_app=WebAppInfo(
-                        url=WEBAPP_URL + "?service=premium"
-                    )
-                )
-            ],
-
-            [
-                InlineKeyboardButton(
-                    text="🎁 Gift",
-                    web_app=WebAppInfo(
-                        url=WEBAPP_URL + "?service=gifts"
-                    )
-                )
-            ],
-
-            [
-                InlineKeyboardButton(
-                    text="📱 Virtual raqam",
-                    web_app=WebAppInfo(
-                        url=WEBAPP_URL + "?service=numbers"
-                    )
-                ),
-                InlineKeyboardButton(
-                    text="🎮 PUBG UC",
-                    web_app=WebAppInfo(
-                        url=WEBAPP_URL + "?service=gift_rental"
-                    )
-                )
-            ],
-
-            [
-                InlineKeyboardButton(
-                    text="💰 Hisob",
-                    callback_data="balance"
-                ),
-                InlineKeyboardButton(
-                    text="👨‍💻 Admin",
-                    callback_data="admin"
-                )
-            ]
-
-        ]
-    )
-
-    await callback.message.edit_text(
-        "🚀 JV Stars\n\n"
-        "🛍 Kerakli xizmatni tanlang:",
-        reply_markup=keyboard
-    )
-
-
-# =========================
-# RUSSIAN MENU
-# =========================
-
-@dp.callback_query(F.data == "language_ru")
-async def language_ru(callback: types.CallbackQuery):
-
-    await callback.answer()
-
-    keyboard = InlineKeyboardMarkup(
-        inline_keyboard=[
-
-            [
-                InlineKeyboardButton(
-                    text="⭐ Stars",
-                    web_app=WebAppInfo(
-                        url=WEBAPP_URL + "?service=stars"
-                    )
-                ),
-                InlineKeyboardButton(
-                    text="💎 Premium",
-                    web_app=WebAppInfo(
-                        url=WEBAPP_URL + "?service=premium"
-                    )
-                )
-            ],
-
-            [
-                InlineKeyboardButton(
-                    text="🎁 Gift",
-                    web_app=WebAppInfo(
-                        url=WEBAPP_URL + "?service=gifts"
-                    )
-                )
-            ],
-
-            [
-                InlineKeyboardButton(
-                    text="📱 Виртуальный номер",
-                    web_app=WebAppInfo(
-                        url=WEBAPP_URL + "?service=numbers"
-                    )
-                ),
-                InlineKeyboardButton(
-                    text="🎮 PUBG UC",
-                    web_app=WebAppInfo(
-                        url=WEBAPP_URL + "?service=gift_rental"
-                    )
-                )
-            ],
-
-            [
-                InlineKeyboardButton(
-                    text="💰 Баланс",
-                    callback_data="balance"
-                ),
-                InlineKeyboardButton(
-                    text="👨‍💻 Admin",
-                    callback_data="admin"
-                )
-            ]
-
-        ]
-    )
-
-    await callback.message.edit_text(
-        "🚀 JV Stars\n\n"
-        "🛍 Выберите нужную услугу:",
-        reply_markup=keyboard
-    )
-
-
-# =========================
-# BALANCE
-# =========================
-
-@dp.callback_query(F.data == "balance")
-async def balance(callback: types.CallbackQuery):
-
-    await callback.answer(
-        "💰 Баланс пока не подключен.",
-        show_alert=True
-    )
-
-
-# =========================
-# ADMIN
-# =========================
-
-@dp.callback_query(F.data == "admin")
-async def admin(callback: types.CallbackQuery):
-
-    await callback.answer(
-        "👨‍💻 Связь с администратором пока не подключена.",
-        show_alert=True
-    )
-
-
-# =========================
-# MAIN
-# =========================
-
-async def main():
-
-    print("🚀 JV Stars bot ishga tushdi!")
-
-    await dp.start_polling(bot)
-
-
-if __name__ == "__main__":
-    asyncio.run(main())
+```html
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JV Stars</title>
+
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            color: #111;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 520px;
+            margin: auto;
+            padding: 18px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .header h1 {
+            font-size: 28px;
+        }
+
+        .header p {
+            margin-top: 6px;
+            color: #777;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .card {
+            background: white;
+            border-radius: 18px;
+            padding: 18px;
+            margin-top: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+        }
+
+        .service-btn,
+        .primary,
+        .self-btn {
+            width: 100%;
+            border: none;
+            border-radius: 13px;
+            padding: 15px;
+            margin-top: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .service-btn {
+            background: #eef2f5;
+            color: #111;
+        }
+
+        .primary {
+            background: #2481cc;
+            color: white;
+            font-weight: bold;
+        }
+
+        .self-btn {
+            background: #e8f1ff;
+            color: #2481cc;
+        }
+
+        .back-btn {
+            border: none;
+            background: transparent;
+            font-size: 16px;
+            cursor: pointer;
+            padding: 8px 0;
+        }
+
+        .total {
+            margin-top: 15px;
+            padding: 13px;
+            background: #f4f6f8;
+            border-radius: 12px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 6px;
+            font-weight: bold;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #ddd;
+            border-radius: 11px;
+            font-size: 15px;
+        }
+
+        .country {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px;
+            margin-top: 10px;
+            background: #f4f6f8;
+            border-radius: 13px;
+        }
+
+        .country button {
+            border: none;
+            background: #2481cc;
+            color: white;
+            padding: 9px 14px;
+            border-radius: 9px;
+            cursor: pointer;
+        }
+
+        .price {
+            color: #2481cc;
+            font-weight: bold;
+        }
+
+        h2 {
+            margin-top: 10px;
+        }
+
+        .small {
+            color: #777;
+            font-size: 13px;
+            margin-top: 6px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- HOME -->
+    <div id="home" class="section active">
+
+        <div class="header">
+            <h1>🚀 JV Stars</h1>
+            <p>Kerakli xizmatni tanlang</p>
+        </div>
+
+        <div class="card">
+
+            <button class="service-btn"
+                    onclick="showSection('stars')">
+                ⭐ Telegram Stars
+            </button>
+
+            <button class="service-btn"
+                    onclick="showSection('premium')">
+                💎 Telegram Premium
+            </button>
+
+            <button class="service-btn"
+                    onclick="showSection('gifts')">
+                🎁 Telegram Gift
+            </button>
+
+            <button class="service-btn"
+                    onclick="showSection('numbers')">
+                📱 Virtual raqam
+            </button>
+
+            <button class="service-btn"
+                    onclick="showSection('rental')">
+                🎮 PUBG UC
+            </button>
+
+        </div>
+    </div>
+
+
+    <!-- STARS -->
+    <div id="stars" class="section">
+
+        <button class="back-btn"
+                onclick="showSection('home')">
+            ← Orqaga
+        </button>
+
+        <h2>⭐ Telegram Stars</h2>
+
+        <div class="card">
+
+            <button class="service-btn"
+                    onclick="selectStars(50, 15000)">
+                ⭐ 50 Stars — 15 000 so'm
+            </button>
+
+            <button class="service-btn"
+                    onclick="selectStars(100, 30000)">
+                ⭐ 100 Stars — 30 000 so'm
+            </button>
+
+            <button class="service-btn"
+                    onclick="selectStars(250, 75000)">
+                ⭐ 250 Stars — 75 000 so'm
+            </button>
+
+            <button class="service-btn"
+                    onclick="selectStars(500, 150000)">
+                ⭐ 500 Stars — 150 000 so'm
+            </button>
+
+            <div class="total">
+                Tanlangan:
+                <span id="starsInfo">-</span>
+            </div>
+
+            <label>Kimga yuboriladi?</label>
+
+            <input
+                id="starsRecipient"
+                type="text"
+                placeholder="@username">
+
+            <button class="self-btn"
+                    onclick="setMyUsername('starsRecipient')">
+                👤 O'zimga
+            </button>
+
+            <button class="primary"
+                    onclick="buyStars()">
+                ⭐ Sotib olish
+            </button>
+
+        </div>
+    </div>
+
+
+    <!-- PREMIUM -->
+    <div id="premium" class="section">
+
+        <button class="back-btn"
+                onclick="showSection('home')">
+            ← Orqaga
+        </button>
+
+        <h2>💎 Telegram Premium</h2>
+
+        <div class="card">
+
+            <button class="service-btn"
+                    onclick="selectPremium(1, 50000)">
+                1 oy — 50 000 so'm
+                <br>
+                <small>(Admin orqali)</small>
+            </button>
+
+            <button class="service-btn"
+                    onclick="selectPremium(3, 150000)">
+                3 oy — 150 000 so'm
+            </button>
+
+            <button class="service-btn"
+                    onclick="selectPremium(6, 280000)">
+                6 oy — 280 000 so'm
+            </button>
+
+            <button class="service-btn"
+                    onclick="selectPremium(12, 500000)">
+                12 oy — 500 000 so'm
+            </button>
+
+            <div class="total">
+                Tanlangan:
+                <span id="premiumInfo">-</span>
+            </div>
+
+            <label>Kimga?</label>
+
+            <input
+                id="premiumRecipient"
+                type="text"
+                placeholder="@username">
+
+            <button class="self-btn"
+                    onclick="setMyUsername('premiumRecipient')">
+                👤 O'zimga
+            </button>
+
+            <button class="primary"
+                    onclick="buyPremium()">
+                💎 Sotib olish
+            </button>
+
+        </div>
+    </div>
+
+
+    <!-- GIFTS -->
+    <div id="gifts" class="section">
+
+        <button class="back-btn"
+                onclick="showSection('home')">
+            ← Orqaga
+        </button>
+
+        <h2>🎁 Telegram Gift</h2>
+
+        <div class="card">
+
+            <button class="service-btn"
+                    onclick="selectGift('🎁 Gift 1', 20000)">
+                🎁 Gift 1
+                <br>
+                <span class="price">20 000 so'm</span>
+            </button>
+
+            <button class="service-btn"
+                    onclick="selectGift('🎁 Gift 2', 35000)">
+                🎁 Gift 2
+                <br>
+                <span class="price">35 000 so'm</span>
+            </button>
+
+            <button class="service-btn"
+                    onclick="selectGift('🎁 Gift 3', 50000)">
+                🎁 Gift 3
+                <br>
+                <span class="price">50 000 so'm</span>
+            </button>
+
+            <div class="total">
+                Tanlangan:
+                <span id="giftInfo">-</span>
+            </div>
+
+            <label>Kimga?</label>
+
+            <input
+                id="giftRecipient"
+                type="text"
+                placeholder="@username">
+
+            <button class="self-btn"
+                    onclick="setMyUsername('giftRecipient')">
+                👤 O'zimga
+            </button>
+
+            <button class="primary"
+                    onclick="buyGift()">
+                🎁 Sotib olish
+            </button>
+
+        </div>
+    </div>
+
+
+    <!-- NUMBERS -->
+    <div id="numbers" class="section">
+
+        <button class="back-btn"
+                onclick="showSection('home')">
+            ← Orqaga
+        </button>
+
+        <h2>📱 Virtual raqam</h2>
+
+        <div class="card">
+
+            <p class="small">
+                Kerakli davlatni tanlang:
+            </p>
+
+            <div class="country">
+                <div>
+                    🇺🇸 AQSH
+                    <br>
+                    <span class="price">Narx: 15 000 so'm</span>
+                </div>
+
+                <button onclick="selectNumber('AQSH', 15000)">
+                    Tanlash
+                </button>
+            </div>
+
+            <div class="country">
+                <div>
+                    🇷🇺 Rossiya
+                    <br>
+                    <span class="price">Narx: 20 000 so'm</span>
+                </div>
+
+                <button onclick="selectNumber('Rossiya', 20000)">
+                    Tanlash
+                </button>
+            </div>
+
+            <div class="country">
+                <div>
+                    🇺🇦 Ukraina
+                    <br>
+                    <span class="price">Narx: 20 000 so'm</span>
+                </div>
+
+                <button onclick="selectNumber('Ukraina', 20000)">
+                    Tanlash
+                </button>
+            </div>
+
+            <div class="total">
+                Tanlangan:
+                <span id="numberInfo">-</span>
+            </div>
+
+            <button class="primary"
+                    onclick="buyNumber()">
+                📱 Raqam olish
+            </button>
+
+        </div>
+    </div>
+
+
+    <!-- PUBG -->
+    <div id="rental" class="section">
+
+        <button class="back-btn"
+                onclick="showSection('home')">
+            ← Orqaga
+        </button>
+
+        <h2>🎮 PUBG UC</h2>
+
+        <div class="card">
+
+            <button class="service-btn"
+                    onclick="selectUC(60, 15000)">
+                🎮 60 UC — 15 000 so'm
+            </button>
+
+            <button class="service-btn"
+                    onclick="selectUC(325, 70000)">
+                🎮 325 UC — 70 000 so'm
+            </button>
+
+            <button class="service-btn"
+                    onclick="selectUC(660, 135000)">
+                🎮 660 UC — 135 000 so'm
+            </button>
+
+            <div class="total">
+                Tanlangan:
+                <span id="ucInfo">-</span>
+            </div>
+
+            <label>PUBG ID</label>
+
+            <input
+                id="pubgId"
+                type="text"
+                placeholder="PUBG ID">
+
+            <button class="primary"
+                    onclick="buyUC()">
+                🎮 Sotib olish
+            </button>
+
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+
+    const tg = window.Telegram.WebApp;
+
+    tg.ready();
+    tg.expand();
+
+
+    function showSection(sectionId) {
+
+        document
+            .querySelectorAll(".section")
+            .forEach(section => {
+                section.classList.remove("active");
+            });
+
+        const section = document.getElementById(sectionId);
+
+        if (section) {
+            section.classList.add("active");
+        }
+
+        window.scrollTo(0, 0);
+    }
+
+
+    function formatMoney(number) {
+        return Number(number).toLocaleString("uz-UZ");
+    }
+
+
+    function setMyUsername(inputId) {
+
+        const user = tg.initDataUnsafe?.user;
+
+        if (!user) {
+            alert("Telegram foydalanuvchisi aniqlanmadi.");
+            return;
+        }
+
+        if (!user.username) {
+            alert(
+                "Sizning Telegram akkauntingizda username mavjud emas."
+            );
+            return;
+        }
+
+        document.getElementById(inputId).value =
+            "@" + user.username;
+    }
+
+
+    // =========================
+    // STARS
+    // =========================
+
+    let selectedStars = 0;
+    let selectedStarsPrice = 0;
+
+    function selectStars(quantity, price) {
+
+        selectedStars = quantity;
+        selectedStarsPrice = price;
+
+        document.getElementById("starsInfo").textContent =
+            quantity +
+            " Stars — " +
+            formatMoney(price) +
+            " so'm";
+    }
+
+
+    function buyStars() {
+
+        if (!selectedStars) {
+            alert("❌ Stars miqdorini tanlang.");
+            return;
+        }
+
+        const recipient =
+            document
+                .getElementById("starsRecipient")
+                .value
+                .trim();
+
+        if (!recipient) {
+            alert("❌ Kimga yuborilishini kiriting.");
+            return;
+        }
+
+        alert(
+            "⭐ Stars buyurtmasi\n\n" +
+            "Miqdor: " +
+            selectedStars +
+            "\nKimga: " +
+            recipient +
+            "\nNarx: " +
+            formatMoney(selectedStarsPrice) +
+            " so'm"
+        );
+    }
+
+
+    // =========================
+    // PREMIUM
+    // =========================
+
+    let selectedPremiumMonths = 0;
+    let selectedPremiumPrice = 0;
+
+    function selectPremium(months, price) {
+
+        selectedPremiumMonths = months;
+        selectedPremiumPrice = price;
+
+        document.getElementById("premiumInfo").textContent =
+            months +
+            " oy — " +
+            formatMoney(price) +
+            " so'm";
+    }
+
+
+    function buyPremium() {
+
+        if (!selectedPremiumMonths) {
+            alert("❌ Premium muddatini tanlang.");
+            return;
+        }
+
+        const recipient =
+            document
+                .getElementById("premiumRecipient")
+                .value
+                .trim();
+
+        if (!recipient) {
+            alert("❌ Kimga yuborilishini kiriting.");
+            return;
+        }
+
+        if (selectedPremiumMonths === 1) {
+
+            alert(
+                "💎 1 oylik Premium\n\n" +
+                "Bu xizmat admin orqali amalga oshiriladi.\n\n" +
+                "Kimga: " +
+                recipient +
+                "\nNarx: " +
+                formatMoney(selectedPremiumPrice) +
+                " so'm"
+            );
+
+            return;
+        }
+
+        alert(
+            "💎 Premium buyurtmasi\n\n" +
+            "Muddat: " +
+            selectedPremiumMonths +
+            " oy\n" +
+            "Kimga: " +
+            recipient +
+            "\nNarx: " +
+            formatMoney(selectedPremiumPrice) +
+            " so'm"
+        );
+    }
+
+
+    // =========================
+    // GIFT
+    // =========================
+
+    let selectedGiftName = "";
+    let selectedGiftPrice = 0;
+
+    function selectGift(name, price) {
+
+        selectedGiftName = name;
+        selectedGiftPrice = price;
+
+        document.getElementById("giftInfo").textContent =
+            name +
+            " — " +
+            formatMoney(price) +
+            " so'm";
+    }
+
+
+    function buyGift() {
+
+        if (!selectedGiftName) {
+            alert("❌ Gift tanlang.");
+            return;
+        }
+
+        const recipient =
+            document
+                .getElementById("giftRecipient")
+                .value
+                .trim();
+
+        if (!recipient) {
+            alert("❌ Kimga yuborilishini kiriting.");
+            return;
+        }
+
+        alert(
+            "🎁 Gift buyurtmasi\n\n" +
+            "Gift: " +
+            selectedGiftName +
+            "\nKimga: " +
+            recipient +
+            "\nNarx: " +
+            formatMoney(selectedGiftPrice) +
+            " so'm"
+        );
+    }
+
+
+    // =========================
+    // NUMBERS
+    // =========================
+
+    let selectedNumberCountry = "";
+    let selectedNumberPrice = 0;
+
+    function selectNumber(country, price) {
+
+        selectedNumberCountry = country;
+        selectedNumberPrice = price;
+
+        document.getElementById("numberInfo").textContent =
+            country +
+            " — " +
+            formatMoney(price) +
+            " so'm";
+    }
+
+
+    function buyNumber() {
+
+        if (!selectedNumberCountry) {
+            alert("❌ Davlatni tanlang.");
+            return;
+        }
+
+        alert(
+            "📱 Virtual raqam buyurtmasi\n\n" +
+            "Davlat: " +
+            selectedNumberCountry +
+            "\nNarx: " +
+            formatMoney(selectedNumberPrice) +
+            " so'm"
+        );
+    }
+
+
+    // =========================
+    // PUBG UC
+    // =========================
+
+    let selectedUC = 0;
+    let selectedUCPrice = 0;
+
+    function selectUC(quantity, price) {
+
+        selectedUC = quantity;
+        selectedUCPrice = price;
+
+        document.getElementById("ucInfo").textContent =
+            quantity +
+            " UC — " +
+            formatMoney(price) +
+            " so'm";
+    }
+
+
+    function buyUC() {
+
+        if (!selectedUC) {
+            alert("❌ UC miqdorini tanlang.");
+            return;
+        }
+
+        const pubgId =
+            document
+                .getElementById("pubgId")
+                .value
+                .trim();
+
+        if (!pubgId) {
+            alert("❌ PUBG ID kiriting.");
+            return;
+        }
+
+        alert(
+            "🎮 PUBG UC buyurtmasi\n\n" +
+            "UC: " +
+            selectedUC +
+            "\nPUBG ID: " +
+            pubgId +
+            "\nNarx: " +
+            formatMoney(selectedUCPrice) +
+            " so'm"
+        );
+    }
+
+
+    // =========================
+    // OPEN SERVICE FROM BOT
+    // =========================
+
+    const params =
+        new URLSearchParams(window.location.search);
+
+    const service =
+        params.get("service");
+
+
+    const serviceMap = {
+
+        stars: "stars",
+
+        premium: "premium",
+
+        gifts: "gifts",
+
+        numbers: "numbers",
+
+        gift_rental: "rental"
+
+    };
+
+
+    if (service && serviceMap[service]) {
+
+        showSection(
+            serviceMap[service]
+        );
+
+    }
+
+</script>
+
+</body>
+</html>
+```
