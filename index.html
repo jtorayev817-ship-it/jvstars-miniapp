@@ -1,15 +1,29 @@
 <!DOCTYPE html>
-
 <html lang="uz">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#020711">
 <title>JV Stars</title>
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
 <style>
+:root {
+    --bg: #020711;
+    --text: #ffffff;
+    --muted: #7590ad;
+    --muted-2: #5f7894;
+    --cyan: #00d9ff;
+    --blue: #0075ff;
+    --gold: #ffd52e;
+    --pink: #ff63c2;
+    --green: #00e5ad;
+    --danger: #ff5c7a;
+    --radius: 16px;
+    --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, Helvetica, sans-serif;
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -17,22 +31,24 @@
     -webkit-tap-highlight-color: transparent;
 }
 
-html,
-body {
-    width: 100%;
-    min-height: 100%;
-    font-family: Arial, Helvetica, sans-serif;
-    background:
-        radial-gradient(circle at 50% -10%, rgba(0, 150, 255, .25), transparent 35%),
-        radial-gradient(circle at 0% 50%, rgba(0, 80, 255, .12), transparent 35%),
-        radial-gradient(circle at 100% 80%, rgba(0, 220, 255, .10), transparent 35%),
-        #030712;
-    color: white;
+html {
+    background: var(--bg);
+    color-scheme: dark;
 }
 
 body {
     min-height: 100vh;
+    min-height: 100dvh;
     overflow-x: hidden;
+    color: var(--text);
+    font-family: var(--font);
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    background:
+        radial-gradient(circle at 50% -15%, rgba(0, 174, 255, .22), transparent 35%),
+        radial-gradient(circle at 0% 40%, rgba(0, 76, 255, .12), transparent 30%),
+        radial-gradient(circle at 100% 75%, rgba(0, 220, 255, .09), transparent 30%),
+        var(--bg);
 }
 
 body::before {
@@ -41,1056 +57,781 @@ body::before {
     inset: 0;
     pointer-events: none;
     background:
-        linear-gradient(rgba(0, 180, 255, .025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 180, 255, .025) 1px, transparent 1px);
-    background-size: 40px 40px;
-    mask-image: linear-gradient(to bottom, black, transparent);
+        linear-gradient(rgba(0, 180, 255, .018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 180, 255, .018) 1px, transparent 1px);
+    background-size: 35px 35px;
+}
+
+button, input, select {
+    font: inherit;
+    color: inherit;
+}
+
+button {
+    cursor: pointer;
+    border: 0;
+    background: none;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+:focus-visible {
+    outline: 2px solid var(--cyan);
+    outline-offset: 2px;
 }
 
 /* HEADER */
 
 .header {
+    position: relative;
+    z-index: 2;
+    padding: 22px 16px 14px;
     text-align: center;
-    padding: 30px 15px 20px;
 }
+
+.bot-link {
+    display: inline-block;
+    margin-bottom: 12px;
+    padding: 7px 13px;
+    border-radius: 20px;
+    border: 1px solid rgba(0, 195, 255, .25);
+    background: rgba(0, 120, 255, .07);
+    font-size: 13px;
+    font-weight: 700;
+    text-shadow: 0 0 10px rgba(0, 200, 255, .8);
+    transition: transform .2s;
+}
+
+.bot-link:active { transform: scale(.96); }
 
 .logo {
-    display: inline-block;
-    text-decoration: none;
-    color: white;
-    font-size: 34px;
+    display: block;
+    font-size: 35px;
     font-weight: 900;
     letter-spacing: 3px;
-    text-shadow:
-        0 0 5px #00bfff,
-        0 0 15px #00bfff,
-        0 0 35px #0077ff;
-    animation: logoGlow 2.5s ease-in-out infinite alternate;
+    text-shadow: 0 0 7px #00c8ff, 0 0 18px #008cff, 0 0 38px #006eff;
+    animation: logoGlow 2s ease-in-out infinite alternate;
 }
 
-.logo span {
-    color: #00c8ff;
-}
+.logo span { color: var(--cyan); }
 
 .subtitle {
-    margin-top: 9px;
-    color: #8da8c7;
-    font-size: 13px;
+    margin-top: 8px;
+    color: var(--muted);
+    font-size: 11px;
     letter-spacing: 1px;
 }
 
 @keyframes logoGlow {
     from {
-        text-shadow:
-            0 0 5px #00bfff,
-            0 0 15px #00bfff;
+        filter: brightness(.95);
+        text-shadow: 0 0 5px #00bfff, 0 0 14px #008cff;
     }
-
     to {
-        text-shadow:
-            0 0 10px #00d9ff,
-            0 0 25px #008cff,
-            0 0 45px #0066ff;
+        filter: brightness(1.2);
+        text-shadow: 0 0 10px #00e5ff, 0 0 25px #008cff, 0 0 45px #006eff;
     }
 }
 
-/* CONTAINER */
+/* BALANCE */
+
+.balance-bar {
+    position: relative;
+    z-index: 2;
+    width: min(94%, 620px);
+    margin: 0 auto 15px;
+    padding: 14px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: var(--radius);
+    border: 1px solid rgba(0, 210, 255, .22);
+    background: linear-gradient(135deg, rgba(10, 32, 54, .95), rgba(3, 13, 27, .98));
+    box-shadow: 0 0 25px rgba(0, 120, 255, .07), inset 0 1px rgba(255, 255, 255, .04);
+}
+
+.balance-label {
+    color: #7c99b6;
+    font-size: 11px;
+}
+
+.balance-value {
+    margin-top: 3px;
+    color: var(--cyan);
+    font-size: 17px;
+    font-weight: 900;
+    text-shadow: 0 0 12px rgba(0, 210, 255, .5);
+}
+
+.balance-icon {
+    font-size: 23px;
+    filter: drop-shadow(0 0 8px rgba(0, 210, 255, .5));
+}
+
+/* MAIN */
 
 .container {
+    position: relative;
+    z-index: 2;
     width: min(94%, 620px);
-    margin: auto;
-    padding-bottom: 50px;
+    margin: 0 auto;
+    padding-bottom: 40px;
 }
-
-/* SECTION */
 
 .section-title {
-    margin: 20px 4px 12px;
-    color: #d9edff;
+    margin: 18px 4px 12px;
+    color: #d8edff;
     font-size: 16px;
-    font-weight: 700;
-    text-shadow: 0 0 10px rgba(0, 180, 255, .7);
+    font-weight: 800;
+    text-shadow: 0 0 10px rgba(0, 180, 255, .45);
 }
 
-/* SERVICE GRID */
+.section-title:first-child { margin-top: 6px; }
+
+/* HOME CARDS */
 
 .services {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
+    gap: 11px;
 }
 
 .service {
     position: relative;
-    min-height: 115px;
-    border: 1px solid rgba(0, 174, 255, .20);
-    border-radius: 18px;
-    padding: 18px 14px;
-    background:
-        linear-gradient(145deg, rgba(12, 31, 55, .95), rgba(3, 12, 27, .98));
-    box-shadow:
-        inset 0 1px rgba(255,255,255,.04),
-        0 8px 30px rgba(0,0,0,.35);
+    min-height: 126px;
+    padding: 18px 15px;
+    display: block;
+    width: 100%;
+    text-align: left;
     overflow: hidden;
-    cursor: pointer;
-    transition: .25s ease;
+    border-radius: 19px;
+    border: 1px solid rgba(0, 174, 255, .20);
+    background: linear-gradient(145deg, rgba(11, 30, 52, .97), rgba(3, 11, 23, .98));
+    transition: transform .2s ease;
 }
 
 .service::before {
     content: "";
     position: absolute;
-    width: 90px;
-    height: 90px;
+    width: 110px;
+    height: 110px;
+    top: -55px;
+    right: -35px;
     border-radius: 50%;
-    background: rgba(0, 180, 255, .15);
+    background: rgba(0, 174, 255, .15);
     filter: blur(25px);
-    top: -40px;
-    right: -30px;
 }
 
-.service:hover {
-    transform: translateY(-4px);
-    border-color: rgba(0, 200, 255, .7);
-    box-shadow:
-        0 0 10px rgba(0, 180, 255, .25),
-        0 0 30px rgba(0, 120, 255, .15);
-}
-
-.service:active {
-    transform: scale(.97);
-}
+.service:active { transform: scale(.96); }
 
 .service-icon {
-    font-size: 31px;
-    margin-bottom: 9px;
-    filter: drop-shadow(0 0 8px rgba(0, 190, 255, .5));
+    position: relative;
+    z-index: 1;
+    margin-bottom: 11px;
+    font-size: 32px;
+    filter: drop-shadow(0 0 9px rgba(0, 190, 255, .45));
 }
 
 .service-name {
-    font-size: 15px;
-    font-weight: 800;
     position: relative;
-    z-index: 2;
+    z-index: 1;
+    font-size: 14px;
+    font-weight: 800;
 }
 
 .service-description {
-    margin-top: 5px;
-    color: #7f9bb9;
-    font-size: 11px;
     position: relative;
-    z-index: 2;
+    z-index: 1;
+    margin-top: 6px;
+    color: #718ca8;
+    font-size: 11px;
 }
 
-/* SPECIAL GLOW */
-
-.stars-card {
-    border-color: rgba(255, 213, 60, .28);
-}
-
-.stars-card::before {
-    background: rgba(255, 210, 30, .18);
-}
-
-.premium-card {
-    border-color: rgba(0, 210, 255, .28);
-}
-
-.gift-card {
-    border-color: rgba(255, 90, 190, .25);
-}
-
-.number-card {
-    border-color: rgba(90, 255, 180, .22);
-}
-
-.uc-card {
-    border-color: rgba(120, 100, 255, .28);
-}
-
-.balance-card {
-    border-color: rgba(70, 255, 180, .25);
-}
+.stars-card   { border-color: rgba(255, 215, 50, .27); }
+.stars-card::before { background: rgba(255, 210, 30, .16); }
+.premium-card { border-color: rgba(0, 210, 255, .30); }
+.gift-card    { border-color: rgba(255, 80, 190, .25); }
+.number-card  { border-color: rgba(80, 255, 180, .23); }
+.uc-card      { border-color: rgba(120, 100, 255, .27); }
+.topup-card   { border-color: rgba(0, 255, 180, .24); }
 
 /* PAGES */
 
-.page {
-    display: none;
-    animation: pageIn .35s ease;
-}
+.page { display: none; }
 
 .page.active {
     display: block;
+    animation: pageIn .28s ease;
 }
 
 @keyframes pageIn {
-    from {
-        opacity: 0;
-        transform: translateY(12px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
-
-/* BACK BUTTON */
 
 .back {
     display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    margin-bottom: 15px;
+    margin: 5px 0 15px;
     padding: 9px 13px;
     border-radius: 12px;
-    border: 1px solid rgba(0, 180, 255, .25);
+    color: #9db8d2;
+    border: 1px solid rgba(0, 180, 255, .20);
     background: rgba(8, 24, 43, .75);
-    color: #a9c8e8;
-    font-size: 13px;
-    cursor: pointer;
+    font-size: 12px;
 }
 
-/* PRODUCT LIST */
+.page-heading { margin-bottom: 15px; }
+
+.page-heading h2 {
+    font-size: 21px;
+    text-shadow: 0 0 14px rgba(0, 190, 255, .5);
+}
+
+.page-heading p {
+    margin-top: 5px;
+    color: #7189a5;
+    font-size: 12px;
+}
+
+/* INPUTS */
+
+.input-label {
+    display: block;
+    margin-bottom: 7px;
+    color: #8fa9c4;
+    font-size: 12px;
+}
+
+.text-input,
+.select-input {
+    width: 100%;
+    height: 50px;
+    padding: 0 14px;
+    outline: none;
+    border-radius: 13px;
+    border: 1px solid rgba(0, 190, 255, .23);
+    background: #030a15;
+    font-size: 16px; /* 16px prevents iOS auto-zoom */
+    transition: border-color .2s, box-shadow .2s;
+}
+
+.select-input {
+    appearance: none;
+    -webkit-appearance: none;
+    padding-right: 38px;
+    background-image:
+        linear-gradient(45deg, transparent 50%, #7590ad 50%),
+        linear-gradient(135deg, #7590ad 50%, transparent 50%);
+    background-position: calc(100% - 20px) 21px, calc(100% - 14px) 21px;
+    background-size: 6px 6px, 6px 6px;
+    background-repeat: no-repeat;
+}
+
+.select-input option {
+    background: #06101e;
+    color: #fff;
+}
+
+.text-input:focus,
+.select-input:focus {
+    border-color: #00c8ff;
+    box-shadow: 0 0 13px rgba(0, 200, 255, .13);
+}
+
+.text-input.invalid,
+.select-input.invalid {
+    border-color: var(--danger);
+    box-shadow: 0 0 13px rgba(255, 92, 122, .14);
+}
+
+.field-help {
+    margin-top: 6px;
+    min-height: 13px;
+    color: var(--muted-2);
+    font-size: 11px;
+}
+
+.field-help.error { color: var(--danger); }
+
+.limits {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 6px;
+    color: #607894;
+    font-size: 11px;
+}
+
+/* RECIPIENT ("Kimga?" + "O‘zimga") */
+
+.recipient-row {
+    display: flex;
+    gap: 8px;
+}
+
+.recipient-row .text-input { flex: 1; min-width: 0; }
+
+.self-btn {
+    flex-shrink: 0;
+    height: 50px;
+    padding: 0 14px;
+    border-radius: 13px;
+    border: 1px solid rgba(0, 200, 255, .35);
+    background: rgba(0, 120, 255, .12);
+    color: #bfefff;
+    font-size: 13px;
+    font-weight: 800;
+    white-space: nowrap;
+    transition: transform .15s, background .2s;
+}
+
+.self-btn:active {
+    transform: scale(.96);
+    background: rgba(0, 150, 255, .25);
+}
+
+/* STARS */
+
+.star-packs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 9px;
+    margin-bottom: 14px;
+}
+
+.star-pack {
+    padding: 14px 6px;
+    text-align: center;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 210, 30, .20);
+    background: linear-gradient(145deg, #1d1b0d, #0b0d0b);
+    transition: transform .2s, border-color .2s, box-shadow .2s;
+}
+
+.star-pack:active { transform: scale(.95); }
+
+.star-pack.selected {
+    border-color: var(--gold);
+    box-shadow: 0 0 10px rgba(255, 210, 30, .22), inset 0 0 15px rgba(255, 210, 30, .06);
+}
+
+.star-pack-icon { font-size: 20px; }
+
+.star-pack-qty {
+    margin-top: 5px;
+    font-size: 14px;
+    font-weight: 900;
+}
+
+.star-pack-price {
+    margin-top: 4px;
+    color: var(--gold);
+    font-size: 11px;
+}
+
+.calculator {
+    padding: 18px;
+    border-radius: 19px;
+    border: 1px solid rgba(255, 210, 30, .25);
+    background: linear-gradient(145deg, #12182a, #060b15);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, .25);
+}
+
+.calc-box {
+    margin-top: 14px;
+    padding: 14px;
+    border-radius: 14px;
+    background: rgba(0, 150, 255, .055);
+    border: 1px solid rgba(0, 180, 255, .10);
+}
+
+.calc-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 9px;
+    color: #8ba4bf;
+    font-size: 13px;
+}
+
+.calc-row:last-child { margin-bottom: 0; }
+
+.calc-row strong { color: #fff; text-align: right; }
+
+.total-row {
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, .07);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 900;
+}
+
+.total-price {
+    color: var(--cyan);
+    text-shadow: 0 0 12px rgba(0, 210, 255, .55);
+}
+
+/* PRODUCTS (UC) */
 
 .product-list {
     display: flex;
     flex-direction: column;
-    gap: 11px;
+    gap: 10px;
 }
 
 .product {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    padding: 16px;
-    min-height: 68px;
-    border-radius: 16px;
-    border: 1px solid rgba(0, 174, 255, .18);
-    background: linear-gradient(145deg, #0a1a2f, #050d1a);
-    box-shadow: 0 7px 25px rgba(0,0,0,.25);
-    transition: .2s ease;
+    padding: 15px;
+    border-radius: 17px;
+    border: 1px solid rgba(0, 180, 255, .17);
+    background: linear-gradient(145deg, #0b1c31, #040b16);
 }
 
-.product:hover {
-    border-color: rgba(0, 200, 255, .55);
-    box-shadow: 0 0 20px rgba(0, 160, 255, .12);
-}
-
-.product-left {
+.product-main {
     display: flex;
     align-items: center;
     gap: 12px;
 }
 
 .product-icon {
-    width: 42px;
-    height: 42px;
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 13px;
-    background: rgba(0, 150, 255, .10);
-    font-size: 21px;
+    background: rgba(0, 150, 255, .09);
+    font-size: 22px;
 }
 
-.product-title {
-    font-weight: 700;
+.product-info { flex: 1; min-width: 0; }
+
+.product-name {
     font-size: 14px;
+    font-weight: 800;
 }
 
-.product-info {
+.product-description {
     margin-top: 4px;
-    color: #718ba8;
+    color: #7189a5;
     font-size: 11px;
 }
 
-.price {
-    color: #00d2ff;
-    font-size: 14px;
-    font-weight: 800;
-    white-space: nowrap;
-    text-shadow: 0 0 10px rgba(0, 200, 255, .55);
-}
-
-.buy-btn {
-    border: none;
-    border-radius: 11px;
-    padding: 9px 13px;
-    background: linear-gradient(135deg, #007aff, #00c8ff);
-    color: white;
-    font-size: 12px;
-    font-weight: 800;
-    cursor: pointer;
-    box-shadow: 0 0 15px rgba(0, 150, 255, .25);
-}
-
-/* STARS CALCULATOR */
-
-.calculator {
-    border-radius: 20px;
-    padding: 20px;
-    background:
-        linear-gradient(145deg, rgba(18, 29, 49, .98), rgba(5, 12, 24, .98));
-    border: 1px solid rgba(255, 208, 35, .28);
-    box-shadow:
-        0 0 20px rgba(255, 190, 0, .06),
-        0 15px 45px rgba(0,0,0,.35);
-}
-
-.star-heading {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 18px;
-}
-
-.star-big {
-    font-size: 42px;
-    filter: drop-shadow(0 0 12px rgba(255, 205, 0, .8));
-}
-
-.star-heading h2 {
-    font-size: 19px;
-}
-
-.star-heading p {
-    margin-top: 4px;
-    color: #8199b5;
-    font-size: 12px;
-}
-
-.input-label {
-    display: block;
-    margin-bottom: 7px;
-    color: #9ab4d0;
-    font-size: 12px;
-}
-
-.quantity-input {
-    width: 100%;
-    height: 54px;
-    border: 1px solid rgba(0, 185, 255, .3);
-    outline: none;
-    border-radius: 14px;
-    background: #030b17;
-    color: white;
-    padding: 0 16px;
-    font-size: 20px;
-    font-weight: 800;
-    box-shadow: inset 0 0 15px rgba(0, 100, 255, .06);
-}
-
-.quantity-input:focus {
-    border-color: #00c8ff;
-    box-shadow:
-        0 0 10px rgba(0, 200, 255, .18),
-        inset 0 0 15px rgba(0, 100, 255, .08);
-}
-
-.limits {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 7px;
-    color: #607994;
-    font-size: 10px;
-}
-
-.calculation {
-    margin-top: 18px;
-    padding: 17px;
-    border-radius: 15px;
-    background: rgba(0, 130, 255, .07);
-    border: 1px solid rgba(0, 170, 255, .13);
-}
-
-.calc-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 9px;
-    color: #91aac5;
+.product-price {
+    color: #00d5ff;
     font-size: 13px;
+    font-weight: 900;
+    white-space: nowrap;
 }
 
-.calc-row:last-child {
-    margin-bottom: 0;
+/* BUTTONS */
+
+.buy-btn,
+.primary-btn {
+    width: 100%;
+    border-radius: 13px;
+    color: #fff;
+    font-weight: 800;
+    font-size: 14px;
+    background: linear-gradient(135deg, #0075ff, #00c9ff);
+    box-shadow: 0 0 18px rgba(0, 150, 255, .20);
+    transition: transform .15s, opacity .2s;
 }
 
-.total {
-    padding-top: 11px;
-    border-top: 1px solid rgba(255,255,255,.07);
-    color: white;
-    font-size: 17px;
+.buy-btn { height: 43px; margin-top: 12px; }
+.primary-btn { height: 48px; margin-top: 14px; font-weight: 900; }
+
+.buy-btn:active,
+.primary-btn:active { transform: scale(.98); }
+
+.buy-btn:disabled,
+.primary-btn:disabled {
+    opacity: .55;
+    cursor: wait;
+}
+
+/* GIFTS */
+
+.gift-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.gift-item {
+    overflow: hidden;
+    border-radius: 17px;
+    border: 1px solid rgba(255, 80, 190, .20);
+    background: linear-gradient(145deg, #211024, #0b0710);
+    transition: border-color .2s, box-shadow .2s;
+}
+
+.gift-item.selected {
+    border-color: #ff57bb;
+    box-shadow: 0 0 18px rgba(255, 60, 180, .15);
+}
+
+.gift-image {
+    width: 100%;
+    height: 110px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 54px;
+    background: radial-gradient(circle, rgba(255, 80, 190, .14), transparent 65%);
+}
+
+.gift-content { padding: 11px; }
+
+.gift-name {
+    font-size: 13px;
     font-weight: 800;
 }
 
-.total-value {
-    color: #00d9ff;
-    text-shadow: 0 0 12px rgba(0, 220, 255, .6);
+.gift-price {
+    margin-top: 5px;
+    color: var(--pink);
+    font-size: 12px;
+    font-weight: 900;
 }
 
-/* TOPUP */
+.gift-select {
+    width: 100%;
+    height: 38px;
+    margin-top: 9px;
+    border-radius: 10px;
+    background: #18233a;
+    font-size: 12px;
+    transition: background .2s;
+}
 
-.balance-box {
-    padding: 24px;
-    border-radius: 20px;
+.gift-item.selected .gift-select {
+    background: linear-gradient(135deg, #ff3fae, #ff7bd0);
+    font-weight: 800;
+}
+
+/* FORMS */
+
+.form-box {
+    padding: 17px;
+    border-radius: 18px;
+    border: 1px solid rgba(0, 180, 255, .17);
+    background: linear-gradient(145deg, #0b1b30, #040b16);
+}
+
+.form-group { margin-bottom: 13px; }
+.form-group:last-child { margin-bottom: 0; }
+
+/* TOP UP */
+
+.topup-box {
+    padding: 22px;
     text-align: center;
-    background: linear-gradient(145deg, #071c24, #041017);
+    border-radius: 20px;
     border: 1px solid rgba(0, 255, 180, .20);
-    box-shadow: 0 0 30px rgba(0, 255, 180, .06);
+    background: linear-gradient(145deg, #071e24, #030d13);
+    box-shadow: 0 0 30px rgba(0, 255, 180, .05);
 }
 
-.balance-label {
-    color: #7795a6;
+.current-balance {
+    color: #6f8d9d;
     font-size: 12px;
 }
 
-.balance-value {
+.current-balance-value {
     margin-top: 7px;
-    font-size: 30px;
+    color: var(--green);
+    font-size: 29px;
     font-weight: 900;
-    color: #00e6a8;
-    text-shadow: 0 0 15px rgba(0, 255, 180, .45);
+    text-shadow: 0 0 15px rgba(0, 255, 180, .40);
 }
 
-.topup-input {
-    width: 100%;
-    margin-top: 15px;
-    height: 52px;
-    border-radius: 14px;
-    outline: none;
-    border: 1px solid rgba(0, 200, 255, .25);
-    background: #030b17;
-    color: white;
-    padding: 0 15px;
-    font-size: 17px;
+.chips {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 16px;
 }
 
-.main-btn {
-    width: 100%;
+.chip {
+    padding: 8px 13px;
+    border-radius: 20px;
+    border: 1px solid rgba(0, 255, 180, .22);
+    background: rgba(0, 255, 180, .05);
+    color: #b9f5e4;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.chip:active { transform: scale(.95); }
+
+.amount-preview {
     margin-top: 12px;
-    height: 50px;
-    border: none;
-    border-radius: 14px;
-    color: white;
-    font-size: 14px;
-    font-weight: 800;
-    background: linear-gradient(135deg, #006fff, #00c8ff);
-    box-shadow: 0 0 22px rgba(0, 150, 255, .25);
+    color: #6d89a5;
+    font-size: 12px;
 }
+
+.topup-box .text-input { margin-top: 14px; text-align: center; }
 
 /* FOOTER */
 
 .footer {
-    margin-top: 28px;
+    padding: 28px 0;
     text-align: center;
-    color: #48617d;
+    color: #405873;
     font-size: 10px;
-    letter-spacing: .5px;
 }
 
-/* MOBILE */
+/* SMALL SCREENS */
 
-@media (max-width: 380px) {
-    .services {
-        gap: 8px;
-    }
+@media (max-width: 390px) {
+    .logo { font-size: 31px; }
+    .services { gap: 8px; }
+    .service { min-height: 116px; padding: 15px 12px; }
+    .star-packs { gap: 7px; }
+    .gift-image { height: 100px; font-size: 48px; }
+}
 
-    .service {
-        min-height: 108px;
-        padding: 14px 11px;
-    }
-
-    .service-icon {
-        font-size: 27px;
-    }
-
-    .service-name {
-        font-size: 13px;
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
     }
 }
 </style>
-
 </head>
 
 <body>
 
 <header class="header">
-    <a class="logo" href="https://t.me/jvstarsbot">
-        🚀 JV <span>STARS</span>
-    </a>
-
-```
-<div class="subtitle">
-    Tezkor • Ishonchli • Qulay
-</div>
-```
-
+    <a class="bot-link" href="https://t.me/jvstarsbot" target="_blank" rel="noopener">@jvstarsbot ↗</a>
+    <a class="logo" href="https://t.me/jvstarsbot" target="_blank" rel="noopener">🚀 JV <span>STARS</span></a>
+    <div class="subtitle">TEZKOR • ISHONCHLI • QULAY</div>
 </header>
 
-<div class="container">
-
-```
-<!-- HOME -->
-
-<div id="homePage" class="page active">
-
-    <div class="section-title">
-        🛍 Xizmatlar
+<div class="balance-bar">
+    <div>
+        <div class="balance-label">Mijoz balansi</div>
+        <div class="balance-value" id="balanceValue">0 so‘m</div>
     </div>
-
-    <div class="services">
-
-        <div class="service stars-card" onclick="openPage('starsPage')">
-            <div class="service-icon">⭐</div>
-            <div class="service-name">Telegram Stars</div>
-            <div class="service-description">
-                50 — 10 000 Stars
-            </div>
-        </div>
-
-        <div class="service premium-card" onclick="openPage('premiumPage')">
-            <div class="service-icon">💎</div>
-            <div class="service-name">Telegram Premium</div>
-            <div class="service-description">
-                3 / 6 / 12 oy
-            </div>
-        </div>
-
-        <div class="service gift-card" onclick="openPage('giftsPage')">
-            <div class="service-icon">🎁</div>
-            <div class="service-name">Telegram Gift</div>
-            <div class="service-description">
-                Sovg‘alar
-            </div>
-        </div>
-
-        <div class="service number-card" onclick="openPage('numbersPage')">
-            <div class="service-icon">📱</div>
-            <div class="service-name">Virtual raqam</div>
-            <div class="service-description">
-                Turli davlatlar
-            </div>
-        </div>
-
-        <div class="service uc-card" onclick="openPage('ucPage')">
-            <div class="service-icon">🎮</div>
-            <div class="service-name">PUBG UC</div>
-            <div class="service-description">
-                UC paketlari
-            </div>
-        </div>
-
-        <div class="service balance-card" onclick="openPage('topupPage')">
-            <div class="service-icon">💰</div>
-            <div class="service-name">Hisobni to‘ldirish</div>
-            <div class="service-description">
-                Balansni to‘ldirish
-            </div>
-        </div>
-
-    </div>
-
-    <div class="footer">
-        JV Stars © 2026
-    </div>
-
+    <div class="balance-icon" aria-hidden="true">💰</div>
 </div>
 
+<main class="container">
 
-<!-- STARS -->
+    <!-- HOME -->
+    <section id="homePage" class="page active">
+        <div class="section-title">🛍 Xizmatlar</div>
 
-<div id="starsPage" class="page">
+        <div class="services">
+            <button type="button" class="service stars-card" data-page="starsPage">
+                <div class="service-icon">⭐</div>
+                <div class="service-name">Telegram Stars</div>
+                <div class="service-description">50 dan 10 000 Stars gacha</div>
+            </button>
 
-    <div class="back" onclick="goHome()">
-        ← Orqaga
-    </div>
+            <button type="button" class="service premium-card" data-page="premiumPage">
+                <div class="service-icon">💎</div>
+                <div class="service-name">Telegram Premium</div>
+                <div class="service-description">1 / 3 / 6 / 12 oy</div>
+            </button>
 
-    <div class="calculator">
+            <button type="button" class="service gift-card" data-page="giftsPage">
+                <div class="service-icon">🎁</div>
+                <div class="service-name">Telegram Gifts</div>
+                <div class="service-description">10 xil gift</div>
+            </button>
 
-        <div class="star-heading">
-            <div class="star-big">⭐</div>
+            <button type="button" class="service number-card" data-page="numbersPage">
+                <div class="service-icon">📱</div>
+                <div class="service-name">Virtual raqam</div>
+                <div class="service-description">Turli davlatlar</div>
+            </button>
 
-            <div>
-                <h2>Telegram Stars</h2>
-                <p>Kerakli Stars miqdorini kiriting</p>
-            </div>
+            <button type="button" class="service uc-card" data-page="ucPage">
+                <div class="service-icon">🎮</div>
+                <div class="service-name">PUBG UC</div>
+                <div class="service-description">60 dan 8100 UC gacha</div>
+            </button>
+
+            <button type="button" class="service topup-card" data-page="topupPage">
+                <div class="service-icon">💰</div>
+                <div class="service-name">Hisobni to‘ldirish</div>
+                <div class="service-description">Balansingizni to‘ldiring</div>
+            </button>
         </div>
 
-        <label class="input-label">
-            Stars miqdori
-        </label>
+        <div class="footer">JV Stars © 2026</div>
+    </section>
 
-        <input
-            id="starsInput"
-            class="quantity-input"
-            type="number"
-            min="50"
-            max="10000"
-            value="50"
-            placeholder="Masalan: 78"
-            oninput="calculateStars()"
-        >
+    <!-- STARS -->
+    <section id="starsPage" class="page">
+        <button type="button" class="back" data-action="home">← Orqaga</button>
 
-        <div class="limits">
-            <span>Minimum: 50</span>
-            <span>Maximum: 10 000</span>
+        <div class="page-heading">
+            <h2>⭐ Telegram Stars</h2>
+            <p>Tayyor paket yoki o‘zingizga kerakli miqdorni tanlang</p>
         </div>
 
-        <div class="calculation">
+        <div class="star-packs" id="starPacks"></div>
 
-            <div class="calc-row">
-                <span>Miqdor</span>
-                <span id="starQty">50 ⭐</span>
+        <div class="calculator">
+            <div class="form-group">
+                <label class="input-label" for="starsUsername">Kimga?</label>
+                <div class="recipient-row">
+                    <input id="starsUsername" class="text-input" type="text" placeholder="@username"
+                           autocomplete="off" autocapitalize="none" spellcheck="false">
+                    <button type="button" class="self-btn" data-self="starsUsername">👤 O‘zimga</button>
+                </div>
+                <div class="field-help" id="starsUsernameHelp">Telegram username kiriting</div>
             </div>
 
-            <div class="calc-row">
-                <span>1 Stars narxi</span>
-                <span>300 so‘m</span>
+            <label class="input-label" for="starsInput">Boshqa miqdor</label>
+            <input id="starsInput" class="text-input" type="text" inputmode="numeric"
+                   autocomplete="off" placeholder="Masalan: 78">
+
+            <div class="limits">
+                <span>Min: <span id="starsMinLabel"></span></span>
+                <span>Max: <span id="starsMaxLabel"></span></span>
             </div>
+            <div class="field-help" id="starsHelp"></div>
 
-            <div class="calc-row total">
-                <span>Jami</span>
-                <span class="total-value" id="starTotal">
-                    15 000 so‘m
-                </span>
-            </div>
-
-        </div>
-
-        <button class="main-btn" onclick="showSoon()">
-            ⭐ Stars sotib olish
-        </button>
-
-    </div>
-
-</div>
-
-
-<!-- PREMIUM -->
-
-<div id="premiumPage" class="page">
-
-    <div class="back" onclick="goHome()">
-        ← Orqaga
-    </div>
-
-    <div class="section-title">
-        💎 Telegram Premium
-    </div>
-
-    <div class="product-list">
-
-        <div class="product">
-            <div class="product-left">
-                <div class="product-icon">💎</div>
-                <div>
-                    <div class="product-title">Premium 1 oy</div>
-                    <div class="product-info">Admin orqali</div>
+            <div class="calc-box">
+                <div class="calc-row">
+                    <span>Miqdor</span>
+                    <strong id="starQty">0 ⭐</strong>
+                </div>
+                <div class="calc-row">
+                    <span>1 Stars</span>
+                    <strong id="starUnit"></strong>
+                </div>
+                <div class="calc-row total-row">
+                    <span>Jami</span>
+                    <span id="starTotal" class="total-price">0 so‘m</span>
                 </div>
             </div>
-            <div class="price">50 000 so‘m</div>
+
+            <button type="button" class="primary-btn" id="buyStarsBtn">⭐ Sotib olish</button>
+        </div>
+    </section>
+
+    <!-- PREMIUM -->
+    <section id="premiumPage" class="page">
+        <button type="button" class="back" data-action="home">← Orqaga</button>
+
+        <div class="page-heading">
+            <h2>💎 Telegram Premium</h2>
+            <p>Kimga yuborilishini va muddatni tanlang</p>
         </div>
 
-        <div class="product">
-            <div class="product-left">
-                <div class="product-icon">💎</div>
-                <div>
-                    <div class="product-title">Premium 3 oy</div>
-                    <div class="product-info">3 oylik obuna</div>
+        <div class="form-box">
+            <div class="form-group">
+                <label class="input-label" for="premiumUsername">Kimga?</label>
+                <div class="recipient-row">
+                    <input id="premiumUsername" class="text-input" type="text" placeholder="@username"
+                           autocomplete="off" autocapitalize="none" spellcheck="false">
+                    <button type="button" class="self-btn" data-self="premiumUsername">👤 O‘zimga</button>
                 </div>
-            </div>
-            <div class="price">150 000 so‘m</div>
-        </div>
-
-        <div class="product">
-            <div class="product-left">
-                <div class="product-icon">💎</div>
-                <div>
-                    <div class="product-title">Premium 6 oy</div>
-                    <div class="product-info">6 oylik obuna</div>
-                </div>
-            </div>
-            <div class="price">280 000 so‘m</div>
-        </div>
-
-        <div class="product">
-            <div class="product-left">
-                <div class="product-icon">💎</div>
-                <div>
-                    <div class="product-title">Premium 12 oy</div>
-                    <div class="product-info">12 oylik obuna</div>
-                </div>
-            </div>
-            <div class="price">500 000 so‘m</div>
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- GIFTS -->
-
-<div id="giftsPage" class="page">
-
-    <div class="back" onclick="goHome()">
-        ← Orqaga
-    </div>
-
-    <div class="section-title">
-        🎁 Telegram Gifts
-    </div>
-
-    <div class="product-list">
-
-        <div class="product">
-            <div class="product-left">
-                <div class="product-icon">🎁</div>
-                <div>
-                    <div class="product-title">Gift 1</div>
-                    <div class="product-info">Telegram sovg‘asi</div>
-                </div>
-            </div>
-            <div class="price">20 000 so‘m</div>
-        </div>
-
-        <div class="product">
-            <div class="product-left">
-                <div class="product-icon">🎁</div>
-                <div>
-                    <div class="product-title">Gift 2</div>
-                    <div class="product-info">Telegram sovg‘asi</div>
-                </div>
-            </div>
-            <div class="price">35 000 so‘m</div>
-        </div>
-
-        <div class="product">
-            <div class="product-left">
-                <div class="product-icon">🎁</div>
-                <div>
-                    <div class="product-title">Gift 3</div>
-                    <div class="product-info">Telegram sovg‘asi</div>
-                </div>
-            </div>
-            <div class="price">50 000 so‘m</div>
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- NUMBERS -->
-
-<div id="numbersPage" class="page">
-
-    <div class="back" onclick="goHome()">
-        ← Orqaga
-    </div>
-
-    <div class="section-title">
-        📱 Virtual raqamlar
-    </div>
-
-    <div class="product-list">
-
-        <div class="product">
-            <div class="product-left">
-                <div class="product-icon">🇺🇸</div>
-                <div>
-                    <div class="product-title">USA raqam</div>
-                    <div class="product-info">Virtual raqam</div>
-                </div>
-            </div>
-            <div class="price">15 000 so‘m</div>
-        </div>
-
-        <div class="product">
-            <div class="product-left">
-                <div class="product-icon">🇷🇺</div>
-                <div>
-                    <div class="product-title">Russia raqam</div>
-                    <div class="product-info">Virtual raqam</div>
-                </div>
-            </div>
-            <div class="price">20 000 so‘m</div>
-        </div>
-
-        <div class="product">
-            <div class="product-left">
-                <div class="product-icon">🇺🇦</div>
-                <div>
-                    <div class="product-title">Ukraine raqam</div>
-                    <div class="product-info">Virtual raqam</div>
-                </div>
-            </div>
-            <div class="price">20 000 so‘m</div>
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- PUBG -->
-
-<div id="ucPage" class="page">
-
-    <div class="back" onclick="goHome()">
-        ← Orqaga
-    </div>
-
-    <div class="section-title">
-        🎮 PUBG Mobile UC
-    </div>
-
-    <div class="product-list">
-
-        <div class="product">
-            <div class="product-left">
-                <div class="product-icon">🎮</div>
-                <div>
-                    <div class="product-title">60 UC</div>
-                    <div class="product-info">PUBG Mobile</div>
-                </div>
-            </div>
-            <div class="price">15 000 so‘m</div>
-        </div>
-
-        <div class="product">
-            <div class="product-left">
-                <div class="product-icon">🎮</div>
-                <div>
-                    <div class="product-title">325 UC</div>
-                    <div class="product-info">PUBG Mobile</div>
-                </div>
-            </div>
-            <div class="price">70 000 so‘m</div>
-        </div>
-
-        <div class="product">
-            <div class="product-left">
-                <div class="product-icon">🎮</div>
-                <div>
-                    <div class="product-title">660 UC</div>
-                    <div class="product-info">PUBG Mobile</div>
-                </div>
-            </div>
-            <div class="price">135 000 so‘m</div>
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- TOP UP -->
-
-<div id="topupPage" class="page">
-
-    <div class="back" onclick="goHome()">
-        ← Orqaga
-    </div>
-
-    <div class="section-title">
-        💰 Hisobni to‘ldirish
-    </div>
-
-    <div class="balance-box">
-
-        <div class="balance-label">
-            Joriy balans
-        </div>
-
-        <div class="balance-value">
-            0 so‘m
-        </div>
-
-        <input
-            id="topupInput"
-            class="topup-input"
-            type="number"
-            min="1000"
-            placeholder="Masalan: 50 000"
-        >
-
-        <button class="main-btn" onclick="showSoon()">
-            💳 Hisobni to‘ldirish
-        </button>
-
-    </div>
-
-</div>
-```
-
-</div>
-
-<script>
-
-const tg = window.Telegram.WebApp;
-
-tg.ready();
-tg.expand();
-
-
-/* PAGE SYSTEM */
-
-const pages = [
-    "homePage",
-    "starsPage",
-    "premiumPage",
-    "giftsPage",
-    "numbersPage",
-    "ucPage",
-    "topupPage"
-];
-
-function openPage(pageId) {
-
-    pages.forEach(id => {
-        const page = document.getElementById(id);
-
-        if (page) {
-            page.classList.remove("active");
-        }
-    });
-
-    const target = document.getElementById(pageId);
-
-    if (target) {
-        target.classList.add("active");
-    }
-
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
-
-    if (tg.HapticFeedback) {
-        tg.HapticFeedback.impactOccurred("light");
-    }
-}
-
-
-function goHome() {
-    openPage("homePage");
-}
-
-
-/* STARS CALCULATOR */
-
-const STAR_PRICE = 300;
-
-function calculateStars() {
-
-    const input = document.getElementById("starsInput");
-
-    let quantity = parseInt(input.value);
-
-    if (isNaN(quantity)) {
-        quantity = 0;
-    }
-
-    if (quantity < 50 && input.value !== "") {
-        quantity = 50;
-    }
-
-    if (quantity > 10000) {
-        quantity = 10000;
-        input.value = 10000;
-    }
-
-    const total = quantity * STAR_PRICE;
-
-    document.getElementById("starQty").textContent =
-        quantity.toLocaleString("uz-UZ") + " ⭐";
-
-    document.getElementById("starTotal").textContent =
-        total.toLocaleString("uz-UZ") + " so‘m";
-}
-
-
-/* TELEGRAM USER */
-
-function setTelegramUser() {
-
-    if (
-        tg.initDataUnsafe &&
-        tg.initDataUnsafe.user
-    ) {
-        console.log(
-            "Telegram user:",
-            tg.initDataUnsafe.user.username
-        );
-    }
-}
-
-
-/* BOT SERVICE LINKS */
-
-const params = new URLSearchParams(
-    window.location.search
-);
-
-const service = params.get("service");
-
-
-const serviceMap = {
-
-    stars: "starsPage",
-
-    premium: "premiumPage",
-
-    gifts: "giftsPage",
-
-    numbers: "numbersPage",
-
-    gift_rental: "ucPage",
-
-    topup: "topupPage"
-
-};
-
-
-if (service && serviceMap[service]) {
-
-    setTimeout(() => {
-        openPage(serviceMap[service]);
-    }, 150);
-
-}
-
-
-/* TEMPORARY BUTTON */
-
-function showSoon() {
-
-    if (tg.HapticFeedback) {
-        tg.HapticFeedback.notificationOccurred("success");
-    }
-
-    tg.showPopup({
-        title: "JV Stars",
-        message: "Bu xizmat tez orada avtomatik ishlaydi.",
-        buttons: [
-            {
-                id: "ok",
-                type: "default",
-                text: "OK"
-            }
-        ]
-    });
-}
-
-
-setTelegramUser();
-
-calculateStars();
-
-</script>
-
-</body>
-</html>
