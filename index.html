@@ -40,7 +40,7 @@
             overflow-x: hidden;
         }
 
-        button, input, select {
+        button, input, select, textarea {
             font-family: inherit;
         }
 
@@ -59,8 +59,33 @@
         /* HEADER */
 
         .header {
+            position: relative;
             text-align: center;
             margin-bottom: 20px;
+        }
+
+        .lang-switch {
+            position: absolute;
+            top: 0;
+            right: 0;
+            display: flex;
+            gap: 4px;
+        }
+
+        .lang-btn {
+            padding: 6px 10px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,0.055);
+            color: var(--muted);
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        .lang-btn.active {
+            color: white;
+            border-color: rgba(77,124,255,0.6);
+            background: linear-gradient(145deg, rgba(77,124,255,0.28), rgba(139,92,246,0.2));
         }
 
         .logo {
@@ -217,7 +242,7 @@
             margin-bottom: 8px;
         }
 
-        input, select {
+        input, select, textarea {
             width: 100%;
             background: #080d1d;
             color: white;
@@ -229,8 +254,16 @@
             transition: border-color 0.2s;
         }
 
+        textarea {
+            display: block;
+            resize: none;
+            min-height: 86px;
+            line-height: 1.4;
+        }
+
         input:focus,
-        select:focus {
+        select:focus,
+        textarea:focus {
             border-color: rgba(77,124,255,0.65);
         }
 
@@ -238,8 +271,18 @@
             border-color: rgba(255,92,122,0.75);
         }
 
-        input::placeholder {
+        input::placeholder,
+        textarea::placeholder {
             color: #5d6680;
+        }
+
+        .field-note {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-top: 7px;
+            color: var(--muted);
+            font-size: 11px;
         }
 
         .recipient-row {
@@ -511,6 +554,12 @@
     <!-- HEADER -->
 
     <div class="header">
+
+        <div class="lang-switch" role="group" aria-label="Til / Язык">
+            <button type="button" class="lang-btn" data-lang="uz">UZ</button>
+            <button type="button" class="lang-btn" data-lang="ru">RU</button>
+        </div>
+
         <div class="logo">JV STARS</div>
         <a class="bot-link" href="https://t.me/jvstarsbot" target="_blank" rel="noopener">@jvstarsbot</a>
     </div>
@@ -518,7 +567,7 @@
     <!-- BALANCE -->
 
     <div class="balance-card">
-        <div class="balance-title">💰 Sizning balansingiz</div>
+        <div class="balance-title" data-i18n="balanceTitle"></div>
         <div class="balance">
             <span id="balance">0</span>
             <span class="uzs">UZS</span>
@@ -530,45 +579,45 @@
 
     <section id="homePage" class="page active">
 
-        <div class="section-title">🛍 Xizmatlar</div>
-        <div class="section-description">Kerakli xizmatni tanlang</div>
+        <div class="section-title" data-i18n="servicesTitle"></div>
+        <div class="section-description" data-i18n="servicesDesc"></div>
 
         <div class="services">
 
             <button type="button" class="service" data-page="starsPage">
                 <div class="service-icon">⭐</div>
-                <div class="service-name">Telegram Stars</div>
-                <div class="service-desc">Stars sotib olish</div>
+                <div class="service-name" data-i18n="svcStars"></div>
+                <div class="service-desc" data-i18n="svcStarsDesc"></div>
             </button>
 
             <button type="button" class="service" data-page="premiumPage">
                 <div class="service-icon">💎</div>
-                <div class="service-name">Telegram Premium</div>
-                <div class="service-desc">Premium obuna</div>
+                <div class="service-name" data-i18n="svcPremium"></div>
+                <div class="service-desc" data-i18n="svcPremiumDesc"></div>
             </button>
 
             <button type="button" class="service" data-page="giftsPage">
                 <div class="service-icon">🎁</div>
-                <div class="service-name">Telegram Gifts</div>
-                <div class="service-desc">Sovg‘alar yuborish</div>
+                <div class="service-name" data-i18n="svcGifts"></div>
+                <div class="service-desc" data-i18n="svcGiftsDesc"></div>
             </button>
 
             <button type="button" class="service" data-page="numbersPage">
                 <div class="service-icon">📱</div>
-                <div class="service-name">Virtual raqam</div>
-                <div class="service-desc">100+ davlat</div>
+                <div class="service-name" data-i18n="svcNumbers"></div>
+                <div class="service-desc" data-i18n="svcNumbersDesc"></div>
             </button>
 
             <button type="button" class="service" data-page="pubgPage">
                 <div class="service-icon">🎮</div>
-                <div class="service-name">PUBG UC</div>
-                <div class="service-desc">UC to‘ldirish</div>
+                <div class="service-name" data-i18n="svcPubg"></div>
+                <div class="service-desc" data-i18n="svcPubgDesc"></div>
             </button>
 
             <button type="button" class="service" data-page="topupPage">
                 <div class="service-icon">💰</div>
-                <div class="service-name">Hisobni to‘ldirish</div>
-                <div class="service-desc">Balansni to‘ldirish</div>
+                <div class="service-name" data-i18n="svcTopup"></div>
+                <div class="service-desc" data-i18n="svcTopupDesc"></div>
             </button>
 
         </div>
@@ -580,25 +629,25 @@
 
     <section id="starsPage" class="page">
 
-        <button type="button" class="back-button" data-back>← Orqaga</button>
+        <button type="button" class="back-button" data-back data-i18n="back"></button>
 
-        <div class="section-title">⭐ Telegram Stars</div>
-        <div class="section-description">Kerakli Stars miqdorini tanlang</div>
+        <div class="section-title" data-i18n="starsTitle"></div>
+        <div class="section-description" data-i18n="starsDesc"></div>
 
         <div class="form-card">
 
-            <span class="label">Stars miqdori</span>
+            <span class="label" data-i18n="starsAmount"></span>
 
             <div class="packages" id="starPacks"></div>
 
             <br>
 
-            <span class="label">Boshqa miqdor</span>
+            <span class="label" data-i18n="otherAmount"></span>
 
-            <input id="customStars" type="text" inputmode="numeric" autocomplete="off" placeholder="Masalan: 78">
+            <input id="customStars" type="text" inputmode="numeric" autocomplete="off" data-i18n-ph="starsPlaceholder">
 
             <div class="price-box">
-                <span class="price-label">Jami</span>
+                <span class="price-label" data-i18n="total"></span>
                 <span class="price" id="starsTotal">0 UZS</span>
             </div>
 
@@ -606,17 +655,17 @@
 
         <div class="form-card">
 
-            <span class="label">Kimga?</span>
+            <span class="label" data-i18n="toWhom"></span>
 
             <div class="recipient-row">
                 <input id="starsUsername" type="text" placeholder="@username"
                        autocomplete="off" autocapitalize="none" spellcheck="false">
-                <button type="button" class="small-button" data-self="starsUsername">O‘zimga</button>
+                <button type="button" class="small-button" data-self="starsUsername" data-i18n="forMe"></button>
             </div>
 
         </div>
 
-        <button type="button" class="buy-button" data-buy="Telegram Stars">⭐ Sotib olish</button>
+        <button type="button" class="buy-button" data-buy="stars" data-i18n="buyStars"></button>
 
     </section>
 
@@ -625,37 +674,37 @@
 
     <section id="premiumPage" class="page">
 
-        <button type="button" class="back-button" data-back>← Orqaga</button>
+        <button type="button" class="back-button" data-back data-i18n="back"></button>
 
-        <div class="section-title">💎 Telegram Premium</div>
-        <div class="section-description">Premium muddatini tanlang</div>
+        <div class="section-title" data-i18n="premiumTitle"></div>
+        <div class="section-description" data-i18n="premiumDesc"></div>
 
         <div class="form-card">
 
-            <span class="label">Kimga?</span>
+            <span class="label" data-i18n="toWhom"></span>
 
             <div class="recipient-row">
                 <input id="premiumUsername" type="text" placeholder="@username"
                        autocomplete="off" autocapitalize="none" spellcheck="false">
-                <button type="button" class="small-button" data-self="premiumUsername">O‘zimga</button>
+                <button type="button" class="small-button" data-self="premiumUsername" data-i18n="forMe"></button>
             </div>
 
         </div>
 
         <div class="form-card">
 
-            <span class="label">Muddat</span>
+            <span class="label" data-i18n="term"></span>
 
             <div class="packages" id="premiumPacks"></div>
 
             <div class="price-box">
-                <span class="price-label">Narx</span>
-                <span class="price" id="premiumTotal">Muddat tanlang</span>
+                <span class="price-label" data-i18n="priceWord"></span>
+                <span class="price" id="premiumTotal"></span>
             </div>
 
         </div>
 
-        <button type="button" class="buy-button" data-buy="Telegram Premium">💎 Sotib olish</button>
+        <button type="button" class="buy-button" data-buy="premium" data-i18n="buyPremium"></button>
 
     </section>
 
@@ -664,729 +713,48 @@
 
     <section id="giftsPage" class="page">
 
-        <button type="button" class="back-button" data-back>← Orqaga</button>
+        <button type="button" class="back-button" data-back data-i18n="back"></button>
 
-        <div class="section-title">🎁 Telegram Gifts</div>
-        <div class="section-description">Sovg‘ani tanlang</div>
+        <div class="section-title" data-i18n="giftsTitle"></div>
+        <div class="section-description" data-i18n="giftsDesc"></div>
 
         <div class="gift-grid" id="giftGrid"></div>
 
         <div class="form-card" style="margin-top:14px;">
 
-            <span class="label">Kimga?</span>
+            <span class="label" data-i18n="toWhom"></span>
 
             <div class="recipient-row">
                 <input id="giftUsername" type="text" placeholder="@username"
                        autocomplete="off" autocapitalize="none" spellcheck="false">
-                <button type="button" class="small-button" data-self="giftUsername">O‘zimga</button>
+                <button type="button" class="small-button" data-self="giftUsername" data-i18n="forMe"></button>
+            </div>
+
+        </div>
+
+        <div class="form-card">
+
+            <span class="label" data-i18n="commentLabel"></span>
+
+            <textarea id="giftComment" data-i18n-ph="commentPlaceholder"></textarea>
+
+            <div class="field-note">
+                <span data-i18n="commentHelp"></span>
+                <span id="giftCommentCount">0 / 128</span>
             </div>
 
         </div>
 
         <div class="price-box">
-            <span class="price-label">Tanlangan sovg‘a</span>
-            <span class="price" id="giftTotal">Tanlang</span>
+            <span class="price-label" data-i18n="selectedGift"></span>
+            <span class="price" id="giftTotal"></span>
         </div>
 
-        <button type="button" class="buy-button" data-buy="Telegram Gift">🎁 Sotib olish</button>
+        <button type="button" class="buy-button" data-buy="gift" data-i18n="buyGift"></button>
 
     </section>
 
 
     <!-- ================= NUMBERS ================= -->
 
-    <section id="numbersPage" class="page">
-
-        <button type="button" class="back-button" data-back>← Orqaga</button>
-
-        <div class="section-title">📱 Virtual raqam</div>
-        <div class="section-description">Davlatni tanlang</div>
-
-        <div class="form-card">
-
-            <span class="label">Xizmat</span>
-
-            <select id="numberService">
-                <option value="Telegram">Telegram</option>
-                <option value="WhatsApp">WhatsApp</option>
-                <option value="Instagram">Instagram</option>
-                <option value="Google">Google</option>
-            </select>
-
-        </div>
-
-        <div class="country-grid" id="countryGrid"></div>
-
-        <div class="price-box">
-            <span class="price-label">Tanlangan davlat</span>
-            <span class="price" id="numberTotal">Tanlang</span>
-        </div>
-
-        <button type="button" class="buy-button" data-buy="Virtual raqam">📱 Sotib olish</button>
-
-    </section>
-
-
-    <!-- ================= PUBG ================= -->
-
-    <section id="pubgPage" class="page">
-
-        <button type="button" class="back-button" data-back>← Orqaga</button>
-
-        <div class="section-title">🎮 PUBG UC</div>
-        <div class="section-description">PUBG Mobile ID va UC paketini tanlang</div>
-
-        <div class="form-card">
-
-            <span class="label">PUBG ID</span>
-
-            <input id="pubgId" type="text" inputmode="numeric" autocomplete="off" placeholder="PUBG Player ID">
-
-        </div>
-
-        <div class="form-card">
-
-            <span class="label">UC miqdori</span>
-
-            <div class="uc-grid" id="ucGrid"></div>
-
-        </div>
-
-        <div class="price-box">
-            <span class="price-label">Tanlangan paket</span>
-            <span class="price" id="ucTotal">Tanlang</span>
-        </div>
-
-        <button type="button" class="buy-button" data-buy="PUBG UC">🎮 Sotib olish</button>
-
-    </section>
-
-
-    <!-- ================= TOP UP ================= -->
-
-    <section id="topupPage" class="page">
-
-        <button type="button" class="back-button" data-back>← Orqaga</button>
-
-        <div class="section-title">💰 Hisobni to‘ldirish</div>
-        <div class="section-description">Balansingizga mablag‘ qo‘shing</div>
-
-        <div class="form-card">
-
-            <span class="label">Hozirgi balans</span>
-
-            <div class="price-box">
-                <span class="price-label">Balans</span>
-                <span class="price"><span id="balance2">0</span> UZS</span>
-            </div>
-
-        </div>
-
-        <div class="form-card">
-
-            <span class="label">To‘ldirish summasi</span>
-
-            <input id="topupAmount" type="text" inputmode="numeric" autocomplete="off" placeholder="Masalan: 50 000">
-
-            <div class="packages" style="margin-top:12px;" id="topupPacks"></div>
-
-        </div>
-
-        <button type="button" class="buy-button" id="topupBtn">💳 Hisobni to‘ldirish</button>
-
-    </section>
-
-</div>
-
-
-<!-- TOAST -->
-
-<div id="toast" class="toast" role="status" aria-live="polite"></div>
-
-
-<script>
-"use strict";
-
-/* =========================================
-   TELEGRAM
-========================================= */
-
-const tg = (window.Telegram && window.Telegram.WebApp) ? window.Telegram.WebApp : null;
-
-if (tg) {
-    try { tg.ready(); tg.expand(); } catch (e) {}
-    try {
-        tg.setHeaderColor("#050817");
-        tg.setBackgroundColor("#050817");
-    } catch (e) {}
-}
-
-
-/* =========================================
-   NARXLAR VA MA'LUMOTLAR
-   Keyinchalik provider narxlariga almashtiramiz.
-========================================= */
-
-const STAR_PRICE_PER_UNIT = 250;
-const STARS_MIN = 50;
-const STARS_MAX = 10000;
-
-const TOPUP_MIN = 1000;
-const TOPUP_MAX = 50000000;
-
-const STAR_PACKS = [50, 100, 200, 300, 400, 500];
-
-// note — muddat tagida ko‘rsatiladigan izoh
-const PREMIUM_PLANS = [
-    { months: 1,  price: 15000,  note: "admin orqali" },
-    { months: 3,  price: 45000 },
-    { months: 6,  price: 85000 },
-    { months: 12, price: 155000 }
-];
-
-const GIFTS = [
-    { name: "Rose",    icon: "🌹", price: 1000 },
-    { name: "Heart",   icon: "❤️", price: 2500 },
-    { name: "Cake",    icon: "🎂", price: 5000 },
-    { name: "Bear",    icon: "🧸", price: 7500 },
-    { name: "Diamond", icon: "💎", price: 15000 },
-    { name: "Star",    icon: "🌟", price: 20000 },
-    { name: "Trophy",  icon: "🏆", price: 30000 },
-    { name: "Rocket",  icon: "🚀", price: 40000 },
-    { name: "Fire",    icon: "🔥", price: 50000 },
-    { name: "Crown",   icon: "👑", price: 75000 }
-];
-
-const COUNTRIES = [
-    { name: "🇺🇸 AQSH",             price: 25000 },
-    { name: "🇬🇧 Buyuk Britaniya",  price: 30000 },
-    { name: "🇩🇪 Germaniya",        price: 28000 },
-    { name: "🇫🇷 Fransiya",         price: 28000 },
-    { name: "🇹🇷 Turkiya",          price: 18000 },
-    { name: "🇷🇺 Rossiya",          price: 20000 },
-    { name: "🇰🇿 Qozog‘iston",      price: 18000 },
-    { name: "🇺🇦 Ukraina",          price: 22000 },
-    { name: "🇮🇳 Hindiston",        price: 15000 },
-    { name: "🇮🇩 Indoneziya",       price: 16000 },
-    { name: "🇧🇷 Braziliya",        price: 22000 },
-    { name: "🇨🇦 Kanada",           price: 30000 },
-    { name: "🇦🇪 BAA",              price: 35000 },
-    { name: "🇰🇬 Qirg‘iziston",     price: 16000 },
-    { name: "🇹🇯 Tojikiston",       price: 16000 },
-    { name: "🇦🇲 Armaniston",       price: 18000 }
-];
-
-const UC_PACKS = [
-    { uc: 60,   price: 10000 },
-    { uc: 325,  price: 45000 },
-    { uc: 660,  price: 85000 },
-    { uc: 1800, price: 220000 },
-    { uc: 3850, price: 430000 },
-    { uc: 8100, price: 850000 }
-];
-
-const TOPUP_PRESETS = [10000, 50000, 100000, 500000];
-
-
-/* =========================================
-   STATE
-========================================= */
-
-let balance = 0;
-
-let selectedStars = 0;
-let selectedPremium = null;   // { months, price, note }
-let selectedGift = null;      // { name, price }
-let selectedCountry = null;   // { name, price }
-let selectedUC = null;        // { uc, price }
-
-
-/* =========================================
-   YORDAMCHI FUNKSIYALAR
-========================================= */
-
-const $ = (id) => document.getElementById(id);
-
-function formatMoney(number) {
-    // Intl.NumberFormat("uz-UZ") turli qurilmalarda har xil chiqadi, shuning uchun o‘zimiz formatlaymiz
-    return String(Math.round(Number(number) || 0)).replace(/\B(?=(\d{3})+(?!\d))/g, "\u00A0");
-}
-
-function digitsOnly(value, maxLength) {
-    return String(value).replace(/\D/g, "").slice(0, maxLength);
-}
-
-function premiumLabel(plan) {
-    return plan.months + " oy" + (plan.note ? " (" + plan.note + ")" : "");
-}
-
-// Balansni backend’dan olgach shu funksiyani chaqiring: setBalance(125000)
-function setBalance(value) {
-    balance = Math.max(0, Number(value) || 0);
-    $("balance").textContent = formatMoney(balance);
-    $("balance2").textContent = formatMoney(balance);
-}
-
-function setInvalid(inputId, isInvalid) {
-    $(inputId).classList.toggle("invalid", !!isInvalid);
-}
-
-function selectOnly(containerSelector, element) {
-    document.querySelectorAll(containerSelector).forEach(function (item) {
-        item.classList.toggle("selected", item === element);
-    });
-}
-
-// "@Username", "username", "https://t.me/username" -> "@username" (yoki null)
-function normalizeUsername(raw) {
-    let value = String(raw).trim().replace(/^https?:\/\/t\.me\//i, "").replace(/^@/, "");
-
-    // Telegram: 5–32 belgi, harf bilan boshlanadi, harf/raqam/pastki chiziq
-    if (!/^[A-Za-z][A-Za-z0-9_]{4,31}$/.test(value)) return null;
-
-    return "@" + value;
-}
-
-// "Kimga?" maydonini tekshiradi. To‘g‘ri bo‘lsa "@username", aks holda xabar chiqarib null qaytaradi
-function readUsername(inputId) {
-    const raw = $(inputId).value.trim();
-
-    if (!raw) {
-        setInvalid(inputId, true);
-        showToast("👤 Kimga yuborishni kiriting.");
-        return null;
-    }
-
-    const username = normalizeUsername(raw);
-
-    if (!username) {
-        setInvalid(inputId, true);
-        showToast("👤 Username noto‘g‘ri. Masalan: @username");
-        return null;
-    }
-
-    return username;
-}
-
-
-/* =========================================
-   TOAST
-========================================= */
-
-let toastTimer;
-
-function showToast(message) {
-    const toast = $("toast");
-
-    toast.textContent = message;
-    toast.classList.add("show");
-
-    clearTimeout(toastTimer);
-
-    toastTimer = setTimeout(function () {
-        toast.classList.remove("show");
-    }, 3000);
-}
-
-
-/* =========================================
-   NAVIGATSIYA
-========================================= */
-
-function openPage(pageId) {
-    const page = $(pageId);
-    if (!page || !page.classList.contains("page")) return;
-
-    document.querySelectorAll(".page").forEach(function (item) {
-        item.classList.toggle("active", item === page);
-    });
-
-    window.scrollTo({ top: 0, behavior: "smooth" });
-}
-
-function goHome() {
-    openPage("homePage");
-}
-
-
-/* =========================================
-   RENDER (ro‘yxatlarni chizish)
-========================================= */
-
-function renderStarPacks() {
-    $("starPacks").innerHTML = STAR_PACKS.map(function (amount) {
-        return '<button type="button" class="package" data-stars="' + amount + '">' +
-                   '<strong>' + formatMoney(amount) + ' ⭐</strong>' +
-                   '<span>' + formatMoney(amount * STAR_PRICE_PER_UNIT) + ' UZS</span>' +
-               '</button>';
-    }).join("");
-}
-
-function renderPremium() {
-    $("premiumPacks").innerHTML = PREMIUM_PLANS.map(function (plan, index) {
-        return '<button type="button" class="package" data-premium="' + index + '">' +
-                   '<strong>' + plan.months + ' oy</strong>' +
-                   '<span>' + (plan.note ? '(' + plan.note + ')' : 'Tanlash') + '</span>' +
-               '</button>';
-    }).join("");
-}
-
-function renderGifts() {
-    $("giftGrid").innerHTML = GIFTS.map(function (gift, index) {
-        return '<button type="button" class="gift" data-gift="' + index + '">' +
-                   '<div class="gift-image">' + gift.icon + '</div>' +
-                   '<div class="gift-name">' + gift.name + '</div>' +
-                   '<div class="gift-price">' + formatMoney(gift.price) + ' UZS</div>' +
-               '</button>';
-    }).join("");
-}
-
-function renderCountries() {
-    $("countryGrid").innerHTML = COUNTRIES.map(function (country, index) {
-        return '<button type="button" class="country" data-country="' + index + '">' +
-                   '<div class="country-name">' + country.name + '</div>' +
-                   '<div class="country-price">' + formatMoney(country.price) + ' UZS</div>' +
-               '</button>';
-    }).join("");
-}
-
-function renderUC() {
-    $("ucGrid").innerHTML = UC_PACKS.map(function (pack, index) {
-        return '<button type="button" class="uc" data-uc="' + index + '">' +
-                   '<strong>' + formatMoney(pack.uc) + ' UC</strong>' +
-                   '<span>' + formatMoney(pack.price) + ' UZS</span>' +
-               '</button>';
-    }).join("");
-}
-
-function renderTopupPresets() {
-    $("topupPacks").innerHTML = TOPUP_PRESETS.map(function (amount) {
-        return '<button type="button" class="package" data-topup="' + amount + '">' +
-                   '<strong>' + formatMoney(amount) + '</strong>' +
-                   '<span>UZS</span>' +
-               '</button>';
-    }).join("");
-}
-
-
-/* =========================================
-   STARS
-========================================= */
-
-function calculateStars() {
-    const input = $("customStars");
-    const digits = digitsOnly(input.value, String(STARS_MAX).length);
-
-    let amount = digits ? parseInt(digits, 10) : 0;
-    if (amount > STARS_MAX) amount = STARS_MAX;
-
-    // Yozayotganda minimumga "sakratmaymiz" — faqat yuqori chegarani cheklaymiz
-    input.value = digits ? String(amount) : "";
-    selectedStars = amount;
-
-    setInvalid("customStars", amount > 0 && amount < STARS_MIN);
-
-    $("starsTotal").textContent = amount >= STARS_MIN
-        ? formatMoney(amount * STAR_PRICE_PER_UNIT) + " UZS"
-        : "0 UZS";
-
-    document.querySelectorAll("#starsPage .package").forEach(function (pack) {
-        pack.classList.toggle("selected", Number(pack.dataset.stars) === amount);
-    });
-}
-
-function selectStars(amount) {
-    $("customStars").value = amount;
-    calculateStars();
-}
-
-
-/* =========================================
-   PREMIUM
-========================================= */
-
-function selectPremium(index, element) {
-    const plan = PREMIUM_PLANS[index];
-    if (!plan) return;
-
-    selectedPremium = plan;
-    selectOnly("#premiumPage .package", element);
-
-    $("premiumTotal").textContent = formatMoney(plan.price) + " UZS";
-}
-
-
-/* =========================================
-   GIFTS
-========================================= */
-
-function selectGift(index, element) {
-    const gift = GIFTS[index];
-    if (!gift) return;
-
-    selectedGift = gift;
-    selectOnly(".gift", element);
-
-    $("giftTotal").textContent = formatMoney(gift.price) + " UZS";
-}
-
-
-/* =========================================
-   NUMBERS
-========================================= */
-
-function selectCountry(index, element) {
-    const country = COUNTRIES[index];
-    if (!country) return;
-
-    selectedCountry = country;
-    selectOnly(".country", element);
-
-    $("numberTotal").textContent = formatMoney(country.price) + " UZS";
-}
-
-
-/* =========================================
-   PUBG
-========================================= */
-
-function selectUC(index, element) {
-    const pack = UC_PACKS[index];
-    if (!pack) return;
-
-    selectedUC = pack;
-    selectOnly(".uc", element);
-
-    $("ucTotal").textContent = formatMoney(pack.price) + " UZS";
-}
-
-
-/* =========================================
-   TOP UP
-========================================= */
-
-function getTopupAmount() {
-    const input = $("topupAmount");
-    const digits = digitsOnly(input.value, 9);
-
-    let amount = digits ? parseInt(digits, 10) : 0;
-    if (amount > TOPUP_MAX) amount = TOPUP_MAX;
-
-    input.value = digits ? String(amount) : "";
-    setInvalid("topupAmount", amount > 0 && amount < TOPUP_MIN);
-
-    return amount;
-}
-
-function setTopup(amount) {
-    $("topupAmount").value = amount;
-    getTopupAmount();
-}
-
-function topup() {
-    const amount = getTopupAmount();
-
-    if (!amount || amount < TOPUP_MIN) {
-        setInvalid("topupAmount", true);
-        showToast("❌ Minimum to‘lov " + formatMoney(TOPUP_MIN) + " UZS.");
-        return;
-    }
-
-    showToast("💳 To‘lov tizimi hali ulanmagan. Keyin Click/Payme va boshqa to‘lovlarni ulaymiz.");
-}
-
-
-/* =========================================
-   O‘ZIMGA
-========================================= */
-
-function myself(inputId) {
-    const user = tg && tg.initDataUnsafe ? tg.initDataUnsafe.user : null;
-
-    if (user && user.username) {
-        const input = $(inputId);
-        input.value = "@" + user.username;
-        setInvalid(inputId, false);
-        return;
-    }
-
-    showToast("Telegram username topilmadi. Username'ni qo‘lda kiriting.");
-}
-
-
-/* =========================================
-   SOTIB OLISH
-========================================= */
-
-function buyService(service) {
-
-    if (service === "Telegram Stars") {
-        if (!selectedStars) {
-            showToast("⭐ Avval Stars miqdorini tanlang.");
-            return;
-        }
-
-        if (selectedStars < STARS_MIN) {
-            setInvalid("customStars", true);
-            showToast("⭐ Minimum miqdor: " + STARS_MIN + " Stars.");
-            return;
-        }
-
-        if (!readUsername("starsUsername")) return;
-    }
-
-
-    if (service === "Telegram Premium") {
-        if (!selectedPremium) {
-            showToast("💎 Avval Premium muddatini tanlang.");
-            return;
-        }
-
-        if (!readUsername("premiumUsername")) return;
-    }
-
-
-    if (service === "Telegram Gift") {
-        if (!selectedGift) {
-            showToast("🎁 Avval sovg‘ani tanlang.");
-            return;
-        }
-
-        if (!readUsername("giftUsername")) return;
-    }
-
-
-    if (service === "Virtual raqam") {
-        if (!selectedCountry) {
-            showToast("📱 Avval davlatni tanlang.");
-            return;
-        }
-    }
-
-
-    if (service === "PUBG UC") {
-        const pubgId = digitsOnly($("pubgId").value, 15);
-
-        if (!pubgId) {
-            setInvalid("pubgId", true);
-            showToast("🎮 PUBG ID kiriting.");
-            return;
-        }
-
-        if (pubgId.length < 5) {
-            setInvalid("pubgId", true);
-            showToast("🎮 PUBG ID juda qisqa. Tekshirib qayta kiriting.");
-            return;
-        }
-
-        if (!selectedUC) {
-            showToast("🎮 Avval UC paketini tanlang.");
-            return;
-        }
-    }
-
-
-    showToast("🛠 " + service + " uchun provider va to‘lov tizimi hali ulanmagan.");
-}
-
-
-/* =========================================
-   HODISALAR (CLICK / INPUT)
-========================================= */
-
-document.addEventListener("click", function (event) {
-    const target = event.target;
-
-    const nav = target.closest("[data-page]");
-    if (nav) { openPage(nav.dataset.page); return; }
-
-    if (target.closest("[data-back]")) { goHome(); return; }
-
-    const self = target.closest("[data-self]");
-    if (self) { myself(self.dataset.self); return; }
-
-    const buy = target.closest("[data-buy]");
-    if (buy) { buyService(buy.dataset.buy); return; }
-
-    const stars = target.closest("[data-stars]");
-    if (stars) { selectStars(Number(stars.dataset.stars)); return; }
-
-    const premium = target.closest("[data-premium]");
-    if (premium) { selectPremium(Number(premium.dataset.premium), premium); return; }
-
-    const gift = target.closest("[data-gift]");
-    if (gift) { selectGift(Number(gift.dataset.gift), gift); return; }
-
-    const country = target.closest("[data-country]");
-    if (country) { selectCountry(Number(country.dataset.country), country); return; }
-
-    const uc = target.closest("[data-uc]");
-    if (uc) { selectUC(Number(uc.dataset.uc), uc); return; }
-
-    const preset = target.closest("[data-topup]");
-    if (preset) { setTopup(Number(preset.dataset.topup)); return; }
-});
-
-$("customStars").addEventListener("input", calculateStars);
-$("topupAmount").addEventListener("input", getTopupAmount);
-$("topupBtn").addEventListener("click", topup);
-
-$("pubgId").addEventListener("input", function () {
-    this.value = digitsOnly(this.value, 15);
-    setInvalid("pubgId", false);
-});
-
-["starsUsername", "premiumUsername", "giftUsername"].forEach(function (id) {
-    $(id).addEventListener("input", function () { setInvalid(id, false); });
-});
-
-
-/* =========================================
-   URL SERVICE
-   Botdan keladigan:
-   ?service=stars
-   ?service=premium
-   ?service=gifts
-   ?service=numbers
-   ?service=pubg (yoki gift_rental)
-   ?service=topup
-========================================= */
-
-const SERVICE_MAP = {
-    stars:       "starsPage",
-    premium:     "premiumPage",
-    gifts:       "giftsPage",
-    numbers:     "numbersPage",
-    pubg:        "pubgPage",
-    uc:          "pubgPage",
-    gift_rental: "pubgPage",
-    topup:       "topupPage"
-};
-
-function openServiceFromURL() {
-    const service = new URLSearchParams(window.location.search).get("service");
-    if (!service) return;
-
-    if (Object.prototype.hasOwnProperty.call(SERVICE_MAP, service)) {
-        openPage(SERVICE_MAP[service]);
-    }
-}
-
-
-/* =========================================
-   INIT
-========================================= */
-
-renderStarPacks();
-renderPremium();
-renderGifts();
-renderCountries();
-renderUC();
-renderTopupPresets();
-
-setBalance(balance);
-openServiceFromURL();
-</script>
-
-</body>
-</html>
+    <section id="numbersPage"
