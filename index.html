@@ -56,8 +56,6 @@
             padding: 18px 15px 35px;
         }
 
-        /* HEADER */
-
         .header {
             position: relative;
             text-align: center;
@@ -115,8 +113,6 @@
             text-decoration: none;
         }
 
-        /* BALANCE */
-
         .balance-card {
             background: linear-gradient(135deg, rgba(77,124,255,0.18), rgba(139,92,246,0.12));
             border: 1px solid rgba(120,150,255,0.18);
@@ -143,9 +139,9 @@
             margin-left: 5px;
         }
 
-        /* PAGES */
-
-        .page { display: none; }
+        .page {
+            display: none;
+        }
 
         .page.active {
             display: block;
@@ -153,8 +149,14 @@
         }
 
         @keyframes pageIn {
-            from { opacity: 0; transform: translateY(8px); }
-            to   { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .section-title {
@@ -168,8 +170,6 @@
             font-size: 13px;
             margin-bottom: 18px;
         }
-
-        /* SERVICES */
 
         .services {
             display: grid;
@@ -225,8 +225,6 @@
             margin-top: 5px;
         }
 
-        /* FORM */
-
         .form-card {
             background: var(--card);
             border: 1px solid var(--border);
@@ -242,7 +240,9 @@
             margin-bottom: 8px;
         }
 
-        input, select, textarea {
+        input,
+        select,
+        textarea {
             width: 100%;
             background: #080d1d;
             color: white;
@@ -250,7 +250,7 @@
             border-radius: 14px;
             padding: 14px;
             outline: none;
-            font-size: 16px; /* iOS'da yaqinlashib ketmasligi uchun */
+            font-size: 16px;
             transition: border-color 0.2s;
         }
 
@@ -304,8 +304,6 @@
             padding: 0 13px;
         }
 
-        /* PACKAGES */
-
         .packages {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -339,8 +337,6 @@
             box-shadow: 0 0 20px rgba(77,124,255,0.12);
         }
 
-        /* PRICE */
-
         .price-box {
             display: flex;
             align-items: center;
@@ -363,8 +359,6 @@
             font-weight: 800;
             text-align: right;
         }
-
-        /* BUTTONS */
 
         .buy-button {
             width: 100%;
@@ -391,8 +385,6 @@
             border-radius: 14px;
             padding: 13px;
         }
-
-        /* GIFT */
 
         .gift-grid {
             display: grid;
@@ -437,8 +429,6 @@
             margin-top: 4px;
         }
 
-        /* COUNTRIES */
-
         .country-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -471,8 +461,6 @@
             margin-top: 3px;
         }
 
-        /* UC */
-
         .uc-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -504,8 +492,6 @@
             margin-top: 5px;
         }
 
-        /* TOAST */
-
         .toast {
             position: fixed;
             left: 50%;
@@ -530,8 +516,6 @@
             transform: translate(-50%, 0);
         }
 
-        /* XATO XABARI (faqat nosozlik bo‘lganda ko‘rinadi) */
-
         .js-error {
             position: fixed;
             left: 10px;
@@ -548,16 +532,25 @@
             word-break: break-word;
         }
 
-        /* RESPONSIVE */
-
         @media (max-width: 380px) {
-            .services { gap: 8px; }
-            .service { padding: 15px; min-height: 130px; }
-            .packages { grid-template-columns: repeat(2, 1fr); }
+            .services {
+                gap: 8px;
+            }
+
+            .service {
+                padding: 15px;
+                min-height: 130px;
+            }
+
+            .packages {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
 
         @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
+            *,
+            *::before,
+            *::after {
                 animation: none !important;
                 transition: none !important;
             }
@@ -569,8 +562,6 @@
 
 <div class="app">
 
-    <!-- HEADER -->
-
     <div class="header">
 
         <div class="lang-switch" role="group" aria-label="Til / Язык">
@@ -579,13 +570,22 @@
         </div>
 
         <div class="logo">JV STARS</div>
-        <a class="bot-link" href="https://t.me/jvstarsbot" target="_blank" rel="noopener">@jvstarsbot</a>
+
+        <a
+            class="bot-link"
+            href="https://t.me/jvstarsbot"
+            target="_blank"
+            rel="noopener"
+        >@jvstarsbot</a>
+
     </div>
 
-    <!-- BALANCE -->
 
     <div class="balance-card">
-        <div class="balance-title" data-i18n="balanceTitle">💰 Sizning balansingiz</div>
+        <div class="balance-title" data-i18n="balanceTitle">
+            💰 Sizning balansingiz
+        </div>
+
         <div class="balance">
             <span id="balance">0</span>
             <span class="uzs">UZS</span>
@@ -593,49 +593,78 @@
     </div>
 
 
-    <!-- ================= HOME ================= -->
+    <!-- HOME -->
 
     <section id="homePage" class="page active">
 
-        <div class="section-title" data-i18n="servicesTitle">🛍 Xizmatlar</div>
-        <div class="section-description" data-i18n="servicesDesc">Kerakli xizmatni tanlang</div>
+        <div class="section-title" data-i18n="servicesTitle">
+            🛍 Xizmatlar
+        </div>
+
+        <div class="section-description" data-i18n="servicesDesc">
+            Kerakli xizmatni tanlang
+        </div>
 
         <div class="services">
 
             <button type="button" class="service" data-page="starsPage">
                 <div class="service-icon">⭐</div>
-                <div class="service-name" data-i18n="svcStars">Telegram Stars</div>
-                <div class="service-desc" data-i18n="svcStarsDesc">Stars sotib olish</div>
+                <div class="service-name" data-i18n="svcStars">
+                    Telegram Stars
+                </div>
+                <div class="service-desc" data-i18n="svcStarsDesc">
+                    Stars sotib olish
+                </div>
             </button>
 
             <button type="button" class="service" data-page="premiumPage">
                 <div class="service-icon">💎</div>
-                <div class="service-name" data-i18n="svcPremium">Telegram Premium</div>
-                <div class="service-desc" data-i18n="svcPremiumDesc">Premium obuna</div>
+                <div class="service-name" data-i18n="svcPremium">
+                    Telegram Premium
+                </div>
+                <div class="service-desc" data-i18n="svcPremiumDesc">
+                    Premium obuna
+                </div>
             </button>
 
             <button type="button" class="service" data-page="giftsPage">
                 <div class="service-icon">🎁</div>
-                <div class="service-name" data-i18n="svcGifts">Telegram Gifts</div>
-                <div class="service-desc" data-i18n="svcGiftsDesc">Sovg‘alar yuborish</div>
+                <div class="service-name" data-i18n="svcGifts">
+                    Telegram Gifts
+                </div>
+                <div class="service-desc" data-i18n="svcGiftsDesc">
+                    Sovg‘alar yuborish
+                </div>
             </button>
 
             <button type="button" class="service" data-page="numbersPage">
                 <div class="service-icon">📱</div>
-                <div class="service-name" data-i18n="svcNumbers">Virtual raqam</div>
-                <div class="service-desc" data-i18n="svcNumbersDesc">100+ davlat</div>
+                <div class="service-name" data-i18n="svcNumbers">
+                    Virtual raqam
+                </div>
+                <div class="service-desc" data-i18n="svcNumbersDesc">
+                    100+ davlat
+                </div>
             </button>
 
             <button type="button" class="service" data-page="pubgPage">
                 <div class="service-icon">🎮</div>
-                <div class="service-name" data-i18n="svcPubg">PUBG UC</div>
-                <div class="service-desc" data-i18n="svcPubgDesc">UC to‘ldirish</div>
+                <div class="service-name" data-i18n="svcPubg">
+                    PUBG UC
+                </div>
+                <div class="service-desc" data-i18n="svcPubgDesc">
+                    UC to‘ldirish
+                </div>
             </button>
 
             <button type="button" class="service" data-page="topupPage">
                 <div class="service-icon">💰</div>
-                <div class="service-name" data-i18n="svcTopup">Hisobni to‘ldirish</div>
-                <div class="service-desc" data-i18n="svcTopupDesc">Balansni to‘ldirish</div>
+                <div class="service-name" data-i18n="svcTopup">
+                    Hisobni to‘ldirish
+                </div>
+                <div class="service-desc" data-i18n="svcTopupDesc">
+                    Balansni to‘ldirish
+                </div>
             </button>
 
         </div>
@@ -643,148 +672,296 @@
     </section>
 
 
-    <!-- ================= STARS ================= -->
+    <!-- STARS -->
 
     <section id="starsPage" class="page">
 
-        <button type="button" class="back-button" data-back data-i18n="back">← Orqaga</button>
+        <button type="button" class="back-button" data-back data-i18n="back">
+            ← Orqaga
+        </button>
 
-        <div class="section-title" data-i18n="starsTitle">⭐ Telegram Stars</div>
-        <div class="section-description" data-i18n="starsDesc">Kerakli Stars miqdorini tanlang</div>
+        <div class="section-title" data-i18n="starsTitle">
+            ⭐ Telegram Stars
+        </div>
+
+        <div class="section-description" data-i18n="starsDesc">
+            Kerakli Stars miqdorini tanlang
+        </div>
 
         <div class="form-card">
 
-            <span class="label" data-i18n="starsAmount">Stars miqdori</span>
+            <span class="label" data-i18n="starsAmount">
+                Stars miqdori
+            </span>
 
             <div class="packages" id="starPacks"></div>
 
             <br>
 
-            <span class="label" data-i18n="otherAmount">Boshqa miqdor</span>
+            <span class="label" data-i18n="otherAmount">
+                Boshqa miqdor
+            </span>
 
-            <input id="customStars" type="text" inputmode="numeric" autocomplete="off" data-i18n-ph="starsPlaceholder" placeholder="Masalan: 78">
+            <input
+                id="customStars"
+                type="text"
+                inputmode="numeric"
+                autocomplete="off"
+                data-i18n-ph="starsPlaceholder"
+                placeholder="Masalan: 78"
+            >
 
             <div class="price-box">
-                <span class="price-label" data-i18n="total">Jami</span>
-                <span class="price" id="starsTotal">0 UZS</span>
+                <span class="price-label" data-i18n="total">
+                    Jami
+                </span>
+
+                <span class="price" id="starsTotal">
+                    0 UZS
+                </span>
             </div>
 
         </div>
 
         <div class="form-card">
 
-            <span class="label" data-i18n="toWhom">Kimga?</span>
+            <span class="label" data-i18n="toWhom">
+                Kimga?
+            </span>
 
             <div class="recipient-row">
-                <input id="starsUsername" type="text" placeholder="@username"
-                       autocomplete="off" autocapitalize="none" spellcheck="false">
-                <button type="button" class="small-button" data-self="starsUsername" data-i18n="forMe">O‘zimga</button>
+
+                <input
+                    id="starsUsername"
+                    type="text"
+                    placeholder="@username"
+                    autocomplete="off"
+                    autocapitalize="none"
+                    spellcheck="false"
+                >
+
+                <button
+                    type="button"
+                    class="small-button"
+                    data-self="starsUsername"
+                    data-i18n="forMe"
+                >
+                    O‘zimga
+                </button>
+
             </div>
 
         </div>
 
-        <button type="button" class="buy-button" data-buy="stars" data-i18n="buyStars">⭐ Sotib olish</button>
+        <button
+            type="button"
+            class="buy-button"
+            data-buy="stars"
+            data-i18n="buyStars"
+        >
+            ⭐ Sotib olish
+        </button>
 
     </section>
 
 
-    <!-- ================= PREMIUM ================= -->
+    <!-- PREMIUM -->
 
     <section id="premiumPage" class="page">
 
-        <button type="button" class="back-button" data-back data-i18n="back">← Orqaga</button>
+        <button type="button" class="back-button" data-back data-i18n="back">
+            ← Orqaga
+        </button>
 
-        <div class="section-title" data-i18n="premiumTitle">💎 Telegram Premium</div>
-        <div class="section-description" data-i18n="premiumDesc">Premium muddatini tanlang</div>
+        <div class="section-title" data-i18n="premiumTitle">
+            💎 Telegram Premium
+        </div>
+
+        <div class="section-description" data-i18n="premiumDesc">
+            Premium muddatini tanlang
+        </div>
 
         <div class="form-card">
 
-            <span class="label" data-i18n="toWhom">Kimga?</span>
+            <span class="label" data-i18n="toWhom">
+                Kimga?
+            </span>
 
             <div class="recipient-row">
-                <input id="premiumUsername" type="text" placeholder="@username"
-                       autocomplete="off" autocapitalize="none" spellcheck="false">
-                <button type="button" class="small-button" data-self="premiumUsername" data-i18n="forMe">O‘zimga</button>
+
+                <input
+                    id="premiumUsername"
+                    type="text"
+                    placeholder="@username"
+                    autocomplete="off"
+                    autocapitalize="none"
+                    spellcheck="false"
+                >
+
+                <button
+                    type="button"
+                    class="small-button"
+                    data-self="premiumUsername"
+                    data-i18n="forMe"
+                >
+                    O‘zimga
+                </button>
+
             </div>
 
         </div>
 
         <div class="form-card">
 
-            <span class="label" data-i18n="term">Muddat</span>
+            <span class="label" data-i18n="term">
+                Muddat
+            </span>
 
             <div class="packages" id="premiumPacks"></div>
 
             <div class="price-box">
-                <span class="price-label" data-i18n="priceWord">Narx</span>
-                <span class="price" id="premiumTotal">Muddat tanlang</span>
+
+                <span class="price-label" data-i18n="priceWord">
+                    Narx
+                </span>
+
+                <span class="price" id="premiumTotal">
+                    Muddat tanlang
+                </span>
+
             </div>
 
         </div>
 
-        <button type="button" class="buy-button" data-buy="premium" data-i18n="buyPremium">💎 Sotib olish</button>
+        <button
+            type="button"
+            class="buy-button"
+            data-buy="premium"
+            data-i18n="buyPremium"
+        >
+            💎 Sotib olish
+        </button>
 
     </section>
 
 
-    <!-- ================= GIFTS ================= -->
+    <!-- GIFTS -->
 
     <section id="giftsPage" class="page">
 
-        <button type="button" class="back-button" data-back data-i18n="back">← Orqaga</button>
+        <button type="button" class="back-button" data-back data-i18n="back">
+            ← Orqaga
+        </button>
 
-        <div class="section-title" data-i18n="giftsTitle">🎁 Telegram Gifts</div>
-        <div class="section-description" data-i18n="giftsDesc">Sovg‘ani tanlang</div>
+        <div class="section-title" data-i18n="giftsTitle">
+            🎁 Telegram Gifts
+        </div>
+
+        <div class="section-description" data-i18n="giftsDesc">
+            Sovg‘ani tanlang
+        </div>
 
         <div class="gift-grid" id="giftGrid"></div>
 
         <div class="form-card" style="margin-top:14px;">
 
-            <span class="label" data-i18n="toWhom">Kimga?</span>
+            <span class="label" data-i18n="toWhom">
+                Kimga?
+            </span>
 
             <div class="recipient-row">
-                <input id="giftUsername" type="text" placeholder="@username"
-                       autocomplete="off" autocapitalize="none" spellcheck="false">
-                <button type="button" class="small-button" data-self="giftUsername" data-i18n="forMe">O‘zimga</button>
+
+                <input
+                    id="giftUsername"
+                    type="text"
+                    placeholder="@username"
+                    autocomplete="off"
+                    autocapitalize="none"
+                    spellcheck="false"
+                >
+
+                <button
+                    type="button"
+                    class="small-button"
+                    data-self="giftUsername"
+                    data-i18n="forMe"
+                >
+                    O‘zimga
+                </button>
+
             </div>
 
         </div>
 
         <div class="form-card">
 
-            <span class="label" data-i18n="commentLabel">Izoh (ixtiyoriy)</span>
+            <span class="label" data-i18n="commentLabel">
+                Izoh (ixtiyoriy)
+            </span>
 
-            <textarea id="giftComment" data-i18n-ph="commentPlaceholder" placeholder="Sovg‘a bilan birga yuboriladigan matn..."></textarea>
+            <textarea
+                id="giftComment"
+                data-i18n-ph="commentPlaceholder"
+                placeholder="Sovg‘a bilan birga yuboriladigan matn..."
+            ></textarea>
 
             <div class="field-note">
-                <span data-i18n="commentHelp">Bu matn sovg‘a tagida qabul qiluvchiga ko‘rinadi.</span>
-                <span id="giftCommentCount">0 / 128</span>
+                <span data-i18n="commentHelp">
+                    Bu matn sovg‘a tagida qabul qiluvchiga ko‘rinadi.
+                </span>
+
+                <span id="giftCommentCount">
+                    0 / 128
+                </span>
             </div>
 
         </div>
 
         <div class="price-box">
-            <span class="price-label" data-i18n="selectedGift">Tanlangan sovg‘a</span>
-            <span class="price" id="giftTotal">Tanlang</span>
+
+            <span class="price-label" data-i18n="selectedGift">
+                Tanlangan sovg‘a
+            </span>
+
+            <span class="price" id="giftTotal">
+                Tanlang
+            </span>
+
         </div>
 
-        <button type="button" class="buy-button" data-buy="gift" data-i18n="buyGift">🎁 Sotib olish</button>
+        <button
+            type="button"
+            class="buy-button"
+            data-buy="gift"
+            data-i18n="buyGift"
+        >
+            🎁 Sotib olish
+        </button>
 
     </section>
 
 
-    <!-- ================= NUMBERS ================= -->
+    <!-- NUMBERS -->
 
     <section id="numbersPage" class="page">
 
-        <button type="button" class="back-button" data-back data-i18n="back">← Orqaga</button>
+        <button type="button" class="back-button" data-back data-i18n="back">
+            ← Orqaga
+        </button>
 
-        <div class="section-title" data-i18n="numbersTitle">📱 Virtual raqam</div>
-        <div class="section-description" data-i18n="numbersDesc">Davlatni tanlang</div>
+        <div class="section-title" data-i18n="numbersTitle">
+            📱 Virtual raqam
+        </div>
+
+        <div class="section-description" data-i18n="numbersDesc">
+            Davlatni tanlang
+        </div>
 
         <div class="form-card">
 
-            <span class="label" data-i18n="serviceWord">Xizmat</span>
+            <span class="label" data-i18n="serviceWord">
+                Xizmat
+            </span>
 
             <select id="numberService">
                 <option value="Telegram">Telegram</option>
@@ -798,93 +975,174 @@
         <div class="country-grid" id="countryGrid"></div>
 
         <div class="price-box">
-            <span class="price-label" data-i18n="selectedCountry">Tanlangan davlat</span>
-            <span class="price" id="numberTotal">Tanlang</span>
+
+            <span class="price-label" data-i18n="selectedCountry">
+                Tanlangan davlat
+            </span>
+
+            <span class="price" id="numberTotal">
+                Tanlang
+            </span>
+
         </div>
 
-        <button type="button" class="buy-button" data-buy="number" data-i18n="buyNumber">📱 Sotib olish</button>
+        <button
+            type="button"
+            class="buy-button"
+            data-buy="number"
+            data-i18n="buyNumber"
+        >
+            📱 Sotib olish
+        </button>
 
     </section>
 
 
-    <!-- ================= PUBG ================= -->
+    <!-- PUBG -->
 
     <section id="pubgPage" class="page">
 
-        <button type="button" class="back-button" data-back data-i18n="back">← Orqaga</button>
+        <button type="button" class="back-button" data-back data-i18n="back">
+            ← Orqaga
+        </button>
 
-        <div class="section-title" data-i18n="pubgTitle">🎮 PUBG UC</div>
-        <div class="section-description" data-i18n="pubgDesc">PUBG Mobile ID va UC paketini tanlang</div>
+        <div class="section-title" data-i18n="pubgTitle">
+            🎮 PUBG UC
+        </div>
+
+        <div class="section-description" data-i18n="pubgDesc">
+            PUBG Mobile ID va UC paketini tanlang
+        </div>
 
         <div class="form-card">
 
-            <span class="label">PUBG ID</span>
+            <span class="label">
+                PUBG ID
+            </span>
 
-            <input id="pubgId" type="text" inputmode="numeric" autocomplete="off" data-i18n-ph="pubgIdPlaceholder" placeholder="PUBG Player ID">
+            <input
+                id="pubgId"
+                type="text"
+                inputmode="numeric"
+                autocomplete="off"
+                data-i18n-ph="pubgIdPlaceholder"
+                placeholder="PUBG Player ID"
+            >
 
         </div>
 
         <div class="form-card">
 
-            <span class="label" data-i18n="ucAmount">UC miqdori</span>
+            <span class="label" data-i18n="ucAmount">
+                UC miqdori
+            </span>
 
             <div class="uc-grid" id="ucGrid"></div>
 
         </div>
 
         <div class="price-box">
-            <span class="price-label" data-i18n="selectedPack">Tanlangan paket</span>
-            <span class="price" id="ucTotal">Tanlang</span>
+
+            <span class="price-label" data-i18n="selectedPack">
+                Tanlangan paket
+            </span>
+
+            <span class="price" id="ucTotal">
+                Tanlang
+            </span>
+
         </div>
 
-        <button type="button" class="buy-button" data-buy="uc" data-i18n="buyUc">🎮 Sotib olish</button>
+        <button
+            type="button"
+            class="buy-button"
+            data-buy="uc"
+            data-i18n="buyUc"
+        >
+            🎮 Sotib olish
+        </button>
 
     </section>
 
 
-    <!-- ================= TOP UP ================= -->
+    <!-- TOPUP -->
 
     <section id="topupPage" class="page">
 
-        <button type="button" class="back-button" data-back data-i18n="back">← Orqaga</button>
+        <button type="button" class="back-button" data-back data-i18n="back">
+            ← Orqaga
+        </button>
 
-        <div class="section-title" data-i18n="topupTitle">💰 Hisobni to‘ldirish</div>
-        <div class="section-description" data-i18n="topupDesc">Balansingizga mablag‘ qo‘shing</div>
+        <div class="section-title" data-i18n="topupTitle">
+            💰 Hisobni to‘ldirish
+        </div>
+
+        <div class="section-description" data-i18n="topupDesc">
+            Balansingizga mablag‘ qo‘shing
+        </div>
 
         <div class="form-card">
 
-            <span class="label" data-i18n="currentBalance">Hozirgi balans</span>
+            <span class="label" data-i18n="currentBalance">
+                Hozirgi balans
+            </span>
 
             <div class="price-box">
-                <span class="price-label" data-i18n="balanceWord">Balans</span>
-                <span class="price"><span id="balance2">0</span> UZS</span>
+
+                <span class="price-label" data-i18n="balanceWord">
+                    Balans
+                </span>
+
+                <span class="price">
+                    <span id="balance2">0</span> UZS
+                </span>
+
             </div>
 
         </div>
 
         <div class="form-card">
 
-            <span class="label" data-i18n="topupAmountLabel">To‘ldirish summasi</span>
+            <span class="label" data-i18n="topupAmountLabel">
+                To‘ldirish summasi
+            </span>
 
-            <input id="topupAmount" type="text" inputmode="numeric" autocomplete="off" data-i18n-ph="topupPlaceholder" placeholder="Masalan: 50 000">
+            <input
+                id="topupAmount"
+                type="text"
+                inputmode="numeric"
+                autocomplete="off"
+                data-i18n-ph="topupPlaceholder"
+                placeholder="Masalan: 50 000"
+            >
 
-            <div class="packages" style="margin-top:12px;" id="topupPacks"></div>
+            <div
+                class="packages"
+                style="margin-top:12px;"
+                id="topupPacks"
+            ></div>
 
         </div>
 
-        <button type="button" class="buy-button" id="topupBtn" data-i18n="topupBtn">💳 Hisobni to‘ldirish</button>
+        <button
+            type="button"
+            class="buy-button"
+            id="topupBtn"
+            data-i18n="topupBtn"
+        >
+            💳 Hisobni to‘ldirish
+        </button>
 
     </section>
 
 </div>
 
 
-<!-- TOAST -->
-
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
 
-<!-- 1-SKRIPT: himoya. Asosiy skriptda xato chiqsa ham xizmatlar ochiladi va xato ekranda ko‘rinadi -->
+<!-- XATOLIK HIMOYASI -->
+
 <script>
 (function () {
     "use strict";
@@ -907,52 +1165,94 @@
     window.jvShowError = showError;
 
     window.addEventListener("error", function (event) {
-        var where = event && event.lineno ? " (qator " + event.lineno + ")" : "";
-        showError((event && event.message ? event.message : "noma’lum xato") + where);
+        var where = event && event.lineno
+            ? " (qator " + event.lineno + ")"
+            : "";
+
+        showError(
+            (event && event.message
+                ? event.message
+                : "noma’lum xato") + where
+        );
     });
 
     window.addEventListener("unhandledrejection", function (event) {
         var reason = event && event.reason;
-        showError(reason && reason.message ? reason.message : String(reason));
+
+        showError(
+            reason && reason.message
+                ? reason.message
+                : String(reason)
+        );
     });
 
-    // Zaxira navigatsiya: asosiy skript ishlamay qolsa ham sahifalar almashadi
     function show(pageId) {
         var page = document.getElementById(pageId);
+
         if (!page || !page.classList.contains("page")) return;
 
         var pages = document.querySelectorAll(".page");
+
         for (var i = 0; i < pages.length; i++) {
-            if (pages[i] === page) pages[i].classList.add("active");
-            else pages[i].classList.remove("active");
+            if (pages[i] === page) {
+                pages[i].classList.add("active");
+            } else {
+                pages[i].classList.remove("active");
+            }
         }
 
         window.scrollTo(0, 0);
     }
 
     document.addEventListener("click", function (event) {
+
         var el = event.target;
 
         while (el && el !== document) {
-            if (el.getAttribute && el.getAttribute("data-page")) { show(el.getAttribute("data-page")); return; }
-            if (el.hasAttribute && el.hasAttribute("data-back")) { show("homePage"); return; }
+
+            if (
+                el.getAttribute &&
+                el.getAttribute("data-page")
+            ) {
+                show(el.getAttribute("data-page"));
+                return;
+            }
+
+            if (
+                el.hasAttribute &&
+                el.hasAttribute("data-back")
+            ) {
+                show("homePage");
+                return;
+            }
+
             el = el.parentNode;
         }
     });
+
 })();
 </script>
+
+
+<!-- ASOSIY SCRIPT -->
 
 <script>
 "use strict";
 
-/* =========================================
-   TELEGRAM
-========================================= */
 
-const tg = (window.Telegram && window.Telegram.WebApp) ? window.Telegram.WebApp : null;
+/* TELEGRAM */
+
+const tg =
+    (window.Telegram && window.Telegram.WebApp)
+        ? window.Telegram.WebApp
+        : null;
 
 if (tg) {
-    try { tg.ready(); tg.expand(); } catch (e) {}
+    try {
+        tg.ready();
+        tg.expand();
+    } catch (e) {}
+
     try {
         tg.setHeaderColor("#050817");
         tg.setBackgroundColor("#050817");
@@ -960,14 +1260,17 @@ if (tg) {
 }
 
 
-/* =========================================
-   TILLAR / ЯЗЫКИ (uz, ru)
-   Yangi matn qo‘shish uchun ikkala tilga bir xil kalit yozing.
-========================================= */
+/* ADMIN */
+
+const ADMIN_LINK = "https://t.me/faststarsbot_admin";
+
+
+/* I18N */
 
 const I18N = {
 
     uz: {
+
         balanceTitle: "💰 Sizning balansingiz",
         servicesTitle: "🛍 Xizmatlar",
         servicesDesc: "Kerakli xizmatni tanlang",
@@ -975,14 +1278,19 @@ const I18N = {
 
         svcStars: "Telegram Stars",
         svcStarsDesc: "Stars sotib olish",
+
         svcPremium: "Telegram Premium",
         svcPremiumDesc: "Premium obuna",
+
         svcGifts: "Telegram Gifts",
         svcGiftsDesc: "Sovg‘alar yuborish",
+
         svcNumbers: "Virtual raqam",
         svcNumbersDesc: "100+ davlat",
+
         svcPubg: "PUBG UC",
         svcPubgDesc: "UC to‘ldirish",
+
         svcTopup: "Hisobni to‘ldirish",
         svcTopupDesc: "Balansni to‘ldirish",
 
@@ -992,6 +1300,7 @@ const I18N = {
         otherAmount: "Boshqa miqdor",
         starsPlaceholder: "Masalan: 78",
         total: "Jami",
+
         toWhom: "Kimga?",
         forMe: "O‘zimga",
         buyStars: "⭐ Sotib olish",
@@ -1002,7 +1311,7 @@ const I18N = {
         priceWord: "Narx",
         chooseTerm: "Muddat tanlang",
         choose: "Tanlash",
-        adminNote: "admin orqali",
+        adminNote: "Admin orqali",
         buyPremium: "💎 Sotib olish",
 
         giftsTitle: "🎁 Telegram Gifts",
@@ -1051,6 +1360,7 @@ const I18N = {
         toastStarsMin: "⭐ Minimum miqdor: {n} Stars.",
         toastWho: "👤 Kimga yuborishni kiriting.",
         toastUserBad: "👤 Username noto‘g‘ri. Masalan: @username",
+
         toastPremiumChoose: "💎 Avval Premium muddatini tanlang.",
         toastGiftChoose: "🎁 Avval sovg‘ani tanlang.",
         toastCountryChoose: "📱 Avval davlatni tanlang.",
@@ -1058,12 +1368,20 @@ const I18N = {
         toastPubgShort: "🎮 PUBG ID juda qisqa. Tekshirib qayta kiriting.",
         toastUcChoose: "🎮 Avval UC paketini tanlang.",
         toastTopupMin: "❌ Minimum to‘lov {n} UZS.",
-        toastTopupNoProvider: "💳 To‘lov tizimi hali ulanmagan. Keyin Click/Payme va boshqa to‘lovlarni ulaymiz.",
-        toastNoUsername: "Telegram username topilmadi. Username'ni qo‘lda kiriting.",
-        toastNoProvider: "🛠 {service} uchun provider va to‘lov tizimi hali ulanmagan."
+
+        toastTopupNoProvider:
+            "💳 To‘lov tizimi hali ulanmagan. Keyin Click/Payme va boshqa to‘lovlarni ulaymiz.",
+
+        toastNoUsername:
+            "Telegram username topilmadi. Username'ni qo‘lda kiriting.",
+
+        toastNoProvider:
+            "🛠 {service} uchun provider va to‘lov tizimi hali ulanmagan."
     },
 
+
     ru: {
+
         balanceTitle: "💰 Ваш баланс",
         servicesTitle: "🛍 Услуги",
         servicesDesc: "Выберите нужную услугу",
@@ -1071,14 +1389,19 @@ const I18N = {
 
         svcStars: "Telegram Stars",
         svcStarsDesc: "Купить Stars",
+
         svcPremium: "Telegram Premium",
         svcPremiumDesc: "Подписка Premium",
+
         svcGifts: "Telegram Gifts",
         svcGiftsDesc: "Отправка подарков",
+
         svcNumbers: "Виртуальный номер",
         svcNumbersDesc: "100+ стран",
+
         svcPubg: "PUBG UC",
         svcPubgDesc: "Пополнение UC",
+
         svcTopup: "Пополнить счёт",
         svcTopupDesc: "Пополнение баланса",
 
@@ -1088,6 +1411,7 @@ const I18N = {
         otherAmount: "Другое количество",
         starsPlaceholder: "Например: 78",
         total: "Итого",
+
         toWhom: "Кому?",
         forMe: "Себе",
         buyStars: "⭐ Купить",
@@ -1098,7 +1422,7 @@ const I18N = {
         priceWord: "Цена",
         chooseTerm: "Выберите срок",
         choose: "Выбрать",
-        adminNote: "через админа",
+        adminNote: "Через администратора",
         buyPremium: "💎 Купить",
 
         giftsTitle: "🎁 Telegram Gifts",
@@ -1147,6 +1471,7 @@ const I18N = {
         toastStarsMin: "⭐ Минимум: {n} Stars.",
         toastWho: "👤 Укажите, кому отправить.",
         toastUserBad: "👤 Неверный username. Например: @username",
+
         toastPremiumChoose: "💎 Сначала выберите срок Premium.",
         toastGiftChoose: "🎁 Сначала выберите подарок.",
         toastCountryChoose: "📱 Сначала выберите страну.",
@@ -1154,209 +1479,489 @@ const I18N = {
         toastPubgShort: "🎮 PUBG ID слишком короткий. Проверьте и введите снова.",
         toastUcChoose: "🎮 Сначала выберите пакет UC.",
         toastTopupMin: "❌ Минимальный платёж {n} UZS.",
-        toastTopupNoProvider: "💳 Платёжная система пока не подключена. Позже подключим Click/Payme и другие.",
-        toastNoUsername: "Telegram username не найден. Введите его вручную.",
-        toastNoProvider: "🛠 Для «{service}» провайдер и платёжная система пока не подключены."
+
+        toastTopupNoProvider:
+            "💳 Платёжная система пока не подключена. Позже подключим Click/Payme и другие.",
+
+        toastNoUsername:
+            "Telegram username не найден. Введите его вручную.",
+
+        toastNoProvider:
+            "🛠 Для «{service}» провайдер и платёжная система пока не подключены."
     }
 };
+
 
 const LANG_STORAGE_KEY = "jv_lang";
 
 let lang = "uz";
 
+
 function detectLang() {
-    // 1) Foydalanuvchi o‘zi UZ/RU tugmasini bosgan bo‘lsa — shu tanlov
+
     try {
         const saved = localStorage.getItem(LANG_STORAGE_KEY);
-        if (saved && I18N[saved]) return saved;
+
+        if (saved && I18N[saved]) {
+            return saved;
+        }
+
     } catch (e) {}
 
-    // 2) Telegram ilovasidagi til (masalan "ru"), bo‘lmasa brauzer tili
     let code = "";
+
     try {
-        if (tg && tg.initDataUnsafe && tg.initDataUnsafe.user && tg.initDataUnsafe.user.language_code) {
+
+        if (
+            tg &&
+            tg.initDataUnsafe &&
+            tg.initDataUnsafe.user &&
+            tg.initDataUnsafe.user.language_code
+        ) {
             code = tg.initDataUnsafe.user.language_code;
         }
+
     } catch (e) {}
 
-    if (!code) code = navigator.language || "";
+    if (!code) {
+        code = navigator.language || "";
+    }
 
-    return String(code).toLowerCase().indexOf("ru") === 0 ? "ru" : "uz";
+    return String(code)
+        .toLowerCase()
+        .indexOf("ru") === 0
+        ? "ru"
+        : "uz";
 }
 
+
 function t(key, vars) {
+
     const dict = I18N[lang] || I18N.uz;
 
-    let text = dict[key] !== undefined ? dict[key] : (I18N.uz[key] !== undefined ? I18N.uz[key] : key);
+    let text =
+        dict[key] !== undefined
+            ? dict[key]
+            : (
+                I18N.uz[key] !== undefined
+                    ? I18N.uz[key]
+                    : key
+            );
 
     if (vars) {
+
         Object.keys(vars).forEach(function (name) {
-            text = text.split("{" + name + "}").join(vars[name]);
+
+            text = text
+                .split("{" + name + "}")
+                .join(vars[name]);
+
         });
+
     }
 
     return text;
 }
 
-// 1 месяц / 3 месяца / 12 месяцев (ruscha qoidasi), o‘zbekchada "N oy"
+
 function monthsLabel(n) {
+
     let key = "monthsMany";
 
     if (lang === "ru") {
-        if (n === 1) key = "monthsOne";
-        else if (n >= 2 && n <= 4) key = "monthsFew";
+
+        if (n === 1) {
+            key = "monthsOne";
+        } else if (n >= 2 && n <= 4) {
+            key = "monthsFew";
+        }
+
     }
 
     return t(key, { n: n });
 }
 
 
-/* =========================================
-   NARXLAR VA MA'LUMOTLAR
-   Keyinchalik provider narxlariga almashtiramiz.
-========================================= */
+/* NARXLAR */
 
 const STAR_PRICE_PER_UNIT = 250;
+
 const STARS_MIN = 50;
 const STARS_MAX = 10000;
 
 const TOPUP_MIN = 1000;
 const TOPUP_MAX = 50000000;
 
-// Gift izohining maksimal uzunligi (Telegram sendGift: 0–128 belgi)
 const GIFT_COMMENT_MAX = 128;
 
-const STAR_PACKS = [50, 100, 200, 300, 400, 500];
-
-// viaAdmin — "(admin orqali)" yozuvi chiqadi
-const PREMIUM_PLANS = [
-    { months: 1,  price: 15000,  viaAdmin: true },
-    { months: 3,  price: 45000 },
-    { months: 6,  price: 85000 },
-    { months: 12, price: 155000 }
+const STAR_PACKS = [
+    50,
+    100,
+    200,
+    300,
+    400,
+    500
 ];
+
+
+/*
+    MUHIM:
+
+    1 oy Premium:
+    - admin orqali
+    - narx ko‘rsatilmaydi
+    - Sotib olish bosilganda @faststarsbot_admin ochiladi
+
+    3 / 6 / 12 oy:
+    - oddiy provider flow uchun qoldirilgan
+*/
+
+const PREMIUM_PLANS = [
+    {
+        months: 1,
+        price: 15000,
+        viaAdmin: true
+    },
+    {
+        months: 3,
+        price: 45000
+    },
+    {
+        months: 6,
+        price: 85000
+    },
+    {
+        months: 12,
+        price: 155000
+    }
+];
+
 
 const GIFTS = [
-    { name: "Rose",    icon: "🌹", price: 1000 },
-    { name: "Heart",   icon: "❤️", price: 2500 },
-    { name: "Cake",    icon: "🎂", price: 5000 },
-    { name: "Bear",    icon: "🧸", price: 7500 },
-    { name: "Diamond", icon: "💎", price: 15000 },
-    { name: "Star",    icon: "🌟", price: 20000 },
-    { name: "Trophy",  icon: "🏆", price: 30000 },
-    { name: "Rocket",  icon: "🚀", price: 40000 },
-    { name: "Fire",    icon: "🔥", price: 50000 },
-    { name: "Crown",   icon: "👑", price: 75000 }
+    {
+        name: "Rose",
+        icon: "🌹",
+        price: 1000
+    },
+    {
+        name: "Heart",
+        icon: "❤️",
+        price: 2500
+    },
+    {
+        name: "Cake",
+        icon: "🎂",
+        price: 5000
+    },
+    {
+        name: "Bear",
+        icon: "🧸",
+        price: 7500
+    },
+    {
+        name: "Diamond",
+        icon: "💎",
+        price: 15000
+    },
+    {
+        name: "Star",
+        icon: "🌟",
+        price: 20000
+    },
+    {
+        name: "Trophy",
+        icon: "🏆",
+        price: 30000
+    },
+    {
+        name: "Rocket",
+        icon: "🚀",
+        price: 40000
+    },
+    {
+        name: "Fire",
+        icon: "🔥",
+        price: 50000
+    },
+    {
+        name: "Crown",
+        icon: "👑",
+        price: 75000
+    }
 ];
+
 
 const COUNTRIES = [
-    { flag: "🇺🇸", uz: "AQSH",            ru: "США",            price: 25000 },
-    { flag: "🇬🇧", uz: "Buyuk Britaniya", ru: "Великобритания", price: 30000 },
-    { flag: "🇩🇪", uz: "Germaniya",       ru: "Германия",       price: 28000 },
-    { flag: "🇫🇷", uz: "Fransiya",        ru: "Франция",        price: 28000 },
-    { flag: "🇹🇷", uz: "Turkiya",         ru: "Турция",         price: 18000 },
-    { flag: "🇷🇺", uz: "Rossiya",         ru: "Россия",         price: 20000 },
-    { flag: "🇰🇿", uz: "Qozog‘iston",     ru: "Казахстан",      price: 18000 },
-    { flag: "🇺🇦", uz: "Ukraina",         ru: "Украина",        price: 22000 },
-    { flag: "🇮🇳", uz: "Hindiston",       ru: "Индия",          price: 15000 },
-    { flag: "🇮🇩", uz: "Indoneziya",      ru: "Индонезия",      price: 16000 },
-    { flag: "🇧🇷", uz: "Braziliya",       ru: "Бразилия",       price: 22000 },
-    { flag: "🇨🇦", uz: "Kanada",          ru: "Канада",         price: 30000 },
-    { flag: "🇦🇪", uz: "BAA",             ru: "ОАЭ",            price: 35000 },
-    { flag: "🇰🇬", uz: "Qirg‘iziston",    ru: "Киргизия",       price: 16000 },
-    { flag: "🇹🇯", uz: "Tojikiston",      ru: "Таджикистан",    price: 16000 },
-    { flag: "🇦🇲", uz: "Armaniston",      ru: "Армения",        price: 18000 }
+    {
+        flag: "🇺🇸",
+        uz: "AQSH",
+        ru: "США",
+        price: 25000
+    },
+    {
+        flag: "🇬🇧",
+        uz: "Buyuk Britaniya",
+        ru: "Великобритания",
+        price: 30000
+    },
+    {
+        flag: "🇩🇪",
+        uz: "Germaniya",
+        ru: "Германия",
+        price: 28000
+    },
+    {
+        flag: "🇫🇷",
+        uz: "Fransiya",
+        ru: "Франция",
+        price: 28000
+    },
+    {
+        flag: "🇹🇷",
+        uz: "Turkiya",
+        ru: "Турция",
+        price: 18000
+    },
+    {
+        flag: "🇷🇺",
+        uz: "Rossiya",
+        ru: "Россия",
+        price: 20000
+    },
+    {
+        flag: "🇰🇿",
+        uz: "Qozog‘iston",
+        ru: "Казахстан",
+        price: 18000
+    },
+    {
+        flag: "🇺🇦",
+        uz: "Ukraina",
+        ru: "Украина",
+        price: 22000
+    },
+    {
+        flag: "🇮🇳",
+        uz: "Hindiston",
+        ru: "Индия",
+        price: 15000
+    },
+    {
+        flag: "🇮🇩",
+        uz: "Indoneziya",
+        ru: "Индонезия",
+        price: 16000
+    },
+    {
+        flag: "🇧🇷",
+        uz: "Braziliya",
+        ru: "Бразилия",
+        price: 22000
+    },
+    {
+        flag: "🇨🇦",
+        uz: "Kanada",
+        ru: "Канада",
+        price: 30000
+    },
+    {
+        flag: "🇦🇪",
+        uz: "BAA",
+        ru: "ОАЭ",
+        price: 35000
+    },
+    {
+        flag: "🇰🇬",
+        uz: "Qirg‘iziston",
+        ru: "Киргизия",
+        price: 16000
+    },
+    {
+        flag: "🇹🇯",
+        uz: "Tojikiston",
+        ru: "Таджикистан",
+        price: 16000
+    },
+    {
+        flag: "🇦🇲",
+        uz: "Armaniston",
+        ru: "Армения",
+        price: 18000
+    }
 ];
+
 
 const UC_PACKS = [
-    { uc: 60,   price: 10000 },
-    { uc: 325,  price: 45000 },
-    { uc: 660,  price: 85000 },
-    { uc: 1800, price: 220000 },
-    { uc: 3850, price: 430000 },
-    { uc: 8100, price: 850000 }
+    {
+        uc: 60,
+        price: 10000
+    },
+    {
+        uc: 325,
+        price: 45000
+    },
+    {
+        uc: 660,
+        price: 85000
+    },
+    {
+        uc: 1800,
+        price: 220000
+    },
+    {
+        uc: 3850,
+        price: 430000
+    },
+    {
+        uc: 8100,
+        price: 850000
+    }
 ];
 
-const TOPUP_PRESETS = [10000, 50000, 100000, 500000];
+
+const TOPUP_PRESETS = [
+    10000,
+    50000,
+    100000,
+    500000
+];
 
 
-/* =========================================
-   STATE
-========================================= */
+/* STATE */
 
 let balance = 0;
 
 let selectedStars = 0;
-let selectedPremium = null;   // PREMIUM_PLANS elementi
-let selectedGift = null;      // GIFTS elementi
-let selectedCountry = null;   // COUNTRIES elementi
-let selectedUC = null;        // UC_PACKS elementi
 
-// Oxirgi tayyorlangan gift buyurtmasi. Backend ulanganda shu obyekt serverga yuboriladi.
+let selectedPremium = null;
+
+let selectedGift = null;
+
+let selectedCountry = null;
+
+let selectedUC = null;
+
 let lastGiftOrder = null;
 
 
-/* =========================================
-   YORDAMCHI FUNKSIYALAR
-========================================= */
+/* HELPERS */
 
 const $ = (id) => document.getElementById(id);
 
+
 function formatMoney(number) {
-    // Intl.NumberFormat("uz-UZ") turli qurilmalarda har xil chiqadi, shuning uchun o‘zimiz formatlaymiz
-    return String(Math.round(Number(number) || 0)).replace(/\B(?=(\d{3})+(?!\d))/g, "\u00A0");
+
+    return String(
+        Math.round(Number(number) || 0)
+    ).replace(
+        /\B(?=(\d{3})+(?!\d))/g,
+        "\u00A0"
+    );
 }
+
 
 function digitsOnly(value, maxLength) {
-    return String(value).replace(/\D/g, "").slice(0, maxLength);
+
+    return String(value)
+        .replace(/\D/g, "")
+        .slice(0, maxLength);
 }
+
 
 function countryName(country) {
-    return country.flag + " " + (lang === "ru" ? country.ru : country.uz);
+
+    return country.flag + " " +
+        (
+            lang === "ru"
+                ? country.ru
+                : country.uz
+        );
 }
 
-// Balansni backend’dan olgach shu funksiyani chaqiring: setBalance(125000)
+
 function setBalance(value) {
-    balance = Math.max(0, Number(value) || 0);
-    $("balance").textContent = formatMoney(balance);
-    $("balance2").textContent = formatMoney(balance);
+
+    balance = Math.max(
+        0,
+        Number(value) || 0
+    );
+
+    $("balance").textContent =
+        formatMoney(balance);
+
+    $("balance2").textContent =
+        formatMoney(balance);
 }
+
 
 function setInvalid(inputId, isInvalid) {
-    $(inputId).classList.toggle("invalid", !!isInvalid);
+
+    $(inputId).classList.toggle(
+        "invalid",
+        !!isInvalid
+    );
 }
 
-function selectOnly(containerSelector, element) {
-    document.querySelectorAll(containerSelector).forEach(function (item) {
-        item.classList.toggle("selected", item === element);
-    });
+
+function selectOnly(
+    containerSelector,
+    element
+) {
+
+    document
+        .querySelectorAll(containerSelector)
+        .forEach(function (item) {
+
+            item.classList.toggle(
+                "selected",
+                item === element
+            );
+
+        });
 }
 
-// "@Username", "username", "https://t.me/username" -> "@username" (yoki null)
+
 function normalizeUsername(raw) {
-    let value = String(raw).trim().replace(/^https?:\/\/t\.me\//i, "").replace(/^@/, "");
 
-    // Telegram: 5–32 belgi, harf bilan boshlanadi, harf/raqam/pastki chiziq
-    if (!/^[A-Za-z][A-Za-z0-9_]{4,31}$/.test(value)) return null;
+    let value = String(raw)
+        .trim()
+        .replace(
+            /^https?:\/\/t\.me\//i,
+            ""
+        )
+        .replace(/^@/, "");
+
+    if (
+        !/^[A-Za-z][A-Za-z0-9_]{4,31}$/.test(value)
+    ) {
+        return null;
+    }
 
     return "@" + value;
 }
 
-// "Kimga?" maydonini tekshiradi. To‘g‘ri bo‘lsa "@username", aks holda xabar chiqarib null qaytaradi
+
 function readUsername(inputId) {
+
     const raw = $(inputId).value.trim();
 
     if (!raw) {
+
         setInvalid(inputId, true);
+
         showToast(t("toastWho"));
+
         return null;
     }
 
     const username = normalizeUsername(raw);
 
     if (!username) {
+
         setInvalid(inputId, true);
+
         showToast(t("toastUserBad"));
+
         return null;
     }
 
@@ -1364,553 +1969,1402 @@ function readUsername(inputId) {
 }
 
 
-/* =========================================
-   TOAST
-========================================= */
+/* TOAST */
 
 let toastTimer;
 
+
 function showToast(message) {
+
     const toast = $("toast");
 
     toast.textContent = message;
+
     toast.classList.add("show");
 
     clearTimeout(toastTimer);
 
-    toastTimer = setTimeout(function () {
-        toast.classList.remove("show");
-    }, 3000);
+    toastTimer = setTimeout(
+        function () {
+            toast.classList.remove("show");
+        },
+        3000
+    );
 }
 
 
-/* =========================================
-   NAVIGATSIYA
-========================================= */
+/* NAVIGATION */
 
 function openPage(pageId) {
+
     const page = $(pageId);
-    if (!page || !page.classList.contains("page")) return;
 
-    document.querySelectorAll(".page").forEach(function (item) {
-        item.classList.toggle("active", item === page);
+    if (
+        !page ||
+        !page.classList.contains("page")
+    ) {
+        return;
+    }
+
+    document
+        .querySelectorAll(".page")
+        .forEach(function (item) {
+
+            item.classList.toggle(
+                "active",
+                item === page
+            );
+
+        });
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
     });
-
-    window.scrollTo({ top: 0, behavior: "smooth" });
 }
+
 
 function goHome() {
     openPage("homePage");
 }
 
 
-/* =========================================
-   RENDER (ro‘yxatlarni chizish)
-========================================= */
+/* RENDER */
 
 function renderStarPacks() {
-    $("starPacks").innerHTML = STAR_PACKS.map(function (amount) {
-        return '<button type="button" class="package" data-stars="' + amount + '">' +
-                   '<strong>' + formatMoney(amount) + ' ⭐</strong>' +
-                   '<span>' + formatMoney(amount * STAR_PRICE_PER_UNIT) + ' UZS</span>' +
-               '</button>';
-    }).join("");
+
+    $("starPacks").innerHTML =
+        STAR_PACKS.map(function (amount) {
+
+            return `
+                <button
+                    type="button"
+                    class="package"
+                    data-stars="${amount}"
+                >
+                    <strong>
+                        ${formatMoney(amount)} ⭐
+                    </strong>
+
+                    <span>
+                        ${formatMoney(
+                            amount * STAR_PRICE_PER_UNIT
+                        )} UZS
+                    </span>
+                </button>
+            `;
+
+        }).join("");
 }
+
 
 function renderPremium() {
-    $("premiumPacks").innerHTML = PREMIUM_PLANS.map(function (plan, index) {
-        const selected = plan === selectedPremium ? " selected" : "";
-        const sub = plan.viaAdmin ? "(" + t("adminNote") + ")" : t("choose");
 
-        return '<button type="button" class="package' + selected + '" data-premium="' + index + '">' +
-                   '<strong>' + monthsLabel(plan.months) + '</strong>' +
-                   '<span>' + sub + '</span>' +
-               '</button>';
-    }).join("");
+    $("premiumPacks").innerHTML =
+        PREMIUM_PLANS.map(
+            function (plan, index) {
+
+                const selected =
+                    plan === selectedPremium
+                        ? " selected"
+                        : "";
+
+                const sub =
+                    plan.viaAdmin
+                        ? "(" + t("adminNote") + ")"
+                        : t("choose");
+
+                return `
+                    <button
+                        type="button"
+                        class="package${selected}"
+                        data-premium="${index}"
+                    >
+                        <strong>
+                            ${monthsLabel(plan.months)}
+                        </strong>
+
+                        <span>
+                            ${sub}
+                        </span>
+                    </button>
+                `;
+
+            }
+        ).join("");
 }
+
 
 function renderGifts() {
-    $("giftGrid").innerHTML = GIFTS.map(function (gift, index) {
-        const selected = gift === selectedGift ? " selected" : "";
 
-        return '<button type="button" class="gift' + selected + '" data-gift="' + index + '">' +
-                   '<div class="gift-image">' + gift.icon + '</div>' +
-                   '<div class="gift-name">' + gift.name + '</div>' +
-                   '<div class="gift-price">' + formatMoney(gift.price) + ' UZS</div>' +
-               '</button>';
-    }).join("");
+    $("giftGrid").innerHTML =
+        GIFTS.map(function (gift, index) {
+
+            const selected =
+                gift === selectedGift
+                    ? " selected"
+                    : "";
+
+            return `
+                <button
+                    type="button"
+                    class="gift${selected}"
+                    data-gift="${index}"
+                >
+                    <div class="gift-image">
+                        ${gift.icon}
+                    </div>
+
+                    <div class="gift-name">
+                        ${gift.name}
+                    </div>
+
+                    <div class="gift-price">
+                        ${formatMoney(gift.price)} UZS
+                    </div>
+                </button>
+            `;
+
+        }).join("");
 }
+
 
 function renderCountries() {
-    $("countryGrid").innerHTML = COUNTRIES.map(function (country, index) {
-        const selected = country === selectedCountry ? " selected" : "";
 
-        return '<button type="button" class="country' + selected + '" data-country="' + index + '">' +
-                   '<div class="country-name">' + countryName(country) + '</div>' +
-                   '<div class="country-price">' + formatMoney(country.price) + ' UZS</div>' +
-               '</button>';
-    }).join("");
+    $("countryGrid").innerHTML =
+        COUNTRIES.map(
+            function (country, index) {
+
+                const selected =
+                    country === selectedCountry
+                        ? " selected"
+                        : "";
+
+                return `
+                    <button
+                        type="button"
+                        class="country${selected}"
+                        data-country="${index}"
+                    >
+                        <div class="country-name">
+                            ${countryName(country)}
+                        </div>
+
+                        <div class="country-price">
+                            ${formatMoney(country.price)} UZS
+                        </div>
+                    </button>
+                `;
+
+            }
+        ).join("");
 }
+
 
 function renderUC() {
-    $("ucGrid").innerHTML = UC_PACKS.map(function (pack, index) {
-        const selected = pack === selectedUC ? " selected" : "";
 
-        return '<button type="button" class="uc' + selected + '" data-uc="' + index + '">' +
-                   '<strong>' + formatMoney(pack.uc) + ' UC</strong>' +
-                   '<span>' + formatMoney(pack.price) + ' UZS</span>' +
-               '</button>';
-    }).join("");
+    $("ucGrid").innerHTML =
+        UC_PACKS.map(function (pack, index) {
+
+            const selected =
+                pack === selectedUC
+                    ? " selected"
+                    : "";
+
+            return `
+                <button
+                    type="button"
+                    class="uc${selected}"
+                    data-uc="${index}"
+                >
+                    <strong>
+                        ${formatMoney(pack.uc)} UC
+                    </strong>
+
+                    <span>
+                        ${formatMoney(pack.price)} UZS
+                    </span>
+                </button>
+            `;
+
+        }).join("");
 }
+
 
 function renderTopupPresets() {
-    $("topupPacks").innerHTML = TOPUP_PRESETS.map(function (amount) {
-        return '<button type="button" class="package" data-topup="' + amount + '">' +
-                   '<strong>' + formatMoney(amount) + '</strong>' +
-                   '<span>UZS</span>' +
-               '</button>';
-    }).join("");
+
+    $("topupPacks").innerHTML =
+        TOPUP_PRESETS.map(
+            function (amount) {
+
+                return `
+                    <button
+                        type="button"
+                        class="package"
+                        data-topup="${amount}"
+                    >
+                        <strong>
+                            ${formatMoney(amount)}
+                        </strong>
+
+                        <span>
+                            UZS
+                        </span>
+                    </button>
+                `;
+
+            }
+        ).join("");
 }
 
-// Tanlangan narxlar yozuvlari (til o‘zgarganda ham yangilanadi)
+
+/*
+    PREMIUM NARXINI YANGILASH
+
+    1 oy:
+        Admin orqali
+
+    3 / 6 / 12 oy:
+        UZS narxi
+*/
+
 function updateTotals() {
-    $("premiumTotal").textContent = selectedPremium
-        ? formatMoney(selectedPremium.price) + " UZS"
-        : t("chooseTerm");
 
-    $("giftTotal").textContent = selectedGift
-        ? formatMoney(selectedGift.price) + " UZS"
-        : t("chooseGift");
+    if (!selectedPremium) {
 
-    $("numberTotal").textContent = selectedCountry
-        ? formatMoney(selectedCountry.price) + " UZS"
-        : t("chooseCountry");
+        $("premiumTotal").textContent =
+            t("chooseTerm");
 
-    $("ucTotal").textContent = selectedUC
-        ? formatMoney(selectedUC.price) + " UZS"
-        : t("choosePack");
+    } else if (
+        selectedPremium.months === 1
+    ) {
+
+        $("premiumTotal").textContent =
+            t("adminNote");
+
+    } else {
+
+        $("premiumTotal").textContent =
+            formatMoney(
+                selectedPremium.price
+            ) + " UZS";
+    }
+
+
+    $("giftTotal").textContent =
+        selectedGift
+            ? formatMoney(selectedGift.price) + " UZS"
+            : t("chooseGift");
+
+
+    $("numberTotal").textContent =
+        selectedCountry
+            ? formatMoney(selectedCountry.price) + " UZS"
+            : t("chooseCountry");
+
+
+    $("ucTotal").textContent =
+        selectedUC
+            ? formatMoney(selectedUC.price) + " UZS"
+            : t("choosePack");
 }
 
 
-/* =========================================
-   TIL (I18N) — matnlarni qo‘llash
-========================================= */
+/* LANGUAGE */
 
 function applyStaticTexts() {
-    document.querySelectorAll("[data-i18n]").forEach(function (el) {
-        el.textContent = t(el.dataset.i18n);
-    });
 
-    document.querySelectorAll("[data-i18n-ph]").forEach(function (el) {
-        el.placeholder = t(el.dataset.i18nPh);
-    });
+    document
+        .querySelectorAll("[data-i18n]")
+        .forEach(function (el) {
 
-    document.querySelectorAll(".lang-btn").forEach(function (btn) {
-        btn.classList.toggle("active", btn.dataset.lang === lang);
-    });
+            el.textContent =
+                t(el.dataset.i18n);
 
-    document.documentElement.lang = lang;
+        });
+
+
+    document
+        .querySelectorAll("[data-i18n-ph]")
+        .forEach(function (el) {
+
+            el.placeholder =
+                t(el.dataset.i18nPh);
+
+        });
+
+
+    document
+        .querySelectorAll(".lang-btn")
+        .forEach(function (btn) {
+
+            btn.classList.toggle(
+                "active",
+                btn.dataset.lang === lang
+            );
+
+        });
+
+
+    document.documentElement.lang =
+        lang;
 }
 
+
 function applyLanguage() {
+
     applyStaticTexts();
 
     renderStarPacks();
+
     renderPremium();
+
     renderGifts();
+
     renderCountries();
+
     renderUC();
+
     renderTopupPresets();
 
     calculateStars();
+
     updateTotals();
 }
 
-function setLang(newLang, remember) {
+
+function setLang(
+    newLang,
+    remember
+) {
+
     if (!I18N[newLang]) return;
 
     lang = newLang;
 
     if (remember) {
-        try { localStorage.setItem(LANG_STORAGE_KEY, newLang); } catch (e) {}
+
+        try {
+            localStorage.setItem(
+                LANG_STORAGE_KEY,
+                newLang
+            );
+        } catch (e) {}
+
     }
 
     applyLanguage();
 }
 
 
-/* =========================================
-   STARS
-========================================= */
+/* STARS */
 
 function calculateStars() {
-    const input = $("customStars");
-    const digits = digitsOnly(input.value, String(STARS_MAX).length);
 
-    let amount = digits ? parseInt(digits, 10) : 0;
-    if (amount > STARS_MAX) amount = STARS_MAX;
+    const input =
+        $("customStars");
 
-    // Yozayotganda minimumga "sakratmaymiz" — faqat yuqori chegarani cheklaymiz
-    input.value = digits ? String(amount) : "";
-    selectedStars = amount;
+    const digits =
+        digitsOnly(
+            input.value,
+            String(STARS_MAX).length
+        );
 
-    setInvalid("customStars", amount > 0 && amount < STARS_MIN);
+    let amount =
+        digits
+            ? parseInt(digits, 10)
+            : 0;
 
-    $("starsTotal").textContent = amount >= STARS_MIN
-        ? formatMoney(amount * STAR_PRICE_PER_UNIT) + " UZS"
-        : "0 UZS";
+    if (amount > STARS_MAX) {
+        amount = STARS_MAX;
+    }
 
-    document.querySelectorAll("#starsPage .package").forEach(function (pack) {
-        pack.classList.toggle("selected", Number(pack.dataset.stars) === amount);
-    });
+    input.value =
+        digits
+            ? String(amount)
+            : "";
+
+    selectedStars =
+        amount;
+
+    setInvalid(
+        "customStars",
+        amount > 0 &&
+        amount < STARS_MIN
+    );
+
+    $("starsTotal").textContent =
+        amount >= STARS_MIN
+            ? formatMoney(
+                amount *
+                STAR_PRICE_PER_UNIT
+            ) + " UZS"
+            : "0 UZS";
+
+
+    document
+        .querySelectorAll(
+            "#starsPage .package"
+        )
+        .forEach(function (pack) {
+
+            pack.classList.toggle(
+                "selected",
+                Number(
+                    pack.dataset.stars
+                ) === amount
+            );
+
+        });
 }
 
+
 function selectStars(amount) {
-    $("customStars").value = amount;
+
+    $("customStars").value =
+        amount;
+
     calculateStars();
 }
 
 
-/* =========================================
-   PREMIUM
-========================================= */
+/* PREMIUM */
 
-function selectPremium(index, element) {
-    const plan = PREMIUM_PLANS[index];
+function selectPremium(
+    index,
+    element
+) {
+
+    const plan =
+        PREMIUM_PLANS[index];
+
     if (!plan) return;
 
-    selectedPremium = plan;
-    selectOnly("#premiumPage .package", element);
+    selectedPremium =
+        plan;
+
+    selectOnly(
+        "#premiumPage .package",
+        element
+    );
 
     updateTotals();
 }
 
 
-/* =========================================
-   GIFTS
-========================================= */
+/* GIFTS */
 
-function selectGift(index, element) {
-    const gift = GIFTS[index];
+function selectGift(
+    index,
+    element
+) {
+
+    const gift =
+        GIFTS[index];
+
     if (!gift) return;
 
-    selectedGift = gift;
-    selectOnly(".gift", element);
+    selectedGift =
+        gift;
+
+    selectOnly(
+        ".gift",
+        element
+    );
 
     updateTotals();
 }
 
-// Izoh: bo‘sh joylarni kesadi va uzunlikni GIFT_COMMENT_MAX bilan cheklaydi (emoji ham 1 belgi)
-function limitGiftComment() {
-    const input = $("giftComment");
-    const chars = Array.from(input.value);
 
-    if (chars.length > GIFT_COMMENT_MAX) {
-        input.value = chars.slice(0, GIFT_COMMENT_MAX).join("");
+function limitGiftComment() {
+
+    const input =
+        $("giftComment");
+
+    const chars =
+        Array.from(input.value);
+
+    if (
+        chars.length >
+        GIFT_COMMENT_MAX
+    ) {
+
+        input.value =
+            chars
+                .slice(
+                    0,
+                    GIFT_COMMENT_MAX
+                )
+                .join("");
+
     }
 
-    $("giftCommentCount").textContent = Math.min(chars.length, GIFT_COMMENT_MAX) + " / " + GIFT_COMMENT_MAX;
+    $("giftCommentCount").textContent =
+        Math.min(
+            chars.length,
+            GIFT_COMMENT_MAX
+        ) +
+        " / " +
+        GIFT_COMMENT_MAX;
 }
+
 
 function getGiftComment() {
-    return Array.from($("giftComment").value.trim()).slice(0, GIFT_COMMENT_MAX).join("");
+
+    return Array
+        .from(
+            $("giftComment").value.trim()
+        )
+        .slice(
+            0,
+            GIFT_COMMENT_MAX
+        )
+        .join("");
 }
 
 
-/* =========================================
-   NUMBERS
-========================================= */
+/* NUMBERS */
 
-function selectCountry(index, element) {
-    const country = COUNTRIES[index];
+function selectCountry(
+    index,
+    element
+) {
+
+    const country =
+        COUNTRIES[index];
+
     if (!country) return;
 
-    selectedCountry = country;
-    selectOnly(".country", element);
+    selectedCountry =
+        country;
+
+    selectOnly(
+        ".country",
+        element
+    );
 
     updateTotals();
 }
 
 
-/* =========================================
-   PUBG
-========================================= */
+/* PUBG */
 
-function selectUC(index, element) {
-    const pack = UC_PACKS[index];
+function selectUC(
+    index,
+    element
+) {
+
+    const pack =
+        UC_PACKS[index];
+
     if (!pack) return;
 
-    selectedUC = pack;
-    selectOnly(".uc", element);
+    selectedUC =
+        pack;
+
+    selectOnly(
+        ".uc",
+        element
+    );
 
     updateTotals();
 }
 
 
-/* =========================================
-   TOP UP
-========================================= */
+/* TOPUP */
 
 function getTopupAmount() {
-    const input = $("topupAmount");
-    const digits = digitsOnly(input.value, 9);
 
-    let amount = digits ? parseInt(digits, 10) : 0;
-    if (amount > TOPUP_MAX) amount = TOPUP_MAX;
+    const input =
+        $("topupAmount");
 
-    input.value = digits ? String(amount) : "";
-    setInvalid("topupAmount", amount > 0 && amount < TOPUP_MIN);
+    const digits =
+        digitsOnly(
+            input.value,
+            9
+        );
+
+    let amount =
+        digits
+            ? parseInt(digits, 10)
+            : 0;
+
+    if (amount > TOPUP_MAX) {
+        amount = TOPUP_MAX;
+    }
+
+    input.value =
+        digits
+            ? String(amount)
+            : "";
+
+    setInvalid(
+        "topupAmount",
+        amount > 0 &&
+        amount < TOPUP_MIN
+    );
 
     return amount;
 }
 
+
 function setTopup(amount) {
-    $("topupAmount").value = amount;
+
+    $("topupAmount").value =
+        amount;
+
     getTopupAmount();
 }
 
-function topup() {
-    const amount = getTopupAmount();
 
-    if (!amount || amount < TOPUP_MIN) {
-        setInvalid("topupAmount", true);
-        showToast(t("toastTopupMin", { n: formatMoney(TOPUP_MIN) }));
+function topup() {
+
+    const amount =
+        getTopupAmount();
+
+    if (
+        !amount ||
+        amount < TOPUP_MIN
+    ) {
+
+        setInvalid(
+            "topupAmount",
+            true
+        );
+
+        showToast(
+            t(
+                "toastTopupMin",
+                {
+                    n: formatMoney(
+                        TOPUP_MIN
+                    )
+                }
+            )
+        );
+
         return;
     }
 
-    showToast(t("toastTopupNoProvider"));
+    showToast(
+        t("toastTopupNoProvider")
+    );
 }
 
 
-/* =========================================
-   O‘ZIMGA
-========================================= */
+/* O‘ZIMGA */
 
 function myself(inputId) {
-    const user = tg && tg.initDataUnsafe ? tg.initDataUnsafe.user : null;
 
-    if (user && user.username) {
-        const input = $(inputId);
-        input.value = "@" + user.username;
-        setInvalid(inputId, false);
+    const user =
+        tg &&
+        tg.initDataUnsafe
+            ? tg.initDataUnsafe.user
+            : null;
+
+    if (
+        user &&
+        user.username
+    ) {
+
+        const input =
+            $(inputId);
+
+        input.value =
+            "@" +
+            user.username;
+
+        setInvalid(
+            inputId,
+            false
+        );
+
         return;
     }
 
-    showToast(t("toastNoUsername"));
+    showToast(
+        t("toastNoUsername")
+    );
 }
 
 
-/* =========================================
-   SOTIB OLISH
-   service: stars | premium | gift | number | uc
-========================================= */
+/* BUY */
 
 const SERVICE_NAME_KEYS = {
-    stars:   "nameStars",
-    premium: "namePremium",
-    gift:    "nameGift",
-    number:  "nameNumber",
-    uc:      "nameUc"
+
+    stars:
+        "nameStars",
+
+    premium:
+        "namePremium",
+
+    gift:
+        "nameGift",
+
+    number:
+        "nameNumber",
+
+    uc:
+        "nameUc"
 };
+
 
 function buyService(service) {
 
+
+    /* STARS */
+
     if (service === "stars") {
+
         if (!selectedStars) {
-            showToast(t("toastStarsChoose"));
+
+            showToast(
+                t("toastStarsChoose")
+            );
+
             return;
         }
 
-        if (selectedStars < STARS_MIN) {
-            setInvalid("customStars", true);
-            showToast(t("toastStarsMin", { n: STARS_MIN }));
+        if (
+            selectedStars <
+            STARS_MIN
+        ) {
+
+            setInvalid(
+                "customStars",
+                true
+            );
+
+            showToast(
+                t(
+                    "toastStarsMin",
+                    {
+                        n: STARS_MIN
+                    }
+                )
+            );
+
             return;
         }
 
-        if (!readUsername("starsUsername")) return;
+        if (
+            !readUsername(
+                "starsUsername"
+            )
+        ) {
+            return;
+        }
     }
 
+
+    /*
+        PREMIUM
+
+        1 OY:
+        Admin chat ochiladi.
+
+        3 / 6 / 12 OY:
+        Hozircha provider ulanmagan.
+    */
 
     if (service === "premium") {
+
         if (!selectedPremium) {
-            showToast(t("toastPremiumChoose"));
+
+            showToast(
+                t("toastPremiumChoose")
+            );
+
             return;
         }
 
-        if (!readUsername("premiumUsername")) return;
+
+        const username =
+            readUsername(
+                "premiumUsername"
+            );
+
+        if (!username) {
+            return;
+        }
+
+
+        /*
+            ENG MUHIM QISM
+
+            Agar 1 oy tanlangan bo‘lsa,
+            foydalanuvchi @faststarsbot_admin
+            chatiga o'tadi.
+        */
+
+        if (
+            selectedPremium.months === 1
+        ) {
+
+            if (
+                tg &&
+                typeof tg.openTelegramLink ===
+                "function"
+            ) {
+
+                tg.openTelegramLink(
+                    ADMIN_LINK
+                );
+
+            } else {
+
+                window.open(
+                    ADMIN_LINK,
+                    "_blank"
+                );
+
+            }
+
+            return;
+        }
     }
 
 
+    /* GIFTS */
+
     if (service === "gift") {
+
         if (!selectedGift) {
-            showToast(t("toastGiftChoose"));
+
+            showToast(
+                t("toastGiftChoose")
+            );
+
             return;
         }
 
-        const username = readUsername("giftUsername");
-        if (!username) return;
+        const username =
+            readUsername(
+                "giftUsername"
+            );
 
-        // Izoh ixtiyoriy: bo‘sh bo‘lsa "" bo‘ladi
+        if (!username) {
+            return;
+        }
+
+
         lastGiftOrder = {
+
             type: "gift",
-            gift: selectedGift.name,
-            price: selectedGift.price,
-            username: username,
-            comment: getGiftComment(),
-            lang: lang
+
+            gift:
+                selectedGift.name,
+
+            price:
+                selectedGift.price,
+
+            username:
+                username,
+
+            comment:
+                getGiftComment(),
+
+            lang:
+                lang
         };
     }
 
 
+    /* NUMBER */
+
     if (service === "number") {
+
         if (!selectedCountry) {
-            showToast(t("toastCountryChoose"));
+
+            showToast(
+                t("toastCountryChoose")
+            );
+
             return;
         }
     }
 
+
+    /* UC */
 
     if (service === "uc") {
-        const pubgId = digitsOnly($("pubgId").value, 15);
+
+        const pubgId =
+            digitsOnly(
+                $("pubgId").value,
+                15
+            );
 
         if (!pubgId) {
-            setInvalid("pubgId", true);
-            showToast(t("toastPubgEmpty"));
+
+            setInvalid(
+                "pubgId",
+                true
+            );
+
+            showToast(
+                t("toastPubgEmpty")
+            );
+
             return;
         }
+
 
         if (pubgId.length < 5) {
-            setInvalid("pubgId", true);
-            showToast(t("toastPubgShort"));
+
+            setInvalid(
+                "pubgId",
+                true
+            );
+
+            showToast(
+                t("toastPubgShort")
+            );
+
             return;
         }
+
 
         if (!selectedUC) {
-            showToast(t("toastUcChoose"));
+
+            showToast(
+                t("toastUcChoose")
+            );
+
             return;
         }
     }
 
 
-    showToast(t("toastNoProvider", { service: t(SERVICE_NAME_KEYS[service] || "nameStars") }));
+    showToast(
+        t(
+            "toastNoProvider",
+            {
+                service:
+                    t(
+                        SERVICE_NAME_KEYS[
+                            service
+                        ] ||
+                        "nameStars"
+                    )
+            }
+        )
+    );
 }
 
 
-/* =========================================
-   HODISALAR (CLICK / INPUT)
-========================================= */
+/* EVENTS */
 
-document.addEventListener("click", function (event) {
-    const target = event.target;
+document.addEventListener(
+    "click",
+    function (event) {
 
-    const langBtn = target.closest("[data-lang]");
-    if (langBtn) { setLang(langBtn.dataset.lang, true); return; }
-
-    const nav = target.closest("[data-page]");
-    if (nav) { openPage(nav.dataset.page); return; }
-
-    if (target.closest("[data-back]")) { goHome(); return; }
-
-    const self = target.closest("[data-self]");
-    if (self) { myself(self.dataset.self); return; }
-
-    const buy = target.closest("[data-buy]");
-    if (buy) { buyService(buy.dataset.buy); return; }
-
-    const stars = target.closest("[data-stars]");
-    if (stars) { selectStars(Number(stars.dataset.stars)); return; }
-
-    const premium = target.closest("[data-premium]");
-    if (premium) { selectPremium(Number(premium.dataset.premium), premium); return; }
-
-    const gift = target.closest("[data-gift]");
-    if (gift) { selectGift(Number(gift.dataset.gift), gift); return; }
-
-    const country = target.closest("[data-country]");
-    if (country) { selectCountry(Number(country.dataset.country), country); return; }
-
-    const uc = target.closest("[data-uc]");
-    if (uc) { selectUC(Number(uc.dataset.uc), uc); return; }
-
-    const preset = target.closest("[data-topup]");
-    if (preset) { setTopup(Number(preset.dataset.topup)); return; }
-});
-
-$("customStars").addEventListener("input", calculateStars);
-$("topupAmount").addEventListener("input", getTopupAmount);
-$("topupBtn").addEventListener("click", topup);
-$("giftComment").addEventListener("input", limitGiftComment);
-
-$("pubgId").addEventListener("input", function () {
-    this.value = digitsOnly(this.value, 15);
-    setInvalid("pubgId", false);
-});
-
-["starsUsername", "premiumUsername", "giftUsername"].forEach(function (id) {
-    $(id).addEventListener("input", function () { setInvalid(id, false); });
-});
+        const target =
+            event.target;
 
 
-/* =========================================
-   URL SERVICE
-   Botdan keladigan:
-   ?service=stars
-   ?service=premium
-   ?service=gifts
-   ?service=numbers
-   ?service=pubg (yoki gift_rental)
-   ?service=topup
-   Ixtiyoriy: ?lang=ru yoki ?lang=uz
-========================================= */
+        const langBtn =
+            target.closest(
+                "[data-lang]"
+            );
+
+        if (langBtn) {
+
+            setLang(
+                langBtn.dataset.lang,
+                true
+            );
+
+            return;
+        }
+
+
+        const nav =
+            target.closest(
+                "[data-page]"
+            );
+
+        if (nav) {
+
+            openPage(
+                nav.dataset.page
+            );
+
+            return;
+        }
+
+
+        if (
+            target.closest(
+                "[data-back]"
+            )
+        ) {
+
+            goHome();
+
+            return;
+        }
+
+
+        const self =
+            target.closest(
+                "[data-self]"
+            );
+
+        if (self) {
+
+            myself(
+                self.dataset.self
+            );
+
+            return;
+        }
+
+
+        const buy =
+            target.closest(
+                "[data-buy]"
+            );
+
+        if (buy) {
+
+            buyService(
+                buy.dataset.buy
+            );
+
+            return;
+        }
+
+
+        const stars =
+            target.closest(
+                "[data-stars]"
+            );
+
+        if (stars) {
+
+            selectStars(
+                Number(
+                    stars.dataset.stars
+                )
+            );
+
+            return;
+        }
+
+
+        const premium =
+            target.closest(
+                "[data-premium]"
+            );
+
+        if (premium) {
+
+            selectPremium(
+                Number(
+                    premium.dataset.premium
+                ),
+                premium
+            );
+
+            return;
+        }
+
+
+        const gift =
+            target.closest(
+                "[data-gift]"
+            );
+
+        if (gift) {
+
+            selectGift(
+                Number(
+                    gift.dataset.gift
+                ),
+                gift
+            );
+
+            return;
+        }
+
+
+        const country =
+            target.closest(
+                "[data-country]"
+            );
+
+        if (country) {
+
+            selectCountry(
+                Number(
+                    country.dataset.country
+                ),
+                country
+            );
+
+            return;
+        }
+
+
+        const uc =
+            target.closest(
+                "[data-uc]"
+            );
+
+        if (uc) {
+
+            selectUC(
+                Number(
+                    uc.dataset.uc
+                ),
+                uc
+            );
+
+            return;
+        }
+
+
+        const preset =
+            target.closest(
+                "[data-topup]"
+            );
+
+        if (preset) {
+
+            setTopup(
+                Number(
+                    preset.dataset.topup
+                )
+            );
+
+            return;
+        }
+
+    }
+);
+
+
+/* INPUTS */
+
+$("customStars")
+    .addEventListener(
+        "input",
+        calculateStars
+    );
+
+
+$("topupAmount")
+    .addEventListener(
+        "input",
+        getTopupAmount
+    );
+
+
+$("topupBtn")
+    .addEventListener(
+        "click",
+        topup
+    );
+
+
+$("giftComment")
+    .addEventListener(
+        "input",
+        limitGiftComment
+    );
+
+
+$("pubgId")
+    .addEventListener(
+        "input",
+        function () {
+
+            this.value =
+                digitsOnly(
+                    this.value,
+                    15
+                );
+
+            setInvalid(
+                "pubgId",
+                false
+            );
+        }
+    );
+
+
+[
+    "starsUsername",
+    "premiumUsername",
+    "giftUsername"
+].forEach(
+    function (id) {
+
+        $(id).addEventListener(
+            "input",
+            function () {
+
+                setInvalid(
+                    id,
+                    false
+                );
+
+            }
+        );
+
+    }
+);
+
+
+/* URL SERVICE */
 
 const SERVICE_MAP = {
-    stars:       "starsPage",
-    premium:     "premiumPage",
-    gifts:       "giftsPage",
-    numbers:     "numbersPage",
-    pubg:        "pubgPage",
-    uc:          "pubgPage",
-    gift_rental: "pubgPage",
-    topup:       "topupPage"
+
+    stars:
+        "starsPage",
+
+    premium:
+        "premiumPage",
+
+    gifts:
+        "giftsPage",
+
+    numbers:
+        "numbersPage",
+
+    pubg:
+        "pubgPage",
+
+    uc:
+        "pubgPage",
+
+    gift_rental:
+        "pubgPage",
+
+    topup:
+        "topupPage"
 };
 
+
 function openServiceFromURL() {
-    const service = new URLSearchParams(window.location.search).get("service");
-    if (!service) return;
 
-    if (Object.prototype.hasOwnProperty.call(SERVICE_MAP, service)) {
-        openPage(SERVICE_MAP[service]);
+    const service =
+        new URLSearchParams(
+            window.location.search
+        ).get("service");
+
+    if (!service) {
+        return;
+    }
+
+    if (
+        Object.prototype.hasOwnProperty.call(
+            SERVICE_MAP,
+            service
+        )
+    ) {
+
+        openPage(
+            SERVICE_MAP[service]
+        );
+
     }
 }
 
 
-/* =========================================
-   INIT
-========================================= */
+/* INIT */
 
-// Har bir bosqich alohida himoyalangan: bittasi xato bersa, qolganlari ishlayveradi
-function safeStep(name, fn) {
+function safeStep(
+    name,
+    fn
+) {
+
     try {
+
         fn();
+
     } catch (e) {
-        if (window.jvShowError) window.jvShowError(name + ": " + (e && e.message ? e.message : e));
+
+        if (window.jvShowError) {
+
+            window.jvShowError(
+                name +
+                ": " +
+                (
+                    e &&
+                    e.message
+                        ? e.message
+                        : e
+                )
+            );
+
+        }
     }
 }
+
 
 let urlLang = null;
 
-safeStep("url", function () {
-    urlLang = new URLSearchParams(window.location.search).get("lang");
-});
 
-safeStep("lang", function () {
-    lang = (urlLang && I18N[urlLang]) ? urlLang : detectLang();
-});
+safeStep(
+    "url",
+    function () {
 
-safeStep("render", applyLanguage);
-safeStep("comment", limitGiftComment);
-safeStep("balance", function () { setBalance(balance); });
-safeStep("service", openServiceFromURL);
+        urlLang =
+            new URLSearchParams(
+                window.location.search
+            ).get("lang");
+
+    }
+);
+
+
+safeStep(
+    "lang",
+    function () {
+
+        lang =
+            (
+                urlLang &&
+                I18N[urlLang]
+            )
+                ? urlLang
+                : detectLang();
+
+    }
+);
+
+
+safeStep(
+    "render",
+    applyLanguage
+);
+
+
+safeStep(
+    "comment",
+    limitGiftComment
+);
+
+
+safeStep(
+    "balance",
+    function () {
+
+        setBalance(
+            balance
+        );
+
+    }
+);
+
+
+safeStep(
+    "service",
+    openServiceFromURL
+);
+
 </script>
 
 </body>
