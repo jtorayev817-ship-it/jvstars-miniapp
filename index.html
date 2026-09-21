@@ -530,6 +530,24 @@
             transform: translate(-50%, 0);
         }
 
+        /* XATO XABARI (faqat nosozlik bo‘lganda ko‘rinadi) */
+
+        .js-error {
+            position: fixed;
+            left: 10px;
+            right: 10px;
+            top: 10px;
+            z-index: 9999;
+            padding: 10px 12px;
+            border-radius: 12px;
+            background: rgba(120,20,40,0.95);
+            border: 1px solid rgba(255,92,122,0.8);
+            color: #fff;
+            font-size: 12px;
+            line-height: 1.35;
+            word-break: break-word;
+        }
+
         /* RESPONSIVE */
 
         @media (max-width: 380px) {
@@ -556,7 +574,7 @@
     <div class="header">
 
         <div class="lang-switch" role="group" aria-label="Til / Язык">
-            <button type="button" class="lang-btn" data-lang="uz">UZ</button>
+            <button type="button" class="lang-btn active" data-lang="uz">UZ</button>
             <button type="button" class="lang-btn" data-lang="ru">RU</button>
         </div>
 
@@ -567,7 +585,7 @@
     <!-- BALANCE -->
 
     <div class="balance-card">
-        <div class="balance-title" data-i18n="balanceTitle"></div>
+        <div class="balance-title" data-i18n="balanceTitle">💰 Sizning balansingiz</div>
         <div class="balance">
             <span id="balance">0</span>
             <span class="uzs">UZS</span>
@@ -579,45 +597,45 @@
 
     <section id="homePage" class="page active">
 
-        <div class="section-title" data-i18n="servicesTitle"></div>
-        <div class="section-description" data-i18n="servicesDesc"></div>
+        <div class="section-title" data-i18n="servicesTitle">🛍 Xizmatlar</div>
+        <div class="section-description" data-i18n="servicesDesc">Kerakli xizmatni tanlang</div>
 
         <div class="services">
 
             <button type="button" class="service" data-page="starsPage">
                 <div class="service-icon">⭐</div>
-                <div class="service-name" data-i18n="svcStars"></div>
-                <div class="service-desc" data-i18n="svcStarsDesc"></div>
+                <div class="service-name" data-i18n="svcStars">Telegram Stars</div>
+                <div class="service-desc" data-i18n="svcStarsDesc">Stars sotib olish</div>
             </button>
 
             <button type="button" class="service" data-page="premiumPage">
                 <div class="service-icon">💎</div>
-                <div class="service-name" data-i18n="svcPremium"></div>
-                <div class="service-desc" data-i18n="svcPremiumDesc"></div>
+                <div class="service-name" data-i18n="svcPremium">Telegram Premium</div>
+                <div class="service-desc" data-i18n="svcPremiumDesc">Premium obuna</div>
             </button>
 
             <button type="button" class="service" data-page="giftsPage">
                 <div class="service-icon">🎁</div>
-                <div class="service-name" data-i18n="svcGifts"></div>
-                <div class="service-desc" data-i18n="svcGiftsDesc"></div>
+                <div class="service-name" data-i18n="svcGifts">Telegram Gifts</div>
+                <div class="service-desc" data-i18n="svcGiftsDesc">Sovg‘alar yuborish</div>
             </button>
 
             <button type="button" class="service" data-page="numbersPage">
                 <div class="service-icon">📱</div>
-                <div class="service-name" data-i18n="svcNumbers"></div>
-                <div class="service-desc" data-i18n="svcNumbersDesc"></div>
+                <div class="service-name" data-i18n="svcNumbers">Virtual raqam</div>
+                <div class="service-desc" data-i18n="svcNumbersDesc">100+ davlat</div>
             </button>
 
             <button type="button" class="service" data-page="pubgPage">
                 <div class="service-icon">🎮</div>
-                <div class="service-name" data-i18n="svcPubg"></div>
-                <div class="service-desc" data-i18n="svcPubgDesc"></div>
+                <div class="service-name" data-i18n="svcPubg">PUBG UC</div>
+                <div class="service-desc" data-i18n="svcPubgDesc">UC to‘ldirish</div>
             </button>
 
             <button type="button" class="service" data-page="topupPage">
                 <div class="service-icon">💰</div>
-                <div class="service-name" data-i18n="svcTopup"></div>
-                <div class="service-desc" data-i18n="svcTopupDesc"></div>
+                <div class="service-name" data-i18n="svcTopup">Hisobni to‘ldirish</div>
+                <div class="service-desc" data-i18n="svcTopupDesc">Balansni to‘ldirish</div>
             </button>
 
         </div>
@@ -629,25 +647,25 @@
 
     <section id="starsPage" class="page">
 
-        <button type="button" class="back-button" data-back data-i18n="back"></button>
+        <button type="button" class="back-button" data-back data-i18n="back">← Orqaga</button>
 
-        <div class="section-title" data-i18n="starsTitle"></div>
-        <div class="section-description" data-i18n="starsDesc"></div>
+        <div class="section-title" data-i18n="starsTitle">⭐ Telegram Stars</div>
+        <div class="section-description" data-i18n="starsDesc">Kerakli Stars miqdorini tanlang</div>
 
         <div class="form-card">
 
-            <span class="label" data-i18n="starsAmount"></span>
+            <span class="label" data-i18n="starsAmount">Stars miqdori</span>
 
             <div class="packages" id="starPacks"></div>
 
             <br>
 
-            <span class="label" data-i18n="otherAmount"></span>
+            <span class="label" data-i18n="otherAmount">Boshqa miqdor</span>
 
-            <input id="customStars" type="text" inputmode="numeric" autocomplete="off" data-i18n-ph="starsPlaceholder">
+            <input id="customStars" type="text" inputmode="numeric" autocomplete="off" data-i18n-ph="starsPlaceholder" placeholder="Masalan: 78">
 
             <div class="price-box">
-                <span class="price-label" data-i18n="total"></span>
+                <span class="price-label" data-i18n="total">Jami</span>
                 <span class="price" id="starsTotal">0 UZS</span>
             </div>
 
@@ -655,17 +673,17 @@
 
         <div class="form-card">
 
-            <span class="label" data-i18n="toWhom"></span>
+            <span class="label" data-i18n="toWhom">Kimga?</span>
 
             <div class="recipient-row">
                 <input id="starsUsername" type="text" placeholder="@username"
                        autocomplete="off" autocapitalize="none" spellcheck="false">
-                <button type="button" class="small-button" data-self="starsUsername" data-i18n="forMe"></button>
+                <button type="button" class="small-button" data-self="starsUsername" data-i18n="forMe">O‘zimga</button>
             </div>
 
         </div>
 
-        <button type="button" class="buy-button" data-buy="stars" data-i18n="buyStars"></button>
+        <button type="button" class="buy-button" data-buy="stars" data-i18n="buyStars">⭐ Sotib olish</button>
 
     </section>
 
@@ -674,37 +692,37 @@
 
     <section id="premiumPage" class="page">
 
-        <button type="button" class="back-button" data-back data-i18n="back"></button>
+        <button type="button" class="back-button" data-back data-i18n="back">← Orqaga</button>
 
-        <div class="section-title" data-i18n="premiumTitle"></div>
-        <div class="section-description" data-i18n="premiumDesc"></div>
+        <div class="section-title" data-i18n="premiumTitle">💎 Telegram Premium</div>
+        <div class="section-description" data-i18n="premiumDesc">Premium muddatini tanlang</div>
 
         <div class="form-card">
 
-            <span class="label" data-i18n="toWhom"></span>
+            <span class="label" data-i18n="toWhom">Kimga?</span>
 
             <div class="recipient-row">
                 <input id="premiumUsername" type="text" placeholder="@username"
                        autocomplete="off" autocapitalize="none" spellcheck="false">
-                <button type="button" class="small-button" data-self="premiumUsername" data-i18n="forMe"></button>
+                <button type="button" class="small-button" data-self="premiumUsername" data-i18n="forMe">O‘zimga</button>
             </div>
 
         </div>
 
         <div class="form-card">
 
-            <span class="label" data-i18n="term"></span>
+            <span class="label" data-i18n="term">Muddat</span>
 
             <div class="packages" id="premiumPacks"></div>
 
             <div class="price-box">
-                <span class="price-label" data-i18n="priceWord"></span>
-                <span class="price" id="premiumTotal"></span>
+                <span class="price-label" data-i18n="priceWord">Narx</span>
+                <span class="price" id="premiumTotal">Muddat tanlang</span>
             </div>
 
         </div>
 
-        <button type="button" class="buy-button" data-buy="premium" data-i18n="buyPremium"></button>
+        <button type="button" class="buy-button" data-buy="premium" data-i18n="buyPremium">💎 Sotib olish</button>
 
     </section>
 
@@ -713,44 +731,44 @@
 
     <section id="giftsPage" class="page">
 
-        <button type="button" class="back-button" data-back data-i18n="back"></button>
+        <button type="button" class="back-button" data-back data-i18n="back">← Orqaga</button>
 
-        <div class="section-title" data-i18n="giftsTitle"></div>
-        <div class="section-description" data-i18n="giftsDesc"></div>
+        <div class="section-title" data-i18n="giftsTitle">🎁 Telegram Gifts</div>
+        <div class="section-description" data-i18n="giftsDesc">Sovg‘ani tanlang</div>
 
         <div class="gift-grid" id="giftGrid"></div>
 
         <div class="form-card" style="margin-top:14px;">
 
-            <span class="label" data-i18n="toWhom"></span>
+            <span class="label" data-i18n="toWhom">Kimga?</span>
 
             <div class="recipient-row">
                 <input id="giftUsername" type="text" placeholder="@username"
                        autocomplete="off" autocapitalize="none" spellcheck="false">
-                <button type="button" class="small-button" data-self="giftUsername" data-i18n="forMe"></button>
+                <button type="button" class="small-button" data-self="giftUsername" data-i18n="forMe">O‘zimga</button>
             </div>
 
         </div>
 
         <div class="form-card">
 
-            <span class="label" data-i18n="commentLabel"></span>
+            <span class="label" data-i18n="commentLabel">Izoh (ixtiyoriy)</span>
 
-            <textarea id="giftComment" data-i18n-ph="commentPlaceholder"></textarea>
+            <textarea id="giftComment" data-i18n-ph="commentPlaceholder" placeholder="Sovg‘a bilan birga yuboriladigan matn..."></textarea>
 
             <div class="field-note">
-                <span data-i18n="commentHelp"></span>
+                <span data-i18n="commentHelp">Bu matn sovg‘a tagida qabul qiluvchiga ko‘rinadi.</span>
                 <span id="giftCommentCount">0 / 128</span>
             </div>
 
         </div>
 
         <div class="price-box">
-            <span class="price-label" data-i18n="selectedGift"></span>
-            <span class="price" id="giftTotal"></span>
+            <span class="price-label" data-i18n="selectedGift">Tanlangan sovg‘a</span>
+            <span class="price" id="giftTotal">Tanlang</span>
         </div>
 
-        <button type="button" class="buy-button" data-buy="gift" data-i18n="buyGift"></button>
+        <button type="button" class="buy-button" data-buy="gift" data-i18n="buyGift">🎁 Sotib olish</button>
 
     </section>
 
@@ -759,14 +777,14 @@
 
     <section id="numbersPage" class="page">
 
-        <button type="button" class="back-button" data-back data-i18n="back"></button>
+        <button type="button" class="back-button" data-back data-i18n="back">← Orqaga</button>
 
-        <div class="section-title" data-i18n="numbersTitle"></div>
-        <div class="section-description" data-i18n="numbersDesc"></div>
+        <div class="section-title" data-i18n="numbersTitle">📱 Virtual raqam</div>
+        <div class="section-description" data-i18n="numbersDesc">Davlatni tanlang</div>
 
         <div class="form-card">
 
-            <span class="label" data-i18n="serviceWord"></span>
+            <span class="label" data-i18n="serviceWord">Xizmat</span>
 
             <select id="numberService">
                 <option value="Telegram">Telegram</option>
@@ -780,11 +798,11 @@
         <div class="country-grid" id="countryGrid"></div>
 
         <div class="price-box">
-            <span class="price-label" data-i18n="selectedCountry"></span>
-            <span class="price" id="numberTotal"></span>
+            <span class="price-label" data-i18n="selectedCountry">Tanlangan davlat</span>
+            <span class="price" id="numberTotal">Tanlang</span>
         </div>
 
-        <button type="button" class="buy-button" data-buy="number" data-i18n="buyNumber"></button>
+        <button type="button" class="buy-button" data-buy="number" data-i18n="buyNumber">📱 Sotib olish</button>
 
     </section>
 
@@ -793,33 +811,33 @@
 
     <section id="pubgPage" class="page">
 
-        <button type="button" class="back-button" data-back data-i18n="back"></button>
+        <button type="button" class="back-button" data-back data-i18n="back">← Orqaga</button>
 
-        <div class="section-title" data-i18n="pubgTitle"></div>
-        <div class="section-description" data-i18n="pubgDesc"></div>
+        <div class="section-title" data-i18n="pubgTitle">🎮 PUBG UC</div>
+        <div class="section-description" data-i18n="pubgDesc">PUBG Mobile ID va UC paketini tanlang</div>
 
         <div class="form-card">
 
             <span class="label">PUBG ID</span>
 
-            <input id="pubgId" type="text" inputmode="numeric" autocomplete="off" data-i18n-ph="pubgIdPlaceholder">
+            <input id="pubgId" type="text" inputmode="numeric" autocomplete="off" data-i18n-ph="pubgIdPlaceholder" placeholder="PUBG Player ID">
 
         </div>
 
         <div class="form-card">
 
-            <span class="label" data-i18n="ucAmount"></span>
+            <span class="label" data-i18n="ucAmount">UC miqdori</span>
 
             <div class="uc-grid" id="ucGrid"></div>
 
         </div>
 
         <div class="price-box">
-            <span class="price-label" data-i18n="selectedPack"></span>
-            <span class="price" id="ucTotal"></span>
+            <span class="price-label" data-i18n="selectedPack">Tanlangan paket</span>
+            <span class="price" id="ucTotal">Tanlang</span>
         </div>
 
-        <button type="button" class="buy-button" data-buy="uc" data-i18n="buyUc"></button>
+        <button type="button" class="buy-button" data-buy="uc" data-i18n="buyUc">🎮 Sotib olish</button>
 
     </section>
 
@@ -828,17 +846,17 @@
 
     <section id="topupPage" class="page">
 
-        <button type="button" class="back-button" data-back data-i18n="back"></button>
+        <button type="button" class="back-button" data-back data-i18n="back">← Orqaga</button>
 
-        <div class="section-title" data-i18n="topupTitle"></div>
-        <div class="section-description" data-i18n="topupDesc"></div>
+        <div class="section-title" data-i18n="topupTitle">💰 Hisobni to‘ldirish</div>
+        <div class="section-description" data-i18n="topupDesc">Balansingizga mablag‘ qo‘shing</div>
 
         <div class="form-card">
 
-            <span class="label" data-i18n="currentBalance"></span>
+            <span class="label" data-i18n="currentBalance">Hozirgi balans</span>
 
             <div class="price-box">
-                <span class="price-label" data-i18n="balanceWord"></span>
+                <span class="price-label" data-i18n="balanceWord">Balans</span>
                 <span class="price"><span id="balance2">0</span> UZS</span>
             </div>
 
@@ -846,15 +864,15 @@
 
         <div class="form-card">
 
-            <span class="label" data-i18n="topupAmountLabel"></span>
+            <span class="label" data-i18n="topupAmountLabel">To‘ldirish summasi</span>
 
-            <input id="topupAmount" type="text" inputmode="numeric" autocomplete="off" data-i18n-ph="topupPlaceholder">
+            <input id="topupAmount" type="text" inputmode="numeric" autocomplete="off" data-i18n-ph="topupPlaceholder" placeholder="Masalan: 50 000">
 
             <div class="packages" style="margin-top:12px;" id="topupPacks"></div>
 
         </div>
 
-        <button type="button" class="buy-button" id="topupBtn" data-i18n="topupBtn"></button>
+        <button type="button" class="buy-button" id="topupBtn" data-i18n="topupBtn">💳 Hisobni to‘ldirish</button>
 
     </section>
 
@@ -865,6 +883,64 @@
 
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
+
+<!-- 1-SKRIPT: himoya. Asosiy skriptda xato chiqsa ham xizmatlar ochiladi va xato ekranda ko‘rinadi -->
+<script>
+(function () {
+    "use strict";
+
+    function showError(message) {
+        try {
+            var box = document.getElementById("jsError");
+
+            if (!box) {
+                box = document.createElement("div");
+                box.id = "jsError";
+                box.className = "js-error";
+                document.body.appendChild(box);
+            }
+
+            box.textContent = "⚠️ Xatolik / Ошибка: " + message;
+        } catch (e) {}
+    }
+
+    window.jvShowError = showError;
+
+    window.addEventListener("error", function (event) {
+        var where = event && event.lineno ? " (qator " + event.lineno + ")" : "";
+        showError((event && event.message ? event.message : "noma’lum xato") + where);
+    });
+
+    window.addEventListener("unhandledrejection", function (event) {
+        var reason = event && event.reason;
+        showError(reason && reason.message ? reason.message : String(reason));
+    });
+
+    // Zaxira navigatsiya: asosiy skript ishlamay qolsa ham sahifalar almashadi
+    function show(pageId) {
+        var page = document.getElementById(pageId);
+        if (!page || !page.classList.contains("page")) return;
+
+        var pages = document.querySelectorAll(".page");
+        for (var i = 0; i < pages.length; i++) {
+            if (pages[i] === page) pages[i].classList.add("active");
+            else pages[i].classList.remove("active");
+        }
+
+        window.scrollTo(0, 0);
+    }
+
+    document.addEventListener("click", function (event) {
+        var el = event.target;
+
+        while (el && el !== document) {
+            if (el.getAttribute && el.getAttribute("data-page")) { show(el.getAttribute("data-page")); return; }
+            if (el.hasAttribute && el.hasAttribute("data-back")) { show("homePage"); return; }
+            el = el.parentNode;
+        }
+    });
+})();
+</script>
 
 <script>
 "use strict";
@@ -1812,14 +1888,29 @@ function openServiceFromURL() {
    INIT
 ========================================= */
 
-const urlLang = new URLSearchParams(window.location.search).get("lang");
+// Har bir bosqich alohida himoyalangan: bittasi xato bersa, qolganlari ishlayveradi
+function safeStep(name, fn) {
+    try {
+        fn();
+    } catch (e) {
+        if (window.jvShowError) window.jvShowError(name + ": " + (e && e.message ? e.message : e));
+    }
+}
 
-lang = (urlLang && I18N[urlLang]) ? urlLang : detectLang();
+let urlLang = null;
 
-applyLanguage();
-limitGiftComment();
-setBalance(balance);
-openServiceFromURL();
+safeStep("url", function () {
+    urlLang = new URLSearchParams(window.location.search).get("lang");
+});
+
+safeStep("lang", function () {
+    lang = (urlLang && I18N[urlLang]) ? urlLang : detectLang();
+});
+
+safeStep("render", applyLanguage);
+safeStep("comment", limitGiftComment);
+safeStep("balance", function () { setBalance(balance); });
+safeStep("service", openServiceFromURL);
 </script>
 
 </body>
