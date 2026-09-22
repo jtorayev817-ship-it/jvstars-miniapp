@@ -1,472 +1,2180 @@
-from pathlib import Path
-
-html = r'''<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="uz">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <meta name="theme-color" content="#07111f">
 <title>JV Stars</title>
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
 <style>
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-    -webkit-tap-highlight-color:transparent;
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
 }
-:root{
-    --bg:#050b14;
-    --card:#0b1626;
-    --card2:#0e1c30;
-    --border:rgba(255,255,255,.08);
-    --text:#fff;
-    --muted:#91a0b5;
-    --blue:#3b82f6;
-    --blue2:#2563eb;
-    --green:#22c55e;
-    --red:#ef4444;
-    --yellow:#f59e0b;
+
+:root {
+    --bg: #050b14;
+    --card: #0b1626;
+    --card2: #0e1c30;
+    --border: rgba(255,255,255,.08);
+    --text: #fff;
+    --muted: #91a0b5;
+    --blue: #3b82f6;
+    --blue2: #2563eb;
+    --green: #22c55e;
+    --red: #ef4444;
+    --yellow: #f59e0b;
 }
-body{
+
+body {
     background:
-        radial-gradient(circle at 50% -10%,rgba(37,99,235,.24),transparent 35%),
+        radial-gradient(circle at 50% -10%, rgba(37,99,235,.24), transparent 35%),
         var(--bg);
-    color:var(--text);
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
-    min-height:100vh;
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    min-height: 100vh;
 }
-button,input,textarea{font:inherit}
-button{border:0;cursor:pointer}
-.app{max-width:620px;margin:auto;padding:14px 14px 35px}
-.header{display:flex;align-items:center;justify-content:space-between;margin-bottom:15px}
-.logo{display:flex;align-items:center;gap:10px}
-.logo-icon{
-    width:42px;height:42px;border-radius:13px;display:flex;align-items:center;
-    justify-content:center;background:linear-gradient(135deg,#2563eb,#7c3aed);
-    font-size:22px;box-shadow:0 8px 25px rgba(37,99,235,.3)
+
+button,
+input,
+textarea {
+    font: inherit;
 }
-.logo-title{font-size:18px;font-weight:800}
-.logo-sub{font-size:11px;color:var(--muted);margin-top:2px}
-.langs{display:flex;gap:4px;padding:4px;background:#0a1423;border:1px solid var(--border);border-radius:12px}
-.lang-btn{padding:7px 8px;border-radius:8px;background:transparent;color:#8290a4;font-size:11px;font-weight:700}
-.lang-btn.active{background:#1d4ed8;color:white}
-.balance{
-    background:linear-gradient(135deg,rgba(37,99,235,.35),rgba(124,58,237,.2)),var(--card);
-    border:1px solid rgba(59,130,246,.25);border-radius:20px;padding:17px;margin-bottom:17px
+
+button {
+    border: 0;
+    cursor: pointer;
 }
-.balance-top{display:flex;justify-content:space-between;align-items:center}
-.balance-label{color:#aebbd0;font-size:12px}
-.balance-value{font-size:25px;font-weight:900;margin-top:4px}
-.topup-small{padding:10px 13px;background:#2563eb;color:white;border-radius:11px;font-size:12px;font-weight:800}
-.page{display:none}
-.page.active{display:block}
-.page-head{display:flex;align-items:center;gap:10px;margin-bottom:17px}
-.back{width:39px;height:39px;border-radius:12px;background:#0d1929;color:white;border:1px solid var(--border);font-size:20px}
-.page-title{font-size:22px;font-weight:900}
-.page-subtitle{color:var(--muted);font-size:12px;margin-top:3px}
-.section-title{font-size:14px;font-weight:800;margin:19px 0 10px}
-.services{display:grid;grid-template-columns:1fr 1fr;gap:11px}
-.service{
-    position:relative;text-align:left;min-height:130px;padding:15px;border-radius:18px;color:white;
-    background:linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.015)),var(--card);
-    border:1px solid var(--border);transition:.15s
+
+.app {
+    max-width: 620px;
+    margin: auto;
+    padding: 14px 14px 35px;
 }
-.service:active{transform:scale(.97)}
-.service-icon{width:43px;height:43px;display:flex;align-items:center;justify-content:center;border-radius:13px;background:#111f34;font-size:23px;margin-bottom:12px}
-.service-title{font-size:14px;font-weight:850}
-.service-desc{color:var(--muted);font-size:10px;line-height:1.4;margin-top:5px}
-.arrow{position:absolute;right:13px;bottom:13px;color:#63738b}
-.warning{display:flex;gap:10px;align-items:flex-start;margin-top:10px;padding:12px;border-radius:13px;background:rgba(239,68,68,.11);border:1px solid rgba(239,68,68,.45);color:#ffb4b4;font-size:11px;line-height:1.45}
-.warning strong{display:block;color:#ff5c5c;font-size:12px;margin-bottom:2px}
-.warning-icon{font-size:19px;line-height:1}
-.card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:15px;margin-bottom:11px}
-.input-label{display:block;color:#aab7c9;font-size:11px;margin-bottom:7px}
-.input{width:100%;background:#07111f;border:1px solid #1b2a40;border-radius:12px;padding:13px;color:white;outline:none}
-.input:focus{border-color:#2563eb}
-textarea.input{min-height:78px}
-.primary{width:100%;margin-top:11px;padding:13px;border-radius:12px;background:linear-gradient(135deg,#2563eb,#3b82f6);color:white;font-weight:850}
-.secondary{width:100%;padding:12px;border-radius:12px;background:#142238;color:white;font-weight:750}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-.option{padding:13px;background:#0b1728;border:1px solid var(--border);border-radius:13px;color:white;text-align:left}
-.option.selected{border-color:#3b82f6;background:rgba(37,99,235,.12)}
-.option-name{font-weight:850;font-size:13px}
-.option-price{color:#60a5fa;font-size:12px;font-weight:800;margin-top:5px}
-.option-meta{color:#718096;font-size:10px;margin-top:4px}
-.premium-card{position:relative;overflow:hidden}
-.premium-card::after{content:"";position:absolute;width:100px;height:100px;right:-35px;top:-35px;background:rgba(124,58,237,.15);border-radius:50%}
-.badge{display:inline-flex;padding:5px 8px;border-radius:7px;background:rgba(59,130,246,.13);color:#60a5fa;font-size:9px;font-weight:850;margin-top:7px}
-.admin-badge{background:rgba(245,158,11,.12);color:#fbbf24}
-.game-list{display:grid;gap:10px}
-.game-card{display:flex;align-items:center;gap:13px;width:100%;padding:15px;text-align:left;border-radius:17px;background:var(--card);border:1px solid var(--border);color:white}
-.game-icon{width:49px;height:49px;flex:none;border-radius:14px;display:flex;align-items:center;justify-content:center;background:#132139;font-size:24px}
-.game-name{font-size:14px;font-weight:850}
-.game-info{color:var(--muted);font-size:10px;margin-top:4px}
-.game-arrow{margin-left:auto;color:#60708a}
-.package{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;padding:14px;border-radius:14px;background:#0b1728;border:1px solid var(--border);color:white;margin-bottom:8px;text-align:left}
-.package-left{min-width:0}
-.package-name{font-size:13px;font-weight:850}
-.package-desc{font-size:10px;color:var(--muted);margin-top:4px}
-.package-price{color:#60a5fa;font-size:13px;font-weight:900;white-space:nowrap}
-.empty{padding:28px 15px;text-align:center;color:var(--muted);background:var(--card);border:1px dashed #24344d;border-radius:16px}
-.spinner{width:27px;height:27px;border:3px solid #26354b;border-top-color:#3b82f6;border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 10px}
-@keyframes spin{to{transform:rotate(360deg)}}
-.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(20px);opacity:0;pointer-events:none;background:#172235;border:1px solid #2b3b54;color:white;padding:12px 15px;border-radius:12px;font-size:12px;z-index:1000;max-width:90%;text-align:center;transition:.2s}
-.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-.hidden{display:none!important}
-@media(max-width:390px){
-    .langs{gap:2px}.lang-btn{padding:6px 5px;font-size:10px}.services{gap:8px}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #2563eb, #7c3aed);
+    font-size: 22px;
+    box-shadow: 0 8px 25px rgba(37,99,235,.3);
+}
+
+.logo-title {
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.logo-sub {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 2px;
+}
+
+.langs {
+    display: flex;
+    gap: 4px;
+    padding: 4px;
+    background: #0a1423;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+}
+
+.lang-btn {
+    padding: 7px 8px;
+    border-radius: 8px;
+    background: transparent;
+    color: #8290a4;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.lang-btn.active {
+    background: #1d4ed8;
+    color: white;
+}
+
+.balance {
+    background:
+        linear-gradient(135deg, rgba(37,99,235,.35), rgba(124,58,237,.2)),
+        var(--card);
+    border: 1px solid rgba(59,130,246,.25);
+    border-radius: 20px;
+    padding: 17px;
+    margin-bottom: 17px;
+}
+
+.balance-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.balance-label {
+    color: #aebbd0;
+    font-size: 12px;
+}
+
+.balance-value {
+    font-size: 25px;
+    font-weight: 900;
+    margin-top: 4px;
+}
+
+.topup-small {
+    padding: 10px 13px;
+    background: #2563eb;
+    color: white;
+    border-radius: 11px;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
+}
+
+.page-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 17px;
+}
+
+.back {
+    width: 39px;
+    height: 39px;
+    border-radius: 12px;
+    background: #0d1929;
+    color: white;
+    border: 1px solid var(--border);
+    font-size: 20px;
+}
+
+.page-title {
+    font-size: 22px;
+    font-weight: 900;
+}
+
+.page-subtitle {
+    color: var(--muted);
+    font-size: 12px;
+    margin-top: 3px;
+}
+
+.section-title {
+    font-size: 14px;
+    font-weight: 800;
+    margin: 19px 0 10px;
+}
+
+.services {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 11px;
+}
+
+.service {
+    position: relative;
+    text-align: left;
+    min-height: 130px;
+    padding: 15px;
+    border-radius: 18px;
+    color: white;
+    background:
+        linear-gradient(145deg, rgba(255,255,255,.045), rgba(255,255,255,.015)),
+        var(--card);
+    border: 1px solid var(--border);
+    transition: .15s;
+}
+
+.service:active {
+    transform: scale(.97);
+}
+
+.service-icon {
+    width: 43px;
+    height: 43px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 13px;
+    background: #111f34;
+    font-size: 23px;
+    margin-bottom: 12px;
+}
+
+.service-title {
+    font-size: 14px;
+    font-weight: 850;
+}
+
+.service-desc {
+    color: var(--muted);
+    font-size: 10px;
+    line-height: 1.4;
+    margin-top: 5px;
+}
+
+.arrow {
+    position: absolute;
+    right: 13px;
+    bottom: 13px;
+    color: #63738b;
+}
+
+.warning {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    margin-top: 10px;
+    padding: 12px;
+    border-radius: 13px;
+    background: rgba(239,68,68,.11);
+    border: 1px solid rgba(239,68,68,.45);
+    color: #ffb4b4;
+    font-size: 11px;
+    line-height: 1.45;
+}
+
+.warning strong {
+    display: block;
+    color: #ff5c5c;
+    font-size: 12px;
+    margin-bottom: 2px;
+}
+
+.warning-icon {
+    font-size: 19px;
+    line-height: 1;
+}
+
+.card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 15px;
+    margin-bottom: 11px;
+}
+
+.input-label {
+    display: block;
+    color: #aab7c9;
+    font-size: 11px;
+    margin-bottom: 7px;
+}
+
+.input {
+    width: 100%;
+    background: #07111f;
+    border: 1px solid #1b2a40;
+    border-radius: 12px;
+    padding: 13px;
+    color: white;
+    outline: none;
+}
+
+.input:focus {
+    border-color: #2563eb;
+}
+
+textarea.input {
+    min-height: 78px;
+}
+
+.primary {
+    width: 100%;
+    margin-top: 11px;
+    padding: 13px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #2563eb, #3b82f6);
+    color: white;
+    font-weight: 850;
+}
+
+.secondary {
+    width: 100%;
+    padding: 12px;
+    border-radius: 12px;
+    background: #142238;
+    color: white;
+    font-weight: 750;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 9px;
+}
+
+.option {
+    padding: 13px;
+    background: #0b1728;
+    border: 1px solid var(--border);
+    border-radius: 13px;
+    color: white;
+    text-align: left;
+}
+
+.option.selected {
+    border-color: #3b82f6;
+    background: rgba(37,99,235,.12);
+}
+
+.option-name {
+    font-weight: 850;
+    font-size: 13px;
+}
+
+.option-price {
+    color: #60a5fa;
+    font-size: 12px;
+    font-weight: 800;
+    margin-top: 5px;
+}
+
+.option-meta {
+    color: #718096;
+    font-size: 10px;
+    margin-top: 4px;
+}
+
+.premium-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.premium-card::after {
+    content: "";
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    right: -35px;
+    top: -35px;
+    background: rgba(124,58,237,.15);
+    border-radius: 50%;
+}
+
+.badge {
+    display: inline-flex;
+    padding: 5px 8px;
+    border-radius: 7px;
+    background: rgba(59,130,246,.13);
+    color: #60a5fa;
+    font-size: 9px;
+    font-weight: 850;
+    margin-top: 7px;
+}
+
+.admin-badge {
+    background: rgba(245,158,11,.12);
+    color: #fbbf24;
+}
+
+.game-list {
+    display: grid;
+    gap: 10px;
+}
+
+.game-card {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    width: 100%;
+    padding: 15px;
+    text-align: left;
+    border-radius: 17px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: white;
+}
+
+.game-icon {
+    width: 49px;
+    height: 49px;
+    flex: none;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #132139;
+    font-size: 24px;
+}
+
+.game-name {
+    font-size: 14px;
+    font-weight: 850;
+}
+
+.game-info {
+    color: var(--muted);
+    font-size: 10px;
+    margin-top: 4px;
+}
+
+.game-arrow {
+    margin-left: auto;
+    color: #60708a;
+}
+
+.package {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    width: 100%;
+    padding: 14px;
+    border-radius: 14px;
+    background: #0b1728;
+    border: 1px solid var(--border);
+    color: white;
+    margin-bottom: 8px;
+    text-align: left;
+}
+
+.package-left {
+    min-width: 0;
+}
+
+.package-name {
+    font-size: 13px;
+    font-weight: 850;
+}
+
+.package-desc {
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 4px;
+}
+
+.package-price {
+    color: #60a5fa;
+    font-size: 13px;
+    font-weight: 900;
+    white-space: nowrap;
+}
+
+.empty {
+    padding: 28px 15px;
+    text-align: center;
+    color: var(--muted);
+    background: var(--card);
+    border: 1px dashed #24344d;
+    border-radius: 16px;
+}
+
+.spinner {
+    width: 27px;
+    height: 27px;
+    border: 3px solid #26354b;
+    border-top-color: #3b82f6;
+    border-radius: 50%;
+    animation: spin .7s linear infinite;
+    margin: 0 auto 10px;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.toast {
+    position: fixed;
+    left: 50%;
+    bottom: 22px;
+    transform: translateX(-50%) translateY(20px);
+    opacity: 0;
+    pointer-events: none;
+    background: #172235;
+    border: 1px solid #2b3b54;
+    color: white;
+    padding: 12px 15px;
+    border-radius: 12px;
+    font-size: 12px;
+    z-index: 1000;
+    max-width: 90%;
+    text-align: center;
+    transition: .2s;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+.hidden {
+    display: none !important;
+}
+
+@media(max-width:390px) {
+    .langs {
+        gap: 2px;
+    }
+
+    .lang-btn {
+        padding: 6px 5px;
+        font-size: 10px;
+    }
+
+    .services {
+        gap: 8px;
+    }
 }
 </style>
 </head>
 
 <body>
+
 <div class="app">
 
 <header class="header">
+
     <div class="logo">
-        <div class="logo-icon">⭐</div>
-        <div>
-            <div class="logo-title">JV Stars</div>
-            <div class="logo-sub">@jvstarsbot</div>
+
+        <div class="logo-icon">
+            ⭐
         </div>
+
+        <div>
+            <div class="logo-title">
+                JV Stars
+            </div>
+
+            <div class="logo-sub">
+                @jvstarsbot
+            </div>
+        </div>
+
     </div>
+
     <div class="langs">
-        <button class="lang-btn" data-lang="uz">UZ</button>
-        <button class="lang-btn" data-lang="ru">RU</button>
-        <button class="lang-btn" data-lang="en">EN</button>
-        <button class="lang-btn" data-lang="de">DE</button>
+
+        <button class="lang-btn" data-lang="uz">
+            UZ
+        </button>
+
+        <button class="lang-btn" data-lang="ru">
+            RU
+        </button>
+
+        <button class="lang-btn" data-lang="en">
+            EN
+        </button>
+
+        <button class="lang-btn" data-lang="de">
+            DE
+        </button>
+
     </div>
+
 </header>
 
+
 <div class="balance">
+
     <div class="balance-top">
+
         <div>
-            <div class="balance-label" data-i18n="balance">Balansingiz</div>
-            <div class="balance-value" id="balance">0 UZS</div>
+
+            <div
+                class="balance-label"
+                data-i18n="balance"
+            >
+                Balansingiz
+            </div>
+
+            <div
+                class="balance-value"
+                id="balance"
+            >
+                0 UZS
+            </div>
+
         </div>
-        <button class="topup-small" onclick="openPage('topupPage')" data-i18n="topup">Hisobni to‘ldirish</button>
+
+        <button
+            class="topup-small"
+            onclick="openPage('topupPage')"
+            data-i18n="topup"
+        >
+            Hisobni to‘ldirish
+        </button>
+
     </div>
+
 </div>
 
-<section id="homePage" class="page active">
-    <div class="section-title" data-i18n="services">Xizmatlar</div>
+
+<!-- HOME -->
+
+<section
+    id="homePage"
+    class="page active"
+>
+
+    <div
+        class="section-title"
+        data-i18n="services"
+    >
+        Xizmatlar
+    </div>
+
     <div class="services">
 
-        <button class="service" onclick="openPage('starsPage')">
-            <div class="service-icon">⭐</div>
-            <div class="service-title" data-i18n="stars">Telegram Stars</div>
-            <div class="service-desc" data-i18n="starsDesc">Stars sotib olish</div>
-            <div class="arrow">›</div>
+
+        <!-- STARS -->
+
+        <button
+            class="service"
+            onclick="openPage('starsPage')"
+        >
+
+            <div class="service-icon">
+                ⭐
+            </div>
+
+            <div
+                class="service-title"
+                data-i18n="stars"
+            >
+                Telegram Stars
+            </div>
+
+            <div
+                class="service-desc"
+                data-i18n="starsDesc"
+            >
+                Stars sotib olish
+            </div>
+
+            <div class="arrow">
+                ›
+            </div>
+
         </button>
 
-        <button class="service" onclick="openPage('premiumPage')">
-            <div class="service-icon">💎</div>
-            <div class="service-title" data-i18n="premium">Telegram Premium</div>
-            <div class="service-desc" data-i18n="premiumDesc">Premium obuna</div>
-            <div class="arrow">›</div>
+
+        <!-- PREMIUM -->
+
+        <button
+            class="service"
+            onclick="openPage('premiumPage')"
+        >
+
+            <div class="service-icon">
+                💎
+            </div>
+
+            <div
+                class="service-title"
+                data-i18n="premium"
+            >
+                Telegram Premium
+            </div>
+
+            <div
+                class="service-desc"
+                data-i18n="premiumDesc"
+            >
+                Premium obuna
+            </div>
+
+            <div class="arrow">
+                ›
+            </div>
+
         </button>
 
-        <button class="service" onclick="openPage('giftsPage')">
-            <div class="service-icon">🎁</div>
-            <div class="service-title" data-i18n="gifts">Telegram Gifts</div>
-            <div class="service-desc" data-i18n="giftsDesc">Telegram sovg‘alari</div>
-            <div class="arrow">›</div>
+
+        <!-- GIFTS -->
+
+        <button
+            class="service"
+            onclick="openPage('giftsPage')"
+        >
+
+            <div class="service-icon">
+                🎁
+            </div>
+
+            <div
+                class="service-title"
+                data-i18n="gifts"
+            >
+                Telegram Gifts
+            </div>
+
+            <div
+                class="service-desc"
+                data-i18n="giftsDesc"
+            >
+                Telegram sovg‘alari
+            </div>
+
+            <div class="arrow">
+                ›
+            </div>
+
         </button>
 
-        <button class="service" onclick="openPage('numbersPage')">
-            <div class="service-icon">📱</div>
-            <div class="service-title" data-i18n="numbers">Virtual raqam</div>
-            <div class="service-desc" data-i18n="numbersDesc">Virtual raqam olish</div>
-            <div class="arrow">›</div>
+
+        <!-- NUMBERS -->
+
+        <button
+            class="service"
+            onclick="openPage('numbersPage')"
+        >
+
+            <div class="service-icon">
+                📱
+            </div>
+
+            <div
+                class="service-title"
+                data-i18n="numbers"
+            >
+                Virtual raqam
+            </div>
+
+            <div
+                class="service-desc"
+                data-i18n="numbersDesc"
+            >
+                Virtual raqam olish
+            </div>
+
+            <div class="arrow">
+                ›
+            </div>
+
         </button>
 
-        <button class="service" onclick="openPage('gamesPage')">
-            <div class="service-icon">🎮</div>
-            <div class="service-title" data-i18n="gameTopup">Game Top Up</div>
-            <div class="service-desc" data-i18n="gameTopupDesc">O‘yinlar uchun to‘lov</div>
-            <div class="arrow">›</div>
+
+        <!-- GAME TOP UP -->
+
+        <button
+            class="service"
+            onclick="openPage('gamesPage')"
+        >
+
+            <div class="service-icon">
+                🎮
+            </div>
+
+            <div
+                class="service-title"
+                data-i18n="gameTopup"
+            >
+                Game Top Up
+            </div>
+
+            <div
+                class="service-desc"
+                data-i18n="gameTopupDesc"
+            >
+                O‘yinlar uchun to‘lov
+            </div>
+
+            <div class="arrow">
+                ›
+            </div>
+
         </button>
 
-        <button class="service" onclick="openPage('topupPage')">
-            <div class="service-icon">💳</div>
-            <div class="service-title" data-i18n="topupTitle">Hisobni to‘ldirish</div>
-            <div class="service-desc" data-i18n="topupDesc">Balansga mablag‘ qo‘shish</div>
-            <div class="arrow">›</div>
+
+        <!-- BALANCE TOP UP -->
+
+        <button
+            class="service"
+            onclick="openPage('topupPage')"
+        >
+
+            <div class="service-icon">
+                💳
+            </div>
+
+            <div
+                class="service-title"
+                data-i18n="topupTitle"
+            >
+                Hisobni to‘ldirish
+            </div>
+
+            <div
+                class="service-desc"
+                data-i18n="topupDesc"
+            >
+                Balansga mablag‘ qo‘shish
+            </div>
+
+            <div class="arrow">
+                ›
+            </div>
+
         </button>
+
     </div>
+
 
     <div class="warning">
-        <div class="warning-icon">⚠️</div>
-        <div>
-            <strong data-i18n="important">MUHIM!</strong>
-            <span data-i18n="adminWarning">Admin orqali olinadigan Premium uchun to‘lovni ushbu Mini App balansiga emas, faqat admin taqdim etgan karta orqali amalga oshiring.</span>
+
+        <div class="warning-icon">
+            ⚠️
         </div>
+
+        <div>
+
+            <strong data-i18n="important">
+                MUHIM!
+            </strong>
+
+            <span data-i18n="adminWarning">
+                Admin orqali olinadigan Premium uchun to‘lovni ushbu Mini App balansiga emas, faqat admin taqdim etgan karta orqali amalga oshiring.
+            </span>
+
+        </div>
+
     </div>
+
 </section>
 
-<section id="starsPage" class="page">
+
+<!-- STARS -->
+
+<section
+    id="starsPage"
+    class="page"
+>
+
     <div class="page-head">
-        <button class="back" onclick="goHome()">‹</button>
+
+        <button
+            class="back"
+            onclick="goHome()"
+        >
+            ‹
+        </button>
+
         <div>
-            <div class="page-title" data-i18n="stars">Telegram Stars</div>
-            <div class="page-subtitle" data-i18n="starsDesc">Stars sotib olish</div>
+
+            <div
+                class="page-title"
+                data-i18n="stars"
+            >
+                Telegram Stars
+            </div>
+
+            <div
+                class="page-subtitle"
+                data-i18n="starsDesc"
+            >
+                Stars sotib olish
+            </div>
+
         </div>
+
     </div>
+
+
     <div class="card">
-        <label class="input-label" data-i18n="username">Telegram username</label>
-        <input id="starsUsername" class="input" placeholder="@username" data-i18n-ph="usernamePlaceholder">
-        <button class="secondary" style="margin-top:10px" onclick="setMyUsername('starsUsername')" data-i18n="myAccount">O‘zimga</button>
+
+        <label
+            class="input-label"
+            data-i18n="username"
+        >
+            Telegram username
+        </label>
+
+        <input
+            id="starsUsername"
+            class="input"
+            placeholder="@username"
+            data-i18n-ph="usernamePlaceholder"
+        >
+
+        <button
+            class="secondary"
+            style="margin-top:10px"
+            onclick="setMyUsername('starsUsername')"
+            data-i18n="myAccount"
+        >
+            O‘zimga
+        </button>
+
     </div>
-    <div class="section-title" data-i18n="packages">Paketlar</div>
-    <div class="grid" id="starsPackages"></div>
-    <button class="primary" onclick="buyStars()" data-i18n="buy">Sotib olish</button>
+
+
+    <div
+        class="section-title"
+        data-i18n="packages"
+    >
+        Paketlar
+    </div>
+
+    <div
+        class="grid"
+        id="starsPackages"
+    ></div>
+
+
+    <button
+        class="primary"
+        onclick="buyStars()"
+        data-i18n="buy"
+    >
+        Sotib olish
+    </button>
+
 </section>
 
-<section id="premiumPage" class="page">
+
+<!-- PREMIUM -->
+
+<section
+    id="premiumPage"
+    class="page"
+>
+
     <div class="page-head">
-        <button class="back" onclick="goHome()">‹</button>
+
+        <button
+            class="back"
+            onclick="goHome()"
+        >
+            ‹
+        </button>
+
         <div>
-            <div class="page-title" data-i18n="premium">Telegram Premium</div>
-            <div class="page-subtitle" data-i18n="premiumDesc">Premium obuna</div>
+
+            <div
+                class="page-title"
+                data-i18n="premium"
+            >
+                Telegram Premium
+            </div>
+
+            <div
+                class="page-subtitle"
+                data-i18n="premiumDesc"
+            >
+                Premium obuna
+            </div>
+
         </div>
+
     </div>
+
+
     <div class="card">
-        <label class="input-label" data-i18n="username">Telegram username</label>
-        <input id="premiumUsername" class="input" placeholder="@username" data-i18n-ph="usernamePlaceholder">
-        <button class="secondary" style="margin-top:10px" onclick="setMyUsername('premiumUsername')" data-i18n="myAccount">O‘zimga</button>
+
+        <label
+            class="input-label"
+            data-i18n="username"
+        >
+            Telegram username
+        </label>
+
+        <input
+            id="premiumUsername"
+            class="input"
+            placeholder="@username"
+            data-i18n-ph="usernamePlaceholder"
+        >
+
+        <button
+            class="secondary"
+            style="margin-top:10px"
+            onclick="setMyUsername('premiumUsername')"
+            data-i18n="myAccount"
+        >
+            O‘zimga
+        </button>
+
     </div>
-    <div class="section-title" data-i18n="premiumPlans">Premium tariflari</div>
+
+
+    <div
+        class="section-title"
+        data-i18n="premiumPlans"
+    >
+        Premium tariflari
+    </div>
+
     <div id="premiumPlans"></div>
+
+
     <div class="warning">
-        <div class="warning-icon">⚠️</div>
-        <div>
-            <strong data-i18n="important">MUHIM!</strong>
-            <span data-i18n="premiumWarning">Admin orqali olinadigan Premium uchun to‘lov Mini App balansidan emas, admin bergan karta orqali qilinadi.</span>
+
+        <div class="warning-icon">
+            ⚠️
         </div>
+
+        <div>
+
+            <strong data-i18n="important">
+                MUHIM!
+            </strong>
+
+            <span data-i18n="premiumWarning">
+                Admin orqali olinadigan Premium uchun to‘lov Mini App balansidan emas, admin bergan karta orqali qilinadi.
+            </span>
+
+        </div>
+
     </div>
-    <button class="primary" onclick="buyPremium()" data-i18n="buy">Sotib olish</button>
+
+
+    <button
+        class="primary"
+        onclick="buyPremium()"
+        data-i18n="buy"
+    >
+        Sotib olish
+    </button>
+
 </section>
 
-<section id="giftsPage" class="page">
+
+<!-- GIFTS -->
+
+<section
+    id="giftsPage"
+    class="page"
+>
+
     <div class="page-head">
-        <button class="back" onclick="goHome()">‹</button>
+
+        <button
+            class="back"
+            onclick="goHome()"
+        >
+            ‹
+        </button>
+
         <div>
-            <div class="page-title" data-i18n="gifts">Telegram Gifts</div>
-            <div class="page-subtitle" data-i18n="giftsDesc">Telegram sovg‘alari</div>
+
+            <div
+                class="page-title"
+                data-i18n="gifts"
+            >
+                Telegram Gifts
+            </div>
+
+            <div
+                class="page-subtitle"
+                data-i18n="giftsDesc"
+            >
+                Telegram sovg‘alari
+            </div>
+
         </div>
+
     </div>
+
 
     <div class="card">
-        <label class="input-label" data-i18n="username">Telegram username</label>
-        <input id="giftUsername" class="input" placeholder="@username" data-i18n-ph="usernamePlaceholder">
 
-        <button class="secondary" style="margin-top:10px" onclick="setMyUsername('giftUsername')" data-i18n="myAccount">O‘zimga</button>
+        <label
+            class="input-label"
+            data-i18n="username"
+        >
+            Telegram username
+        </label>
 
-        <label class="input-label" style="margin-top:13px" data-i18n="giftComment">Izoh</label>
-        <textarea id="giftComment"
-                  class="input"
-                  rows="3"
-                  maxlength="200"
-                  placeholder="Izoh yozing..."
-                  data-i18n-ph="giftCommentPlaceholder"
-                  style="resize:none"></textarea>
+        <input
+            id="giftUsername"
+            class="input"
+            placeholder="@username"
+            data-i18n-ph="usernamePlaceholder"
+        >
+
+
+        <button
+            class="secondary"
+            style="margin-top:10px"
+            onclick="setMyUsername('giftUsername')"
+            data-i18n="myAccount"
+        >
+            O‘zimga
+        </button>
+
+
+        <!-- YANGI: GIFT IZOHI -->
+
+        <label
+            class="input-label"
+            style="margin-top:13px"
+            data-i18n="giftComment"
+        >
+            Izoh
+        </label>
+
+        <textarea
+            id="giftComment"
+            class="input"
+            rows="3"
+            maxlength="200"
+            placeholder="Izoh yozing..."
+            data-i18n-ph="giftCommentPlaceholder"
+            style="resize:none"
+        ></textarea>
+
     </div>
 
-    <div class="section-title" data-i18n="giftSelection">Sovg‘ani tanlang</div>
-    <div class="grid" id="giftList"></div>
-    <button class="primary" onclick="buyGift()" data-i18n="buy">Sotib olish</button>
+
+    <div
+        class="section-title"
+        data-i18n="giftSelection"
+    >
+        Sovg‘ani tanlang
+    </div>
+
+
+    <div
+        class="grid"
+        id="giftList"
+    ></div>
+
+
+    <button
+        class="primary"
+        onclick="buyGift()"
+        data-i18n="buy"
+    >
+        Sotib olish
+    </button>
+
 </section>
 
-<section id="numbersPage" class="page">
+
+<!-- NUMBERS -->
+
+<section
+    id="numbersPage"
+    class="page"
+>
+
     <div class="page-head">
-        <button class="back" onclick="goHome()">‹</button>
+
+        <button
+            class="back"
+            onclick="goHome()"
+        >
+            ‹
+        </button>
+
         <div>
-            <div class="page-title" data-i18n="numbers">Virtual raqam</div>
-            <div class="page-subtitle" data-i18n="numbersDesc">Virtual raqam olish</div>
+
+            <div
+                class="page-title"
+                data-i18n="numbers"
+            >
+                Virtual raqam
+            </div>
+
+            <div
+                class="page-subtitle"
+                data-i18n="numbersDesc"
+            >
+                Virtual raqam olish
+            </div>
+
         </div>
+
     </div>
+
+
     <div class="empty">
-        📱<br><br>
-        <span data-i18n="comingSoon">Xizmat tez orada ishga tushadi.</span>
+
+        📱
+
+        <br>
+        <br>
+
+        <span data-i18n="comingSoon">
+            Xizmat tez orada ishga tushadi.
+        </span>
+
     </div>
+
 </section>
 
-<section id="gamesPage" class="page">
+
+<!-- GAME TOP UP -->
+
+<section
+    id="gamesPage"
+    class="page"
+>
+
     <div class="page-head">
-        <button class="back" onclick="goHome()">‹</button>
+
+        <button
+            class="back"
+            onclick="goHome()"
+        >
+            ‹
+        </button>
+
         <div>
-            <div class="page-title" data-i18n="gameTopup">Game Top Up</div>
-            <div class="page-subtitle" data-i18n="chooseGame">O‘yinni tanlang</div>
+
+            <div
+                class="page-title"
+                data-i18n="gameTopup"
+            >
+                Game Top Up
+            </div>
+
+            <div
+                class="page-subtitle"
+                data-i18n="chooseGame"
+            >
+                O‘yinni tanlang
+            </div>
+
         </div>
+
     </div>
+
 
     <div class="game-list">
-        <button class="game-card" onclick="openGame('pubg')">
-            <div class="game-icon">🎮</div>
-            <div><div class="game-name">PUBG Mobile</div><div class="game-info" data-i18n="pubgInfo">UID orqali UC to‘ldirish</div></div>
-            <div class="game-arrow">›</div>
+
+
+        <!-- PUBG -->
+
+        <button
+            class="game-card"
+            onclick="openGame('pubg')"
+        >
+
+            <div class="game-icon">
+                🎮
+            </div>
+
+            <div>
+
+                <div class="game-name">
+                    PUBG Mobile
+                </div>
+
+                <div
+                    class="game-info"
+                    data-i18n="pubgInfo"
+                >
+                    UID orqali UC to‘ldirish
+                </div>
+
+            </div>
+
+            <div class="game-arrow">
+                ›
+            </div>
+
         </button>
 
-        <button class="game-card" onclick="openGame('mlbb')">
-            <div class="game-icon">🎮</div>
-            <div><div class="game-name">Mobile Legends</div><div class="game-info" data-i18n="mlbbInfo">User ID + Zone ID</div></div>
-            <div class="game-arrow">›</div>
+
+        <!-- MLBB -->
+
+        <button
+            class="game-card"
+            onclick="openGame('mlbb')"
+        >
+
+            <div class="game-icon">
+                🎮
+            </div>
+
+            <div>
+
+                <div class="game-name">
+                    Mobile Legends
+                </div>
+
+                <div
+                    class="game-info"
+                    data-i18n="mlbbInfo"
+                >
+                    User ID + Zone ID
+                </div>
+
+            </div>
+
+            <div class="game-arrow">
+                ›
+            </div>
+
         </button>
 
-        <button class="game-card" onclick="openGame('codm')">
-            <div class="game-icon">🎮</div>
-            <div><div class="game-name">Call of Duty Mobile</div><div class="game-info" data-i18n="codmInfo">UID orqali top up</div></div>
-            <div class="game-arrow">›</div>
+
+        <!-- CODM -->
+
+        <button
+            class="game-card"
+            onclick="openGame('codm')"
+        >
+
+            <div class="game-icon">
+                🎮
+            </div>
+
+            <div>
+
+                <div class="game-name">
+                    Call of Duty Mobile
+                </div>
+
+                <div
+                    class="game-info"
+                    data-i18n="codmInfo"
+                >
+                    UID orqali top up
+                </div>
+
+            </div>
+
+            <div class="game-arrow">
+                ›
+            </div>
+
         </button>
 
-        <button class="game-card" onclick="openGame('fc')">
-            <div class="game-icon">⚽</div>
-            <div><div class="game-name">EA FC Mobile</div><div class="game-info" data-i18n="fcInfo">Player ID orqali top up</div></div>
-            <div class="game-arrow">›</div>
+
+        <!-- FC MOBILE -->
+
+        <button
+            class="game-card"
+            onclick="openGame('fc')"
+        >
+
+            <div class="game-icon">
+                ⚽
+            </div>
+
+            <div>
+
+                <div class="game-name">
+                    EA FC Mobile
+                </div>
+
+                <div
+                    class="game-info"
+                    data-i18n="fcInfo"
+                >
+                    Player ID orqali top up
+                </div>
+
+            </div>
+
+            <div class="game-arrow">
+                ›
+            </div>
+
         </button>
+
     </div>
+
 </section>
 
-<section id="gameFormPage" class="page">
-    <div class="page-head">
-        <button class="back" onclick="openPage('gamesPage')">‹</button>
-        <div>
-            <div class="page-title" id="selectedGameTitle">Game</div>
-            <div class="page-subtitle" data-i18n="selectPackage">Paketni tanlang</div>
-        </div>
-    </div>
-    <div class="card" id="gameFields"></div>
 
-    <div class="section-title" data-i18n="availablePackages">Mavjud paketlar</div>
+<!-- GAME FORM -->
+
+<section
+    id="gameFormPage"
+    class="page"
+>
+
+    <div class="page-head">
+
+        <button
+            class="back"
+            onclick="openPage('gamesPage')"
+        >
+            ‹
+        </button>
+
+        <div>
+
+            <div
+                class="page-title"
+                id="selectedGameTitle"
+            >
+                Game
+            </div>
+
+            <div
+                class="page-subtitle"
+                data-i18n="selectPackage"
+            >
+                Paketni tanlang
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div
+        class="card"
+        id="gameFields"
+    ></div>
+
+
+    <div
+        class="section-title"
+        data-i18n="availablePackages"
+    >
+        Mavjud paketlar
+    </div>
+
+
     <div id="gamePackages">
+
         <div class="empty">
+
             <div class="spinner"></div>
-            <span data-i18n="loading">Paketlar yuklanmoqda...</span>
+
+            <span data-i18n="loading">
+                Paketlar yuklanmoqda...
+            </span>
+
         </div>
+
     </div>
 
-    <button id="gameBuyBtn" class="primary hidden" onclick="buyGame()" data-i18n="buy">Sotib olish</button>
+
+    <button
+        id="gameBuyBtn"
+        class="primary hidden"
+        onclick="buyGame()"
+        data-i18n="buy"
+    >
+        Sotib olish
+    </button>
+
 </section>
 
-<section id="topupPage" class="page">
+
+<!-- TOP UP -->
+
+<section
+    id="topupPage"
+    class="page"
+>
+
     <div class="page-head">
-        <button class="back" onclick="goHome()">‹</button>
+
+        <button
+            class="back"
+            onclick="goHome()"
+        >
+            ‹
+        </button>
+
         <div>
-            <div class="page-title" data-i18n="topupTitle">Hisobni to‘ldirish</div>
-            <div class="page-subtitle" data-i18n="topupDesc">Balansga mablag‘ qo‘shish</div>
+
+            <div
+                class="page-title"
+                data-i18n="topupTitle"
+            >
+                Hisobni to‘ldirish
+            </div>
+
+            <div
+                class="page-subtitle"
+                data-i18n="topupDesc"
+            >
+                Balansga mablag‘ qo‘shish
+            </div>
+
         </div>
+
     </div>
-    <div class="section-title" data-i18n="chooseAmount">Summani tanlang</div>
-    <div class="grid" id="topupAmounts"></div>
-    <button class="primary" onclick="topupBalance()" data-i18n="continue">Davom etish</button>
+
+
+    <div
+        class="section-title"
+        data-i18n="chooseAmount"
+    >
+        Summani tanlang
+    </div>
+
+
+    <div
+        class="grid"
+        id="topupAmounts"
+    ></div>
+
+
+    <button
+        class="primary"
+        onclick="topupBalance()"
+        data-i18n="continue"
+    >
+        Davom etish
+    </button>
+
 </section>
 
 </div>
 
-<div id="toast" class="toast"></div>
+
+<div
+    id="toast"
+    class="toast"
+></div>
+
 
 <script>
-const tg = window.Telegram?.WebApp || null;
 
-if(tg){
+const tg =
+    window.Telegram?.WebApp || null;
+
+
+if (tg) {
     tg.ready();
     tg.expand();
 }
 
+
+/*
+=========================================================
+API
+=========================================================
+*/
+
 const GAME_API_BASE = "";
-const ADMIN_LINK = "https://t.me/faststarsbot_admin";
+
+const ADMIN_LINK =
+    "https://t.me/faststarsbot_admin";
+
+
+/*
+=========================================================
+TARJIMALAR
+=========================================================
+*/
 
 const I18N = {
-uz:{
-    balance:"Balansingiz",topup:"Hisobni to‘ldirish",services:"Xizmatlar",
-    stars:"Telegram Stars",starsDesc:"Stars sotib olish",
-    premium:"Telegram Premium",premiumDesc:"Premium obuna",premiumPlans:"Premium tariflari",
-    gifts:"Telegram Gifts",giftsDesc:"Telegram sovg‘alari",
-    numbers:"Virtual raqam",numbersDesc:"Virtual raqam olish",
-    gameTopup:"Game Top Up",gameTopupDesc:"O‘yinlar uchun to‘lov",chooseGame:"O‘yinni tanlang",
-    topupTitle:"Hisobni to‘ldirish",topupDesc:"Balansga mablag‘ qo‘shish",
-    username:"Telegram username",usernamePlaceholder:"@username",myAccount:"O‘zimga",
-    packages:"Paketlar",giftSelection:"Sovg‘ani tanlang",buy:"Sotib olish",continue:"Davom etish",
-    important:"MUHIM!",
-    adminWarning:"Admin orqali olinadigan Premium uchun to‘lovni ushbu Mini App balansiga emas, faqat admin taqdim etgan karta orqali amalga oshiring.",
-    premiumWarning:"Admin orqali olinadigan Premium uchun to‘lov Mini App balansidan emas, admin bergan karta orqali qilinadi.",
-    automatic:"Avtomatik",admin:"Admin orqali",api:"API orqali",
-    oneMonth:"1 oy",threeMonths:"3 oy",sixMonths:"6 oy",twelveMonths:"12 oy",
-    chooseAmount:"Summani tanlang",selectPackage:"Paketni tanlang",availablePackages:"Mavjud paketlar",loading:"Paketlar yuklanmoqda...",
-    pubgInfo:"UID orqali UC to‘ldirish",mlbbInfo:"User ID + Zone ID",codmInfo:"UID orqali top up",fcInfo:"Player ID orqali top up",
-    pubgUid:"PUBG Mobile UID",mlbbUserId:"Mobile Legends User ID",mlbbZoneId:"Mobile Legends Zone ID",codmUid:"Call of Duty Mobile UID",fcPlayerId:"EA FC Mobile Player ID",
-    uidPlaceholder:"UID kiriting",userIdPlaceholder:"User ID kiriting",zoneIdPlaceholder:"Zone ID kiriting",playerIdPlaceholder:"Player ID kiriting",
-    comingSoon:"Xizmat tez orada ishga tushadi.",
-    enterUsername:"Username kiriting.",invalidUsername:"Username noto‘g‘ri.",selectPlan:"Tarifni tanlang.",
-    providerUnavailable:"Avtomatik xizmat hozircha ulanmagan.",adminOpening:"Admin bilan bog‘lanish ochilmoqda...",
-    enterGameId:"Kerakli ID ma’lumotlarini kiriting.",selectGamePackage:"Paketni tanlang.",loadingError:"Paketlarni yuklashda xatolik.",
-    purchaseStarted:"Buyurtma yuborilmoqda...",topupStarted:"To‘lov sahifasi ochilmoqda...",
-    giftComment:"Izoh",giftCommentPlaceholder:"Izoh yozing..."
-},
-ru:{
-    balance:"Ваш баланс",topup:"Пополнить баланс",services:"Услуги",
-    stars:"Telegram Stars",starsDesc:"Покупка Stars",premium:"Telegram Premium",premiumDesc:"Подписка Premium",premiumPlans:"Тарифы Premium",
-    gifts:"Telegram Gifts",giftsDesc:"Подарки Telegram",numbers:"Виртуальный номер",numbersDesc:"Получить виртуальный номер",
-    gameTopup:"Game Top Up",gameTopupDesc:"Пополнение игровых аккаунтов",chooseGame:"Выберите игру",
-    topupTitle:"Пополнение баланса",topupDesc:"Пополнить внутренний баланс",
-    username:"Telegram username",usernamePlaceholder:"@username",myAccount:"Себе",
-    packages:"Пакеты",giftSelection:"Выберите подарок",buy:"Купить",continue:"Продолжить",
-    important:"ВАЖНО!",adminWarning:"Оплата Premium через администратора производится не на баланс Mini App, а только на карту, которую предоставит администратор.",
-    premiumWarning:"За Premium через администратора оплачивайте не с баланса Mini App, а на карту, указанную администратором.",
-    automatic:"Автоматически",admin:"Через администратора",api:"Через API",
-    oneMonth:"1 месяц",threeMonths:"3 месяца",sixMonths:"6 месяцев",twelveMonths:"12 месяцев",
-    chooseAmount:"Выберите сумму",selectPackage:"Выберите пакет",availablePackages:"Доступные пакеты",loading:"Загрузка пакетов...",
-    pubgInfo:"Пополнение UC по UID",mlbbInfo:"User ID + Zone ID",codmInfo:"Пополнение по UID",fcInfo:"Пополнение по Player ID",
-    pubgUid:"PUBG Mobile UID",mlbbUserId:"Mobile Legends User ID",mlbbZoneId:"Mobile Legends Zone ID",codmUid:"Call of Duty Mobile UID",fcPlayerId:"EA FC Mobile Player ID",
-    uidPlaceholder:"Введите UID",userIdPlaceholder:"Введите User ID",zoneIdPlaceholder:"Введите Zone ID",playerIdPlaceholder:"Введите Player ID",
-    comingSoon:"Услуга скоро будет доступна.",enterUsername:"Введите username.",invalidUsername:"Неверный username.",
-    selectPlan:"Выберите тариф.",providerUnavailable:"Автоматическая услуга пока не подключена.",adminOpening:"Открываем связь с администратором...",
-    enterGameId:"Введите необходимые ID.",selectGamePackage:"Выберите пакет.",loadingError:"Ошибка загрузки пакетов.",
-    purchaseStarted:"Отправляем заказ...",topupStarted:"Открываем страницу оплаты...",
-    giftComment:"Комментарий",giftCommentPlaceholder:"Введите комментарий..."
-},
-en:{
-    balance:"Your balance",topup:"Top up balance",services:"Services",
-    stars:"Telegram Stars",starsDesc:"Buy Telegram Stars",premium:"Telegram Premium",premiumDesc:"Premium subscription",premiumPlans:"Premium plans",
-    gifts:"Telegram Gifts",giftsDesc:"Telegram gifts",numbers:"Virtual number",numbersDesc:"Get a virtual number",
-    gameTopup:"Game Top Up",gameTopupDesc:"Top up game accounts",chooseGame:"Choose a game",
-    topupTitle:"Top up balance",topupDesc:"Add funds to your balance",username:"Telegram username",usernamePlaceholder:"@username",myAccount:"My account",
-    packages:"Packages",giftSelection:"Choose a gift",buy:"Buy",continue:"Continue",important:"IMPORTANT!",
-    adminWarning:"For Premium purchased through the admin, do NOT pay into the Mini App balance. Payment must be sent only to the card provided by the admin.",
-    premiumWarning:"For admin Premium, payment is made to the card provided by the admin, not from the Mini App balance.",
-    automatic:"Automatic",admin:"Via admin",api:"Via API",oneMonth:"1 month",threeMonths:"3 months",sixMonths:"6 months",twelveMonths:"12 months",
-    chooseAmount:"Choose amount",selectPackage:"Choose a package",availablePackages:"Available packages",loading:"Loading packages...",
-    pubgInfo:"Top up UC using UID",mlbbInfo:"User ID + Zone ID",codmInfo:"Top up using UID",fcInfo:"Top up using Player ID",
-    pubgUid:"PUBG Mobile UID",mlbbUserId:"Mobile Legends User ID",mlbbZoneId:"Mobile Legends Zone ID",codmUid:"Call of Duty Mobile UID",fcPlayerId:"EA FC Mobile Player ID",
-    uidPlaceholder:"Enter UID",userIdPlaceholder:"Enter User ID",zoneIdPlaceholder:"Enter Zone ID",playerIdPlaceholder:"Enter Player ID",
-    comingSoon:"This service will be available soon.",enterUsername:"Enter username.",invalidUsername:"Invalid username.",selectPlan:"Select a plan.",
-    providerUnavailable:"Automatic service is not connected yet.",adminOpening:"Opening admin contact...",enterGameId:"Enter the required ID information.",
-    selectGamePackage:"Select a package.",loadingError:"Failed to load packages.",purchaseStarted:"Sending order...",topupStarted:"Opening payment page...",
-    giftComment:"Comment",giftCommentPlaceholder:"Enter a comment..."
-},
-de:{
-    balance:"Ihr Guthaben",topup:"Guthaben aufladen",services:"Dienste",
-    stars:"Telegram Stars",starsDesc:"Telegram Stars kaufen",premium:"Telegram Premium",premiumDesc:"Premium-Abonnement",premiumPlans:"Premium-Tarife",
-    gifts:"Telegram Gifts",giftsDesc:"Telegram-Geschenke",numbers:"Virtuelle Nummer",numbersDesc:"Virtuelle Nummer erhalten",
-    gameTopup:"Game Top Up",gameTopupDesc:"Spielkonten aufladen",chooseGame:"Spiel auswählen",
-    topupTitle:"Guthaben aufladen",topupDesc:"Guthaben hinzufügen",username:"Telegram-Benutzername",usernamePlaceholder:"@username",myAccount:"Mein Konto",
-    packages:"Pakete",giftSelection:"Geschenk auswählen",buy:"Kaufen",continue:"Weiter",important:"WICHTIG!",
-    adminWarning:"Für Premium über den Administrator darf die Zahlung NICHT auf das Mini-App-Guthaben erfolgen. Die Zahlung muss ausschließlich auf die vom Administrator angegebene Karte erfolgen.",
-    premiumWarning:"Bei Premium über den Administrator erfolgt die Zahlung auf die vom Administrator angegebene Karte, nicht über das Mini-App-Guthaben.",
-    automatic:"Automatisch",admin:"Über Admin",api:"Über API",oneMonth:"1 Monat",threeMonths:"3 Monate",sixMonths:"6 Monate",twelveMonths:"12 Monate",
-    chooseAmount:"Betrag auswählen",selectPackage:"Paket auswählen",availablePackages:"Verfügbare Pakete",loading:"Pakete werden geladen...",
-    pubgInfo:"UC-Aufladung per UID",mlbbInfo:"User ID + Zone ID",codmInfo:"Aufladung per UID",fcInfo:"Aufladung per Player ID",
-    pubgUid:"PUBG Mobile UID",mlbbUserId:"Mobile Legends User ID",mlbbZoneId:"Mobile Legends Zone ID",codmUid:"Call of Duty Mobile UID",fcPlayerId:"EA FC Mobile Player ID",
-    uidPlaceholder:"UID eingeben",userIdPlaceholder:"User ID eingeben",zoneIdPlaceholder:"Zone ID eingeben",playerIdPlaceholder:"Player ID eingeben",
-    comingSoon:"Dieser Dienst wird bald verfügbar sein.",enterUsername:"Benutzernamen eingeben.",invalidUsername:"Ungültiger Benutzername.",selectPlan:"Tarif auswählen.",
-    providerUnavailable:"Der automatische Dienst ist noch nicht verbunden.",adminOpening:"Admin-Kontakt wird geöffnet...",enterGameId:"Erforderliche ID-Daten eingeben.",
-    selectGamePackage:"Paket auswählen.",loadingError:"Fehler beim Laden der Pakete.",purchaseStarted:"Bestellung wird gesendet...",topupStarted:"Zahlungsseite wird geöffnet...",
-    giftComment:"Kommentar",giftCommentPlaceholder:"Kommentar eingeben..."
-}
+
+    uz: {
+
+        balance: "Balansingiz",
+        topup: "Hisobni to‘ldirish",
+        services: "Xizmatlar",
+
+        stars: "Telegram Stars",
+        starsDesc: "Stars sotib olish",
+
+        premium: "Telegram Premium",
+        premiumDesc: "Premium obuna",
+        premiumPlans: "Premium tariflari",
+
+        gifts: "Telegram Gifts",
+        giftsDesc: "Telegram sovg‘alari",
+
+        numbers: "Virtual raqam",
+        numbersDesc: "Virtual raqam olish",
+
+        gameTopup: "Game Top Up",
+        gameTopupDesc: "O‘yinlar uchun to‘lov",
+        chooseGame: "O‘yinni tanlang",
+
+        topupTitle: "Hisobni to‘ldirish",
+        topupDesc: "Balansga mablag‘ qo‘shish",
+
+        username: "Telegram username",
+        usernamePlaceholder: "@username",
+        myAccount: "O‘zimga",
+
+        packages: "Paketlar",
+
+        giftSelection: "Sovg‘ani tanlang",
+
+        buy: "Sotib olish",
+        continue: "Davom etish",
+
+        important: "MUHIM!",
+
+        adminWarning:
+            "Admin orqali olinadigan Premium uchun to‘lovni ushbu Mini App balansiga emas, faqat admin taqdim etgan karta orqali amalga oshiring.",
+
+        premiumWarning:
+            "Admin orqali olinadigan Premium uchun to‘lov Mini App balansidan emas, admin bergan karta orqali qilinadi.",
+
+        automatic: "Avtomatik",
+        admin: "Admin orqali",
+        api: "API orqali",
+
+        oneMonth: "1 oy",
+        threeMonths: "3 oy",
+        sixMonths: "6 oy",
+        twelveMonths: "12 oy",
+
+        chooseAmount: "Summani tanlang",
+
+        selectPackage: "Paketni tanlang",
+
+        availablePackages:
+            "Mavjud paketlar",
+
+        loading:
+            "Paketlar yuklanmoqda...",
+
+        pubgInfo:
+            "UID orqali UC to‘ldirish",
+
+        mlbbInfo:
+            "User ID + Zone ID",
+
+        codmInfo:
+            "UID orqali top up",
+
+        fcInfo:
+            "Player ID orqali top up",
+
+        pubgUid:
+            "PUBG Mobile UID",
+
+        mlbbUserId:
+            "Mobile Legends User ID",
+
+        mlbbZoneId:
+            "Mobile Legends Zone ID",
+
+        codmUid:
+            "Call of Duty Mobile UID",
+
+        fcPlayerId:
+            "EA FC Mobile Player ID",
+
+        uidPlaceholder:
+            "UID kiriting",
+
+        userIdPlaceholder:
+            "User ID kiriting",
+
+        zoneIdPlaceholder:
+            "Zone ID kiriting",
+
+        playerIdPlaceholder:
+            "Player ID kiriting",
+
+        comingSoon:
+            "Xizmat tez orada ishga tushadi.",
+
+        enterUsername:
+            "Username kiriting.",
+
+        invalidUsername:
+            "Username noto‘g‘ri.",
+
+        selectPlan:
+            "Tarifni tanlang.",
+
+        providerUnavailable:
+            "Avtomatik xizmat hozircha ulanmagan.",
+
+        adminOpening:
+            "Admin bilan bog‘lanish ochilmoqda...",
+
+        enterGameId:
+            "Kerakli ID ma’lumotlarini kiriting.",
+
+        selectGamePackage:
+            "Paketni tanlang.",
+
+        loadingError:
+            "Paketlarni yuklashda xatolik.",
+
+        purchaseStarted:
+            "Buyurtma yuborilmoqda...",
+
+        topupStarted:
+            "To‘lov sahifasi ochilmoqda...",
+
+        /* YANGI */
+
+        giftComment:
+            "Izoh",
+
+        giftCommentPlaceholder:
+            "Izoh yozing..."
+
+    },
+
+
+    ru: {
+
+        balance: "Ваш баланс",
+        topup: "Пополнить баланс",
+        services: "Услуги",
+
+        stars: "Telegram Stars",
+        starsDesc: "Покупка Stars",
+
+        premium: "Telegram Premium",
+        premiumDesc: "Подписка Premium",
+        premiumPlans: "Тарифы Premium",
+
+        gifts: "Telegram Gifts",
+        giftsDesc: "Подарки Telegram",
+
+        numbers: "Виртуальный номер",
+        numbersDesc: "Получить виртуальный номер",
+
+        gameTopup: "Game Top Up",
+        gameTopupDesc: "Пополнение игровых аккаунтов",
+        chooseGame: "Выберите игру",
+
+        topupTitle: "Пополнение баланса",
+        topupDesc: "Пополнить внутренний баланс",
+
+        username: "Telegram username",
+        usernamePlaceholder: "@username",
+        myAccount: "Себе",
+
+        packages: "Пакеты",
+
+        giftSelection: "Выберите подарок",
+
+        buy: "Купить",
+        continue: "Продолжить",
+
+        important: "ВАЖНО!",
+
+        adminWarning:
+            "Оплата Premium через администратора производится не на баланс Mini App, а только на карту, которую предоставит администратор.",
+
+        premiumWarning:
+            "За Premium через администратора оплачивайте не с баланса Mini App, а на карту, указанную администратором.",
+
+        automatic: "Автоматически",
+        admin: "Через администратора",
+        api: "Через API",
+
+        oneMonth: "1 месяц",
+        threeMonths: "3 месяца",
+        sixMonths: "6 месяцев",
+        twelveMonths: "12 месяцев",
+
+        chooseAmount: "Выберите сумму",
+
+        selectPackage: "Выберите пакет",
+
+        availablePackages:
+            "Доступные пакеты",
+
+        loading:
+            "Загрузка пакетов...",
+
+        pubgInfo:
+            "Пополнение UC по UID",
+
+        mlbbInfo:
+            "User ID + Zone ID",
+
+        codmInfo:
+            "Пополнение по UID",
+
+        fcInfo:
+            "Пополнение по Player ID",
+
+        pubgUid:
+            "PUBG Mobile UID",
+
+        mlbbUserId:
+            "Mobile Legends User ID",
+
+        mlbbZoneId:
+            "Mobile Legends Zone ID",
+
+        codmUid:
+            "Call of Duty Mobile UID",
+
+        fcPlayerId:
+            "EA FC Mobile Player ID",
+
+        uidPlaceholder:
+            "Введите UID",
+
+        userIdPlaceholder:
+            "Введите User ID",
+
+        zoneIdPlaceholder:
+            "Введите Zone ID",
+
+        playerIdPlaceholder:
+            "Введите Player ID",
+
+        comingSoon:
+            "Услуга скоро будет доступна.",
+
+        enterUsername:
+            "Введите username.",
+
+        invalidUsername:
+            "Неверный username.",
+
+        selectPlan:
+            "Выберите тариф.",
+
+        providerUnavailable:
+            "Автоматическая услуга пока не подключена.",
+
+        adminOpening:
+            "Открываем связь с администратором...",
+
+        enterGameId:
+            "Введите необходимые ID.",
+
+        selectGamePackage:
+            "Выберите пакет.",
+
+        loadingError:
+            "Ошибка загрузки пакетов.",
+
+        purchaseStarted:
+            "Отправляем заказ...",
+
+        topupStarted:
+            "Открываем страницу оплаты...",
+
+        giftComment:
+            "Комментарий",
+
+        giftCommentPlaceholder:
+            "Введите комментарий..."
+
+    },
+
+
+    en: {
+
+        balance: "Your balance",
+        topup: "Top up balance",
+        services: "Services",
+
+        stars: "Telegram Stars",
+        starsDesc: "Buy Telegram Stars",
+
+        premium: "Telegram Premium",
+        premiumDesc: "Premium subscription",
+        premiumPlans: "Premium plans",
+
+        gifts: "Telegram Gifts",
+        giftsDesc: "Telegram gifts",
+
+        numbers: "Virtual number",
+        numbersDesc: "Get a virtual number",
+
+        gameTopup: "Game Top Up",
+        gameTopupDesc: "Top up game accounts",
+        chooseGame: "Choose a game",
+
+        topupTitle: "Top up balance",
+        topupDesc: "Add funds to your balance",
+
+        username: "Telegram username",
+        usernamePlaceholder: "@username",
+        myAccount: "My account",
+
+        packages: "Packages",
+
+        giftSelection: "Choose a gift",
+
+        buy: "Buy",
+        continue: "Continue",
+
+        important: "IMPORTANT!",
+
+        adminWarning:
+            "For Premium purchased through the admin, do NOT pay into the Mini App balance. Payment must be sent only to the card provided by the admin.",
+
+        premiumWarning:
+            "For admin Premium, payment is made to the card provided by the admin, not from the Mini App balance.",
+
+        automatic: "Automatic",
+        admin: "Via admin",
+        api: "Via API",
+
+        oneMonth: "1 month",
+        threeMonths: "3 months",
+        sixMonths: "6 months",
+        twelveMonths: "12 months",
+
+        chooseAmount: "Choose amount",
+
+        selectPackage:
+            "Choose a package",
+
+        availablePackages:
+            "Available packages",
+
+        loading:
+            "Loading packages...",
+
+        pubgInfo:
+            "Top up UC using UID",
+
+        mlbbInfo:
+            "User ID + Zone ID",
+
+        codmInfo:
+            "Top up using UID",
+
+        fcInfo:
+            "Top up using Player ID",
+
+        pubgUid:
+            "PUBG Mobile UID",
+
+        mlbbUserId:
+            "Mobile Legends User ID",
+
+        mlbbZoneId:
+            "Mobile Legends Zone ID",
+
+        codmUid:
+            "Call of Duty Mobile UID",
+
+        fcPlayerId:
+            "EA FC Mobile Player ID",
+
+        uidPlaceholder:
+            "Enter UID",
+
+        userIdPlaceholder:
+            "Enter User ID",
+
+        zoneIdPlaceholder:
+            "Enter Zone ID",
+
+        playerIdPlaceholder:
+            "Enter Player ID",
+
+        comingSoon:
+            "This service will be available soon.",
+
+        enterUsername:
+            "Enter username.",
+
+        invalidUsername:
+            "Invalid username.",
+
+        selectPlan:
+            "Select a plan.",
+
+        providerUnavailable:
+            "Automatic service is not connected yet.",
+
+        adminOpening:
+            "Opening admin contact...",
+
+        enterGameId:
+            "Enter the required ID information.",
+
+        selectGamePackage:
+            "Select a package.",
+
+        loadingError:
+            "Failed to load packages.",
+
+        purchaseStarted:
+            "Sending order...",
+
+        topupStarted:
+            "Opening payment page...",
+
+        giftComment:
+            "Comment",
+
+        giftCommentPlaceholder:
+            "Enter a comment..."
+
+    },
+
+
+    de: {
+
+        balance: "Ihr Guthaben",
+        topup: "Guthaben aufladen",
+        services: "Dienste",
+
+        stars: "Telegram Stars",
+        starsDesc: "Telegram Stars kaufen",
+
+        premium: "Telegram Premium",
+        premiumDesc: "Premium-Abonnement",
+        premiumPlans: "Premium-Tarife",
+
+        gifts: "Telegram Gifts",
+        giftsDesc: "Telegram-Geschenke",
+
+        numbers: "Virtuelle Nummer",
+        numbersDesc: "Virtuelle Nummer erhalten",
+
+        gameTopup: "Game Top Up",
+        gameTopupDesc: "Spielkonten aufladen",
+        chooseGame: "Spiel auswählen",
+
+        topupTitle: "Guthaben aufladen",
+        topupDesc: "Guthaben hinzufügen",
+
+        username: "Telegram-Benutzername",
+        usernamePlaceholder: "@username",
+        myAccount: "Mein Konto",
+
+        packages: "Pakete",
+
+        giftSelection:
+            "Geschenk auswählen",
+
+        buy: "Kaufen",
+        continue: "Weiter",
+
+        important: "WICHTIG!",
+
+        adminWarning:
+            "Für Premium über den Administrator darf die Zahlung NICHT auf das Mini-App-Guthaben erfolgen. Die Zahlung muss ausschließlich auf die vom Administrator angegebene Karte erfolgen.",
+
+        premiumWarning:
+            "Bei Premium über den Administrator erfolgt die Zahlung auf die vom Administrator angegebene Karte, nicht über das Mini-App-Guthaben.",
+
+        automatic: "Automatisch",
+        admin: "Über Admin",
+        api: "Über API",
+
+        oneMonth: "1 Monat",
+        threeMonths: "3 Monate",
+        sixMonths: "6 Monate",
+        twelveMonths: "12 Monate",
+
+        chooseAmount:
+            "Betrag auswählen",
+
+        selectPackage:
+            "Paket auswählen",
+
+        availablePackages:
+            "Verfügbare Pakete",
+
+        loading:
+            "Pakete werden geladen...",
+
+        pubgInfo:
+            "UC-Aufladung per UID",
+
+        mlbbInfo:
+            "User ID + Zone ID",
+
+        codmInfo:
+            "Aufladung per UID",
+
+        fcInfo:
+            "Aufladung per Player ID",
+
+        pubgUid:
+            "PUBG Mobile UID",
+
+        mlbbUserId:
+            "Mobile Legends User ID",
+
+        mlbbZoneId:
+            "Mobile Legends Zone ID",
+
+        codmUid:
+            "Call of Duty Mobile UID",
+
+        fcPlayerId:
+            "EA FC Mobile Player ID",
+
+        uidPlaceholder:
+            "UID eingeben",
+
+        userIdPlaceholder:
+            "User ID eingeben",
+
+        zoneIdPlaceholder:
+            "Zone ID eingeben",
+
+        playerIdPlaceholder:
+            "Player ID eingeben",
+
+        comingSoon:
+            "Dieser Dienst wird bald verfügbar sein.",
+
+        enterUsername:
+            "Benutzernamen eingeben.",
+
+        invalidUsername:
+            "Ungültiger Benutzername.",
+
+        selectPlan:
+            "Tarif auswählen.",
+
+        providerUnavailable:
+            "Der automatische Dienst ist noch nicht verbunden.",
+
+        adminOpening:
+            "Admin-Kontakt wird geöffnet...",
+
+        enterGameId:
+            "Erforderliche ID-Daten eingeben.",
+
+        selectGamePackage:
+            "Paket auswählen.",
+
+        loadingError:
+            "Fehler beim Laden der Pakete.",
+
+        purchaseStarted:
+            "Bestellung wird gesendet...",
+
+        topupStarted:
+            "Zahlungsseite wird geöffnet...",
+
+        giftComment:
+            "Kommentar",
+
+        giftCommentPlaceholder:
+            "Kommentar eingeben..."
+
+    }
+
 };
+
+
+/*
+=========================================================
+LANGUAGE
+=========================================================
+*/
 
 let currentLang =
     localStorage.getItem("jv_lang") ||
@@ -474,634 +2182,1753 @@ let currentLang =
     detectBrowserLanguage() ||
     "uz";
 
-function detectTelegramLanguage(){
-    const code = tg?.initDataUnsafe?.user?.language_code?.toLowerCase() || "";
-    if(code.startsWith("ru")) return "ru";
-    if(code.startsWith("en")) return "en";
-    if(code.startsWith("de")) return "de";
-    if(code.startsWith("uz")) return "uz";
+
+function detectTelegramLanguage() {
+
+    const code =
+        tg?.initDataUnsafe?.user?.language_code?.toLowerCase() || "";
+
+    if (code.startsWith("ru")) return "ru";
+    if (code.startsWith("en")) return "en";
+    if (code.startsWith("de")) return "de";
+    if (code.startsWith("uz")) return "uz";
+
     return null;
 }
 
-function detectBrowserLanguage(){
-    const code = navigator.language?.toLowerCase() || "";
-    if(code.startsWith("ru")) return "ru";
-    if(code.startsWith("en")) return "en";
-    if(code.startsWith("de")) return "de";
-    if(code.startsWith("uz")) return "uz";
+
+function detectBrowserLanguage() {
+
+    const code =
+        navigator.language?.toLowerCase() || "";
+
+    if (code.startsWith("ru")) return "ru";
+    if (code.startsWith("en")) return "en";
+    if (code.startsWith("de")) return "de";
+    if (code.startsWith("uz")) return "uz";
+
     return "uz";
 }
 
-function t(key){
-    return I18N[currentLang]?.[key] || I18N.uz[key] || key;
+
+function t(key) {
+
+    return (
+        I18N[currentLang]?.[key] ||
+        I18N.uz[key] ||
+        key
+    );
+
 }
 
-function applyLanguage(){
-    document.documentElement.lang = currentLang;
 
-    document.querySelectorAll("[data-i18n]").forEach(el=>{
-        el.textContent = t(el.dataset.i18n);
-    });
+function applyLanguage() {
 
-    document.querySelectorAll("[data-i18n-ph]").forEach(el=>{
-        el.placeholder = t(el.dataset.i18nPh);
-    });
+    document.documentElement.lang =
+        currentLang;
 
-    document.querySelectorAll(".lang-btn").forEach(btn=>{
-        btn.classList.toggle("active",btn.dataset.lang === currentLang);
-    });
+
+    document
+        .querySelectorAll("[data-i18n]")
+        .forEach(el => {
+
+            el.textContent =
+                t(el.dataset.i18n);
+
+        });
+
+
+    document
+        .querySelectorAll("[data-i18n-ph]")
+        .forEach(el => {
+
+            el.placeholder =
+                t(el.dataset.i18nPh);
+
+        });
+
+
+    document
+        .querySelectorAll(".lang-btn")
+        .forEach(btn => {
+
+            btn.classList.toggle(
+                "active",
+                btn.dataset.lang === currentLang
+            );
+
+        });
+
 
     renderStars();
     renderPremium();
     renderGifts();
     renderTopup();
 
-    if(selectedGame){
+
+    if (selectedGame) {
+
         renderGameFields();
         renderGamePackages();
+
     }
+
 }
 
-document.querySelectorAll(".lang-btn").forEach(btn=>{
-    btn.addEventListener("click",()=>{
-        currentLang = btn.dataset.lang;
-        localStorage.setItem("jv_lang",currentLang);
-        applyLanguage();
+
+document
+    .querySelectorAll(".lang-btn")
+    .forEach(btn => {
+
+        btn.addEventListener("click", () => {
+
+            currentLang =
+                btn.dataset.lang;
+
+            localStorage.setItem(
+                "jv_lang",
+                currentLang
+            );
+
+            applyLanguage();
+
+        });
+
     });
-});
+
+
+/*
+=========================================================
+PAGES
+=========================================================
+*/
 
 const pages = [
-    "homePage","starsPage","premiumPage","giftsPage",
-    "numbersPage","gamesPage","gameFormPage","topupPage"
+
+    "homePage",
+    "starsPage",
+    "premiumPage",
+    "giftsPage",
+    "numbersPage",
+    "gamesPage",
+    "gameFormPage",
+    "topupPage"
+
 ];
 
-function openPage(id){
-    pages.forEach(page=>{
-        document.getElementById(page)?.classList.remove("active");
+
+function openPage(id) {
+
+    pages.forEach(page => {
+
+        document
+            .getElementById(page)
+            ?.classList.remove("active");
+
     });
 
-    document.getElementById(id)?.classList.add("active");
 
-    window.scrollTo({top:0,behavior:"smooth"});
+    document
+        .getElementById(id)
+        ?.classList.add("active");
 
-    if(id === "premiumPage") renderPremium();
-    if(id === "starsPage") renderStars();
-    if(id === "giftsPage") renderGifts();
-    if(id === "topupPage") renderTopup();
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+
+    if (id === "premiumPage")
+        renderPremium();
+
+    if (id === "starsPage")
+        renderStars();
+
+    if (id === "giftsPage")
+        renderGifts();
+
+    if (id === "topupPage")
+        renderTopup();
+
 }
 
-function goHome(){openPage("homePage")}
+
+function goHome() {
+
+    openPage("homePage");
+
+}
+
+
+/*
+=========================================================
+TOAST
+=========================================================
+*/
 
 let toastTimer;
 
-function toast(message){
-    const el = document.getElementById("toast");
-    el.textContent = message;
+
+function toast(message) {
+
+    const el =
+        document.getElementById("toast");
+
+    el.textContent =
+        message;
+
     el.classList.add("show");
+
     clearTimeout(toastTimer);
-    toastTimer = setTimeout(()=>el.classList.remove("show"),2500);
+
+    toastTimer =
+        setTimeout(
+            () => el.classList.remove("show"),
+            2500
+        );
+
 }
+
+
+/*
+=========================================================
+BALANCE
+=========================================================
+*/
 
 let balance = 0;
 
-function updateBalance(){
-    document.getElementById("balance").textContent =
-        Number(balance).toLocaleString("en-US") + " UZS";
+
+function updateBalance() {
+
+    document.getElementById("balance")
+        .textContent =
+        Number(balance)
+            .toLocaleString("en-US")
+            + " UZS";
+
 }
 
-function getUsername(){
-    const username = tg?.initDataUnsafe?.user?.username;
-    return username ? "@" + username : "";
+
+/*
+=========================================================
+USERNAME
+=========================================================
+*/
+
+function getUsername() {
+
+    const username =
+        tg?.initDataUnsafe?.user?.username;
+
+    return username
+        ? "@" + username
+        : "";
+
 }
 
-function setMyUsername(id){
-    const input = document.getElementById(id);
-    const username = getUsername();
 
-    if(!username){
-        toast(t("invalidUsername"));
+function setMyUsername(id) {
+
+    const input =
+        document.getElementById(id);
+
+    const username =
+        getUsername();
+
+
+    if (!username) {
+
+        toast(
+            t("invalidUsername")
+        );
+
         return;
     }
 
-    input.value = username;
+
+    input.value =
+        username;
+
 }
 
+
+/*
+=========================================================
+STARS
+=========================================================
+*/
+
 const STAR_PACKAGES = [
-    {qty:50,price:15000},
-    {qty:100,price:29000},
-    {qty:250,price:70000},
-    {qty:500,price:135000},
-    {qty:1000,price:260000}
+
+    {
+        qty: 50,
+        price: 15000
+    },
+
+    {
+        qty: 100,
+        price: 29000
+    },
+
+    {
+        qty: 250,
+        price: 70000
+    },
+
+    {
+        qty: 500,
+        price: 135000
+    },
+
+    {
+        qty: 1000,
+        price: 260000
+    }
+
 ];
+
 
 let selectedStars = null;
 
-function renderStars(){
-    const box = document.getElementById("starsPackages");
-    if(!box) return;
+
+function renderStars() {
+
+    const box =
+        document.getElementById(
+            "starsPackages"
+        );
+
+
+    if (!box)
+        return;
+
 
     box.innerHTML = "";
 
-    STAR_PACKAGES.forEach((item,index)=>{
-        const btn = document.createElement("button");
-        btn.className = "option" + (selectedStars === index ? " selected" : "");
 
-        btn.innerHTML = `
-            <div class="option-name">⭐ ${item.qty} Stars</div>
-            <div class="option-price">${item.price.toLocaleString()} UZS</div>
-        `;
+    STAR_PACKAGES.forEach(
+        (item, index) => {
 
-        btn.onclick = ()=>{
-            selectedStars = index;
-            renderStars();
-        };
+            const btn =
+                document.createElement("button");
 
-        box.appendChild(btn);
-    });
+
+            btn.className =
+                "option" +
+                (
+                    selectedStars === index
+                        ? " selected"
+                        : ""
+                );
+
+
+            btn.innerHTML = `
+
+                <div class="option-name">
+                    ⭐ ${item.qty} Stars
+                </div>
+
+                <div class="option-price">
+                    ${item.price.toLocaleString()} UZS
+                </div>
+
+            `;
+
+
+            btn.onclick = () => {
+
+                selectedStars =
+                    index;
+
+                renderStars();
+
+            };
+
+
+            box.appendChild(btn);
+
+        }
+    );
+
 }
 
-function buyStars(){
-    const username = document.getElementById("starsUsername").value.trim();
 
-    if(!username){
-        toast(t("enterUsername"));
+function buyStars() {
+
+    const username =
+        document
+            .getElementById(
+                "starsUsername"
+            )
+            .value
+            .trim();
+
+
+    if (!username) {
+
+        toast(
+            t("enterUsername")
+        );
+
         return;
     }
 
-    if(selectedStars === null){
-        toast(t("selectPackage"));
+
+    if (selectedStars === null) {
+
+        toast(
+            t("selectPackage")
+        );
+
         return;
     }
 
-    toast(t("purchaseStarted"));
+
+    toast(
+        t("purchaseStarted")
+    );
+
 }
+
+
+/*
+=========================================================
+PREMIUM
+=========================================================
+*/
 
 const PREMIUM_PLANS = [
-    {id:"p1",months:1,price:15000,mode:"admin"},
-    {id:"p3",months:3,price:45000,mode:"auto"},
-    {id:"p6",months:6,price:85000,mode:"auto"},
-    {id:"p12auto",months:12,price:155000,mode:"auto"},
-    {id:"p12admin",months:12,price:145000,mode:"admin"}
+
+    {
+        id: "p1",
+        months: 1,
+        price: 15000,
+        mode: "admin"
+    },
+
+    {
+        id: "p3",
+        months: 3,
+        price: 45000,
+        mode: "auto"
+    },
+
+    {
+        id: "p6",
+        months: 6,
+        price: 85000,
+        mode: "auto"
+    },
+
+    {
+        id: "p12auto",
+        months: 12,
+        price: 155000,
+        mode: "auto"
+    },
+
+    {
+        id: "p12admin",
+        months: 12,
+        price: 145000,
+        mode: "admin"
+    }
+
 ];
+
 
 let selectedPremium = null;
 
-function premiumMonthLabel(months){
-    if(months === 1) return t("oneMonth");
-    if(months === 3) return t("threeMonths");
-    if(months === 6) return t("sixMonths");
+
+function premiumMonthLabel(months) {
+
+    if (months === 1)
+        return t("oneMonth");
+
+    if (months === 3)
+        return t("threeMonths");
+
+    if (months === 6)
+        return t("sixMonths");
+
     return t("twelveMonths");
+
 }
 
-function renderPremium(){
-    const box = document.getElementById("premiumPlans");
-    if(!box) return;
+
+function renderPremium() {
+
+    const box =
+        document.getElementById(
+            "premiumPlans"
+        );
+
+
+    if (!box)
+        return;
+
 
     box.innerHTML = "";
 
-    PREMIUM_PLANS.forEach((plan,index)=>{
-        const btn = document.createElement("button");
-        btn.className = "option premium-card" + (selectedPremium === index ? " selected" : "");
 
-        const modeLabel = plan.mode === "admin" ? t("admin") : t("automatic");
-        const badgeClass = plan.mode === "admin" ? "badge admin-badge" : "badge";
+    PREMIUM_PLANS.forEach(
+        (plan, index) => {
 
-        btn.innerHTML = `
-            <div class="option-name">💎 ${premiumMonthLabel(plan.months)}</div>
-            <div class="option-price">${plan.price.toLocaleString()} UZS</div>
-            <div class="${badgeClass}">${modeLabel}</div>
-        `;
+            const btn =
+                document.createElement("button");
 
-        btn.onclick = ()=>{
-            selectedPremium = index;
-            renderPremium();
-        };
 
-        box.appendChild(btn);
-    });
+            btn.className =
+                "option premium-card" +
+                (
+                    selectedPremium === index
+                        ? " selected"
+                        : ""
+                );
+
+
+            const modeLabel =
+                plan.mode === "admin"
+                    ? t("admin")
+                    : t("automatic");
+
+
+            const badgeClass =
+                plan.mode === "admin"
+                    ? "badge admin-badge"
+                    : "badge";
+
+
+            btn.innerHTML = `
+
+                <div class="option-name">
+                    💎 ${premiumMonthLabel(plan.months)}
+                </div>
+
+                <div class="option-price">
+                    ${plan.price.toLocaleString()} UZS
+                </div>
+
+                <div class="${badgeClass}">
+                    ${modeLabel}
+                </div>
+
+            `;
+
+
+            btn.onclick = () => {
+
+                selectedPremium =
+                    index;
+
+                renderPremium();
+
+            };
+
+
+            box.appendChild(btn);
+
+        }
+    );
+
 }
 
-function openAdmin(){
-    toast(t("adminOpening"));
 
-    if(tg && typeof tg.openTelegramLink === "function"){
-        tg.openTelegramLink(ADMIN_LINK);
-    }else{
-        window.open(ADMIN_LINK,"_blank");
+function openAdmin() {
+
+    toast(
+        t("adminOpening")
+    );
+
+
+    if (
+        tg &&
+        typeof tg.openTelegramLink === "function"
+    ) {
+
+        tg.openTelegramLink(
+            ADMIN_LINK
+        );
+
+    } else {
+
+        window.open(
+            ADMIN_LINK,
+            "_blank"
+        );
+
     }
+
 }
 
-function buyPremium(){
-    if(selectedPremium === null){
-        toast(t("selectPlan"));
+
+function buyPremium() {
+
+    if (selectedPremium === null) {
+
+        toast(
+            t("selectPlan")
+        );
+
         return;
     }
 
-    const username = document.getElementById("premiumUsername").value.trim();
 
-    if(!username){
-        toast(t("enterUsername"));
+    const username =
+        document
+            .getElementById(
+                "premiumUsername"
+            )
+            .value
+            .trim();
+
+
+    if (!username) {
+
+        toast(
+            t("enterUsername")
+        );
+
         return;
     }
 
-    const plan = PREMIUM_PLANS[selectedPremium];
 
-    if(plan.mode === "admin"){
+    const plan =
+        PREMIUM_PLANS[
+            selectedPremium
+        ];
+
+
+    if (plan.mode === "admin") {
+
         openAdmin();
+
         return;
     }
 
-    if(!GAME_API_BASE){
-        toast(t("providerUnavailable"));
+
+    if (!GAME_API_BASE) {
+
+        toast(
+            t("providerUnavailable")
+        );
+
         return;
     }
 
-    fetch(GAME_API_BASE + "/premium/buy",{
-        method:"POST",
-        headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({
-            telegram_username:username,
-            months:plan.months
-        })
-    })
-    .then(async response=>{
-        const data = await response.json().catch(()=>({}));
 
-        if(!response.ok){
-            throw new Error(data.message || "error");
+    fetch(
+        GAME_API_BASE +
+        "/premium/buy",
+        {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type":
+                    "application/json"
+            },
+
+            body: JSON.stringify({
+
+                telegram_username:
+                    username,
+
+                months:
+                    plan.months
+
+            })
+
+        }
+    )
+
+    .then(async response => {
+
+        const data =
+            await response
+                .json()
+                .catch(() => ({}));
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                data.message ||
+                "error"
+            );
+
         }
 
-        toast(data.message || t("purchaseStarted"));
+
+        toast(
+            data.message ||
+            t("purchaseStarted")
+        );
+
     })
-    .catch(()=>{
-        toast(t("providerUnavailable"));
+
+    .catch(() => {
+
+        toast(
+            t("providerUnavailable")
+        );
+
     });
+
 }
 
+
+/*
+=========================================================
+GIFTS
+=========================================================
+*/
+
 const GIFTS = [
-    {name:"Rose",price:12000},
-    {name:"Heart",price:25000},
-    {name:"Bear",price:40000},
-    {name:"Cake",price:55000}
+
+    {
+        name: "Rose",
+        price: 12000
+    },
+
+    {
+        name: "Heart",
+        price: 25000
+    },
+
+    {
+        name: "Bear",
+        price: 40000
+    },
+
+    {
+        name: "Cake",
+        price: 55000
+    }
+
 ];
+
 
 let selectedGift = null;
 
-function renderGifts(){
-    const box = document.getElementById("giftList");
-    if(!box) return;
+
+function renderGifts() {
+
+    const box =
+        document.getElementById(
+            "giftList"
+        );
+
+
+    if (!box)
+        return;
+
 
     box.innerHTML = "";
 
-    GIFTS.forEach((gift,index)=>{
-        const btn = document.createElement("button");
 
-        btn.className = "option" + (selectedGift === index ? " selected" : "");
+    GIFTS.forEach(
+        (gift, index) => {
 
-        btn.innerHTML = `
-            <div class="option-name">🎁 ${gift.name}</div>
-            <div class="option-price">${gift.price.toLocaleString()} UZS</div>
-        `;
+            const btn =
+                document.createElement("button");
 
-        btn.onclick = ()=>{
-            selectedGift = index;
-            renderGifts();
-        };
 
-        box.appendChild(btn);
-    });
+            btn.className =
+                "option" +
+                (
+                    selectedGift === index
+                        ? " selected"
+                        : ""
+                );
+
+
+            btn.innerHTML = `
+
+                <div class="option-name">
+                    🎁 ${gift.name}
+                </div>
+
+                <div class="option-price">
+                    ${gift.price.toLocaleString()} UZS
+                </div>
+
+            `;
+
+
+            btn.onclick = () => {
+
+                selectedGift =
+                    index;
+
+                renderGifts();
+
+            };
+
+
+            box.appendChild(btn);
+
+        }
+    );
+
 }
 
-async function buyGift(){
-    const username = document.getElementById("giftUsername").value.trim();
-    const comment = document.getElementById("giftComment").value.trim();
 
-    if(!username){
-        toast(t("enterUsername"));
+/*
+=========================================================
+GIFT BUY
+IZOH HAM BACKENDGA YUBORILADI
+=========================================================
+*/
+
+async function buyGift() {
+
+    const username =
+        document
+            .getElementById(
+                "giftUsername"
+            )
+            .value
+            .trim();
+
+
+    const comment =
+        document
+            .getElementById(
+                "giftComment"
+            )
+            .value
+            .trim();
+
+
+    if (!username) {
+
+        toast(
+            t("enterUsername")
+        );
+
         return;
     }
 
-    if(selectedGift === null){
-        toast(t("selectPackage"));
+
+    if (selectedGift === null) {
+
+        toast(
+            t("selectPackage")
+        );
+
         return;
     }
 
-    const gift = GIFTS[selectedGift];
 
-    toast(t("purchaseStarted"));
+    const gift =
+        GIFTS[selectedGift];
 
-    if(!GAME_API_BASE){
-        toast(t("providerUnavailable"));
+
+    toast(
+        t("purchaseStarted")
+    );
+
+
+    if (!GAME_API_BASE) {
+
+        toast(
+            t("providerUnavailable")
+        );
+
         return;
     }
 
-    try{
-        const response = await fetch(GAME_API_BASE + "/gifts/buy",{
-            method:"POST",
-            headers:{"Content-Type":"application/json"},
-            body:JSON.stringify({
-                telegram_username:username,
-                gift_name:gift.name,
-                gift_price:gift.price,
-                comment:comment,
-                telegram_user:tg?.initDataUnsafe?.user || null
-            })
-        });
 
-        const data = await response.json().catch(()=>({}));
+    try {
 
-        if(!response.ok){
-            throw new Error(data.message || "error");
+        const response =
+            await fetch(
+                GAME_API_BASE +
+                "/gifts/buy",
+                {
+
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+
+                        telegram_username:
+                            username,
+
+                        gift_name:
+                            gift.name,
+
+                        gift_price:
+                            gift.price,
+
+                        /*
+                        YANGI:
+                        foydalanuvchi yozgan izoh
+                        */
+
+                        comment:
+                            comment,
+
+                        telegram_user:
+                            tg?.initDataUnsafe?.user ||
+                            null
+
+                    })
+
+                }
+            );
+
+
+        const data =
+            await response
+                .json()
+                .catch(() => ({}));
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                data.message ||
+                "error"
+            );
+
         }
 
-        toast(data.message || t("purchaseStarted"));
-    }catch(error){
-        toast(t("providerUnavailable"));
+
+        toast(
+            data.message ||
+            t("purchaseStarted")
+        );
+
+
+    } catch (error) {
+
+        toast(
+            t("providerUnavailable")
+        );
+
     }
+
 }
+
+
+/*
+=========================================================
+GAMES
+=========================================================
+*/
 
 const GAMES = {
-    pubg:{
-        title:"PUBG Mobile",
-        fields:[{key:"uid",label:"pubgUid",placeholder:"uidPlaceholder"}]
-    },
-    mlbb:{
-        title:"Mobile Legends",
-        fields:[
-            {key:"user_id",label:"mlbbUserId",placeholder:"userIdPlaceholder"},
-            {key:"zone_id",label:"mlbbZoneId",placeholder:"zoneIdPlaceholder"}
+
+    pubg: {
+
+        title:
+            "PUBG Mobile",
+
+        fields: [
+
+            {
+                key: "uid",
+                label: "pubgUid",
+                placeholder: "uidPlaceholder"
+            }
+
         ]
+
     },
-    codm:{
-        title:"Call of Duty Mobile",
-        fields:[{key:"uid",label:"codmUid",placeholder:"uidPlaceholder"}]
+
+
+    mlbb: {
+
+        title:
+            "Mobile Legends",
+
+        fields: [
+
+            {
+                key: "user_id",
+                label: "mlbbUserId",
+                placeholder: "userIdPlaceholder"
+            },
+
+            {
+                key: "zone_id",
+                label: "mlbbZoneId",
+                placeholder: "zoneIdPlaceholder"
+            }
+
+        ]
+
     },
-    fc:{
-        title:"EA FC Mobile",
-        fields:[{key:"player_id",label:"fcPlayerId",placeholder:"playerIdPlaceholder"}]
+
+
+    codm: {
+
+        title:
+            "Call of Duty Mobile",
+
+        fields: [
+
+            {
+                key: "uid",
+                label: "codmUid",
+                placeholder: "uidPlaceholder"
+            }
+
+        ]
+
+    },
+
+
+    fc: {
+
+        title:
+            "EA FC Mobile",
+
+        fields: [
+
+            {
+                key: "player_id",
+                label: "fcPlayerId",
+                placeholder: "playerIdPlaceholder"
+            }
+
+        ]
+
     }
+
 };
 
+
 let selectedGame = null;
+
 let selectedGamePackage = null;
+
 let gamePackages = [];
 
-function openGame(game){
-    selectedGame = game;
-    selectedGamePackage = null;
-    openPage("gameFormPage");
+
+function openGame(game) {
+
+    selectedGame =
+        game;
+
+    selectedGamePackage =
+        null;
+
+    openPage(
+        "gameFormPage"
+    );
+
     renderGameFields();
+
     loadGamePackages();
+
 }
 
-function renderGameFields(){
-    const box = document.getElementById("gameFields");
-    const title = document.getElementById("selectedGameTitle");
 
-    if(!box || !selectedGame) return;
+function renderGameFields() {
 
-    const game = GAMES[selectedGame];
-    title.textContent = game.title;
+    const box =
+        document.getElementById(
+            "gameFields"
+        );
+
+
+    const title =
+        document.getElementById(
+            "selectedGameTitle"
+        );
+
+
+    if (
+        !box ||
+        !selectedGame
+    )
+        return;
+
+
+    const game =
+        GAMES[selectedGame];
+
+
+    title.textContent =
+        game.title;
+
+
     box.innerHTML = "";
 
-    game.fields.forEach(field=>{
-        const wrapper = document.createElement("div");
-        wrapper.style.marginBottom = "11px";
 
-        wrapper.innerHTML = `
-            <label class="input-label">${t(field.label)}</label>
-            <input id="game_${field.key}"
-                   class="input"
-                   placeholder="${t(field.placeholder)}"
-                   data-game-field="${field.key}">
-        `;
+    game.fields.forEach(
+        field => {
 
-        box.appendChild(wrapper);
-    });
+            const wrapper =
+                document.createElement(
+                    "div"
+                );
+
+
+            wrapper.style.marginBottom =
+                "11px";
+
+
+            wrapper.innerHTML = `
+
+                <label class="input-label">
+                    ${t(field.label)}
+                </label>
+
+                <input
+                    id="game_${field.key}"
+                    class="input"
+                    placeholder="${t(field.placeholder)}"
+                    data-game-field="${field.key}"
+                >
+
+            `;
+
+
+            box.appendChild(
+                wrapper
+            );
+
+        }
+    );
+
 }
 
-async function loadGamePackages(){
-    const box = document.getElementById("gamePackages");
-    const buyBtn = document.getElementById("gameBuyBtn");
 
-    selectedGamePackage = null;
-    buyBtn.classList.add("hidden");
+async function loadGamePackages() {
+
+    const box =
+        document.getElementById(
+            "gamePackages"
+        );
+
+
+    const buyBtn =
+        document.getElementById(
+            "gameBuyBtn"
+        );
+
+
+    selectedGamePackage =
+        null;
+
+
+    buyBtn.classList.add(
+        "hidden"
+    );
+
 
     box.innerHTML = `
+
         <div class="empty">
+
             <div class="spinner"></div>
+
             ${t("loading")}
+
         </div>
+
     `;
 
-    if(!GAME_API_BASE){
+
+    if (!GAME_API_BASE) {
+
         box.innerHTML = `
+
             <div class="empty">
-                🎮<br><br>
+
+                🎮
+
+                <br>
+                <br>
+
                 ${t("providerUnavailable")}
+
             </div>
+
         `;
+
         return;
     }
 
-    try{
-        const response = await fetch(GAME_API_BASE + "/games/" + selectedGame + "/packages");
-        const data = await response.json();
 
-        if(!response.ok) throw new Error("packages");
+    try {
 
-        gamePackages = normalizeGamePackages(data);
+        const response =
+            await fetch(
+                GAME_API_BASE +
+                "/games/" +
+                selectedGame +
+                "/packages"
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (!response.ok)
+            throw new Error(
+                "packages"
+            );
+
+
+        gamePackages =
+            normalizeGamePackages(
+                data
+            );
+
+
         renderGamePackages();
-    }catch(error){
+
+
+    } catch (error) {
+
         box.innerHTML = `
+
             <div class="empty">
-                ⚠️<br><br>
+
+                ⚠️
+
+                <br>
+                <br>
+
+                ${t("loadingError")}
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+function normalizeGamePackages(data) {
+
+    let list =
+        Array.isArray(data)
+            ? data
+            : (
+                data.packages ||
+                data.data ||
+                []
+            );
+
+
+    return list.map(
+        (item, index) => ({
+
+            id:
+                item.id ??
+                item.package_id ??
+                index,
+
+            name:
+                item.name ??
+                item.title ??
+                item.package_name ??
+                (
+                    "Package " +
+                    (index + 1)
+                ),
+
+            description:
+                item.description ??
+                item.desc ??
+                "",
+
+            price:
+                Number(
+                    item.price ??
+                    item.sell_price ??
+                    item.amount ??
+                    0
+                )
+
+        })
+    );
+
+}
+
+
+function renderGamePackages() {
+
+    const box =
+        document.getElementById(
+            "gamePackages"
+        );
+
+
+    const buyBtn =
+        document.getElementById(
+            "gameBuyBtn"
+        );
+
+
+    box.innerHTML = "";
+
+
+    if (!gamePackages.length) {
+
+        box.innerHTML = `
+
+            <div class="empty">
                 ${t("loadingError")}
             </div>
+
         `;
-    }
-}
 
-function normalizeGamePackages(data){
-    let list = Array.isArray(data) ? data : data.packages || data.data || [];
+        buyBtn.classList.add(
+            "hidden"
+        );
 
-    return list.map((item,index)=>({
-        id:item.id ?? item.package_id ?? index,
-        name:item.name ?? item.title ?? item.package_name ?? ("Package " + (index + 1)),
-        description:item.description ?? item.desc ?? "",
-        price:Number(item.price ?? item.sell_price ?? item.amount ?? 0)
-    }));
-}
-
-function renderGamePackages(){
-    const box = document.getElementById("gamePackages");
-    const buyBtn = document.getElementById("gameBuyBtn");
-
-    box.innerHTML = "";
-
-    if(!gamePackages.length){
-        box.innerHTML = `<div class="empty">${t("loadingError")}</div>`;
-        buyBtn.classList.add("hidden");
         return;
     }
 
-    gamePackages.forEach((item,index)=>{
-        const btn = document.createElement("button");
-        btn.className = "package";
 
-        if(selectedGamePackage === index){
-            btn.style.borderColor = "#3b82f6";
-            btn.style.background = "rgba(37,99,235,.12)";
+    gamePackages.forEach(
+        (item, index) => {
+
+            const btn =
+                document.createElement(
+                    "button"
+                );
+
+
+            btn.className =
+                "package";
+
+
+            if (
+                selectedGamePackage ===
+                index
+            ) {
+
+                btn.style.borderColor =
+                    "#3b82f6";
+
+                btn.style.background =
+                    "rgba(37,99,235,.12)";
+
+            }
+
+
+            btn.innerHTML = `
+
+                <div class="package-left">
+
+                    <div class="package-name">
+                        ${escapeHtml(item.name)}
+                    </div>
+
+                    ${
+                        item.description
+                            ? `
+                                <div class="package-desc">
+                                    ${escapeHtml(item.description)}
+                                </div>
+                            `
+                            : ""
+                    }
+
+                </div>
+
+                <div class="package-price">
+                    ${Number(item.price).toLocaleString()} UZS
+                </div>
+
+            `;
+
+
+            btn.onclick = () => {
+
+                selectedGamePackage =
+                    index;
+
+                renderGamePackages();
+
+                buyBtn.classList.remove(
+                    "hidden"
+                );
+
+            };
+
+
+            box.appendChild(btn);
+
         }
+    );
 
-        btn.innerHTML = `
-            <div class="package-left">
-                <div class="package-name">${escapeHtml(item.name)}</div>
-                ${item.description ? `<div class="package-desc">${escapeHtml(item.description)}</div>` : ""}
-            </div>
-            <div class="package-price">${Number(item.price).toLocaleString()} UZS</div>
-        `;
-
-        btn.onclick = ()=>{
-            selectedGamePackage = index;
-            renderGamePackages();
-            buyBtn.classList.remove("hidden");
-        };
-
-        box.appendChild(btn);
-    });
 }
 
-function getGameFields(){
+
+function getGameFields() {
+
     const result = {};
 
-    document.querySelectorAll("[data-game-field]").forEach(input=>{
-        result[input.dataset.gameField] = input.value.trim();
-    });
+
+    document
+        .querySelectorAll(
+            "[data-game-field]"
+        )
+        .forEach(input => {
+
+            result[
+                input.dataset.gameField
+            ] =
+                input.value.trim();
+
+        });
+
 
     return result;
+
 }
 
-function buyGame(){
-    if(selectedGamePackage === null){
-        toast(t("selectGamePackage"));
+
+function buyGame() {
+
+    if (
+        selectedGamePackage === null
+    ) {
+
+        toast(
+            t("selectGamePackage")
+        );
+
         return;
     }
 
-    const fields = getGameFields();
-    const missing = Object.values(fields).some(value=>!value);
 
-    if(missing){
-        toast(t("enterGameId"));
+    const fields =
+        getGameFields();
+
+
+    const missing =
+        Object
+            .values(fields)
+            .some(
+                value => !value
+            );
+
+
+    if (missing) {
+
+        toast(
+            t("enterGameId")
+        );
+
         return;
     }
 
-    const pkg = gamePackages[selectedGamePackage];
 
-    if(!GAME_API_BASE){
-        toast(t("providerUnavailable"));
+    const pkg =
+        gamePackages[
+            selectedGamePackage
+        ];
+
+
+    if (!GAME_API_BASE) {
+
+        toast(
+            t("providerUnavailable")
+        );
+
         return;
     }
 
-    toast(t("purchaseStarted"));
 
-    fetch(GAME_API_BASE + "/games/purchase",{
-        method:"POST",
-        headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({
-            game:selectedGame,
-            package_id:pkg.id,
-            fields:fields,
-            telegram_user:tg?.initDataUnsafe?.user || null
-        })
+    toast(
+        t("purchaseStarted")
+    );
+
+
+    fetch(
+        GAME_API_BASE +
+        "/games/purchase",
+        {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type":
+                    "application/json"
+            },
+
+            body: JSON.stringify({
+
+                game:
+                    selectedGame,
+
+                package_id:
+                    pkg.id,
+
+                fields:
+                    fields,
+
+                telegram_user:
+                    tg?.initDataUnsafe?.user ||
+                    null
+
+            })
+
+        }
+    )
+
+    .then(async response => {
+
+        const data =
+            await response
+                .json()
+                .catch(() => ({}));
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                data.message ||
+                "error"
+            );
+
+        }
+
+
+        toast(
+            data.message ||
+            t("purchaseStarted")
+        );
+
     })
-    .then(async response=>{
-        const data = await response.json().catch(()=>({}));
 
-        if(!response.ok) throw new Error(data.message || "error");
+    .catch(() => {
 
-        toast(data.message || t("purchaseStarted"));
-    })
-    .catch(()=>{
-        toast(t("loadingError"));
+        toast(
+            t("loadingError")
+        );
+
     });
+
 }
 
-const TOPUP_AMOUNTS = [10000,25000,50000,100000,250000,500000];
+
+/*
+=========================================================
+TOP UP
+=========================================================
+*/
+
+const TOPUP_AMOUNTS = [
+
+    10000,
+    25000,
+    50000,
+    100000,
+    250000,
+    500000
+
+];
+
+
 let selectedTopup = null;
 
-function renderTopup(){
-    const box = document.getElementById("topupAmounts");
-    if(!box) return;
+
+function renderTopup() {
+
+    const box =
+        document.getElementById(
+            "topupAmounts"
+        );
+
+
+    if (!box)
+        return;
+
 
     box.innerHTML = "";
 
-    TOPUP_AMOUNTS.forEach((amount,index)=>{
-        const btn = document.createElement("button");
 
-        btn.className = "option" + (selectedTopup === index ? " selected" : "");
+    TOPUP_AMOUNTS.forEach(
+        (amount, index) => {
 
-        btn.innerHTML = `
-            <div class="option-name">${amount.toLocaleString()} UZS</div>
-        `;
+            const btn =
+                document.createElement(
+                    "button"
+                );
 
-        btn.onclick = ()=>{
-            selectedTopup = index;
-            renderTopup();
-        };
 
-        box.appendChild(btn);
-    });
+            btn.className =
+                "option" +
+                (
+                    selectedTopup === index
+                        ? " selected"
+                        : ""
+                );
+
+
+            btn.innerHTML = `
+
+                <div class="option-name">
+                    ${amount.toLocaleString()} UZS
+                </div>
+
+            `;
+
+
+            btn.onclick = () => {
+
+                selectedTopup =
+                    index;
+
+                renderTopup();
+
+            };
+
+
+            box.appendChild(btn);
+
+        }
+    );
+
 }
 
-function topupBalance(){
-    if(selectedTopup === null){
-        toast(t("chooseAmount"));
+
+function topupBalance() {
+
+    if (
+        selectedTopup === null
+    ) {
+
+        toast(
+            t("chooseAmount")
+        );
+
         return;
     }
 
-    toast(t("topupStarted"));
+
+    toast(
+        t("topupStarted")
+    );
+
 }
 
-function escapeHtml(value){
+
+/*
+=========================================================
+XAVFSIZ HTML
+=========================================================
+*/
+
+function escapeHtml(value) {
+
     return String(value)
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;")
-        .replaceAll("'","&#039;");
+
+        .replaceAll(
+            "&",
+            "&amp;"
+        )
+
+        .replaceAll(
+            "<",
+            "&lt;"
+        )
+
+        .replaceAll(
+            ">",
+            "&gt;"
+        )
+
+        .replaceAll(
+            '"',
+            "&quot;"
+        )
+
+        .replaceAll(
+            "'",
+            "&#039;"
+        );
+
 }
 
-/* =========================================================
-   BOT -> MINI APP DIRECT OPEN
-   Game Top tugmasi game_top parametri bilan ochilsa,
-   Mini App to'g'ridan-to'g'ri Game Top Up sahifasini ochadi.
-========================================================= */
 
-function openPageFromStartParam(){
+/*
+=========================================================
+GAME TOP DIRECT OPEN
+=========================================================
+
+Bot Game Top tugmasini Mini App'ni:
+
+?startapp=game_top
+
+bilan ochsa, foydalanuvchi to‘g‘ridan-to‘g‘ri
+Game Top Up sahifasiga tushadi.
+
+Telegram ichida esa:
+tg.initDataUnsafe.start_param
+
+orqali ham tekshiriladi.
+=========================================================
+*/
+
+function openPageFromStartParam() {
 
     const startParam =
+
         tg?.initDataUnsafe?.start_param ||
-        new URLSearchParams(window.location.search).get("startapp") ||
+
+        new URLSearchParams(
+            window.location.search
+        ).get("startapp") ||
+
         "";
 
-    if(
+
+    if (
+
         startParam === "game_top" ||
+
         startParam === "game_top_up"
-    ){
-        openPage("gamesPage");
+
+    ) {
+
+        openPage(
+            "gamesPage"
+        );
+
     }
+
 }
 
+
+/*
+=========================================================
+START
+=========================================================
+*/
+
 applyLanguage();
+
 updateBalance();
+
+/*
+YANGI:
+Botdan game_top parametri bilan
+ochilganda Game Top Up sahifasini ochadi.
+*/
+
 openPageFromStartParam();
+
 </script>
 
 </body>
 </html>
-'''
-
-path = Path("/mnt/data/index.html")
-path.write_text(html, encoding="utf-8")
-print(path)
