@@ -1771,7 +1771,7 @@ function t(key,vars){
 
 /* PRICES */
 
-const STAR_PRICE_PER_UNIT=250;
+let STAR_PRICE_PER_UNIT=0;
 
 const STARS_MIN=50;
 const STARS_MAX=10000;
@@ -2454,6 +2454,42 @@ function setLang(newLang,remember){
 
 
 /* STARS */
+    
+async function loadStarsPrice(){
+
+    try{
+
+        const response=await fetch(
+            "http://87.106.100.187:7133/api/stars/quote"
+        );
+
+        const data=await response.json();
+
+        if(!data.ok){
+            throw new Error("Stars API error");
+        }
+
+        STAR_PRICE_PER_UNIT=
+            Number(data.price_per_star)*12500;
+
+        STARS_MIN=
+            Number(data.min_amount);
+
+        STARS_MAX=
+            Number(data.max_amount);
+
+        renderStarPacks();
+        calculateStars();
+
+    }catch(error){
+
+        console.error(
+            "Stars narxini olishda xatolik:",
+            error
+        );
+
+    }
+}
 
 function calculateStars(){
 
@@ -3192,6 +3228,8 @@ try{
             : detectLang();
 
     applyLanguage();
+    
+    loadStarsPrice();
 
     setBalance(balance);
 
