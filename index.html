@@ -2782,7 +2782,7 @@ const SERVICE_NAME_KEYS={
 };
 
 
-function buyService(service){
+async function buyService(service){
 
     /* STARS */
 
@@ -2814,9 +2814,80 @@ function buyService(service){
             return;
         }
 
-        if(!readUsername("starsUsername")){
+        const username=
+            readUsername("starsUsername");
+
+        if(!username){
             return;
         }
+
+        const totalPrice=
+            selectedStars *
+            STAR_PRICE_PER_UNIT;
+
+        try{
+
+            showToast(
+                "⏳ Buyurtma yuborilmoqda..."
+            );
+
+            const response=
+                await fetch(
+                    "https://polished-cloud-c5a3jvstars-stars.jtorayev817.workers.dev/api/stars/buy",
+                    {
+                        method:"POST",
+
+                        headers:{
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body:JSON.stringify({
+
+                            telegram_username:
+                                username,
+
+                            quantity:
+                                selectedStars
+
+                        })
+                    }
+                );
+
+            const data=
+                await response.json();
+
+            if(!response.ok || !data.ok){
+
+                throw new Error(
+                    data.error ||
+                    "Stars xaridida xatolik"
+                );
+            }
+
+            console.log(
+                "⭐ Stars order:",
+                data.order
+            );
+
+            showToast(
+                "✅ Buyurtma qabul qilindi!"
+            );
+
+        }catch(error){
+
+            console.error(
+                "❌ Stars buy xatosi:",
+                error
+            );
+
+            showToast(
+                "❌ Xarid amalga oshmadi: "+
+                error.message
+            );
+        }
+
+        return;
     }
 
 
