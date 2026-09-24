@@ -2469,9 +2469,8 @@ async function loadStarsPrice(){
             throw new Error("Stars API error");
         }
 
-        STAR_PRICE_PER_UNIT=
-            Number(data.price_per_star)*12500;
-
+       STAR_PROVIDER_PRICE_USD=
+    Number(data.price_per_star);
         STARS_MIN=
             Number(data.min_amount);
 
