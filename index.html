@@ -1,1804 +1,1371 @@
+```html
 <!DOCTYPE html>
-
 <html lang="uz">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="theme-color" content="#050817">
-
-<title>JV Stars</title>
-
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
-
-<style>
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-}
-
-:root{
-    --bg:#050817;
-    --card:#0d1226;
-    --card2:#111832;
-    --text:#fff;
-    --muted:#8992ad;
-    --blue:#4d7cff;
-    --cyan:#00d9ff;
-    --purple:#8b5cf6;
-    --green:#20d67b;
-    --red:#ff3b5c;
-    --border:rgba(255,255,255,.08);
-}
-
-body{
-    font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-    background:
-        radial-gradient(circle at 50% -10%,rgba(77,124,255,.28),transparent 40%),
-        radial-gradient(circle at 100% 40%,rgba(139,92,246,.14),transparent 35%),
-        var(--bg);
-    color:var(--text);
-    min-height:100vh;
-    overflow-x:hidden;
-}
-
-button,input,select,textarea{
-    font-family:inherit;
-}
-
-button{
-    border:0;
-    cursor:pointer;
-}
-
-.app{
-    width:100%;
-    max-width:600px;
-    margin:auto;
-    padding:18px 15px 35px;
-}
-
-.header{
-    position:relative;
-    text-align:center;
-    margin-bottom:20px;
-}
-
-.lang-switch{
-    position:absolute;
-    top:0;
-    right:0;
-    display:flex;
-    gap:4px;
-    flex-wrap:wrap;
-    justify-content:flex-end;
-    max-width:210px;
-}
-
-.lang-btn{
-    padding:6px 9px;
-    border-radius:10px;
-    border:1px solid var(--border);
-    background:rgba(255,255,255,.055);
-    color:var(--muted);
-    font-size:10px;
-    font-weight:800;
-}
-
-.lang-btn.active{
-    color:#fff;
-    border-color:rgba(77,124,255,.6);
-    background:linear-gradient(145deg,rgba(77,124,255,.28),rgba(139,92,246,.2));
-}
-
-.logo{
-    font-size:42px;
-    font-weight:900;
-    letter-spacing:2px;
-    background:linear-gradient(90deg,#fff,#62dfff,#8d6cff,#fff);
-    background-size:250% auto;
-    -webkit-background-clip:text;
-    background-clip:text;
-    -webkit-text-fill-color:transparent;
-    animation:glowText 5s linear infinite;
-}
-
-@keyframes glowText{
-    0%{background-position:0 center}
-    50%{background-position:100% center}
-    100%{background-position:0 center}
-}
-
-.bot-link{
-    display:inline-block;
-    margin-top:5px;
-    color:#8fdfff;
-    font-size:14px;
-    text-decoration:none;
-}
-
-.balance-card{
-    background:linear-gradient(135deg,rgba(77,124,255,.18),rgba(139,92,246,.12));
-    border:1px solid rgba(120,150,255,.18);
-    border-radius:20px;
-    padding:18px;
-    margin-bottom:22px;
-    box-shadow:0 0 35px rgba(77,124,255,.08);
-}
-
-.balance-title{
-    color:var(--muted);
-    font-size:13px;
-    margin-bottom:6px;
-}
-
-.balance{
-    font-size:28px;
-    font-weight:800;
-}
-
-.uzs{
-    font-size:14px;
-    color:var(--muted);
-    margin-left:5px;
-}
-
-.page{
-    display:none;
-}
-
-.page.active{
-    display:block;
-    animation:pageIn .25s ease;
-}
-
-@keyframes pageIn{
-    from{
-        opacity:0;
-        transform:translateY(8px);
-    }
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-}
-
-.section-title{
-    font-size:22px;
-    font-weight:800;
-    margin-bottom:5px;
-}
-
-.section-description{
-    color:var(--muted);
-    font-size:13px;
-    margin-bottom:18px;
-}
-
-.services{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:12px;
-}
-
-.service{
-    position:relative;
-    overflow:hidden;
-    min-height:145px;
-    background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.018));
-    border:1px solid var(--border);
-    border-radius:22px;
-    padding:20px 16px;
-    color:#fff;
-    text-align:left;
-    transition:.2s;
-}
-
-.service:hover,
-.service:active{
-    transform:translateY(-2px);
-    border-color:rgba(90,150,255,.45);
-    box-shadow:0 0 28px rgba(77,124,255,.13);
-}
-
-.service::after{
-    content:"";
-    position:absolute;
-    width:80px;
-    height:80px;
-    right:-30px;
-    bottom:-35px;
-    border-radius:50%;
-    background:rgba(77,124,255,.14);
-    filter:blur(15px);
-}
-
-.service-icon{
-    font-size:38px;
-    margin-bottom:12px;
-}
-
-.service-name{
-    font-size:16px;
-    font-weight:800;
-}
-
-.service-desc{
-    color:var(--muted);
-    font-size:11px;
-    margin-top:5px;
-}
-
-.admin-service{
-    border-color:rgba(255,59,92,.28);
-    background:linear-gradient(145deg,rgba(255,59,92,.10),rgba(255,255,255,.018));
-}
-
-.admin-service .service-desc{
-    color:#ff8b9e;
-}
-
-.form-card{
-    background:var(--card);
-    border:1px solid var(--border);
-    border-radius:20px;
-    padding:16px;
-    margin-bottom:14px;
-}
-
-.label{
-    display:block;
-    color:#aeb6ce;
-    font-size:13px;
-    margin-bottom:8px;
-}
-
-input,
-select,
-textarea{
-    width:100%;
-    background:#080d1d;
-    color:#fff;
-    border:1px solid rgba(255,255,255,.09);
-    border-radius:14px;
-    padding:14px;
-    outline:none;
-    font-size:16px;
-}
-
-textarea{
-    display:block;
-    resize:none;
-    min-height:86px;
-    line-height:1.4;
-}
-
-input:focus,
-select:focus,
-textarea:focus{
-    border-color:rgba(77,124,255,.65);
-}
-
-input.invalid{
-    border-color:rgba(255,92,122,.75);
-}
-
-input::placeholder,
-textarea::placeholder{
-    color:#5d6680;
-}
-
-.field-note{
-    display:flex;
-    justify-content:space-between;
-    gap:10px;
-    margin-top:7px;
-    color:var(--muted);
-    font-size:11px;
-}
-
-.recipient-row{
-    display:flex;
-    gap:8px;
-}
-
-.recipient-row input{
-    flex:1;
-    min-width:0;
-}
-
-.small-button{
-    white-space:nowrap;
-    background:rgba(77,124,255,.14);
-    color:#8fc2ff;
-    border:1px solid rgba(77,124,255,.2);
-    border-radius:13px;
-    padding:0 13px;
-}
-
-.packages{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:9px;
-}
-
-.package{
-    background:#090f20;
-    color:#fff;
-    border:1px solid rgba(255,255,255,.08);
-    border-radius:14px;
-    padding:13px 5px;
-    text-align:center;
-}
-
-.package strong{
-    display:block;
-    font-size:15px;
-}
-
-.package span{
-    display:block;
-    color:#8b96b1;
-    font-size:10px;
-    margin-top:4px;
-}
-
-.package.selected{
-    border-color:#4d7cff;
-    background:linear-gradient(145deg,rgba(77,124,255,.2),rgba(139,92,246,.13));
-    box-shadow:0 0 20px rgba(77,124,255,.12);
-}
-
-.package.admin-plan{
-    border-color:rgba(255,59,92,.35);
-}
-
-.package.admin-plan.selected{
-    border-color:#ff3b5c;
-    background:linear-gradient(145deg,rgba(255,59,92,.15),rgba(139,92,246,.10));
-}
-
-.price-box{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:10px;
-    background:#090f20;
-    border:1px solid var(--border);
-    border-radius:15px;
-    padding:14px;
-    margin-top:12px;
-}
-
-.price-label{
-    color:var(--muted);
-    font-size:12px;
-}
-
-.price{
-    font-size:19px;
-    font-weight:800;
-    text-align:right;
-}
-
-.buy-button{
-    width:100%;
-    margin-top:14px;
-    padding:15px;
-    border-radius:15px;
-    color:#fff;
-    font-size:15px;
-    font-weight:800;
-    background:linear-gradient(100deg,#426dff,#7253ef);
-    box-shadow:0 8px 28px rgba(77,124,255,.22);
-}
-
-.buy-button:active{
-    transform:scale(.98);
-}
-
-.back-button{
-    width:100%;
-    margin-bottom:15px;
-    background:rgba(255,255,255,.055);
-    color:#fff;
-    border:1px solid var(--border);
-    border-radius:14px;
-    padding:13px;
-}
-
-.warning-box{
-    margin-top:14px;
-    padding:15px;
-    border-radius:16px;
-    border:1px solid rgba(255,59,92,.65);
-    background:linear-gradient(135deg,rgba(255,59,92,.16),rgba(120,15,35,.12));
-    color:#fff;
-    box-shadow:0 0 22px rgba(255,59,92,.10);
-}
-
-.warning-title{
-    color:#ff536f;
-    font-size:14px;
-    font-weight:900;
-    margin-bottom:7px;
-}
-
-.warning-text{
-    color:#ffbdc8;
-    font-size:12px;
-    line-height:1.5;
-}
-
-.admin-info{
-    margin-top:10px;
-    color:#ff7f93;
-    font-size:12px;
-    font-weight:700;
-}
-
-.gift-grid{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:10px;
-}
-
-.gift{
-    background:var(--card);
-    border:1px solid var(--border);
-    border-radius:18px;
-    padding:15px;
-    text-align:center;
-    color:#fff;
-}
-
-.gift.selected{
-    border-color:#4d7cff;
-    box-shadow:0 0 20px rgba(77,124,255,.13);
-}
-
-.gift-image{
-    width:65px;
-    height:65px;
-    margin:0 auto 8px;
-    border-radius:18px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:38px;
-    background:linear-gradient(145deg,rgba(77,124,255,.18),rgba(139,92,246,.16));
-}
-
-.gift-name{
-    font-size:14px;
-    font-weight:700;
-}
-
-.gift-price{
-    color:#8eb9ff;
-    font-size:12px;
-    margin-top:4px;
-}
-
-.country-grid{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:9px;
-    max-height:430px;
-    overflow-y:auto;
-}
-
-.country{
-    background:#090f20;
-    color:#fff;
-    border:1px solid var(--border);
-    border-radius:14px;
-    padding:13px 10px;
-    text-align:left;
-}
-
-.country.selected{
-    border-color:#4d7cff;
-}
-
-.country-name{
-    font-size:13px;
-    font-weight:700;
-}
-
-.country-price{
-    color:#7e8aa8;
-    font-size:11px;
-    margin-top:3px;
-}
-
-.uc-grid{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:9px;
-}
-
-.uc{
-    background:#090f20;
-    color:#fff;
-    border:1px solid var(--border);
-    border-radius:15px;
-    padding:14px;
-    text-align:center;
-}
-
-.uc.selected{
-    border-color:#4d7cff;
-}
-
-.uc strong{
-    display:block;
-    font-size:16px;
-}
-
-.uc span{
-    display:block;
-    color:#7f8ba7;
-    font-size:11px;
-    margin-top:5px;
-}
-
-
-.country-search{margin-bottom:10px;}
-.game-list{display:grid;gap:10px;}
-.game-card{width:100%;display:flex;align-items:center;gap:13px;background:var(--card);color:#fff;border:1px solid var(--border);border-radius:18px;padding:15px;text-align:left;}
-.game-icon{width:48px;height:48px;flex:none;border-radius:14px;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,rgba(77,124,255,.18),rgba(139,92,246,.16));font-size:25px;}
-.game-name{font-size:15px;font-weight:800;}
-.game-desc{color:var(--muted);font-size:11px;margin-top:4px;}
-.game-arrow{margin-left:auto;color:#7e8aa8;font-size:22px;}
-.game-packages{display:grid;gap:9px;}
-.game-package{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;background:#090f20;color:#fff;border:1px solid var(--border);border-radius:15px;padding:14px;text-align:left;}
-.game-package.selected{border-color:#4d7cff;background:linear-gradient(145deg,rgba(77,124,255,.18),rgba(139,92,246,.10));}
-.game-package-name{font-size:14px;font-weight:800;}
-.game-package-desc{color:var(--muted);font-size:10px;margin-top:4px;}
-.game-package-price{color:#8eb9ff;font-size:13px;font-weight:800;white-space:nowrap;}
-.game-loading{padding:22px;text-align:center;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:16px;}
-
-.toast{
-    position:fixed;
-    left:50%;
-    bottom:25px;
-    transform:translate(-50%,30px);
-    width:calc(100% - 35px);
-    max-width:500px;
-    background:rgba(16,22,43,.97);
-    border:1px solid rgba(255,255,255,.1);
-    border-radius:15px;
-    padding:14px 16px;
-    text-align:center;
-    font-size:13px;
-    opacity:0;
-    pointer-events:none;
-    transition:.25s;
-    z-index:999;
-}
-
-.toast.show{
-    opacity:1;
-    transform:translate(-50%,0);
-}
-
-.js-error{
-    position:fixed;
-    left:10px;
-    right:10px;
-    top:10px;
-    z-index:9999;
-    padding:10px 12px;
-    border-radius:12px;
-    background:rgba(120,20,40,.95);
-    border:1px solid rgba(255,92,122,.8);
-    color:#fff;
-    font-size:12px;
-}
-
-@media(max-width:380px){
-    .services{gap:8px}
-    .service{
-        padding:15px;
-        min-height:130px;
-    }
-    .packages{
-        grid-template-columns:repeat(2,1fr);
-    }
-}
-
-@media(prefers-reduced-motion:reduce){
-    *,
-    *::before,
-    *::after{
-        animation:none!important;
-        transition:none!important;
-    }
-}
-</style>
-
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    >
+
+    <title>JV Stars</title>
+
+    <style>
+        *{
+            box-sizing:border-box;
+            margin:0;
+            padding:0;
+        }
+
+        body{
+            font-family:
+                Inter,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                sans-serif;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    #07111f 0%,
+                    #0b1730 50%,
+                    #07111f 100%
+                );
+
+            color:#fff;
+            min-height:100vh;
+        }
+
+        button,
+        input{
+            font:inherit;
+        }
+
+        button{
+            cursor:pointer;
+        }
+
+        .container{
+            width:100%;
+            max-width:620px;
+            margin:0 auto;
+            padding:16px;
+        }
+
+        .header{
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:12px;
+            margin-bottom:18px;
+        }
+
+        .logo{
+            font-size:25px;
+            font-weight:800;
+            letter-spacing:-.5px;
+        }
+
+        .logo span{
+            color:#3da9ff;
+        }
+
+        .langs{
+            display:flex;
+            gap:5px;
+        }
+
+        .lang{
+            border:1px solid rgba(255,255,255,.12);
+            background:rgba(255,255,255,.06);
+            color:#bfc9d8;
+            padding:7px 9px;
+            border-radius:9px;
+            font-size:11px;
+        }
+
+        .lang.active{
+            background:#168cff;
+            color:#fff;
+            border-color:#168cff;
+        }
+
+        .balance-card{
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(32,142,255,.22),
+                    rgba(16,37,74,.72)
+                );
+
+            border:1px solid rgba(90,173,255,.18);
+            border-radius:20px;
+            padding:20px;
+            margin-bottom:18px;
+        }
+
+        .balance-label{
+            color:#9eacc0;
+            font-size:13px;
+            margin-bottom:7px;
+        }
+
+        .balance{
+            font-size:29px;
+            font-weight:800;
+        }
+
+        .balance-actions{
+            display:flex;
+            gap:9px;
+            margin-top:14px;
+        }
+
+        .small-btn{
+            flex:1;
+            border:0;
+            border-radius:12px;
+            padding:11px;
+            color:#fff;
+            background:#167ee5;
+        }
+
+        .small-btn.secondary{
+            background:rgba(255,255,255,.08);
+        }
+
+        .section-title{
+            font-size:18px;
+            font-weight:800;
+            margin:20px 0 12px;
+        }
+
+        .services{
+            display:grid;
+            grid-template-columns:repeat(2,1fr);
+            gap:11px;
+        }
+
+        .service{
+            border:1px solid rgba(255,255,255,.08);
+            background:rgba(255,255,255,.055);
+            color:#fff;
+            border-radius:18px;
+            padding:18px 15px;
+            text-align:left;
+            min-height:120px;
+            transition:.15s;
+        }
+
+        .service:active{
+            transform:scale(.98);
+        }
+
+        .service-icon{
+            font-size:29px;
+            margin-bottom:12px;
+        }
+
+        .service-title{
+            font-size:15px;
+            font-weight:750;
+        }
+
+        .service-sub{
+            margin-top:5px;
+            color:#8998ad;
+            font-size:11px;
+            line-height:1.4;
+        }
+
+        .page{
+            display:none;
+        }
+
+        .page.active{
+            display:block;
+        }
+
+        .back{
+            border:0;
+            background:rgba(255,255,255,.07);
+            color:#fff;
+            padding:10px 14px;
+            border-radius:12px;
+            margin-bottom:16px;
+        }
+
+        .page-title{
+            font-size:25px;
+            font-weight:800;
+            margin-bottom:7px;
+        }
+
+        .page-description{
+            color:#8e9bad;
+            font-size:13px;
+            margin-bottom:18px;
+            line-height:1.5;
+        }
+
+        .packages{
+            display:grid;
+            grid-template-columns:repeat(2,1fr);
+            gap:10px;
+        }
+
+        .package{
+            border:1px solid rgba(255,255,255,.09);
+            background:rgba(255,255,255,.055);
+            color:#fff;
+            border-radius:16px;
+            padding:16px 13px;
+            text-align:left;
+        }
+
+        .package.selected{
+            border-color:#2196ff;
+            background:rgba(33,150,243,.15);
+        }
+
+        .package strong{
+            display:block;
+            font-size:15px;
+            margin-bottom:7px;
+        }
+
+        .package span{
+            color:#8fa0b5;
+            font-size:12px;
+        }
+
+        .admin-plan{
+            border-color:rgba(255,195,73,.25);
+        }
+
+        .input-box{
+            margin-top:16px;
+        }
+
+        .input-box label{
+            display:block;
+            color:#9ca9ba;
+            font-size:12px;
+            margin-bottom:7px;
+        }
+
+        .input{
+            width:100%;
+            border:1px solid rgba(255,255,255,.1);
+            background:rgba(255,255,255,.055);
+            color:#fff;
+            border-radius:13px;
+            padding:13px 14px;
+            outline:none;
+        }
+
+        .input:focus{
+            border-color:#2196ff;
+        }
+
+        .total{
+            margin-top:17px;
+            padding:15px;
+            border-radius:15px;
+            background:rgba(255,255,255,.055);
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:10px;
+        }
+
+        .total span{
+            color:#91a0b3;
+            font-size:13px;
+        }
+
+        .total strong{
+            font-size:18px;
+        }
+
+        .buy{
+            width:100%;
+            border:0;
+            border-radius:14px;
+            padding:14px;
+            margin-top:11px;
+            color:#fff;
+            background:#168cff;
+            font-weight:750;
+        }
+
+        .buy:disabled{
+            opacity:.45;
+            cursor:not-allowed;
+        }
+
+        .notice{
+            padding:14px;
+            border-radius:14px;
+            background:rgba(255,193,7,.08);
+            border:1px solid rgba(255,193,7,.16);
+            color:#e9d18a;
+            font-size:13px;
+            line-height:1.5;
+            margin-top:15px;
+        }
+
+        .js-error{
+            position:fixed;
+            left:12px;
+            right:12px;
+            bottom:12px;
+            z-index:9999;
+            padding:14px;
+            border-radius:13px;
+            background:#7f1d1d;
+            color:#fff;
+            font-size:13px;
+        }
+
+        .stars-box{
+            text-align:center;
+            padding:20px 0;
+        }
+
+        .stars-big{
+            font-size:52px;
+            margin-bottom:8px;
+        }
+
+        .stars-price{
+            color:#9eacc0;
+            font-size:13px;
+            margin-bottom:18px;
+        }
+
+        .quantity-row{
+            display:flex;
+            gap:8px;
+            flex-wrap:wrap;
+        }
+
+        .quantity{
+            flex:1;
+            min-width:70px;
+            border:1px solid rgba(255,255,255,.08);
+            background:rgba(255,255,255,.055);
+            color:#fff;
+            border-radius:12px;
+            padding:11px 8px;
+        }
+
+        .quantity.selected{
+            border-color:#2196ff;
+            background:rgba(33,150,243,.15);
+        }
+
+        .empty{
+            padding:30px 10px;
+            text-align:center;
+            color:#8796a9;
+        }
+
+        @media(max-width:430px){
+            .container{
+                padding:13px;
+            }
+
+            .services{
+                gap:9px;
+            }
+
+            .service{
+                min-height:110px;
+                padding:15px 12px;
+            }
+
+            .packages{
+                gap:8px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<div class="app">
+<div class="container">
 
-<div class="header">
+    <header class="header">
 
-
-<div class="lang-switch">
-    <button type="button" class="lang-btn active" data-lang="uz">UZ</button>
-    <button type="button" class="lang-btn" data-lang="ru">RU</button>
-    <button type="button" class="lang-btn" data-lang="en">EN</button>
-    <button type="button" class="lang-btn" data-lang="de">DE</button>
-</div>
-
-<div class="logo">JV STARS</div>
-
-<a
-    class="bot-link"
-    href="https://t.me/jvstarsbot"
-    target="_blank"
-    rel="noopener"
->@jvstarsbot</a>
-
-
-</div>
-
-<div class="balance-card">
-    <div class="balance-title" data-i18n="balanceTitle">
-        💰 Sizning balansingiz
-    </div>
-
-
-<div class="balance">
-    <span id="balance">0</span>
-    <span class="uzs">UZS</span>
-</div>
-
-
-</div>
-
-<!-- HOME -->
-
-<section id="homePage" class="page active">
-
-
-<div class="section-title" data-i18n="servicesTitle">
-    🛍 Xizmatlar
-</div>
-
-<div class="section-description" data-i18n="servicesDesc">
-    Kerakli xizmatni tanlang
-</div>
-
-<div class="services">
-
-    <button type="button" class="service" data-page="starsPage">
-        <div class="service-icon">⭐</div>
-        <div class="service-name" data-i18n="svcStars">Telegram Stars</div>
-        <div class="service-desc" data-i18n="svcStarsDesc">Stars sotib olish</div>
-    </button>
-
-    <button type="button" class="service" data-page="premiumPage">
-        <div class="service-icon">💎</div>
-        <div class="service-name" data-i18n="svcPremium">Telegram Premium</div>
-        <div class="service-desc" data-i18n="svcPremiumDesc">Premium obuna</div>
-    </button>
-
-    <!-- ADMIN PREMIUM -->
-    <button type="button" class="service admin-service" id="adminPremiumBtn">
-        <div class="service-icon">🔴</div>
-        <div class="service-name" data-i18n="svcAdminPremium">
-            Premium Admin
+        <div class="logo">
+            JV <span>Stars</span>
         </div>
-        <div class="service-desc" data-i18n="svcAdminPremiumDesc">
-            Admin orqali, alohida to‘lov
+
+        <div class="langs">
+
+            <button
+                type="button"
+                class="lang active"
+                data-lang="uz"
+            >
+                UZ
+            </button>
+
+            <button
+                type="button"
+                class="lang"
+                data-lang="ru"
+            >
+                RU
+            </button>
+
+            <button
+                type="button"
+                class="lang"
+                data-lang="en"
+            >
+                EN
+            </button>
+
+            <button
+                type="button"
+                class="lang"
+                data-lang="de"
+            >
+                DE
+            </button>
+
         </div>
-    </button>
 
-    <button type="button" class="service" data-page="giftsPage">
-        <div class="service-icon">🎁</div>
-        <div class="service-name" data-i18n="svcGifts">Telegram Gifts</div>
-        <div class="service-desc" data-i18n="svcGiftsDesc">Sovg‘alar yuborish</div>
-    </button>
+    </header>
 
-    <button type="button" class="service" data-page="numbersPage">
-        <div class="service-icon">📱</div>
-        <div class="service-name" data-i18n="svcNumbers">Virtual raqam</div>
-        <div class="service-desc" data-i18n="svcNumbersDesc">100+ davlat</div>
-    </button>
 
-    <button type="button" class="service" data-page="gamesPage">
-        <div class="service-icon">🎮</div>
-        <div class="service-name" data-i18n="svcGameTop">Game Top Up</div>
-        <div class="service-desc" data-i18n="svcGameTopDesc">4 ta o‘yinni to‘ldirish</div>
-    </button>
+    <main id="homePage" class="page active">
 
-    <button type="button" class="service" data-page="topupPage">
-        <div class="service-icon">💰</div>
-        <div class="service-name" data-i18n="svcTopup">Hisobni to‘ldirish</div>
-        <div class="service-desc" data-i18n="svcTopupDesc">Balansni to‘ldirish</div>
-    </button>
+        <div class="balance-card">
+
+            <div class="balance-label" id="balanceLabel">
+                Balansingiz
+            </div>
+
+            <div
+                class="balance"
+                id="balance"
+            >
+                0 UZS
+            </div>
+
+            <div class="balance-actions">
+
+                <button
+                    type="button"
+                    class="small-btn"
+                    data-page="topupPage"
+                    id="topupBtn"
+                >
+                    Hisobni to‘ldirish
+                </button>
+
+                <button
+                    type="button"
+                    class="small-btn secondary"
+                    id="refreshBalance"
+                >
+                    ↻
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="section-title" id="servicesTitle">
+            Xizmatlar
+        </div>
+
+
+        <div class="services">
+
+            <button
+                type="button"
+                class="service"
+                data-page="starsPage"
+            >
+                <div class="service-icon">⭐</div>
+
+                <div
+                    class="service-title"
+                    id="starsServiceTitle"
+                >
+                    Telegram Stars
+                </div>
+
+                <div
+                    class="service-sub"
+                    id="starsServiceSub"
+                >
+                    Stars sotib olish
+                </div>
+            </button>
+
+
+            <button
+                type="button"
+                class="service"
+                data-page="premiumPage"
+            >
+                <div class="service-icon">💎</div>
+
+                <div
+                    class="service-title"
+                    id="premiumServiceTitle"
+                >
+                    Telegram Premium
+                </div>
+
+                <div
+                    class="service-sub"
+                    id="premiumServiceSub"
+                >
+                    Premium sotib olish
+                </div>
+            </button>
+
+
+            <button
+                type="button"
+                class="service"
+                data-page="giftsPage"
+            >
+                <div class="service-icon">🎁</div>
+
+                <div
+                    class="service-title"
+                    id="giftsServiceTitle"
+                >
+                    Gifts
+                </div>
+
+                <div
+                    class="service-sub"
+                    id="giftsServiceSub"
+                >
+                    Telegram Gifts
+                </div>
+            </button>
+
+
+            <button
+                type="button"
+                class="service"
+                data-page="numbersPage"
+            >
+                <div class="service-icon">📱</div>
+
+                <div
+                    class="service-title"
+                    id="numbersServiceTitle"
+                >
+                    Virtual Number
+                </div>
+
+                <div
+                    class="service-sub"
+                    id="numbersServiceSub"
+                >
+                    Raqam olish
+                </div>
+            </button>
+
+
+            <button
+                type="button"
+                class="service"
+                data-page="gamesPage"
+            >
+                <div class="service-icon">🎮</div>
+
+                <div
+                    class="service-title"
+                    id="gamesServiceTitle"
+                >
+                    Game Top Up
+                </div>
+
+                <div
+                    class="service-sub"
+                    id="gamesServiceSub"
+                >
+                    O‘yinlarga balans
+                </div>
+            </button>
+
+
+            <button
+                type="button"
+                class="service"
+                data-page="topupPage"
+            >
+                <div class="service-icon">💳</div>
+
+                <div
+                    class="service-title"
+                    id="topupServiceTitle"
+                >
+                    Hisobni to‘ldirish
+                </div>
+
+                <div
+                    class="service-sub"
+                    id="topupServiceSub"
+                >
+                    Balansni to‘ldirish
+                </div>
+            </button>
+
+        </div>
+
+    </main>
+
+
+    <!-- STARS -->
+
+    <section
+        id="starsPage"
+        class="page"
+    >
+
+        <button
+            type="button"
+            class="back"
+            data-page="homePage"
+        >
+            ← Orqaga
+        </button>
+
+        <div class="page-title">
+            Telegram Stars
+        </div>
+
+        <div class="page-description">
+            Telegram Stars sotib oling.
+        </div>
+
+
+        <div class="stars-box">
+
+            <div class="stars-big">
+                ⭐
+            </div>
+
+            <div
+                class="stars-price"
+                id="starsProviderPrice"
+            >
+                1 ⭐ = 220 UZS
+            </div>
+
+        </div>
+
+
+        <div class="quantity-row">
+
+            <button
+                type="button"
+                class="quantity"
+                data-stars="50"
+            >
+                50 ⭐
+            </button>
+
+            <button
+                type="button"
+                class="quantity"
+                data-stars="100"
+            >
+                100 ⭐
+            </button>
+
+            <button
+                type="button"
+                class="quantity"
+                data-stars="200"
+            >
+                200 ⭐
+            </button>
+
+            <button
+                type="button"
+                class="quantity"
+                data-stars="300"
+            >
+                300 ⭐
+            </button>
+
+            <button
+                type="button"
+                class="quantity"
+                data-stars="400"
+            >
+                400 ⭐
+            </button>
+
+            <button
+                type="button"
+                class="quantity"
+                data-stars="500"
+            >
+                500 ⭐
+            </button>
+
+        </div>
+
+
+        <div class="input-box">
+
+            <label>
+                Stars miqdori
+            </label>
+
+            <input
+                id="customStars"
+                class="input"
+                type="number"
+                min="50"
+                max="10000"
+                step="1"
+                value="50"
+            >
+
+        </div>
+
+
+        <div class="total">
+
+            <span>
+                Jami
+            </span>
+
+            <strong id="starsTotal">
+                11,000 UZS
+            </strong>
+
+        </div>
+
+
+        <button
+            type="button"
+            class="buy"
+            id="buyStars"
+        >
+            ⭐ Sotib olish
+        </button>
+
+    </section>
+
+
+    <!-- PREMIUM -->
+
+    <section
+        id="premiumPage"
+        class="page"
+    >
+
+        <button
+            type="button"
+            class="back"
+            data-page="homePage"
+        >
+            ← Orqaga
+        </button>
+
+        <div class="page-title">
+            Telegram Premium
+        </div>
+
+        <div class="page-description">
+            Telegram Premium tarifini tanlang.
+        </div>
+
+
+        <div
+            class="packages"
+            id="premiumPacks"
+        ></div>
+
+
+        <div class="input-box">
+
+            <label id="premiumUsernameLabel">
+                Telegram username
+            </label>
+
+            <input
+                id="premiumUsername"
+                class="input"
+                type="text"
+                placeholder="@username"
+            >
+
+        </div>
+
+
+        <div class="total">
+
+            <span>
+                Jami
+            </span>
+
+            <strong id="premiumTotal">
+                0 UZS
+            </strong>
+
+        </div>
+
+
+        <button
+            type="button"
+            class="buy"
+            id="buyPremium"
+        >
+            💎 Sotib olish
+        </button>
+
+
+        <div
+            class="notice"
+            id="premiumNotice"
+        >
+            Premium xizmatlari avtomatik yetkazib beriladi.
+        </div>
+
+    </section>
+
+
+    <!-- GIFTS -->
+
+    <section
+        id="giftsPage"
+        class="page"
+    >
+
+        <button
+            type="button"
+            class="back"
+            data-page="homePage"
+        >
+            ← Orqaga
+        </button>
+
+        <div class="page-title">
+            Gifts
+        </div>
+
+        <div class="page-description">
+            Telegram Gifts xizmatini tanlang.
+        </div>
+
+        <div class="empty">
+            🎁 Gifts xizmati tez orada ishga tushadi.
+        </div>
+
+    </section>
+
+
+    <!-- NUMBERS -->
+
+    <section
+        id="numbersPage"
+        class="page"
+    >
+
+        <button
+            type="button"
+            class="back"
+            data-page="homePage"
+        >
+            ← Orqaga
+        </button>
+
+        <div class="page-title">
+            Virtual Number
+        </div>
+
+        <div class="page-description">
+            Virtual raqam xizmatlari.
+        </div>
+
+        <div class="empty">
+            📱 Raqam olish xizmati tez orada ishga tushadi.
+        </div>
+
+    </section>
+
+
+    <!-- GAMES -->
+
+    <section
+        id="gamesPage"
+        class="page"
+    >
+
+        <button
+            type="button"
+            class="back"
+            data-page="homePage"
+        >
+            ← Orqaga
+        </button>
+
+        <div class="page-title">
+            Game Top Up
+        </div>
+
+        <div class="page-description">
+            O‘yinlar uchun balans to‘ldirish.
+        </div>
+
+        <div class="empty">
+            🎮 Game Top Up provider ulanmoqda.
+        </div>
+
+    </section>
+
+
+    <!-- TOPUP -->
+
+    <section
+        id="topupPage"
+        class="page"
+    >
+
+        <button
+            type="button"
+            class="back"
+            data-page="homePage"
+        >
+            ← Orqaga
+        </button>
+
+        <div class="page-title">
+            Hisobni to‘ldirish
+        </div>
+
+        <div class="page-description">
+            Balansingizni to‘ldirish.
+        </div>
+
+        <div class="empty">
+            💳 To‘lov provideri ulanmoqda.
+        </div>
+
+    </section>
 
 </div>
 
-
-</section>
-
-<!-- STARS -->
-
-<section id="starsPage" class="page">
-
-<button type="button" class="back-button" data-back data-i18n="back">
-    ← Orqaga
-</button>
-
-<div class="section-title" data-i18n="starsTitle">⭐ Telegram Stars</div>
-
-<div class="section-description" data-i18n="starsDesc">
-    Kerakli Stars miqdorini tanlang
-</div>
-
-<div class="form-card">
-
-<span class="label" data-i18n="starsAmount">Stars miqdori</span>
-
-<div class="packages" id="starPacks"></div>
-
-<br>
-
-<span class="label" data-i18n="otherAmount">Boshqa miqdor</span>
-
-<input
-id="customStars"
-type="text"
-inputmode="numeric"
-autocomplete="off"
-data-i18n-ph="starsPlaceholder"
-placeholder="Masalan: 78"
-
->
-
-<div class="price-box">
-
-<span class="price-label" data-i18n="total">Jami</span>
-
-<span class="price" id="starsTotal">0 UZS</span>
-
-</div>
-
-</div>
-
-<div class="form-card">
-
-<span class="label" data-i18n="toWhom">Kimga?</span>
-
-<div class="recipient-row">
-
-<input
-id="starsUsername"
-type="text"
-placeholder="@username"
-autocomplete="off"
-autocapitalize="none"
-spellcheck="false"
-
->
-
-<button
-type="button"
-class="small-button"
-data-self="starsUsername"
-data-i18n="forMe"
-
-> O‘zimga</button>
-
-</div>
-
-</div>
-
-<button
-type="button"
-class="buy-button"
-data-buy="stars"
-data-i18n="buyStars"
-
-> ⭐ Sotib olish</button>
-
-</section>
-
-<!-- PREMIUM -->
-
-<section id="premiumPage" class="page">
-
-<button type="button" class="back-button" data-back data-i18n="back">
-    ← Orqaga
-</button>
-
-<div class="section-title" data-i18n="premiumTitle">
-    💎 Telegram Premium
-</div>
-
-<div class="section-description" data-i18n="premiumDesc">
-    Premium muddatini tanlang
-</div>
-
-<div class="form-card">
-
-<span class="label" data-i18n="toWhom">Kimga?</span>
-
-<div class="recipient-row">
-
-<input
-id="premiumUsername"
-type="text"
-placeholder="@username"
-autocomplete="off"
-autocapitalize="none"
-spellcheck="false"
-
->
-
-<button
-type="button"
-class="small-button"
-data-self="premiumUsername"
-data-i18n="forMe"
-
-> O‘zimga</button>
-
-</div>
-
-</div>
-
-<div class="form-card">
-
-<span class="label" data-i18n="term">Muddat</span>
-
-<div class="packages" id="premiumPacks"></div>
-
-<div class="price-box">
-
-<span class="price-label" data-i18n="priceWord">Narx</span>
-
-<span class="price" id="premiumTotal">
-    Muddat tanlang
-</span>
-
-</div>
-
-<!-- ADMIN WARNING -->
-
-<div class="warning-box">
-
-<div class="warning-title" data-i18n="adminWarningTitle">
-    ⚠️ MUHIM OGohlantirish!
-</div>
-
-<div class="warning-text" data-i18n="adminWarningText">
-    Admin orqali Premium xarid qilganda to‘lovni faqat admin yuborgan karta rekvizitlariga amalga oshiring. Mini App balansingizdan pul yechilmaydi.
-</div>
-
-<div class="admin-info" data-i18n="adminWarningBottom">
-    🔴 Admin orqali to‘lov — alohida to‘lov hisoblanadi.
-</div>
-
-</div>
-
-</div>
-
-<button
-type="button"
-class="buy-button"
-data-buy="premium"
-data-i18n="buyPremium"
-
-> 💎 Sotib olish</button>
-
-</section>
-
-<!-- GIFTS -->
-
-<section id="giftsPage" class="page">
-
-<button type="button" class="back-button" data-back data-i18n="back">
-    ← Orqaga
-</button>
-
-<div class="section-title" data-i18n="giftsTitle">
-    🎁 Telegram Gifts
-</div>
-
-<div class="section-description" data-i18n="giftsDesc">
-    Sovg‘ani tanlang
-</div>
-
-<div class="gift-grid" id="giftGrid"></div>
-
-<div class="form-card" style="margin-top:14px;">
-
-<span class="label" data-i18n="toWhom">Kimga?</span>
-
-<div class="recipient-row">
-
-<input
-id="giftUsername"
-type="text"
-placeholder="@username"
-autocomplete="off"
-autocapitalize="none"
-spellcheck="false"
-
->
-
-<button
-type="button"
-class="small-button"
-data-self="giftUsername"
-data-i18n="forMe"
-
-> O‘zimga</button>
-
-</div>
-
-</div>
-
-<div class="form-card">
-
-<span class="label" data-i18n="commentLabel">
-    Izoh (ixtiyoriy)
-</span>
-
-<textarea
-    id="giftComment"
-    data-i18n-ph="commentPlaceholder"
-    placeholder="Sovg‘a bilan birga yuboriladigan matn..."
-></textarea>
-
-<div class="field-note">
-
-<span data-i18n="commentHelp">
-    Bu matn sovg‘a tagida qabul qiluvchiga ko‘rinadi.
-</span>
-
-<span id="giftCommentCount">0 / 128</span>
-
-</div>
-
-</div>
-
-<div class="price-box">
-
-<span class="price-label" data-i18n="selectedGift">
-    Tanlangan sovg‘a
-</span>
-
-<span class="price" id="giftTotal">Tanlang</span>
-
-</div>
-
-<button
-type="button"
-class="buy-button"
-data-buy="gift"
-data-i18n="buyGift"
-
-> 🎁 Sotib olish</button>
-
-</section>
-
-<!-- NUMBERS -->
-
-<section id="numbersPage" class="page">
-
-<button type="button" class="back-button" data-back data-i18n="back">
-    ← Orqaga
-</button>
-
-<div class="section-title" data-i18n="numbersTitle">
-    📱 Virtual raqam
-</div>
-
-<div class="section-description" data-i18n="numbersDesc">
-    Davlatni tanlang
-</div>
-
-<div class="form-card">
-
-<span class="label" data-i18n="serviceWord">Xizmat</span>
-
-<select id="numberService">
-<option value="Telegram">Telegram</option>
-<option value="WhatsApp">WhatsApp</option>
-<option value="Instagram">Instagram</option>
-<option value="Google">Google</option>
-</select>
-
-</div>
-
-<input id="countrySearch" class="country-search" type="search" autocomplete="off" data-i18n-ph="countrySearchPlaceholder" placeholder="Davlat qidiring...">
-
-<div class="country-grid" id="countryGrid"></div>
-
-<div class="price-box">
-
-<span class="price-label" data-i18n="selectedCountry">
-    Tanlangan davlat
-</span>
-
-<span class="price" id="numberTotal">Tanlang</span>
-
-</div>
-
-<button
-type="button"
-class="buy-button"
-data-buy="number"
-data-i18n="buyNumber"
-
-> 📱 Sotib olish</button>
-
-</section>
-
-<!-- GAME TOP UP -->
-
-<section id="gamesPage" class="page">
-<button type="button" class="back-button" data-back data-i18n="back">← Orqaga</button>
-<div class="section-title" data-i18n="gameTopTitle">🎮 Game Top Up</div>
-<div class="section-description" data-i18n="gameTopDesc">O‘yinni tanlang</div>
-<div class="game-list">
-<button type="button" class="game-card" data-game="pubg"><div class="game-icon">🎮</div><div><div class="game-name">PUBG Mobile</div><div class="game-desc" data-i18n="pubgGameDesc">UID orqali UC</div></div><div class="game-arrow">›</div></button>
-<button type="button" class="game-card" data-game="mlbb"><div class="game-icon">🎮</div><div><div class="game-name">Mobile Legends</div><div class="game-desc" data-i18n="mlbbGameDesc">User ID + Zone ID</div></div><div class="game-arrow">›</div></button>
-<button type="button" class="game-card" data-game="codm"><div class="game-icon">🎮</div><div><div class="game-name">Call of Duty Mobile</div><div class="game-desc" data-i18n="codmGameDesc">UID orqali top up</div></div><div class="game-arrow">›</div></button>
-<button type="button" class="game-card" data-game="fc"><div class="game-icon">⚽</div><div><div class="game-name">EA FC Mobile</div><div class="game-desc" data-i18n="fcGameDesc">Player ID orqali top up</div></div><div class="game-arrow">›</div></button>
-</div>
-</section>
-
-<section id="gameFormPage" class="page">
-<button type="button" class="back-button" data-game-back data-i18n="back">← Orqaga</button>
-<div class="section-title" id="gameFormTitle">🎮 Game</div>
-<div class="section-description" data-i18n="gamePackageDesc">Kerakli ma’lumotni kiriting va paketni tanlang</div>
-<div class="form-card" id="gameFields"></div>
-<div class="form-card"><span class="label" data-i18n="gamePackagesTitle">Paketlar</span><div class="game-packages" id="gamePackages"><div class="game-loading" data-i18n="loadingPackages">Paketlar yuklanmoqda...</div></div></div>
-<div class="price-box"><span class="price-label" data-i18n="selectedPack">Tanlangan paket</span><span class="price" id="gameTotal">Tanlang</span></div>
-<button type="button" class="buy-button" id="buyGameBtn" data-i18n="buyGame">🎮 Sotib olish</button>
-</section>
-
-<!-- TOPUP -->
-
-<section id="topupPage" class="page">
-
-<button type="button" class="back-button" data-back data-i18n="back">
-    ← Orqaga
-</button>
-
-<div class="section-title" data-i18n="topupTitle">
-    💰 Hisobni to‘ldirish
-</div>
-
-<div class="section-description" data-i18n="topupDesc">
-    Balansingizga mablag‘ qo‘shing
-</div>
-
-<div class="form-card">
-
-<span class="label" data-i18n="currentBalance">
-    Hozirgi balans
-</span>
-
-<div class="price-box">
-
-<span class="price-label" data-i18n="balanceWord">
-    Balans
-</span>
-
-<span class="price">
-    <span id="balance2">0</span> UZS
-</span>
-
-</div>
-
-</div>
-
-<div class="form-card">
-
-<span class="label" data-i18n="topupAmountLabel">
-    To‘ldirish summasi
-</span>
-
-<input
-id="topupAmount"
-type="text"
-inputmode="numeric"
-autocomplete="off"
-data-i18n-ph="topupPlaceholder"
-placeholder="Masalan: 50 000"
-
->
-
-<div class="packages" style="margin-top:12px;" id="topupPacks"></div>
-
-</div>
-
-<button
-type="button"
-class="buy-button"
-id="topupBtn"
-data-i18n="topupBtn"
-
-> 💳 Hisobni to‘ldirish</button>
-
-</section>
-
-</div>
-
-<div id="toast" class="toast"></div>
 
 <script>
+
 "use strict";
 
-/* TELEGRAM */
 
-const tg =
-    (window.Telegram && window.Telegram.WebApp)
-        ? window.Telegram.WebApp
-        : null;
+/* =========================
+   BASIC
+========================= */
 
-if(tg){
-    try{
-        tg.ready();
-        tg.expand();
-        tg.setHeaderColor("#050817");
-        tg.setBackgroundColor("#050817");
-    }catch(e){}
+function $(selector){
+
+    return document.querySelector(selector);
+
 }
 
 
-/* ADMIN */
-
-const ADMIN_LINK =
-    "https://t.me/faststarsbot_admin";
-
-const GAME_API_BASE = "";
-
-
-/* I18N */
-
-const I18N = {
-
-uz:{
-
-balanceTitle:"💰 Sizning balansingiz",
-servicesTitle:"🛍 Xizmatlar",
-servicesDesc:"Kerakli xizmatni tanlang",
-back:"← Orqaga",
-
-svcStars:"Telegram Stars",
-svcStarsDesc:"Stars sotib olish",
-
-svcPremium:"Telegram Premium",
-svcPremiumDesc:"Premium obuna",
-
-svcAdminPremium:"Premium Admin",
-svcAdminPremiumDesc:"Admin orqali, alohida to‘lov",
-
-svcGifts:"Telegram Gifts",
-svcGiftsDesc:"Sovg‘alar yuborish",
-
-svcNumbers:"Virtual raqam",
-svcNumbersDesc:"100+ davlat",
-
-svcPubg:"PUBG UC",
-svcPubgDesc:"UC to‘ldirish",
-svcGameTop:"Game Top Up",
-svcGameTopDesc:"4 ta o‘yinni to‘ldirish",
-gameTopTitle:"🎮 Game Top Up",
-gameTopDesc:"O‘yinni tanlang",
-pubgGameDesc:"UID orqali UC",
-mlbbGameDesc:"User ID + Zone ID",
-codmGameDesc:"UID orqali top up",
-fcGameDesc:"Player ID orqali top up",
-gamePackageDesc:"Kerakli ma’lumotni kiriting va paketni tanlang",
-gamePackagesTitle:"Paketlar",
-loadingPackages:"Paketlar yuklanmoqda...",
-buyGame:"🎮 Sotib olish",
-countrySearchPlaceholder:"Davlat qidiring...",
-gameIdPlaceholder:"ID kiriting",
-
-svcTopup:"Hisobni to‘ldirish",
-svcTopupDesc:"Balansni to‘ldirish",
-
-starsTitle:"⭐ Telegram Stars",
-starsDesc:"Kerakli Stars miqdorini tanlang",
-starsAmount:"Stars miqdori",
-otherAmount:"Boshqa miqdor",
-starsPlaceholder:"Masalan: 78",
-total:"Jami",
-
-toWhom:"Kimga?",
-forMe:"O‘zimga",
-buyStars:"⭐ Sotib olish",
-
-premiumTitle:"💎 Telegram Premium",
-premiumDesc:"Premium muddatini tanlang",
-term:"Muddat",
-priceWord:"Narx",
-chooseTerm:"Muddat tanlang",
-choose:"Tanlash",
-adminNote:"Admin orqali",
-autoNote:"Avtomatik",
-buyPremium:"💎 Sotib olish",
-
-adminWarningTitle:"⚠️ MUHIM OGOHLANTIRISH!",
-adminWarningText:"Admin orqali Premium xarid qilganda to‘lovni faqat admin yuborgan karta rekvizitlariga amalga oshiring. Mini App balansingizdan pul yechilmaydi.",
-adminWarningBottom:"🔴 Admin orqali to‘lov — alohida to‘lov hisoblanadi.",
-
-giftsTitle:"🎁 Telegram Gifts",
-giftsDesc:"Sovg‘ani tanlang",
-commentLabel:"Izoh (ixtiyoriy)",
-commentPlaceholder:"Sovg‘a bilan birga yuboriladigan matn...",
-commentHelp:"Bu matn sovg‘a tagida qabul qiluvchiga ko‘rinadi.",
-selectedGift:"Tanlangan sovg‘a",
-chooseGift:"Tanlang",
-buyGift:"🎁 Sotib olish",
-
-numbersTitle:"📱 Virtual raqam",
-numbersDesc:"Davlatni tanlang",
-serviceWord:"Xizmat",
-selectedCountry:"Tanlangan davlat",
-chooseCountry:"Tanlang",
-buyNumber:"📱 Sotib olish",
-
-pubgTitle:"🎮 PUBG UC",
-pubgDesc:"PUBG Mobile ID va UC paketini tanlang",
-pubgIdLabel:"PUBG ID",
-pubgIdPlaceholder:"PUBG Player ID",
-ucAmount:"UC miqdori",
-selectedPack:"Tanlangan paket",
-choosePack:"Tanlang",
-buyUc:"🎮 Sotib olish",
-
-topupTitle:"💰 Hisobni to‘ldirish",
-topupDesc:"Balansingizga mablag‘ qo‘shing",
-currentBalance:"Hozirgi balans",
-balanceWord:"Balans",
-topupAmountLabel:"To‘ldirish summasi",
-topupPlaceholder:"Masalan: 50 000",
-topupBtn:"💳 Hisobni to‘ldirish",
-
-monthsOne:"{n} oy",
-monthsFew:"{n} oy",
-monthsMany:"{n} oy",
-
-auto12:"12 oy • Avtomatik",
-admin12:"12 oy • Admin",
-
-nameStars:"Telegram Stars",
-namePremium:"Telegram Premium",
-nameGift:"Telegram Gift",
-nameNumber:"Virtual raqam",
-nameUc:"PUBG UC",
-
-toastStarsChoose:"⭐ Avval Stars miqdorini tanlang.",
-toastStarsMin:"⭐ Minimum miqdor: {n} Stars.",
-toastWho:"👤 Kimga yuborishni kiriting.",
-toastUserBad:"👤 Username noto‘g‘ri. Masalan: @username",
-
-toastPremiumChoose:"💎 Avval Premium muddatini tanlang.",
-toastGiftChoose:"🎁 Avval sovg‘ani tanlang.",
-toastCountryChoose:"📱 Avval davlatni tanlang.",
-toastPubgEmpty:"🎮 PUBG ID kiriting.",
-toastPubgShort:"🎮 PUBG ID juda qisqa. Tekshirib qayta kiriting.",
-toastUcChoose:"🎮 Avval UC paketini tanlang.",
-toastTopupMin:"❌ Minimum to‘lov {n} UZS.",
-
-toastAdmin:"🔴 Admin chatiga o‘tilmoqda...",
-toastNoUsername:"Telegram username topilmadi. Username'ni qo‘lda kiriting.",
-
-toastNoProvider:"🛠 {service} uchun provider va to‘lov tizimi hali ulanmagan."
-},
-
-ru:{
-
-balanceTitle:"💰 Ваш баланс",
-servicesTitle:"🛍 Услуги",
-servicesDesc:"Выберите нужную услугу",
-back:"← Назад",
-
-svcStars:"Telegram Stars",
-svcStarsDesc:"Купить Stars",
-
-svcPremium:"Telegram Premium",
-svcPremiumDesc:"Подписка Premium",
-
-svcAdminPremium:"Premium через администратора",
-svcAdminPremiumDesc:"Отдельная оплата администратору",
-
-svcGifts:"Telegram Gifts",
-svcGiftsDesc:"Отправка подарков",
-
-svcNumbers:"Виртуальный номер",
-svcNumbersDesc:"100+ стран",
-
-svcPubg:"PUBG UC",
-svcPubgDesc:"Пополнение UC",
-svcGameTop:"Game Top Up",
-svcGameTopDesc:"Пополнение 4 игр",
-gameTopTitle:"🎮 Game Top Up",
-gameTopDesc:"Выберите игру",
-pubgGameDesc:"UC по UID",
-mlbbGameDesc:"User ID + Zone ID",
-codmGameDesc:"Пополнение по UID",
-fcGameDesc:"Пополнение по Player ID",
-gamePackageDesc:"Введите данные и выберите пакет",
-gamePackagesTitle:"Пакеты",
-loadingPackages:"Загрузка пакетов...",
-buyGame:"🎮 Купить",
-countrySearchPlaceholder:"Поиск страны...",
-gameIdPlaceholder:"Введите ID",
-
-svcTopup:"Пополнить счёт",
-svcTopupDesc:"Пополнение баланса",
-
-starsTitle:"⭐ Telegram Stars",
-starsDesc:"Выберите нужное количество Stars",
-starsAmount:"Количество Stars",
-otherAmount:"Другое количество",
-starsPlaceholder:"Например: 78",
-total:"Итого",
-
-toWhom:"Кому?",
-forMe:"Себе",
-buyStars:"⭐ Купить",
-
-premiumTitle:"💎 Telegram Premium",
-premiumDesc:"Выберите срок Premium",
-term:"Срок",
-priceWord:"Цена",
-chooseTerm:"Выберите срок",
-choose:"Выбрать",
-adminNote:"Через администратора",
-autoNote:"Автоматически",
-buyPremium:"💎 Купить",
-
-adminWarningTitle:"⚠️ ВАЖНОЕ ПРЕДУПРЕЖДЕНИЕ!",
-adminWarningText:"При покупке Premium через администратора оплачивайте только на реквизиты карты, которые отправит администратор. Деньги с баланса Mini App списываться не будут.",
-adminWarningBottom:"🔴 Оплата администратору производится отдельно.",
-
-giftsTitle:"🎁 Telegram Gifts",
-giftsDesc:"Выберите подарок",
-commentLabel:"Комментарий (необязательно)",
-commentPlaceholder:"Текст, который придёт вместе с подарком...",
-commentHelp:"Получатель увидит этот текст под подарком.",
-selectedGift:"Выбранный подарок",
-chooseGift:"Выберите",
-buyGift:"🎁 Купить",
-
-numbersTitle:"📱 Виртуальный номер",
-numbersDesc:"Выберите страну",
-serviceWord:"Сервис",
-selectedCountry:"Выбранная страна",
-chooseCountry:"Выберите",
-buyNumber:"📱 Купить",
-
-pubgTitle:"🎮 PUBG UC",
-pubgDesc:"Введите PUBG Mobile ID и выберите пакет UC",
-pubgIdLabel:"PUBG ID",
-pubgIdPlaceholder:"PUBG Player ID",
-ucAmount:"Количество UC",
-selectedPack:"Выбранный пакет",
-choosePack:"Выберите",
-buyUc:"🎮 Купить",
-
-topupTitle:"💰 Пополнение счёта",
-topupDesc:"Пополните свой баланс",
-currentBalance:"Текущий баланс",
-balanceWord:"Баланс",
-topupAmountLabel:"Сумма пополнения",
-topupPlaceholder:"Например: 50 000",
-topupBtn:"💳 Пополнить счёт",
-
-monthsOne:"{n} месяц",
-monthsFew:"{n} месяца",
-monthsMany:"{n} месяцев",
-
-auto12:"12 месяцев • Автоматически",
-admin12:"12 месяцев • Администратор",
-
-nameStars:"Telegram Stars",
-namePremium:"Telegram Premium",
-nameGift:"Telegram Gift",
-nameNumber:"Виртуальный номер",
-nameUc:"PUBG UC",
-
-toastStarsChoose:"⭐ Сначала выберите количество Stars.",
-toastStarsMin:"⭐ Минимум: {n} Stars.",
-toastWho:"👤 Укажите, кому отправить.",
-toastUserBad:"👤 Неверный username. Например: @username",
-
-toastPremiumChoose:"💎 Сначала выберите срок Premium.",
-toastGiftChoose:"🎁 Сначала выберите подарок.",
-toastCountryChoose:"📱 Сначала выберите страну.",
-toastPubgEmpty:"🎮 Введите PUBG ID.",
-toastPubgShort:"🎮 PUBG ID слишком короткий.",
-toastUcChoose:"🎮 Сначала выберите пакет UC.",
-toastTopupMin:"❌ Минимальный платёж {n} UZS.",
-
-toastAdmin:"🔴 Переход к администратору...",
-toastNoUsername:"Telegram username не найден. Введите его вручную.",
-
-toastNoProvider:"🛠 Для «{service}» провайдер и платёжная система пока не подключены."
-},
-
-en:{
-
-balanceTitle:"💰 Your balance",
-servicesTitle:"🛍 Services",
-servicesDesc:"Choose a service",
-back:"← Back",
-
-svcStars:"Telegram Stars",
-svcStarsDesc:"Buy Stars",
-
-svcPremium:"Telegram Premium",
-svcPremiumDesc:"Premium subscription",
-
-svcAdminPremium:"Premium via Admin",
-svcAdminPremiumDesc:"Separate payment to admin",
-
-svcGifts:"Telegram Gifts",
-svcGiftsDesc:"Send gifts",
-
-svcNumbers:"Virtual Number",
-svcNumbersDesc:"100+ countries",
-
-svcPubg:"PUBG UC",
-svcPubgDesc:"Top up UC",
-svcGameTop:"Game Top Up",
-svcGameTopDesc:"Top up 4 games",
-gameTopTitle:"🎮 Game Top Up",
-gameTopDesc:"Choose a game",
-pubgGameDesc:"UC using UID",
-mlbbGameDesc:"User ID + Zone ID",
-codmGameDesc:"Top up using UID",
-fcGameDesc:"Top up using Player ID",
-gamePackageDesc:"Enter the required information and choose a package",
-gamePackagesTitle:"Packages",
-loadingPackages:"Loading packages...",
-buyGame:"🎮 Buy",
-countrySearchPlaceholder:"Search country...",
-gameIdPlaceholder:"Enter ID",
-
-svcTopup:"Top Up Balance",
-svcTopupDesc:"Add funds to your balance",
-
-starsTitle:"⭐ Telegram Stars",
-starsDesc:"Choose the amount of Stars",
-starsAmount:"Stars amount",
-otherAmount:"Custom amount",
-starsPlaceholder:"For example: 78",
-total:"Total",
-
-toWhom:"Recipient",
-forMe:"For me",
-buyStars:"⭐ Buy",
-
-premiumTitle:"💎 Telegram Premium",
-premiumDesc:"Choose Premium duration",
-term:"Duration",
-priceWord:"Price",
-chooseTerm:"Choose duration",
-choose:"Select",
-adminNote:"Via Admin",
-autoNote:"Automatic",
-buyPremium:"💎 Buy",
-
-adminWarningTitle:"⚠️ IMPORTANT WARNING!",
-adminWarningText:"When buying Premium through the admin, make the payment only to the card details provided by the admin. No money will be deducted from your Mini App balance.",
-adminWarningBottom:"🔴 Admin payment is completely separate from your Mini App balance.",
-
-giftsTitle:"🎁 Telegram Gifts",
-giftsDesc:"Choose a gift",
-commentLabel:"Comment (optional)",
-commentPlaceholder:"Text sent together with the gift...",
-commentHelp:"The recipient will see this text below the gift.",
-selectedGift:"Selected gift",
-chooseGift:"Choose",
-buyGift:"🎁 Buy",
-
-numbersTitle:"📱 Virtual Number",
-numbersDesc:"Choose a country",
-serviceWord:"Service",
-selectedCountry:"Selected country",
-chooseCountry:"Choose",
-buyNumber:"📱 Buy",
-
-pubgTitle:"🎮 PUBG UC",
-pubgDesc:"Enter PUBG Mobile ID and choose a UC package",
-pubgIdLabel:"PUBG ID",
-pubgIdPlaceholder:"PUBG Player ID",
-ucAmount:"UC amount",
-selectedPack:"Selected package",
-choosePack:"Choose",
-buyUc:"🎮 Buy",
-
-topupTitle:"💰 Top Up Balance",
-topupDesc:"Add funds to your balance",
-currentBalance:"Current balance",
-balanceWord:"Balance",
-topupAmountLabel:"Top-up amount",
-topupPlaceholder:"For example: 50,000",
-topupBtn:"💳 Top Up",
-
-monthsOne:"{n} month",
-monthsFew:"{n} months",
-monthsMany:"{n} months",
-
-auto12:"12 months • Automatic",
-admin12:"12 months • Admin",
-
-nameStars:"Telegram Stars",
-namePremium:"Telegram Premium",
-nameGift:"Telegram Gift",
-nameNumber:"Virtual Number",
-nameUc:"PUBG UC",
-
-toastStarsChoose:"⭐ Please choose the Stars amount first.",
-toastStarsMin:"⭐ Minimum amount: {n} Stars.",
-toastWho:"👤 Enter the recipient.",
-toastUserBad:"👤 Invalid username. Example: @username",
-
-toastPremiumChoose:"💎 Please choose a Premium duration first.",
-toastGiftChoose:"🎁 Please choose a gift first.",
-toastCountryChoose:"📱 Please choose a country first.",
-toastPubgEmpty:"🎮 Enter PUBG ID.",
-toastPubgShort:"🎮 PUBG ID is too short.",
-toastUcChoose:"🎮 Please choose a UC package first.",
-toastTopupMin:"❌ Minimum payment: {n} UZS.",
-
-toastAdmin:"🔴 Opening admin chat...",
-toastNoUsername:"Telegram username not found. Enter it manually.",
-
-toastNoProvider:"🛠 Provider and payment system for {service} are not connected yet."
-},
-
-de:{
-
-balanceTitle:"💰 Ihr Guthaben",
-servicesTitle:"🛍 Dienstleistungen",
-servicesDesc:"Wählen Sie einen Service",
-back:"← Zurück",
-
-svcStars:"Telegram Stars",
-svcStarsDesc:"Stars kaufen",
-
-svcPremium:"Telegram Premium",
-svcPremiumDesc:"Premium-Abonnement",
-
-svcAdminPremium:"Premium über Admin",
-svcAdminPremiumDesc:"Separate Zahlung an den Admin",
-
-svcGifts:"Telegram Gifts",
-svcGiftsDesc:"Geschenke senden",
-
-svcNumbers:"Virtuelle Nummer",
-svcNumbersDesc:"100+ Länder",
-
-svcPubg:"PUBG UC",
-svcPubgDesc:"UC aufladen",
-svcGameTop:"Game Top Up",
-svcGameTopDesc:"4 Spiele aufladen",
-gameTopTitle:"🎮 Game Top Up",
-gameTopDesc:"Spiel auswählen",
-pubgGameDesc:"UC per UID",
-mlbbGameDesc:"User ID + Zone ID",
-codmGameDesc:"Aufladung per UID",
-fcGameDesc:"Aufladung per Player ID",
-gamePackageDesc:"Daten eingeben und Paket auswählen",
-gamePackagesTitle:"Pakete",
-loadingPackages:"Pakete werden geladen...",
-buyGame:"🎮 Kaufen",
-countrySearchPlaceholder:"Land suchen...",
-gameIdPlaceholder:"ID eingeben",
-
-svcTopup:"Guthaben aufladen",
-svcTopupDesc:"Guthaben hinzufügen",
-
-starsTitle:"⭐ Telegram Stars",
-starsDesc:"Wählen Sie die gewünschte Anzahl",
-starsAmount:"Stars-Anzahl",
-otherAmount:"Andere Menge",
-starsPlaceholder:"Zum Beispiel: 78",
-total:"Gesamt",
-
-toWhom:"Empfänger",
-forMe:"Für mich",
-buyStars:"⭐ Kaufen",
-
-premiumTitle:"💎 Telegram Premium",
-premiumDesc:"Wählen Sie die Premium-Dauer",
-term:"Dauer",
-priceWord:"Preis",
-chooseTerm:"Dauer auswählen",
-choose:"Auswählen",
-adminNote:"Über Admin",
-autoNote:"Automatisch",
-buyPremium:"💎 Kaufen",
-
-adminWarningTitle:"⚠️ WICHTIGER HINWEIS!",
-adminWarningText:"Wenn Sie Premium über den Admin kaufen, zahlen Sie ausschließlich auf die vom Admin angegebenen Kartendaten. Ihr Mini-App-Guthaben wird dabei nicht belastet.",
-adminWarningBottom:"🔴 Die Zahlung an den Admin erfolgt separat.",
-
-giftsTitle:"🎁 Telegram Gifts",
-giftsDesc:"Wählen Sie ein Geschenk",
-commentLabel:"Kommentar (optional)",
-commentPlaceholder:"Text, der zusammen mit dem Geschenk gesendet wird...",
-commentHelp:"Der Empfänger sieht diesen Text unter dem Geschenk.",
-selectedGift:"Ausgewähltes Geschenk",
-chooseGift:"Auswählen",
-buyGift:"🎁 Kaufen",
-
-numbersTitle:"📱 Virtuelle Nummer",
-numbersDesc:"Wählen Sie ein Land",
-serviceWord:"Dienst",
-selectedCountry:"Ausgewähltes Land",
-chooseCountry:"Auswählen",
-buyNumber:"📱 Kaufen",
-
-pubgTitle:"🎮 PUBG UC",
-pubgDesc:"PUBG Mobile ID eingeben und UC-Paket auswählen",
-pubgIdLabel:"PUBG ID",
-pubgIdPlaceholder:"PUBG Player ID",
-ucAmount:"UC-Menge",
-selectedPack:"Ausgewähltes Paket",
-choosePack:"Auswählen",
-buyUc:"🎮 Kaufen",
-
-topupTitle:"💰 Guthaben aufladen",
-topupDesc:"Laden Sie Ihr Guthaben auf",
-currentBalance:"Aktuelles Guthaben",
-balanceWord:"Guthaben",
-topupAmountLabel:"Aufladebetrag",
-topupPlaceholder:"Zum Beispiel: 50.000",
-topupBtn:"💳 Guthaben aufladen",
-
-monthsOne:"{n} Monat",
-monthsFew:"{n} Monate",
-monthsMany:"{n} Monate",
-
-auto12:"12 Monate • Automatisch",
-admin12:"12 Monate • Admin",
-
-nameStars:"Telegram Stars",
-namePremium:"Telegram Premium",
-nameGift:"Telegram Gift",
-nameNumber:"Virtuelle Nummer",
-nameUc:"PUBG UC",
-
-toastStarsChoose:"⭐ Bitte wählen Sie zuerst die Stars-Menge.",
-toastStarsMin:"⭐ Mindestmenge: {n} Stars.",
-toastWho:"👤 Bitte geben Sie den Empfänger ein.",
-toastUserBad:"👤 Ungültiger Username. Beispiel: @username",
-
-toastPremiumChoose:"💎 Bitte wählen Sie zuerst die Premium-Dauer.",
-toastGiftChoose:"🎁 Bitte wählen Sie zuerst ein Geschenk.",
-toastCountryChoose:"📱 Bitte wählen Sie zuerst ein Land.",
-toastPubgEmpty:"🎮 Bitte geben Sie die PUBG ID ein.",
-toastPubgShort:"🎮 Die PUBG ID ist zu kurz.",
-toastUcChoose:"🎮 Bitte wählen Sie zuerst ein UC-Paket.",
-toastTopupMin:"❌ Mindestzahlung: {n} UZS.",
-
-toastAdmin:"🔴 Admin-Chat wird geöffnet...",
-toastNoUsername:"Telegram-Username nicht gefunden. Bitte manuell eingeben.",
-
-toastNoProvider:"🛠 Provider und Zahlungssystem für {service} sind noch nicht verbunden."
-}
+/* =========================
+   TRANSLATIONS
+========================= */
+
+const TEXT={
+
+    uz:{
+        balance:"Balansingiz",
+        services:"Xizmatlar",
+        topup:"Hisobni to‘ldirish",
+        stars:"Telegram Stars",
+        premium:"Telegram Premium",
+        gifts:"Gifts",
+        numbers:"Virtual Number",
+        games:"Game Top Up",
+        starsSub:"Stars sotib olish",
+        premiumSub:"Premium sotib olish",
+        giftsSub:"Telegram Gifts",
+        numbersSub:"Raqam olish",
+        gamesSub:"O‘yinlarga balans",
+        topupSub:"Balansni to‘ldirish",
+        auto12:"12 oy — Avtomatik",
+        admin12:"12 oy — Admin",
+        months3:"3 oy",
+        months6:"6 oy"
+    },
+
+    ru:{
+        balance:"Ваш баланс",
+        services:"Услуги",
+        topup:"Пополнить баланс",
+        stars:"Telegram Stars",
+        premium:"Telegram Premium",
+        gifts:"Gifts",
+        numbers:"Virtual Number",
+        games:"Game Top Up",
+        starsSub:"Покупка Stars",
+        premiumSub:"Покупка Premium",
+        giftsSub:"Telegram Gifts",
+        numbersSub:"Получение номера",
+        gamesSub:"Пополнение игр",
+        topupSub:"Пополнение баланса",
+        auto12:"12 мес. — Автоматически",
+        admin12:"12 мес. — Админ",
+        months3:"3 мес.",
+        months6:"6 мес."
+    },
+
+    en:{
+        balance:"Your balance",
+        services:"Services",
+        topup:"Top up balance",
+        stars:"Telegram Stars",
+        premium:"Telegram Premium",
+        gifts:"Gifts",
+        numbers:"Virtual Number",
+        games:"Game Top Up",
+        starsSub:"Buy Stars",
+        premiumSub:"Buy Premium",
+        giftsSub:"Telegram Gifts",
+        numbersSub:"Get a number",
+        gamesSub:"Game balance",
+        topupSub:"Top up balance",
+        auto12:"12 months — Automatic",
+        admin12:"12 months — Admin",
+        months3:"3 months",
+        months6:"6 months"
+    },
+
+    de:{
+        balance:"Ihr Guthaben",
+        services:"Dienste",
+        topup:"Guthaben aufladen",
+        stars:"Telegram Stars",
+        premium:"Telegram Premium",
+        gifts:"Gifts",
+        numbers:"Virtual Number",
+        games:"Game Top Up",
+        starsSub:"Stars kaufen",
+        premiumSub:"Premium kaufen",
+        giftsSub:"Telegram Gifts",
+        numbersSub:"Nummer erhalten",
+        gamesSub:"Spielguthaben",
+        topupSub:"Guthaben aufladen",
+        auto12:"12 Monate — Automatisch",
+        admin12:"12 Monate — Admin",
+        months3:"3 Monate",
+        months6:"6 Monate"
+    }
 
 };
 
 
-/* LANGUAGE */
+let currentLanguage="uz";
 
-const LANG_STORAGE_KEY="jv_lang";
-let lang="uz";
 
-function detectLang(){
+function t(key){
 
-    try{
-        const saved=localStorage.getItem(LANG_STORAGE_KEY);
+    return (
+        TEXT[currentLanguage] &&
+        TEXT[currentLanguage][key]
+    ) || TEXT.uz[key] || key;
 
-        if(saved && I18N[saved]){
-            return saved;
-        }
-    }catch(e){}
-
-    let code="";
-
-    try{
-        if(
-            tg &&
-            tg.initDataUnsafe &&
-            tg.initDataUnsafe.user &&
-            tg.initDataUnsafe.user.language_code
-        ){
-            code=tg.initDataUnsafe.user.language_code;
-        }
-    }catch(e){}
-
-    if(!code){
-        code=navigator.language || "";
-    }
-
-    code=String(code).toLowerCase();
-
-    if(code.indexOf("ru")===0) return "ru";
-    if(code.indexOf("de")===0) return "de";
-    if(code.indexOf("en")===0) return "en";
-
-    return "uz";
 }
 
-function t(key,vars){
 
-    const dict=I18N[lang] || I18N.uz;
+function applyLanguage(){
 
-    let text =
-        dict[key] !== undefined
-            ? dict[key]
-            : (
-                I18N.uz[key] !== undefined
-                    ? I18N.uz[key]
-                    : key
+    $("#balanceLabel").textContent=
+        t("balance");
+
+    $("#servicesTitle").textContent=
+        t("services");
+
+    $("#topupBtn").textContent=
+        t("topup");
+
+    $("#starsServiceTitle").textContent=
+        t("stars");
+
+    $("#starsServiceSub").textContent=
+        t("starsSub");
+
+    $("#premiumServiceTitle").textContent=
+        t("premium");
+
+    $("#premiumServiceSub").textContent=
+        t("premiumSub");
+
+    $("#giftsServiceTitle").textContent=
+        t("gifts");
+
+    $("#giftsServiceSub").textContent=
+        t("giftsSub");
+
+    $("#numbersServiceTitle").textContent=
+        t("numbers");
+
+    $("#numbersServiceSub").textContent=
+        t("numbersSub");
+
+    $("#gamesServiceTitle").textContent=
+        t("games");
+
+    $("#gamesServiceSub").textContent=
+        t("gamesSub");
+
+    $("#topupServiceTitle").textContent=
+        t("topupSub");
+
+    renderPremium();
+
+}
+
+
+/* =========================
+   BALANCE
+========================= */
+
+let balance=0;
+
+
+function formatMoney(value){
+
+    return Number(value || 0)
+        .toLocaleString("en-US");
+
+}
+
+
+function setBalance(value){
+
+    balance=
+        Number(value || 0);
+
+    $("#balance").textContent=
+        formatMoney(balance)+
+        " UZS";
+
+}
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+function openPage(pageId){
+
+    const page=$(pageId);
+
+    if(
+        !page ||
+        !page.classList.contains("page")
+    ){
+        return;
+    }
+
+    document
+        .querySelectorAll(".page")
+        .forEach(function(item){
+
+            item.classList.toggle(
+                "active",
+                item===page
             );
-
-    if(vars){
-
-        Object.keys(vars).forEach(function(name){
-
-            text=text
-                .split("{"+name+"}")
-                .join(vars[name]);
 
         });
 
-    }
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
 
-    return text;
 }
 
 
-/* PRICES */
+function openServiceFromURL(){
 
-let STAR_PRICE_PER_UNIT=220;
-let STAR_PROVIDER_PRICE_USD=0;
+    const params=
+        new URLSearchParams(
+            window.location.search
+        );
 
-let PREMIUM_PROVIDER_PLANS=[];
+    const service=
+        params.get("service");
 
-let STARS_MIN=50;
-let STARS_MAX=10000;
+    if(!service){
+        return;
+    }
 
-const TOPUP_MIN=1000;
-const TOPUP_MAX=50000000;
+    const map={
 
-const GIFT_COMMENT_MAX=128;
+        stars:"starsPage",
 
-const STAR_PACKS=[
-    50,100,200,300,400,500
-];
+        premium:"premiumPage",
+
+        gifts:"giftsPage",
+
+        numbers:"numbersPage",
+
+        games:"gamesPage",
+
+        topup:"topupPage"
+
+    };
+
+    if(map[service]){
+
+        openPage(
+            map[service]
+        );
+
+    }
+
+}
 
 
-/*
-    PREMIUM:
+/* =========================
+   STARS
+========================= */
 
-    3 / 6 oy:
-    provider orqali
+const STARS_SELL_PRICE=220;
 
-    12 oy:
-    1. Avtomatik API
-    2. Admin orqali — arzonroq
-*/
+let selectedStars=50;
+
+
+function calculateStars(){
+
+    const input=
+        $("#customStars");
+
+    let qty=
+        Number(input.value || 0);
+
+    if(!Number.isFinite(qty)){
+        qty=50;
+    }
+
+    qty=Math.floor(qty);
+
+    if(qty<50){
+        qty=50;
+    }
+
+    if(qty>10000){
+        qty=10000;
+    }
+
+    input.value=qty;
+
+    selectedStars=qty;
+
+    $("#starsTotal").textContent=
+        formatMoney(
+            qty * STARS_SELL_PRICE
+        )+
+        " UZS";
+
+}
+
+
+function selectStars(
+    quantity,
+    element
+){
+
+    selectedStars=
+        Number(quantity);
+
+    $("#customStars").value=
+        selectedStars;
+
+    document
+        .querySelectorAll(
+            "#starsPage .quantity"
+        )
+        .forEach(function(item){
+
+            item.classList.toggle(
+                "selected",
+                item===element
+            );
+
+        });
+
+    calculateStars();
+
+}
+
+
+async function loadStarsPrice(){
+
+    try{
+
+        const response=
+            await fetch(
+                "https://polished-cloud-c5a3jvstars-stars.jtorayev817.workers.dev/api/stars/quote"
+            );
+
+        const data=
+            await response.json();
+
+        if(
+            response.ok &&
+            data.ok
+        ){
+
+            const providerPrice=
+                Number(
+                    data.price_per_star
+                );
+
+            if(
+                Number.isFinite(
+                    providerPrice
+                )
+            ){
+
+                $("#starsProviderPrice").textContent=
+                    "Sotuv narxi: "+
+                    formatMoney(
+                        STARS_SELL_PRICE
+                    )+
+                    " UZS / ⭐";
+
+            }
+
+        }
+
+    }catch(error){
+
+        console.error(
+            "Stars quote error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================
+   PREMIUM
+========================= */
 
 const PREMIUM_PLANS=[
 
@@ -1833,1084 +1400,182 @@ const PREMIUM_PLANS=[
 ];
 
 
-const GIFTS=[
-
-    {name:"Rose",icon:"🌹",price:1000},
-    {name:"Heart",icon:"❤️",price:2500},
-    {name:"Cake",icon:"🎂",price:5000},
-    {name:"Bear",icon:"🧸",price:7500},
-    {name:"Diamond",icon:"💎",price:15000},
-    {name:"Star",icon:"🌟",price:20000},
-    {name:"Trophy",icon:"🏆",price:30000},
-    {name:"Rocket",icon:"🚀",price:40000},
-    {name:"Fire",icon:"🔥",price:50000},
-    {name:"Crown",icon:"👑",price:75000}
-
-];
+let selectedPremium=
+    PREMIUM_PLANS[0];
 
 
-const COUNTRIES=[
-
-    {flag:"🇺🇸",uz:"United States",ru:"United States",en:"United States",de:"United States",price:25000},
-    {flag:"🇬🇧",uz:"United Kingdom",ru:"United Kingdom",en:"United Kingdom",de:"United Kingdom",price:25000},
-    {flag:"🇩🇪",uz:"Germany",ru:"Germany",en:"Germany",de:"Germany",price:25000},
-    {flag:"🇫🇷",uz:"France",ru:"France",en:"France",de:"France",price:25000},
-    {flag:"🇮🇹",uz:"Italy",ru:"Italy",en:"Italy",de:"Italy",price:25000},
-    {flag:"🇪🇸",uz:"Spain",ru:"Spain",en:"Spain",de:"Spain",price:25000},
-    {flag:"🇨🇦",uz:"Canada",ru:"Canada",en:"Canada",de:"Canada",price:25000},
-    {flag:"🇦🇺",uz:"Australia",ru:"Australia",en:"Australia",de:"Australia",price:25000},
-    {flag:"🇳🇱",uz:"Netherlands",ru:"Netherlands",en:"Netherlands",de:"Netherlands",price:25000},
-    {flag:"🇧🇪",uz:"Belgium",ru:"Belgium",en:"Belgium",de:"Belgium",price:25000},
-    {flag:"🇨🇭",uz:"Switzerland",ru:"Switzerland",en:"Switzerland",de:"Switzerland",price:25000},
-    {flag:"🇦🇹",uz:"Austria",ru:"Austria",en:"Austria",de:"Austria",price:25000},
-    {flag:"🇸🇪",uz:"Sweden",ru:"Sweden",en:"Sweden",de:"Sweden",price:25000},
-    {flag:"🇳🇴",uz:"Norway",ru:"Norway",en:"Norway",de:"Norway",price:25000},
-    {flag:"🇩🇰",uz:"Denmark",ru:"Denmark",en:"Denmark",de:"Denmark",price:25000},
-    {flag:"🇫🇮",uz:"Finland",ru:"Finland",en:"Finland",de:"Finland",price:25000},
-    {flag:"🇮🇪",uz:"Ireland",ru:"Ireland",en:"Ireland",de:"Ireland",price:25000},
-    {flag:"🇵🇹",uz:"Portugal",ru:"Portugal",en:"Portugal",de:"Portugal",price:25000},
-    {flag:"🇵🇱",uz:"Poland",ru:"Poland",en:"Poland",de:"Poland",price:25000},
-    {flag:"🇨🇿",uz:"Czechia",ru:"Czechia",en:"Czechia",de:"Czechia",price:25000},
-    {flag:"🇸🇰",uz:"Slovakia",ru:"Slovakia",en:"Slovakia",de:"Slovakia",price:25000},
-    {flag:"🇭🇺",uz:"Hungary",ru:"Hungary",en:"Hungary",de:"Hungary",price:25000},
-    {flag:"🇷🇴",uz:"Romania",ru:"Romania",en:"Romania",de:"Romania",price:25000},
-    {flag:"🇧🇬",uz:"Bulgaria",ru:"Bulgaria",en:"Bulgaria",de:"Bulgaria",price:25000},
-    {flag:"🇬🇷",uz:"Greece",ru:"Greece",en:"Greece",de:"Greece",price:25000},
-    {flag:"🇭🇷",uz:"Croatia",ru:"Croatia",en:"Croatia",de:"Croatia",price:25000},
-    {flag:"🇷🇸",uz:"Serbia",ru:"Serbia",en:"Serbia",de:"Serbia",price:25000},
-    {flag:"🇸🇮",uz:"Slovenia",ru:"Slovenia",en:"Slovenia",de:"Slovenia",price:25000},
-    {flag:"🇺🇦",uz:"Ukraine",ru:"Ukraine",en:"Ukraine",de:"Ukraine",price:25000},
-    {flag:"🇲🇩",uz:"Moldova",ru:"Moldova",en:"Moldova",de:"Moldova",price:25000},
-    {flag:"🇷🇺",uz:"Russia",ru:"Russia",en:"Russia",de:"Russia",price:25000},
-    {flag:"🇹🇷",uz:"Turkey",ru:"Turkey",en:"Turkey",de:"Turkey",price:25000},
-    {flag:"🇦🇿",uz:"Azerbaijan",ru:"Azerbaijan",en:"Azerbaijan",de:"Azerbaijan",price:25000},
-    {flag:"🇦🇲",uz:"Armenia",ru:"Armenia",en:"Armenia",de:"Armenia",price:25000},
-    {flag:"🇬🇪",uz:"Georgia",ru:"Georgia",en:"Georgia",de:"Georgia",price:25000},
-    {flag:"🇰🇿",uz:"Kazakhstan",ru:"Kazakhstan",en:"Kazakhstan",de:"Kazakhstan",price:25000},
-    {flag:"🇰🇬",uz:"Kyrgyzstan",ru:"Kyrgyzstan",en:"Kyrgyzstan",de:"Kyrgyzstan",price:25000},
-    {flag:"🇹🇯",uz:"Tajikistan",ru:"Tajikistan",en:"Tajikistan",de:"Tajikistan",price:25000},
-    {flag:"🇹🇲",uz:"Turkmenistan",ru:"Turkmenistan",en:"Turkmenistan",de:"Turkmenistan",price:25000},
-    {flag:"🇺🇿",uz:"Uzbekistan",ru:"Uzbekistan",en:"Uzbekistan",de:"Uzbekistan",price:25000},
-    {flag:"🇦🇪",uz:"United Arab Emirates",ru:"United Arab Emirates",en:"United Arab Emirates",de:"United Arab Emirates",price:25000},
-    {flag:"🇸🇦",uz:"Saudi Arabia",ru:"Saudi Arabia",en:"Saudi Arabia",de:"Saudi Arabia",price:25000},
-    {flag:"🇶🇦",uz:"Qatar",ru:"Qatar",en:"Qatar",de:"Qatar",price:25000},
-    {flag:"🇰🇼",uz:"Kuwait",ru:"Kuwait",en:"Kuwait",de:"Kuwait",price:25000},
-    {flag:"🇧🇭",uz:"Bahrain",ru:"Bahrain",en:"Bahrain",de:"Bahrain",price:25000},
-    {flag:"🇴🇲",uz:"Oman",ru:"Oman",en:"Oman",de:"Oman",price:25000},
-    {flag:"🇮🇱",uz:"Israel",ru:"Israel",en:"Israel",de:"Israel",price:25000},
-    {flag:"🇯🇴",uz:"Jordan",ru:"Jordan",en:"Jordan",de:"Jordan",price:25000},
-    {flag:"🇱🇧",uz:"Lebanon",ru:"Lebanon",en:"Lebanon",de:"Lebanon",price:25000},
-    {flag:"🇮🇶",uz:"Iraq",ru:"Iraq",en:"Iraq",de:"Iraq",price:25000},
-    {flag:"🇮🇷",uz:"Iran",ru:"Iran",en:"Iran",de:"Iran",price:25000},
-    {flag:"🇮🇳",uz:"India",ru:"India",en:"India",de:"India",price:25000},
-    {flag:"🇵🇰",uz:"Pakistan",ru:"Pakistan",en:"Pakistan",de:"Pakistan",price:25000},
-    {flag:"🇧🇩",uz:"Bangladesh",ru:"Bangladesh",en:"Bangladesh",de:"Bangladesh",price:25000},
-    {flag:"🇳🇵",uz:"Nepal",ru:"Nepal",en:"Nepal",de:"Nepal",price:25000},
-    {flag:"🇱🇰",uz:"Sri Lanka",ru:"Sri Lanka",en:"Sri Lanka",de:"Sri Lanka",price:25000},
-    {flag:"🇲🇻",uz:"Maldives",ru:"Maldives",en:"Maldives",de:"Maldives",price:25000},
-    {flag:"🇨🇳",uz:"China",ru:"China",en:"China",de:"China",price:25000},
-    {flag:"🇯🇵",uz:"Japan",ru:"Japan",en:"Japan",de:"Japan",price:25000},
-    {flag:"🇰🇷",uz:"South Korea",ru:"South Korea",en:"South Korea",de:"South Korea",price:25000},
-    {flag:"🇹🇼",uz:"Taiwan",ru:"Taiwan",en:"Taiwan",de:"Taiwan",price:25000},
-    {flag:"🇭🇰",uz:"Hong Kong",ru:"Hong Kong",en:"Hong Kong",de:"Hong Kong",price:25000},
-    {flag:"🇸🇬",uz:"Singapore",ru:"Singapore",en:"Singapore",de:"Singapore",price:25000},
-    {flag:"🇲🇾",uz:"Malaysia",ru:"Malaysia",en:"Malaysia",de:"Malaysia",price:25000},
-    {flag:"🇮🇩",uz:"Indonesia",ru:"Indonesia",en:"Indonesia",de:"Indonesia",price:25000},
-    {flag:"🇹🇭",uz:"Thailand",ru:"Thailand",en:"Thailand",de:"Thailand",price:25000},
-    {flag:"🇻🇳",uz:"Vietnam",ru:"Vietnam",en:"Vietnam",de:"Vietnam",price:25000},
-    {flag:"🇵🇭",uz:"Philippines",ru:"Philippines",en:"Philippines",de:"Philippines",price:25000},
-    {flag:"🇰🇭",uz:"Cambodia",ru:"Cambodia",en:"Cambodia",de:"Cambodia",price:25000},
-    {flag:"🇲🇲",uz:"Myanmar",ru:"Myanmar",en:"Myanmar",de:"Myanmar",price:25000},
-    {flag:"🇲🇳",uz:"Mongolia",ru:"Mongolia",en:"Mongolia",de:"Mongolia",price:25000},
-    {flag:"🇳🇿",uz:"New Zealand",ru:"New Zealand",en:"New Zealand",de:"New Zealand",price:25000},
-    {flag:"🇿🇦",uz:"South Africa",ru:"South Africa",en:"South Africa",de:"South Africa",price:25000},
-    {flag:"🇪🇬",uz:"Egypt",ru:"Egypt",en:"Egypt",de:"Egypt",price:25000},
-    {flag:"🇲🇦",uz:"Morocco",ru:"Morocco",en:"Morocco",de:"Morocco",price:25000},
-    {flag:"🇩🇿",uz:"Algeria",ru:"Algeria",en:"Algeria",de:"Algeria",price:25000},
-    {flag:"🇹🇳",uz:"Tunisia",ru:"Tunisia",en:"Tunisia",de:"Tunisia",price:25000},
-    {flag:"🇳🇬",uz:"Nigeria",ru:"Nigeria",en:"Nigeria",de:"Nigeria",price:25000},
-    {flag:"🇬🇭",uz:"Ghana",ru:"Ghana",en:"Ghana",de:"Ghana",price:25000},
-    {flag:"🇰🇪",uz:"Kenya",ru:"Kenya",en:"Kenya",de:"Kenya",price:25000},
-    {flag:"🇹🇿",uz:"Tanzania",ru:"Tanzania",en:"Tanzania",de:"Tanzania",price:25000},
-    {flag:"🇺🇬",uz:"Uganda",ru:"Uganda",en:"Uganda",de:"Uganda",price:25000},
-    {flag:"🇪🇹",uz:"Ethiopia",ru:"Ethiopia",en:"Ethiopia",de:"Ethiopia",price:25000},
-    {flag:"🇸🇳",uz:"Senegal",ru:"Senegal",en:"Senegal",de:"Senegal",price:25000},
-    {flag:"🇨🇮",uz:"Côte d’Ivoire",ru:"Côte d’Ivoire",en:"Côte d’Ivoire",de:"Côte d’Ivoire",price:25000},
-    {flag:"🇨🇲",uz:"Cameroon",ru:"Cameroon",en:"Cameroon",de:"Cameroon",price:25000},
-    {flag:"🇨🇩",uz:"DR Congo",ru:"DR Congo",en:"DR Congo",de:"DR Congo",price:25000},
-    {flag:"🇦🇴",uz:"Angola",ru:"Angola",en:"Angola",de:"Angola",price:25000},
-    {flag:"🇿🇲",uz:"Zambia",ru:"Zambia",en:"Zambia",de:"Zambia",price:25000},
-    {flag:"🇿🇼",uz:"Zimbabwe",ru:"Zimbabwe",en:"Zimbabwe",de:"Zimbabwe",price:25000},
-    {flag:"🇧🇷",uz:"Brazil",ru:"Brazil",en:"Brazil",de:"Brazil",price:25000},
-    {flag:"🇲🇽",uz:"Mexico",ru:"Mexico",en:"Mexico",de:"Mexico",price:25000},
-    {flag:"🇦🇷",uz:"Argentina",ru:"Argentina",en:"Argentina",de:"Argentina",price:25000},
-    {flag:"🇨🇱",uz:"Chile",ru:"Chile",en:"Chile",de:"Chile",price:25000},
-    {flag:"🇨🇴",uz:"Colombia",ru:"Colombia",en:"Colombia",de:"Colombia",price:25000},
-    {flag:"🇵🇪",uz:"Peru",ru:"Peru",en:"Peru",de:"Peru",price:25000},
-    {flag:"🇪🇨",uz:"Ecuador",ru:"Ecuador",en:"Ecuador",de:"Ecuador",price:25000},
-    {flag:"🇺🇾",uz:"Uruguay",ru:"Uruguay",en:"Uruguay",de:"Uruguay",price:25000},
-    {flag:"🇵🇾",uz:"Paraguay",ru:"Paraguay",en:"Paraguay",de:"Paraguay",price:25000},
-    {flag:"🇧🇴",uz:"Bolivia",ru:"Bolivia",en:"Bolivia",de:"Bolivia",price:25000},
-    {flag:"🇩🇴",uz:"Dominican Republic",ru:"Dominican Republic",en:"Dominican Republic",de:"Dominican Republic",price:25000}
-
-];
+let PREMIUM_PROVIDER_PLANS=[];
 
 
+function monthsLabel(months){
 
+    if(months===3){
 
-const TOPUP_PRESETS=[
-    10000,
-    50000,
-    100000,
-    500000
-];
+        return t("months3");
 
-
-/* STATE */
-
-let balance=0;
-let selectedStars=0;
-let selectedPremium=null;
-let selectedGift=null;
-let selectedCountry=null;
-let countrySearch="";
-let selectedGame=null;
-let selectedGamePackage=null;
-let gamePackages=[];
-
-
-/* HELPERS */
-
-const $=id=>document.getElementById(id);
-
-function formatMoney(number){
-
-    return String(
-        Math.round(Number(number)||0)
-    ).replace(
-        /\B(?=(\d{3})+(?!\d))/g,
-        "\u00A0"
-    );
-}
-
-function digitsOnly(value,maxLength){
-
-    return String(value)
-        .replace(/\D/g,"")
-        .slice(0,maxLength);
-}
-
-function countryName(country){
-
-    return country.flag+" "+
-        (
-            country[lang] ||
-            country.uz
-        );
-}
-
-function setBalance(value){
-
-    balance=Math.max(0,Number(value)||0);
-
-    $("balance").textContent=formatMoney(balance);
-    $("balance2").textContent=formatMoney(balance);
-}
-
-function setInvalid(inputId,isInvalid){
-
-    $(inputId).classList.toggle(
-        "invalid",
-        !!isInvalid
-    );
-}
-
-function normalizeUsername(raw){
-
-    let value=String(raw)
-        .trim()
-        .replace(/^https?:\/\/t\.me\//i,"")
-        .replace(/^@/,"");
-
-    if(!/^[A-Za-z][A-Za-z0-9_]{4,31}$/.test(value)){
-        return null;
     }
 
-    return "@"+value;
-}
+    if(months===6){
 
-function readUsername(inputId){
+        return t("months6");
 
-    const raw=$(inputId).value.trim();
-
-    if(!raw){
-
-        setInvalid(inputId,true);
-        showToast(t("toastWho"));
-        return null;
     }
 
-    const username=normalizeUsername(raw);
+    return months+
+        " months";
 
-    if(!username){
-
-        setInvalid(inputId,true);
-        showToast(t("toastUserBad"));
-        return null;
-    }
-
-    return username;
-}
-
-
-/* TOAST */
-
-let toastTimer;
-
-function showToast(message){
-
-    const toast=$("toast");
-
-    toast.textContent=message;
-    toast.classList.add("show");
-
-    clearTimeout(toastTimer);
-
-    toastTimer=setTimeout(
-        function(){
-            toast.classList.remove("show");
-        },
-        3000
-    );
-}
-
-
-/* NAVIGATION */
-
-function openPage(pageId){
-
-    const page=$(pageId);
-
-    if(!page || !page.classList.contains("page")){
-        return;
-    }
-
-    document
-        .querySelectorAll(".page")
-        .forEach(function(item){
-
-            item.classList.toggle(
-                "active",
-                item===page
-            );
-
-        });
-
-    window.scrollTo({
-        top:0,
-        behavior:"smooth"
-    });
-}
-
-function goHome(){
-    openPage("homePage");
-}
-
-
-/* ADMIN OPEN */
-
-function openAdmin(){
-
-    showToast(t("toastAdmin"));
-
-    setTimeout(function(){
-
-        if(
-            tg &&
-            typeof tg.openTelegramLink==="function"
-        ){
-            tg.openTelegramLink(ADMIN_LINK);
-        }else{
-            window.open(
-                ADMIN_LINK,
-                "_blank"
-            );
-        }
-
-    },300);
-
-}
-
-
-/* RENDER */
-
-function renderStarPacks(){
-
-    $("starPacks").innerHTML=
-        STAR_PACKS.map(function(amount){
-
-            return `
-                <button
-                    type="button"
-                    class="package"
-                    data-stars="${amount}"
-                >
-                    <strong>
-                        ${formatMoney(amount)} ⭐
-                    </strong>
-
-                    <span>
-                        ${formatMoney(
-                            amount*STAR_PRICE_PER_UNIT
-                        )} UZS
-                    </span>
-                </button>
-            `;
-
-        }).join("");
 }
 
 
 function renderPremium(){
 
-    $("premiumPacks").innerHTML=
-        PREMIUM_PLANS.map(function(plan,index){
+    $("#premiumPacks").innerHTML=
+        PREMIUM_PLANS.map(
+            function(plan,index){
 
-            const selected =
-                plan===selectedPremium
-                    ? " selected"
-                    : "";
+                const selected=
+                    plan===selectedPremium
+                        ? " selected"
+                        : "";
 
-            let title;
-            let sub;
+                let title;
+                let sub;
 
-            if(plan.id==="12_auto"){
+                if(
+                    plan.id==="12_auto"
+                ){
 
-                title=t("auto12");
-                sub=
-                    formatMoney(plan.price)+
-                    " UZS";
+                    title=t("auto12");
 
-            }else if(plan.id==="12_admin"){
+                    sub=
+                        formatMoney(
+                            plan.price
+                        )+
+                        " UZS";
 
-                title=t("admin12");
-                sub=
-                    formatMoney(plan.price)+
-                    " UZS";
+                }else if(
+                    plan.id==="12_admin"
+                ){
 
-            }else{
+                    title=t("admin12");
 
-                title=monthsLabel(plan.months);
-                sub=
-                    formatMoney(plan.price)+
-                    " UZS";
+                    sub=
+                        formatMoney(
+                            plan.price
+                        )+
+                        " UZS";
+
+                }else{
+
+                    title=
+                        monthsLabel(
+                            plan.months
+                        );
+
+                    sub=
+                        formatMoney(
+                            plan.price
+                        )+
+                        " UZS";
+
+                }
+
+                return `
+                    <button
+                        type="button"
+                        class="package${selected}${plan.viaAdmin ? " admin-plan":""}"
+                        data-premium="${index}"
+                    >
+                        <strong>${title}</strong>
+                        <span>${sub}</span>
+                    </button>
+                `;
+
             }
+        ).join("");
 
-            return `
-                <button
-                    type="button"
-                    class="package${selected}${plan.viaAdmin ? " admin-plan":""}"
-                    data-premium="${index}"
-                >
-                    <strong>${title}</strong>
-                    <span>${sub}</span>
-                </button>
-            `;
-
-        }).join("");
 }
 
 
-function renderGifts(){
+function selectPremium(
+    index,
+    element
+){
 
-    $("giftGrid").innerHTML=
-        GIFTS.map(function(gift,index){
+    const plan=
+        PREMIUM_PLANS[index];
 
-            const selected=
-                gift===selectedGift
-                    ? " selected"
-                    : "";
-
-            return `
-                <button
-                    type="button"
-                    class="gift${selected}"
-                    data-gift="${index}"
-                >
-                    <div class="gift-image">
-                        ${gift.icon}
-                    </div>
-
-                    <div class="gift-name">
-                        ${gift.name}
-                    </div>
-
-                    <div class="gift-price">
-                        ${formatMoney(gift.price)} UZS
-                    </div>
-                </button>
-            `;
-
-        }).join("");
-}
-
-
-function renderCountries(){
-
-    const query=String(countrySearch||"").trim().toLowerCase();
-    const filtered=COUNTRIES.filter(function(country){
-        if(!query) return true;
-        return [country.uz,country.ru,country.en,country.de].some(function(name){return String(name).toLowerCase().includes(query);});
-    });
-
-    $("countryGrid").innerHTML=
-        filtered.map(function(country){
-            const index=COUNTRIES.indexOf(country);
-
-            const selected=
-                country===selectedCountry
-                    ? " selected"
-                    : "";
-
-            return `
-                <button
-                    type="button"
-                    class="country${selected}"
-                    data-country="${index}"
-                >
-                    <div class="country-name">
-                        ${countryName(country)}
-                    </div>
-
-                    <div class="country-price">
-                        ${formatMoney(country.price)} UZS
-                    </div>
-                </button>
-            `;
-
-        }).join("");
-}
-
-
-function renderTopupPresets(){
-
-    $("topupPacks").innerHTML=
-        TOPUP_PRESETS.map(function(amount){
-
-            return `
-                <button
-                    type="button"
-                    class="package"
-                    data-topup="${amount}"
-                >
-                    <strong>
-                        ${formatMoney(amount)}
-                    </strong>
-
-                    <span>UZS</span>
-                </button>
-            `;
-
-        }).join("");
-}
-
-
-/* MONTHS */
-
-function monthsLabel(n){
-
-    if(lang==="ru"){
-
-        if(n===1){
-            return t("monthsOne",{n:n});
-        }
-
-        if(n>=2 && n<=4){
-            return t("monthsFew",{n:n});
-        }
-
-        return t("monthsMany",{n:n});
+    if(!plan){
+        return;
     }
 
-    if(lang==="en"){
+    selectedPremium=
+        plan;
 
-        return n===1
-            ? t("monthsOne",{n:n})
-            : t("monthsMany",{n:n});
-    }
+    document
+        .querySelectorAll(
+            "#premiumPage .package"
+        )
+        .forEach(function(item){
 
-    if(lang==="de"){
+            item.classList.toggle(
+                "selected",
+                item===element
+            );
 
-        return n===1
-            ? t("monthsOne",{n:n})
-            : t("monthsMany",{n:n});
-    }
+        });
 
-    return t("monthsMany",{n:n});
+    updateTotals();
+
 }
 
-
-/* TOTALS */
 
 function updateTotals(){
 
-    if(!selectedPremium){
+    $("#premiumTotal").textContent=
+        formatMoney(
+            selectedPremium
+                ? selectedPremium.price
+                : 0
+        )+
+        " UZS";
 
-        $("premiumTotal").textContent=
-            t("chooseTerm");
-
-    }else{
-
-        $("premiumTotal").textContent=
-            formatMoney(
-                selectedPremium.price
-            )+" UZS";
-    }
-
-    $("giftTotal").textContent=
-        selectedGift
-            ? formatMoney(selectedGift.price)+" UZS"
-            : t("chooseGift");
-
-    $("numberTotal").textContent=
-        selectedCountry
-            ? formatMoney(selectedCountry.price)+" UZS"
-            : t("chooseCountry");
-
-    $("gameTotal").textContent=
-        selectedGamePackage
-            ? formatMoney(selectedGamePackage.price)+" UZS"
-            : t("choosePack");
 }
 
 
-/* LANGUAGE */
-
-function applyStaticTexts(){
-
-    document
-        .querySelectorAll("[data-i18n]")
-        .forEach(function(el){
-
-            el.textContent=
-                t(el.dataset.i18n);
-
-        });
-
-    document
-        .querySelectorAll("[data-i18n-ph]")
-        .forEach(function(el){
-
-            el.placeholder=
-                t(el.dataset.i18nPh);
-
-        });
-
-    document
-        .querySelectorAll(".lang-btn")
-        .forEach(function(btn){
-
-            btn.classList.toggle(
-                "active",
-                btn.dataset.lang===lang
-            );
-
-        });
-
-    document.documentElement.lang=lang;
-}
-
-
-function applyLanguage(){
-
-    applyStaticTexts();
-
-    renderStarPacks();
-    renderPremium();
-    renderGifts();
-    renderCountries();
-    renderTopupPresets();
-
-    calculateStars();
-    updateTotals();
-}
-
-
-function setLang(newLang,remember){
-
-    if(!I18N[newLang]) return;
-
-    lang=newLang;
-
-    if(remember){
-
-        try{
-            localStorage.setItem(
-                LANG_STORAGE_KEY,
-                newLang
-            );
-        }catch(e){}
-    }
-
-    applyLanguage();
-}
-
-
-/* STARS */
-    
-async function loadStarsPrice(){
-
-    try{
-
-        const response=await fetch(
-            "https://polished-cloud-c5a3jvstars-stars.jtorayev817.workers.dev/api/stars/quote"
-        );
-
-        const data=await response.json();
-
-        if(!data.ok){
-            throw new Error("Stars API error");
-        }
-
-       STAR_PROVIDER_PRICE_USD=
-    Number(data.price_per_star);
-        STARS_MIN=
-            Number(data.min_amount);
-
-        STARS_MAX=
-            Number(data.max_amount);
-
-        renderStarPacks();
-        calculateStars();
-
-    }catch(error){
-
-        console.error(
-            "Stars narxini olishda xatolik:",
-            error
-        );
-
-    }
-}
-
-function calculateStars(){
-
-    const input=$("customStars");
-
-    const digits=
-        digitsOnly(
-            input.value,
-            String(STARS_MAX).length
-        );
-
-    let amount=
-        digits
-            ? parseInt(digits,10)
-            : 0;
-
-    if(amount>STARS_MAX){
-        amount=STARS_MAX;
-    }
-
-    input.value=
-        digits
-            ? String(amount)
-            : "";
-
-    selectedStars=amount;
-
-    setInvalid(
-        "customStars",
-        amount>0 && amount<STARS_MIN
-    );
-
-    $("starsTotal").textContent=
-        amount>=STARS_MIN
-            ? formatMoney(
-                amount*STAR_PRICE_PER_UNIT
-            )+" UZS"
-            : "0 UZS";
-
-    document
-        .querySelectorAll("#starsPage .package")
-        .forEach(function(pack){
-
-            pack.classList.toggle(
-                "selected",
-                Number(pack.dataset.stars)===amount
-            );
-
-        });
-}
-
-
-function selectStars(amount){
-
-    $("customStars").value=amount;
-    calculateStars();
-}
-
-
-/* GIFTS */
-
-function selectGift(index,element){
-
-    const gift=GIFTS[index];
-
-    if(!gift) return;
-
-    selectedGift=gift;
-
-    document
-        .querySelectorAll(".gift")
-        .forEach(function(item){
-
-            item.classList.toggle(
-                "selected",
-                item===element
-            );
-
-        });
-
-    updateTotals();
-}
-
-
-function limitGiftComment(){
-
-    const input=$("giftComment");
-
-    const chars=Array.from(input.value);
-
-    if(chars.length>GIFT_COMMENT_MAX){
-
-        input.value=
-            chars
-                .slice(0,GIFT_COMMENT_MAX)
-                .join("");
-
-    }
-
-    $("giftCommentCount").textContent=
-        Math.min(
-            chars.length,
-            GIFT_COMMENT_MAX
-        )+" / "+GIFT_COMMENT_MAX;
-}
-
-
-/* NUMBERS */
-
-function selectCountry(index,element){
-
-    const country=COUNTRIES[index];
-
-    if(!country) return;
-
-    selectedCountry=country;
-
-    document
-        .querySelectorAll(".country")
-        .forEach(function(item){
-
-            item.classList.toggle(
-                "selected",
-                item===element
-            );
-
-        });
-
-    updateTotals();
-}
-
-
-/* GAME TOP UP */
-
-const GAMES={
-    pubg:{title:"PUBG Mobile",fields:[{key:"uid",label:"PUBG UID"}]},
-    mlbb:{title:"Mobile Legends",fields:[{key:"user_id",label:"User ID"},{key:"zone_id",label:"Zone ID"}]},
-    codm:{title:"Call of Duty Mobile",fields:[{key:"uid",label:"UID"}]},
-    fc:{title:"EA FC Mobile",fields:[{key:"player_id",label:"Player ID"}]}
-};
-
-function openGame(game){selectedGame=game;selectedGamePackage=null;renderGameForm();openPage("gameFormPage");loadGamePackages();}
-
-function renderGameForm(){const game=GAMES[selectedGame];if(!game)return;$("gameFormTitle").textContent="🎮 "+game.title;$("gameFields").innerHTML=game.fields.map(function(field){return `<span class="label">${field.label}</span><input class="game-input" id="game_${field.key}" type="text" autocomplete="off" placeholder="${t("gameIdPlaceholder")}">`;}).join("");}
-
-function renderGamePackages(){const box=$("gamePackages");if(!gamePackages.length){box.innerHTML=`<div class="game-loading">${t("loadingPackages")}</div>`;return;}box.innerHTML=gamePackages.map(function(pkg,index){const selected=selectedGamePackage===index?" selected":"";return `<button type="button" class="game-package${selected}" data-game-package="${index}"><div><div class="game-package-name">${escapeHtml(pkg.name)}</div>${pkg.description?`<div class="game-package-desc">${escapeHtml(pkg.description)}</div>`:""}</div><div class="game-package-price">${formatMoney(pkg.price)} UZS</div></button>`;}).join("");$("gameTotal").textContent=selectedGamePackage!==null?formatMoney(gamePackages[selectedGamePackage].price)+" UZS":t("choosePack");}
-
-async function loadGamePackages(){const box=$("gamePackages");box.innerHTML=`<div class="game-loading">${t("loadingPackages")}</div>`;if(!GAME_API_BASE){box.innerHTML=`<div class="game-loading">${t("toastNoProvider",{service:t("svcGameTop")})}</div>`;return;}try{const response=await fetch(GAME_API_BASE+"/games/"+encodeURIComponent(selectedGame)+"/packages");const data=await response.json();if(!response.ok)throw new Error("packages");const list=Array.isArray(data)?data:(data.packages||data.data||[]);gamePackages=list.map(function(item,index){return{id:item.id??item.package_id??index,name:item.name??item.title??item.package_name??("Package "+(index+1)),description:item.description??item.desc??"",price:Number(item.price??item.sell_price??item.amount??0)};});renderGamePackages();}catch(e){box.innerHTML=`<div class="game-loading">⚠️ ${t("loadingPackages")}</div>`;}}
-
-function buyGame(){if(selectedGamePackage===null){showToast(t("toastUcChoose"));return;}const game=GAMES[selectedGame];const fields={};let missing=false;game.fields.forEach(function(field){const el=$("game_"+field.key);fields[field.key]=el?el.value.trim():"";if(!fields[field.key])missing=true;});if(missing){showToast(t("toastPubgEmpty"));return;}if(!GAME_API_BASE){showToast(t("toastNoProvider",{service:t("svcGameTop")}));return;}const pkg=gamePackages[selectedGamePackage];fetch(GAME_API_BASE+"/games/purchase",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({game:selectedGame,package_id:pkg.id,fields:fields,telegram_user:tg?.initDataUnsafe?.user||null})}).then(async function(response){const data=await response.json().catch(()=>({}));if(!response.ok)throw new Error(data.message||"error");showToast(data.message||t("buyGame"));}).catch(function(){showToast(t("toastNoProvider",{service:t("svcGameTop")}));});}
-
-function escapeHtml(value){return String(value).replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;");}
-
-/* TOPUP */
-
-function getTopupAmount(){
-
-    const input=$("topupAmount");
-
-    const digits=
-        digitsOnly(
-            input.value,
-            9
-        );
-
-    let amount=
-        digits
-            ? parseInt(digits,10)
-            : 0;
-
-    if(amount>TOPUP_MAX){
-        amount=TOPUP_MAX;
-    }
-
-    input.value=
-        digits
-            ? String(amount)
-            : "";
-
-    setInvalid(
-        "topupAmount",
-        amount>0 && amount<TOPUP_MIN
-    );
-
-    return amount;
-}
-
-
-function setTopup(amount){
-
-    $("topupAmount").value=amount;
-    getTopupAmount();
-}
-
-
-function topup(){
-
-    const amount=getTopupAmount();
-
-    if(!amount || amount<TOPUP_MIN){
-
-        setInvalid(
-            "topupAmount",
-            true
-        );
-
-        showToast(
-            t(
-                "toastTopupMin",
-                {
-                    n:formatMoney(TOPUP_MIN)
-                }
-            )
-        );
-
-        return;
-    }
-
-    showToast(
-        t("toastNoProvider",{
-            service:t("svcTopup")
-        })
-    );
-}
-
-
-/* MYSELF */
-
-function myself(inputId){
-
-    const user=
-        tg &&
-        tg.initDataUnsafe
-            ? tg.initDataUnsafe.user
-            : null;
-
-    if(user && user.username){
-
-        $(inputId).value=
-            "@"+user.username;
-
-        setInvalid(
-            inputId,
-            false
-        );
-
-        return;
-    }
-
-    showToast(
-        t("toastNoUsername")
-    );
-}
-
-
-/* BUY */
-
-const SERVICE_NAME_KEYS={
-    stars:"nameStars",
-    premium:"namePremium",
-    gift:"nameGift",
-    number:"nameNumber",
-    uc:"nameUc"
-};
-
-
-async function buyService(service){
-
-    /* STARS */
-
-    if(service==="stars"){
-
-        if(!selectedStars){
-
-            showToast(
-                t("toastStarsChoose")
-            );
-
-            return;
-        }
-
-        if(selectedStars<STARS_MIN){
-
-            setInvalid(
-                "customStars",
-                true
-            );
-
-            showToast(
-                t(
-                    "toastStarsMin",
-                    {n:STARS_MIN}
-                )
-            );
-
-            return;
-        }
-
-        const username=
-            readUsername("starsUsername");
-
-        if(!username){
-            return;
-        }
-
-        const totalPrice=
-            selectedStars *
-            STAR_PRICE_PER_UNIT;
-
-        try{
-
-            showToast(
-                "⏳ Buyurtma yuborilmoqda..."
-            );
-
-            const response=
-                await fetch(
-                    "https://polished-cloud-c5a3jvstars-stars.jtorayev817.workers.dev/api/stars/buy",
-                    {
-                        method:"POST",
-
-                        headers:{
-                            "Content-Type":
-                                "application/json"
-                        },
-
-                        body:JSON.stringify({
-
-                            telegram_username:
-                                username,
-
-                            quantity:
-                                selectedStars
-
-                        })
-                    }
-                );
-
-            const data=
-                await response.json();
-
-            if(!response.ok || !data.ok){
-
-                throw new Error(
-                    data.error ||
-                    "Stars xaridida xatolik"
-                );
-            }
-
-            console.log(
-                "⭐ Stars order:",
-                data.order
-            );
-
-            showToast(
-                "✅ Buyurtma qabul qilindi!"
-            );
-
-        }catch(error){
-
-            console.error(
-                "❌ Stars buy xatosi:",
-                error
-            );
-
-            showToast(
-                "❌ Xarid amalga oshmadi: "+
-                error.message
-            );
-        }
-
-        return;
-    }
-
-
-/* PREMIUM */
-
-if(service==="premium"){
+/* =========================
+   PREMIUM BUY
+========================= */
+
+async function buyPremium(){
 
     if(!selectedPremium){
 
-        showToast(
-            t("toastPremiumChoose")
+        alert(
+            "Premium tarifini tanlang."
         );
 
         return;
     }
 
     const username=
-        readUsername(
-            "premiumUsername"
-        );
+        $("#premiumUsername")
+            .value
+            .trim();
 
     if(!username){
+
+        alert(
+            "Telegram username kiriting."
+        );
+
         return;
     }
 
-    /*
-        12 OY ADMIN:
-        balans ishlatilmaydi,
-        admin kartasiga alohida to‘lov.
-    */
-
-    if(selectedPremium.viaAdmin){
-
-        openAdmin();
-        return;
-    }
-
-    /*
-        3 / 6 / 12 AUTO:
-        FazerCards orqali avtomatik.
-    */
+    const months=
+        selectedPremium.months;
 
     try{
-
-        showToast(
-            "⏳ Buyurtma yuborilmoqda..."
-        );
 
         const response=
             await fetch(
@@ -2928,139 +1593,195 @@ if(service==="premium"){
                         telegram_username:
                             username,
 
-                        months:
-                            selectedPremium.months
+                        months:months
 
                     })
+
                 }
             );
 
         const data=
             await response.json();
 
-        if(!response.ok || !data.ok){
+        if(
+            !response.ok ||
+            data.ok===false
+        ){
 
             throw new Error(
                 data.error ||
-                "Premium xaridida xatolik"
+                "Premium sotib olishda xatolik"
             );
+
         }
 
-        console.log(
-            "💎 Premium order:",
-            data
-        );
-
-        showToast(
-            "✅ Premium buyurtma qabul qilindi!"
+        alert(
+            "Premium buyurtmasi yuborildi."
         );
 
     }catch(error){
 
         console.error(
-            "❌ Premium buy xatosi:",
+            "Premium buy error:",
             error
         );
 
-        showToast(
-            "❌ Xarid amalga oshmadi: "+
-            error.message
+        alert(
+            error.message ||
+            "Xatolik yuz berdi."
         );
+
     }
 
-    return;
 }
 
-    /* GIFTS */
 
-    if(service==="gift"){
+/* =========================
+   STARS BUY
+========================= */
 
-        if(!selectedGift){
+async function buyStars(){
 
-            showToast(
-                t("toastGiftChoose")
-            );
+    const quantity=
+        Number(
+            $("#customStars").value
+        );
 
-            return;
-        }
+    if(
+        !Number.isFinite(quantity) ||
+        quantity<50 ||
+        quantity>10000
+    ){
 
-        if(!readUsername("giftUsername")){
-            return;
-        }
+        alert(
+            "Stars miqdori 50 dan 10000 gacha bo‘lishi kerak."
+        );
+
+        return;
     }
 
+    try{
 
-    /* NUMBER */
+        const response=
+            await fetch(
+                "https://polished-cloud-c5a3jvstars-stars.jtorayev817.workers.dev/api/stars/buy",
+                {
+                    method:"POST",
 
-    if(service==="number"){
+                    headers:{
+                        "Content-Type":
+                            "application/json"
+                    },
 
-        if(!selectedCountry){
+                    body:JSON.stringify({
 
-            showToast(
-                t("toastCountryChoose")
+                        quantity:quantity
+
+                    })
+
+                }
             );
 
-            return;
+        const data=
+            await response.json();
+
+        if(
+            !response.ok ||
+            data.ok===false
+        ){
+
+            throw new Error(
+                data.error ||
+                "Stars sotib olishda xatolik"
+            );
+
         }
+
+        alert(
+            "Stars buyurtmasi yuborildi."
+        );
+
+    }catch(error){
+
+        console.error(
+            "Stars buy error:",
+            error
+        );
+
+        alert(
+            error.message ||
+            "Xatolik yuz berdi."
+        );
+
     }
 
+}
 
 
-    showToast(
-        t(
-            "toastNoProvider",
-            {
-                service:
-                    t(
-                        SERVICE_NAME_KEYS[service] ||
-                        "nameStars"
-                    )
-            }
-        )
+/* =========================
+   ADMIN
+========================= */
+
+function openAdmin(){
+
+    alert(
+        "Admin orqali Premium xizmati."
     );
+
 }
 
 
-/* EVENTS */
+/* =========================
+   CLICK EVENTS
+========================= */
 
 document.addEventListener(
     "click",
     function(event){
 
-        const target=event.target;
+        const target=
+            event.target;
+
 
         /* LANGUAGE */
 
-        const langBtn=
-            target.closest("[data-lang]");
-
-        if(langBtn){
-
-            setLang(
-                langBtn.dataset.lang,
-                true
+        const lang=
+            target.closest(
+                "[data-lang]"
             );
 
+        if(lang){
+
+            currentLanguage=
+                lang.dataset.lang;
+
+            document
+                .querySelectorAll(
+                    ".lang"
+                )
+                .forEach(
+                    function(item){
+
+                        item.classList.toggle(
+                            "active",
+                            item===lang
+                        );
+
+                    }
+                );
+
+            applyLanguage();
+
             return;
         }
 
 
-        /* ADMIN PREMIUM */
-
-        const adminBtn=
-            target.closest("#adminPremiumBtn");
-
-        if(adminBtn){
-
-            openAdmin();
-            return;
-        }
-
-
-        /* NAV */
+        /* PAGE NAVIGATION */
 
         const nav=
-            target.closest("[data-page]");
+            target.closest(
+                "[data-page]"
+            );
 
         if(nav){
 
@@ -3072,58 +1793,20 @@ document.addEventListener(
         }
 
 
-        /* BACK */
-
-        if(
-            target.closest("[data-back]")
-        ){
-
-            goHome();
-            return;
-        }
-
-
-        /* MYSELF */
-
-        const self=
-            target.closest("[data-self]");
-
-        if(self){
-
-            myself(
-                self.dataset.self
-            );
-
-            return;
-        }
-
-
-        /* BUY */
-
-        const buy=
-            target.closest("[data-buy]");
-
-        if(buy){
-
-            buyService(
-                buy.dataset.buy
-            );
-
-            return;
-        }
-
-
         /* STARS */
 
         const stars=
-            target.closest("[data-stars]");
+            target.closest(
+                "[data-stars]"
+            );
 
         if(stars){
 
             selectStars(
                 Number(
                     stars.dataset.stars
-                )
+                ),
+                stars
             );
 
             return;
@@ -3133,7 +1816,9 @@ document.addEventListener(
         /* PREMIUM */
 
         const premium=
-            target.closest("[data-premium]");
+            target.closest(
+                "[data-premium]"
+            );
 
         if(premium){
 
@@ -3147,197 +1832,109 @@ document.addEventListener(
             return;
         }
 
-
-        /* GIFTS */
-
-        const gift=
-            target.closest("[data-gift]");
-
-        if(gift){
-
-            selectGift(
-                Number(
-                    gift.dataset.gift
-                ),
-                gift
-            );
-
-            return;
-        }
-
-
-        /* COUNTRY */
-
-        const country=
-            target.closest("[data-country]");
-
-        if(country){
-
-            selectCountry(
-                Number(
-                    country.dataset.country
-                ),
-                country
-            );
-
-            return;
-        }
-
-
-
-        /* GAME */
-        const game=target.closest("[data-game]");
-        if(game){openGame(game.dataset.game);return;}
-        const gameBack=target.closest("[data-game-back]");
-        if(gameBack){openPage("gamesPage");return;}
-        const gamePackage=target.closest("[data-game-package]");
-        if(gamePackage){selectedGamePackage=Number(gamePackage.dataset.gamePackage);renderGamePackages();return;}
-        if(target.closest("#buyGameBtn")){buyGame();return;}
-
-        /* TOPUP PRESET */
-
-        const preset=
-            target.closest("[data-topup]");
-
-        if(preset){
-
-            setTopup(
-                Number(
-                    preset.dataset.topup
-                )
-            );
-
-            return;
-        }
-
     }
 );
 
 
-/* INPUTS */
+/* =========================
+   INPUT EVENTS
+========================= */
 
-$("customStars")
-.addEventListener(
-    "input",
-    calculateStars
-);
-
-$("topupAmount")
-.addEventListener(
-    "input",
-    getTopupAmount
-);
-
-$("topupBtn")
-.addEventListener(
-    "click",
-    topup
-);
-
-$("giftComment")
-.addEventListener(
-    "input",
-    limitGiftComment
-);
-
-
-
-
-$("countrySearch").addEventListener("input",function(){countrySearch=this.value;renderCountries();});
-
-
-[
-    "starsUsername",
-    "premiumUsername",
-    "giftUsername"
-].forEach(function(id){
-
-    $(id).addEventListener(
+$("#customStars")
+    .addEventListener(
         "input",
         function(){
 
-            setInvalid(
-                id,
-                false
+            calculateStars();
+
+            document
+                .querySelectorAll(
+                    "#starsPage .quantity"
+                )
+                .forEach(
+                    function(item){
+
+                        item.classList.toggle(
+                            "selected",
+                            Number(
+                                item.dataset.stars
+                            )===
+                            Number(
+                                $("#customStars").value
+                            )
+                        );
+
+                    }
+                );
+
+        }
+    );
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+$("#buyStars")
+    .addEventListener(
+        "click",
+        buyStars
+    );
+
+
+$("#buyPremium")
+    .addEventListener(
+        "click",
+        buyPremium
+    );
+
+
+$("#refreshBalance")
+    .addEventListener(
+        "click",
+        function(){
+
+            alert(
+                "Balans yangilanmoqda."
             );
 
         }
     );
 
-});
 
-
-/* URL */
-
-const SERVICE_MAP={
-
-    stars:"starsPage",
-    premium:"premiumPage",
-    gifts:"giftsPage",
-    numbers:"numbersPage",
-    pubg:"gamesPage",
-    uc:"gamesPage",
-    game_top:"gamesPage",
-    game_top_up:"gamesPage",
-    topup:"topupPage"
-
-};
-
-
-function openServiceFromURL(){
-
-    const params=new URLSearchParams(window.location.search);
-    const service=params.get("service") || params.get("startapp") || (tg && tg.initDataUnsafe ? tg.initDataUnsafe.start_param : "");
-
-    if(!service){
-        return;
-    }
-
-    if(
-        Object.prototype.hasOwnProperty.call(
-            SERVICE_MAP,
-            service
-        )
-    ){
-
-        openPage(
-            SERVICE_MAP[service]
-        );
-
-    }
-}
-
-
-/* INIT */
+/* =========================
+   INIT
+========================= */
 
 try{
 
-    const urlParams=
-        new URLSearchParams(
-            window.location.search
-        );
+    applyLanguage();
 
-    const urlLang=
-        urlParams.get("lang");
+    calculateStars();
 
-    lang=
-        urlLang && I18N[urlLang]
-            ? urlLang
-            : detectLang();
+    updateTotals();
 
-applyLanguage();
+    loadStarsPrice();
 
-loadStarsPrice();
+    setBalance(
+        balance
+    );
 
-setBalance(balance);
+    openServiceFromURL();
 
-openServiceFromURL();
 }catch(error){
 
-    const box=
-        document.createElement("div");
+    console.error(
+        error
+    );
 
-    box.className="js-error";
+    const box=
+        document.createElement(
+            "div"
+        );
+
+    box.className=
+        "js-error";
 
     box.textContent=
         "⚠️ Xatolik / Error: "+
@@ -3346,10 +1943,14 @@ openServiceFromURL();
             error
         );
 
-    document.body.appendChild(box);
+    document.body.appendChild(
+        box
+    );
+
 }
 
 </script>
 
 </body>
 </html>
+```
