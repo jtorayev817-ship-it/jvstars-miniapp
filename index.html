@@ -1774,6 +1774,7 @@ function t(key,vars){
 let STAR_PRICE_PER_UNIT=220;
 let STAR_PROVIDER_PRICE_USD=0;
 
+let PREMIUM_PROVIDER_PLANS=[];
 
 let STARS_MIN=50;
 let STARS_MAX=10000;
@@ -2550,31 +2551,7 @@ function selectStars(amount){
 }
 
 
-/* PREMIUM */
-
-function selectPremium(index,element){
-
-    const plan=PREMIUM_PLANS[index];
-
-    if(!plan) return;
-
-    selectedPremium=plan;
-
-    document
-        .querySelectorAll("#premiumPage .package")
-        .forEach(function(item){
-
-            item.classList.toggle(
-                "selected",
-                item===element
-            );
-
-        });
-
-    updateTotals();
-}
-
-
+c
 /* GIFTS */
 
 function selectGift(index,element){
@@ -2891,59 +2868,109 @@ async function buyService(service){
     }
 
 
-    /* PREMIUM */
+/* PREMIUM */
 
-    if(service==="premium"){
+if(service==="premium"){
 
-        if(!selectedPremium){
-
-            showToast(
-                t("toastPremiumChoose")
-            );
-
-            return;
-        }
-
-        const username=
-            readUsername(
-                "premiumUsername"
-            );
-
-        if(!username){
-            return;
-        }
-
-        /*
-            12 OY ADMIN:
-            balans ishlatilmaydi,
-            admin kartasiga alohida to‘lov.
-        */
-
-        if(selectedPremium.viaAdmin){
-
-            openAdmin();
-            return;
-        }
-
-        /*
-            3 / 6 / 12 AUTO:
-            Keyinchalik API provider
-            orqali avtomatik ishlaydi.
-        */
+    if(!selectedPremium){
 
         showToast(
-            t(
-                "toastNoProvider",
-                {
-                    service:
-                        t("namePremium")
-                }
-            )
+            t("toastPremiumChoose")
         );
 
         return;
     }
 
+    const username=
+        readUsername(
+            "premiumUsername"
+        );
+
+    if(!username){
+        return;
+    }
+
+    /*
+        12 OY ADMIN:
+        balans ishlatilmaydi,
+        admin kartasiga alohida to‘lov.
+    */
+
+    if(selectedPremium.viaAdmin){
+
+        openAdmin();
+        return;
+    }
+
+    /*
+        3 / 6 / 12 AUTO:
+        FazerCards orqali avtomatik.
+    */
+
+    try{
+
+        showToast(
+            "⏳ Buyurtma yuborilmoqda..."
+        );
+
+        const response=
+            await fetch(
+                "https://polished-cloud-c5a3jvstars-stars.jtorayev817.workers.dev/api/premium/buy",
+                {
+                    method:"POST",
+
+                    headers:{
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:JSON.stringify({
+
+                        telegram_username:
+                            username,
+
+                        months:
+                            selectedPremium.months
+
+                    })
+                }
+            );
+
+        const data=
+            await response.json();
+
+        if(!response.ok || !data.ok){
+
+            throw new Error(
+                data.error ||
+                "Premium xaridida xatolik"
+            );
+        }
+
+        console.log(
+            "💎 Premium order:",
+            data
+        );
+
+        showToast(
+            "✅ Premium buyurtma qabul qilindi!"
+        );
+
+    }catch(error){
+
+        console.error(
+            "❌ Premium buy xatosi:",
+            error
+        );
+
+        showToast(
+            "❌ Xarid amalga oshmadi: "+
+            error.message
+        );
+    }
+
+    return;
+}
 
     /* GIFTS */
 
@@ -3299,14 +3326,15 @@ try{
             ? urlLang
             : detectLang();
 
-    applyLanguage();
+applyLanguage();
     
-    loadStarsPrice();
+loadStarsPrice();
 
-    setBalance(balance);
+loadPremiumProviderPlans();
 
-    openServiceFromURL();
+setBalance(balance);
 
+openServiceFromURL();
 }catch(error){
 
     const box=
